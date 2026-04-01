@@ -3339,7 +3339,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 50, y: 0}
+  m_AnchoredPosition: {x: -45, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &724203606
@@ -3635,6 +3635,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 917143168}
     image: {fileID: 917143169}
     skeleton: {fileID: 1758591556}
@@ -3642,6 +3643,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 114309651}
     image: {fileID: 114309652}
     skeleton: {fileID: 2058864503}
@@ -3649,6 +3651,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 30, y: 61}
+    isTranslationJoint: 0
   - rect: {fileID: 762062777}
     image: {fileID: 762062778}
     skeleton: {fileID: 2108711545}
@@ -3656,6 +3659,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 1007241079}
     image: {fileID: 1007241080}
     skeleton: {fileID: 307253548}
@@ -3663,6 +3667,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 15, y: 46}
+    isTranslationJoint: 0
   - rect: {fileID: 1417158047}
     image: {fileID: 1417158048}
     skeleton: {fileID: 1679067177}
@@ -3670,6 +3675,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 863646290}
     image: {fileID: 863646291}
     skeleton: {fileID: 592039557}
@@ -3677,6 +3683,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 1938659914}
     image: {fileID: 1938659915}
     skeleton: {fileID: 1103336536}
@@ -3684,6 +3691,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 728900393}
     image: {fileID: 728900394}
     skeleton: {fileID: 1440952848}
@@ -3691,6 +3699,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 2014563736}
     image: {fileID: 2014563737}
     skeleton: {fileID: 1865557923}
@@ -3698,10 +3707,14 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
-  rotateSpeed: 90
+    isTranslationJoint: 0
   rotateAcceleration: 180
   rotateFriction: 8
   maxRotateSpeed: 270
+  bodyRoot: {fileID: 0}
+  translateAcceleration: 400
+  translateFriction: 8
+  maxTranslateSpeed: 400
 --- !u!1 &758940864
 GameObject:
   m_ObjectHideFlags: 0
@@ -5876,6 +5889,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 99539326}
     image: {fileID: 99539327}
     skeleton: {fileID: 1893382211}
@@ -5883,6 +5897,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 1565055912}
     image: {fileID: 1565055913}
     skeleton: {fileID: 318163670}
@@ -5890,6 +5905,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 315, y: 346}
+    isTranslationJoint: 0
   - rect: {fileID: 1979469433}
     image: {fileID: 1979469434}
     skeleton: {fileID: 167296431}
@@ -5897,6 +5913,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 340966290}
     image: {fileID: 340966291}
     skeleton: {fileID: 463552909}
@@ -5904,6 +5921,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 300, y: 331}
+    isTranslationJoint: 0
   - rect: {fileID: 30998250}
     image: {fileID: 30998251}
     skeleton: {fileID: 439287660}
@@ -5911,6 +5929,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 345757049}
     image: {fileID: 345757050}
     skeleton: {fileID: 1984110888}
@@ -5918,6 +5937,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 529514378}
     image: {fileID: 529514379}
     skeleton: {fileID: 1018758110}
@@ -5925,6 +5945,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 323111139}
     image: {fileID: 323111140}
     skeleton: {fileID: 2100299218}
@@ -5932,6 +5953,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 497982851}
     image: {fileID: 497982852}
     skeleton: {fileID: 2083801070}
@@ -5939,10 +5961,14 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
-  rotateSpeed: 90
+    isTranslationJoint: 0
   rotateAcceleration: 180
   rotateFriction: 8
   maxRotateSpeed: 270
+  bodyRoot: {fileID: 0}
+  translateAcceleration: 400
+  translateFriction: 8
+  maxTranslateSpeed: 400
 --- !u!1 &1417158046
 GameObject:
   m_ObjectHideFlags: 0
@@ -6514,6 +6540,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 133863691}
     image: {fileID: 133863689}
     skeleton: {fileID: 1569187450}
@@ -6521,6 +6548,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 643923851}
     image: {fileID: 643923849}
     skeleton: {fileID: 12276611}
@@ -6528,6 +6556,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 315, y: 346}
+    isTranslationJoint: 0
   - rect: {fileID: 55845961}
     image: {fileID: 55845959}
     skeleton: {fileID: 1647803279}
@@ -6535,6 +6564,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 250721208}
     image: {fileID: 250721206}
     skeleton: {fileID: 72133088}
@@ -6542,6 +6572,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 300, y: 331}
+    isTranslationJoint: 0
   - rect: {fileID: 737664500}
     image: {fileID: 737664498}
     skeleton: {fileID: 1333188767}
@@ -6549,6 +6580,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 1710837176}
     image: {fileID: 1710837174}
     skeleton: {fileID: 296659305}
@@ -6556,6 +6588,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 1607371205}
     image: {fileID: 1607371203}
     skeleton: {fileID: 1940799854}
@@ -6563,6 +6596,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 1266722249}
     image: {fileID: 1266722247}
     skeleton: {fileID: 2023394001}
@@ -6570,6 +6604,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 1694659222}
     image: {fileID: 1694659220}
     skeleton: {fileID: 671924619}
@@ -6577,10 +6612,14 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
-  rotateSpeed: 90
+    isTranslationJoint: 0
   rotateAcceleration: 180
   rotateFriction: 8
   maxRotateSpeed: 270
+  bodyRoot: {fileID: 0}
+  translateAcceleration: 400
+  translateFriction: 8
+  maxTranslateSpeed: 400
 --- !u!224 &1601590870
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8169,6 +8208,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1893382210}
   m_CullTransparentMesh: 1
+--- !u!1 &1915804884
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1915804885}
+  - component: {fileID: 1915804887}
+  - component: {fileID: 1915804886}
+  m_Layer: 5
+  m_Name: TransformPositionJoint
+  m_TagString: Hide
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1915804885
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915804884}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2031373153}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -4, y: 92}
+  m_SizeDelta: {x: 50, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1915804886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915804884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.7735849, g: 0.7735849, b: 0.7735849, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1915804887
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915804884}
+  m_CullTransparentMesh: 1
 --- !u!1 &1921585864
 GameObject:
   m_ObjectHideFlags: 0
@@ -8997,6 +9111,7 @@ RectTransform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 1915804885}
   - {fileID: 584005885}
   - {fileID: 1010423835}
   - {fileID: 1698921660}
@@ -9007,7 +9122,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -300, y: 0}
+  m_AnchoredPosition: {x: -307, y: 11}
   m_SizeDelta: {x: 200, y: 400}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2031373154
@@ -9071,6 +9186,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 1388211906}
     image: {fileID: 1388211907}
     skeleton: {fileID: 584005885}
@@ -9078,6 +9194,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 1554309246}
     image: {fileID: 1554309247}
     skeleton: {fileID: 1010423835}
@@ -9085,6 +9202,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 30, y: 61}
+    isTranslationJoint: 0
   - rect: {fileID: 904817674}
     image: {fileID: 904817675}
     skeleton: {fileID: 1921585865}
@@ -9092,6 +9210,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 724203605}
     image: {fileID: 724203606}
     skeleton: {fileID: 1698921660}
@@ -9099,6 +9218,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 15, y: 46}
+    isTranslationJoint: 0
   - rect: {fileID: 1389232618}
     image: {fileID: 1389232619}
     skeleton: {fileID: 2034778324}
@@ -9106,6 +9226,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 1701159044}
     image: {fileID: 1701159045}
     skeleton: {fileID: 1101409566}
@@ -9113,6 +9234,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 879899142}
     image: {fileID: 879899143}
     skeleton: {fileID: 1736013274}
@@ -9120,6 +9242,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 1568349849}
     image: {fileID: 1568349850}
     skeleton: {fileID: 1731346485}
@@ -9127,6 +9250,7 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 0
   - rect: {fileID: 802721316}
     image: {fileID: 802721317}
     skeleton: {fileID: 197912567}
@@ -9134,10 +9258,22 @@ MonoBehaviour:
     hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
-  rotateSpeed: 90
+    isTranslationJoint: 0
+  - rect: {fileID: 1915804885}
+    image: {fileID: 1915804886}
+    skeleton: {fileID: 2031373153}
+    normalColor: {r: 1, g: 1, b: 1, a: 1}
+    hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    selectedColor: {r: 0, g: 1, b: 0, a: 1}
+    standardRotationZRange: {x: 0, y: 1}
+    isTranslationJoint: 1
   rotateAcceleration: 180
   rotateFriction: 8
   maxRotateSpeed: 270
+  bodyRoot: {fileID: 2031373153}
+  translateAcceleration: 400
+  translateFriction: 8
+  maxTranslateSpeed: 400
 --- !u!1 &2034778323
 GameObject:
   m_ObjectHideFlags: 0
