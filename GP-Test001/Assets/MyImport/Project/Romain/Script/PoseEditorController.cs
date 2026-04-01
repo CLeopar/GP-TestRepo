@@ -37,13 +37,20 @@ public class PoseEditorController : MonoBehaviour
     [SerializeField] private Joint[] joints;
 
     [Header("Rotation")]
+    [Header("Rotation")]
     [SerializeField] private float rotateSpeed = 90f;
+    [SerializeField] private float rotateAcceleration = 180f;  // 每秒加速度（度/秒²）
+    [SerializeField] private float rotateFriction = 8f;        // 惯性摩擦系数（越大停得越快）
+    [SerializeField] private float maxRotateSpeed = 270f;      // 最大角速度限制
+
+    private float angularVelocity = 0f;  // 当前角速度（度/秒）
 
     private Camera uiCamera;
     private Joint hoveredJoint;
     private Joint selectedJoint;
 
     public Joint[] Joints => joints;
+    
 
     void Update()
     {
@@ -120,6 +127,7 @@ public class PoseEditorController : MonoBehaviour
             if (selectedJoint != null)
             {
                 selectedJoint = null;
+                angularVelocity = 0f;  // ← 新增，防止选下一个关节时带着上次的速度
                 cursor.gameObject.SetActive(true);
             }
             else
@@ -138,29 +146,45 @@ public class PoseEditorController : MonoBehaviour
     void HandleRotateInput()
     {
         if (selectedJoint == null || selectedJoint.skeleton == null)
+        {
+            angularVelocity = 0f;
             return;
+        }
 
-        float deltaAngle = 0f;
+        float inputDir = 0f;
 
         if (playerType == PlayerType.Player1)
         {
-            if (Input.GetKey(KeyCode.A))
-                deltaAngle += rotateSpeed * Time.deltaTime;
-            if (Input.GetKey(KeyCode.D))
-                deltaAngle -= rotateSpeed * Time.deltaTime;
+            if (Input.GetKey(KeyCode.A)) inputDir += 1f;
+            if (Input.GetKey(KeyCode.D)) inputDir -= 1f;
         }
         else if (playerType == PlayerType.Player2)
         {
-            if (Input.GetKey(KeyCode.LeftArrow))
-                deltaAngle += rotateSpeed * Time.deltaTime;
-            if (Input.GetKey(KeyCode.RightArrow))
-                deltaAngle -= rotateSpeed * Time.deltaTime;
+            if (Input.GetKey(KeyCode.LeftArrow))  inputDir += 1f;
+            if (Input.GetKey(KeyCode.RightArrow)) inputDir -= 1f;
         }
 
-        if (Mathf.Abs(deltaAngle) > 0f)
+        if (inputDir != 0f)
+        {
+            // 有输入：持续加速，不超过最大速度
+            angularVelocity += inputDir * rotateAcceleration * Time.deltaTime;
+            angularVelocity = Mathf.Clamp(angularVelocity, -maxRotateSpeed, maxRotateSpeed);
+        }
+        else
+        {
+            // 无输入：摩擦力让速度逐渐归零（惯性滑行）
+            angularVelocity = Mathf.Lerp(angularVelocity, 0f, rotateFriction * Time.deltaTime);
+
+            // 速度极小时直接归零，防止无限趋近
+            if (Mathf.Abs(angularVelocity) < 0.1f)
+                angularVelocity = 0f;
+        }
+
+        // 应用旋转
+        if (Mathf.Abs(angularVelocity) > 0f)
         {
             Vector3 euler = selectedJoint.skeleton.localEulerAngles;
-            euler.z += deltaAngle;
+            euler.z += angularVelocity * Time.deltaTime;
             selectedJoint.skeleton.localEulerAngles = euler;
         }
     }
