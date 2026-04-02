@@ -19,7 +19,9 @@ public class PoseEditorController : MonoBehaviour
         public Vector2 standardRotationZRange;
 
         [Header("Translation")]
-        public bool isTranslationJoint = false; // 勾选后此关节用于控制整体平移
+        public bool isTranslationJoint = false;     // 勾选后此关节用于控制整体平移
+        public Vector2 standardPositionXRange;      // Pos X 的合法区间
+        public Vector2 standardPositionYRange;      // Pos Y 的合法区间
     }
 
     [Serializable]
@@ -54,10 +56,11 @@ public class PoseEditorController : MonoBehaviour
     private Joint hoveredJoint;
     private Joint selectedJoint;
 
-    private float angularVelocity = 0f;         // 当前旋转角速度（度/秒）
-    private Vector2 translateVelocity = Vector2.zero; // 当前平移速度
+    private float angularVelocity = 0f;
+    private Vector2 translateVelocity = Vector2.zero;
 
     public Joint[] Joints => joints;
+    public RectTransform BodyRoot => bodyRoot;
 
     void Update()
     {
@@ -127,7 +130,6 @@ public class PoseEditorController : MonoBehaviour
         }
 
         hoveredJoint = newHovered;
-
         UpdateJointColors();
     }
 
@@ -179,15 +181,12 @@ public class PoseEditorController : MonoBehaviour
 
         if (inputDir != 0f)
         {
-            // 有输入：持续加速，不超过最大速度
             angularVelocity += inputDir * rotateAcceleration * Time.deltaTime;
             angularVelocity = Mathf.Clamp(angularVelocity, -maxRotateSpeed, maxRotateSpeed);
         }
         else
         {
-            // 无输入：惯性衰减
             angularVelocity = Mathf.Lerp(angularVelocity, 0f, rotateFriction * Time.deltaTime);
-
             if (Mathf.Abs(angularVelocity) < 0.1f)
                 angularVelocity = 0f;
         }
@@ -231,9 +230,7 @@ public class PoseEditorController : MonoBehaviour
         }
         else
         {
-            // 惯性衰减
             translateVelocity = Vector2.Lerp(translateVelocity, Vector2.zero, translateFriction * Time.deltaTime);
-
             if (translateVelocity.magnitude < 0.1f)
                 translateVelocity = Vector2.zero;
         }

@@ -182,22 +182,46 @@ public class GameManager : MonoBehaviour
             tmpCount2 += tmpController.Joints.Length;
             foreach (var tmpJoint in tmpController.Joints)
             {
-                if (tmpJoint.skeleton.localRotation.eulerAngles.z >= tmpJoint.standardRotationZRange.x
-                    && tmpJoint.skeleton.localRotation.eulerAngles.z < tmpJoint.standardRotationZRange.y)
+                if (tmpJoint.isTranslationJoint)
                 {
-                    tmpCount1++;
+                    // 平移关节：判断 bodyRoot 的 Pos X / Pos Y 是否在指定区间内
+                    if (tmpController.BodyRoot != null)
+                    {
+                        Vector2 pos = tmpController.BodyRoot.anchoredPosition;
+                        bool xOk = pos.x >= tmpJoint.standardPositionXRange.x && pos.x < tmpJoint.standardPositionXRange.y;
+                        bool yOk = pos.y >= tmpJoint.standardPositionYRange.x && pos.y < tmpJoint.standardPositionYRange.y;
+                        if (xOk && yOk)
+                        {
+                            tmpCount1++;
+                        }
+                        else
+                        {
+                            Debug.Log(tmpJoint.rect.name);
+                            Debug.Log(pos);
+                            Debug.Log("X range: " + tmpJoint.standardPositionXRange + " Y range: " + tmpJoint.standardPositionYRange);
+                        }
+                    }
                 }
                 else
                 {
-                    Debug.Log(tmpJoint.skeleton.name);
-                    Debug.Log(tmpJoint.skeleton.localRotation.eulerAngles.z);
-                    Debug.Log(tmpJoint.standardRotationZRange);
+                    // 旋转关节：判断 skeleton 的 Z 角是否在指定区间内
+                    if (tmpJoint.skeleton.localRotation.eulerAngles.z >= tmpJoint.standardRotationZRange.x
+                        && tmpJoint.skeleton.localRotation.eulerAngles.z < tmpJoint.standardRotationZRange.y)
+                    {
+                        tmpCount1++;
+                    }
+                    else
+                    {
+                        Debug.Log(tmpJoint.skeleton.name);
+                        Debug.Log(tmpJoint.skeleton.localRotation.eulerAngles.z);
+                        Debug.Log(tmpJoint.standardRotationZRange);
+                    }
                 }
             }
-            }
+        }
         Debug.Log(tmpCount1);
         Debug.Log(tmpCount2);
         levelList[currentLevel].similarity = tmpCount1 / tmpCount2;
-        levelList[currentLevel].similarityText.text = "���ƶȣ�" + levelList[currentLevel].similarity * 100 + "%";
+        levelList[currentLevel].similarityText.text = "完成度：" + Mathf.Round(levelList[currentLevel].similarity * 10000f) / 100f + "%";
     }
 }

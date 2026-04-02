@@ -3636,6 +3636,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 917143168}
     image: {fileID: 917143169}
     skeleton: {fileID: 1758591556}
@@ -3644,6 +3646,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 114309651}
     image: {fileID: 114309652}
     skeleton: {fileID: 2058864503}
@@ -3652,6 +3656,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 30, y: 61}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 762062777}
     image: {fileID: 762062778}
     skeleton: {fileID: 2108711545}
@@ -3660,6 +3666,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 1007241079}
     image: {fileID: 1007241080}
     skeleton: {fileID: 307253548}
@@ -3668,6 +3676,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 15, y: 46}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 1417158047}
     image: {fileID: 1417158048}
     skeleton: {fileID: 1679067177}
@@ -3676,6 +3686,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 863646290}
     image: {fileID: 863646291}
     skeleton: {fileID: 592039557}
@@ -3684,6 +3696,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 1938659914}
     image: {fileID: 1938659915}
     skeleton: {fileID: 1103336536}
@@ -3692,6 +3706,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 728900393}
     image: {fileID: 728900394}
     skeleton: {fileID: 1440952848}
@@ -3700,6 +3716,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 2014563736}
     image: {fileID: 2014563737}
     skeleton: {fileID: 1865557923}
@@ -3708,6 +3726,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   rotateAcceleration: 180
   rotateFriction: 8
   maxRotateSpeed: 270
@@ -4669,7 +4689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 890749630}
   timerImage: {fileID: 2073075197}
-  time: 30
+  time: 10
   flashImage: {fileID: 796713433}
   levelList:
   - levelObj: {fileID: 717892416}
@@ -5890,6 +5910,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 99539326}
     image: {fileID: 99539327}
     skeleton: {fileID: 1893382211}
@@ -5898,6 +5920,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 1565055912}
     image: {fileID: 1565055913}
     skeleton: {fileID: 318163670}
@@ -5906,6 +5930,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 315, y: 346}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 1979469433}
     image: {fileID: 1979469434}
     skeleton: {fileID: 167296431}
@@ -5914,6 +5940,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 340966290}
     image: {fileID: 340966291}
     skeleton: {fileID: 463552909}
@@ -5922,6 +5950,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 300, y: 331}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 30998250}
     image: {fileID: 30998251}
     skeleton: {fileID: 439287660}
@@ -5930,6 +5960,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 345757049}
     image: {fileID: 345757050}
     skeleton: {fileID: 1984110888}
@@ -5938,6 +5970,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 529514378}
     image: {fileID: 529514379}
     skeleton: {fileID: 1018758110}
@@ -5946,6 +5980,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 323111139}
     image: {fileID: 323111140}
     skeleton: {fileID: 2100299218}
@@ -5954,6 +5990,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 497982851}
     image: {fileID: 497982852}
     skeleton: {fileID: 2083801070}
@@ -5962,6 +6000,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   rotateAcceleration: 180
   rotateFriction: 8
   maxRotateSpeed: 270
@@ -6541,6 +6581,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 133863691}
     image: {fileID: 133863689}
     skeleton: {fileID: 1569187450}
@@ -6549,6 +6591,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 643923851}
     image: {fileID: 643923849}
     skeleton: {fileID: 12276611}
@@ -6557,6 +6601,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 315, y: 346}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 55845961}
     image: {fileID: 55845959}
     skeleton: {fileID: 1647803279}
@@ -6565,6 +6611,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 250721208}
     image: {fileID: 250721206}
     skeleton: {fileID: 72133088}
@@ -6573,6 +6621,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 300, y: 331}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 737664500}
     image: {fileID: 737664498}
     skeleton: {fileID: 1333188767}
@@ -6581,6 +6631,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 1710837176}
     image: {fileID: 1710837174}
     skeleton: {fileID: 296659305}
@@ -6589,6 +6641,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 1607371205}
     image: {fileID: 1607371203}
     skeleton: {fileID: 1940799854}
@@ -6597,6 +6651,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 1266722249}
     image: {fileID: 1266722247}
     skeleton: {fileID: 2023394001}
@@ -6605,6 +6661,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 1694659222}
     image: {fileID: 1694659220}
     skeleton: {fileID: 671924619}
@@ -6613,6 +6671,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   rotateAcceleration: 180
   rotateFriction: 8
   maxRotateSpeed: 270
@@ -9187,6 +9247,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 1388211906}
     image: {fileID: 1388211907}
     skeleton: {fileID: 584005885}
@@ -9195,6 +9257,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 1554309246}
     image: {fileID: 1554309247}
     skeleton: {fileID: 1010423835}
@@ -9203,6 +9267,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 30, y: 61}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 904817674}
     image: {fileID: 904817675}
     skeleton: {fileID: 1921585865}
@@ -9211,6 +9277,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 724203605}
     image: {fileID: 724203606}
     skeleton: {fileID: 1698921660}
@@ -9219,6 +9287,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 15, y: 46}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 1389232618}
     image: {fileID: 1389232619}
     skeleton: {fileID: 2034778324}
@@ -9227,6 +9297,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 1701159044}
     image: {fileID: 1701159045}
     skeleton: {fileID: 1101409566}
@@ -9235,6 +9307,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 879899142}
     image: {fileID: 879899143}
     skeleton: {fileID: 1736013274}
@@ -9243,6 +9317,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 1568349849}
     image: {fileID: 1568349850}
     skeleton: {fileID: 1731346485}
@@ -9251,6 +9327,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 802721316}
     image: {fileID: 802721317}
     skeleton: {fileID: 197912567}
@@ -9259,6 +9337,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 0
+    standardPositionXRange: {x: 0, y: 0}
+    standardPositionYRange: {x: 0, y: 0}
   - rect: {fileID: 1915804885}
     image: {fileID: 1915804886}
     skeleton: {fileID: 2031373153}
@@ -9267,6 +9347,8 @@ MonoBehaviour:
     selectedColor: {r: 0, g: 1, b: 0, a: 1}
     standardRotationZRange: {x: 0, y: 1}
     isTranslationJoint: 1
+    standardPositionXRange: {x: -150, y: 50}
+    standardPositionYRange: {x: -100, y: 100}
   rotateAcceleration: 180
   rotateFriction: 8
   maxRotateSpeed: 270
