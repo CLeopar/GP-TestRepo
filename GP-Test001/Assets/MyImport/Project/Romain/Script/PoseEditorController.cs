@@ -134,6 +134,9 @@ public class PoseEditorController : MonoBehaviour
         {
             if (selectedJoint != null)
             {
+                // 退出选中时，把光标移到关节的中心位置
+                cursor.position = selectedJoint.rect.position;
+
                 selectedJoint = null;
                 angularVelocity = 0f;
                 translateVelocity = Vector2.zero;
