@@ -16,12 +16,8 @@ public class PoseEditorController : MonoBehaviour
         public Color hoverColor = Color.yellow;
         public Color selectedColor = Color.green;
 
-        public Vector2 standardRotationZRange;
-
         [Header("Translation")]
-        public bool isTranslationJoint = false;     // 勾选后此关节用于控制整体平移
-        public Vector2 standardPositionXRange;      // Pos X 的合法区间
-        public Vector2 standardPositionYRange;      // Pos Y 的合法区间
+        public bool isTranslationJoint = false; // 勾选后此关节用于控制整体平移
     }
 
     [Serializable]
@@ -42,12 +38,12 @@ public class PoseEditorController : MonoBehaviour
     [SerializeField] private Joint[] joints;
 
     [Header("Rotation")]
-    [SerializeField] private float rotateAcceleration = 180f;   // 每秒角加速度（度/秒²）
-    [SerializeField] private float rotateFriction = 6f;         // 惯性摩擦系数（越大停得越快）
-    [SerializeField] private float maxRotateSpeed = 270f;       // 最大角速度（度/秒）
+    [SerializeField] private float rotateAcceleration = 180f;
+    [SerializeField] private float rotateFriction = 6f;
+    [SerializeField] private float maxRotateSpeed = 270f;
 
     [Header("Body Translation")]
-    [SerializeField] private RectTransform bodyRoot;            // 整个身体的根节点
+    [SerializeField] private RectTransform bodyRoot;
     [SerializeField] private float translateAcceleration = 400f;
     [SerializeField] private float translateFriction = 8f;
     [SerializeField] private float maxTranslateSpeed = 400f;
@@ -106,26 +102,24 @@ public class PoseEditorController : MonoBehaviour
     void UpdateHoveredJoint()
     {
         Joint newHovered = null;
-
         Vector2 cursorScreenPos = RectTransformUtility.WorldToScreenPoint(uiCamera, cursor.position);
-
-        int bestSiblingIndex = int.MinValue;
+    
+        float bestDist = float.MaxValue;
+        float hoverRadius = 30f; // 可以调整这个数值，越大越容易选中
 
         for (int i = 0; i < joints.Length; i++)
         {
             Joint j = joints[i];
-            if (j == null || j.rect == null)
-                continue;
+            if (j == null || j.rect == null) continue;
 
-            if (RectTransformUtility.RectangleContainsScreenPoint(j.rect, cursorScreenPos, uiCamera))
+            // 取关节中心点的屏幕坐标
+            Vector2 jointScreenPos = RectTransformUtility.WorldToScreenPoint(uiCamera, j.rect.position);
+            float dist = Vector2.Distance(cursorScreenPos, jointScreenPos);
+
+            if (dist < hoverRadius && dist < bestDist)
             {
-                int siblingIndex = j.rect.GetSiblingIndex();
-
-                if (siblingIndex >= bestSiblingIndex)
-                {
-                    bestSiblingIndex = siblingIndex;
-                    newHovered = j;
-                }
+                bestDist = dist;
+                newHovered = j;
             }
         }
 
@@ -135,7 +129,7 @@ public class PoseEditorController : MonoBehaviour
 
     void HandleSelectInput()
     {
-        if ((playerType == PlayerType.Player1 && Input.GetKeyDown(KeyCode.F)) ||
+        if ((playerType == PlayerType.Player1 && Input.GetKeyDown(KeyCode.Space)) ||
             (playerType == PlayerType.Player2 && Input.GetKeyDown(KeyCode.Return)))
         {
             if (selectedJoint != null)
@@ -224,7 +218,6 @@ public class PoseEditorController : MonoBehaviour
         {
             inputDir.Normalize();
             translateVelocity += inputDir * translateAcceleration * Time.deltaTime;
-
             if (translateVelocity.magnitude > maxTranslateSpeed)
                 translateVelocity = translateVelocity.normalized * maxTranslateSpeed;
         }
@@ -244,8 +237,7 @@ public class PoseEditorController : MonoBehaviour
         for (int i = 0; i < joints.Length; i++)
         {
             Joint j = joints[i];
-            if (j == null || j.image == null)
-                continue;
+            if (j == null || j.image == null) continue;
 
             if (j == selectedJoint)
                 j.image.color = j.selectedColor;

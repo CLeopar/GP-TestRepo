@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [System.Serializable]
-    private class Level
+    public class Level
     {
         public GameObject levelObj;
         [HideInInspector] public List<PoseEditorController> poseEditorControllerList;
@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
         [HideInInspector] public Text similarityText;
         [HideInInspector] public float similarity = 0;
         public string promptString;
+
+        [Tooltip("所有关节都需要移动到这个区域内才能得到 100% 完成度")]
+        public PolygonZone zone = new PolygonZone();
 
         public void Init()
         {
@@ -49,6 +52,10 @@ public class GameManager : MonoBehaviour
     private Sprite lastSprite;
 
     private int currentLevel = 0;
+
+    // 供 Editor 访问
+    public List<Level> LevelList => levelList;
+    public int CurrentLevel => currentLevel;
 
     private void Awake()
     {
@@ -127,7 +134,7 @@ public class GameManager : MonoBehaviour
     {
         if (levelList[currentLevel].pictureImage == null)
         {
-            Debug.LogError("[GameManager] pictureImage δ���á�");
+            Debug.LogError("[GameManager] pictureImage 未设置。");
             yield break;
         }
 
@@ -136,9 +143,7 @@ public class GameManager : MonoBehaviour
         {
             GameObject go = hideObjects[i];
             if (go != null && go.activeSelf)
-            {
                 go.SetActive(false);
-            }
         }
 
         yield return new WaitForEndOfFrame();
@@ -176,52 +181,50 @@ public class GameManager : MonoBehaviour
 
     private void CheckPose()
     {
-        float tmpCount1 = 0, tmpCount2 = 0;
-        foreach (var tmpController in levelList[currentLevel].poseEditorControllerList)
+        var level = levelList[currentLevel];
+        var zone = level.zone;
+
+        if (zone == null || zone.vertices == null || zone.vertices.Count < 3)
         {
-            tmpCount2 += tmpController.Joints.Length;
-            foreach (var tmpJoint in tmpController.Joints)
+            Debug.LogWarning("[GameManager] 当前关卡的 zone 顶点不足 3 个，无法判定。");
+            level.similarityText.text = "完成度：--%";
+            return;
+        }
+
+        Canvas canvas = FindObjectOfType<Canvas>();
+        RectTransform canvasRect = canvas != null ? canvas.GetComponent<RectTransform>() : null;
+
+        float passed = 0f;
+        float total = 0f;
+
+        foreach (var controller in level.poseEditorControllerList)
+        {
+            foreach (var joint in controller.Joints)
             {
-                if (tmpJoint.isTranslationJoint)
-                {
-                    // 平移关节：判断 bodyRoot 的 Pos X / Pos Y 是否在指定区间内
-                    if (tmpController.BodyRoot != null)
-                    {
-                        Vector2 pos = tmpController.BodyRoot.anchoredPosition;
-                        bool xOk = pos.x >= tmpJoint.standardPositionXRange.x && pos.x < tmpJoint.standardPositionXRange.y;
-                        bool yOk = pos.y >= tmpJoint.standardPositionYRange.x && pos.y < tmpJoint.standardPositionYRange.y;
-                        if (xOk && yOk)
-                        {
-                            tmpCount1++;
-                        }
-                        else
-                        {
-                            Debug.Log(tmpJoint.rect.name);
-                            Debug.Log(pos);
-                            Debug.Log("X range: " + tmpJoint.standardPositionXRange + " Y range: " + tmpJoint.standardPositionYRange);
-                        }
-                    }
-                }
+                if (joint == null || joint.rect == null) continue;
+                total++;
+
+                // 把关节 rect 的世界坐标转为 Canvas anchoredPosition，再判断是否在多边形内
+                Vector2 anchoredPos = WorldToAnchored(joint.rect.position, canvasRect);
+                bool inside = zone.Contains(anchoredPos);
+
+                if (inside)
+                    passed++;
                 else
-                {
-                    // 旋转关节：判断 skeleton 的 Z 角是否在指定区间内
-                    if (tmpJoint.skeleton.localRotation.eulerAngles.z >= tmpJoint.standardRotationZRange.x
-                        && tmpJoint.skeleton.localRotation.eulerAngles.z < tmpJoint.standardRotationZRange.y)
-                    {
-                        tmpCount1++;
-                    }
-                    else
-                    {
-                        Debug.Log(tmpJoint.skeleton.name);
-                        Debug.Log(tmpJoint.skeleton.localRotation.eulerAngles.z);
-                        Debug.Log(tmpJoint.standardRotationZRange);
-                    }
-                }
+                    Debug.Log($"[CheckPose] 关节 {joint.rect.name}  pos={anchoredPos}  不在区域内");
             }
         }
-        Debug.Log(tmpCount1);
-        Debug.Log(tmpCount2);
-        levelList[currentLevel].similarity = tmpCount1 / tmpCount2;
-        levelList[currentLevel].similarityText.text = "完成度：" + Mathf.Round(levelList[currentLevel].similarity * 10000f) / 100f + "%";
+
+        level.similarity = total > 0f ? passed / total : 0f;
+        level.similarityText.text = "完成度：" + Mathf.Round(level.similarity * 10000f) / 100f + "%";
+        Debug.Log($"[GameManager] 完成度：{level.similarity * 100f:F2}%  ({passed}/{total})");
+    }
+
+    /// <summary>世界坐标 → Canvas anchoredPosition</summary>
+    private Vector2 WorldToAnchored(Vector3 worldPos, RectTransform canvasRect)
+    {
+        if (canvasRect == null) return Vector2.zero;
+        Vector3 local = canvasRect.InverseTransformPoint(worldPos);
+        return new Vector2(local.x, local.y);
     }
 }
