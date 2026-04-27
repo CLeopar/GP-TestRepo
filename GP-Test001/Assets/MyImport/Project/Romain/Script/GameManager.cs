@@ -100,6 +100,45 @@ public class GameManager : MonoBehaviour
     [Tooltip("完成度为 100% 时的字体缩放倍数")]
     [SerializeField] private float completionScaleMax = 2.0f;
 
+    [Header("Milestone Punch")]
+    [Tooltip("每隔多少百分比触发一次颤动，默认 10 即每过 10%、20%、30%… 触发")]
+    public int milestoneInterval = 10;
+    [Tooltip("普通里程碑颤动时长（秒），建议 0.15~0.25")]
+    [SerializeField] private float punchDuration = 0.22f;
+    [Tooltip("100% 时的特殊颤动时长（秒），建议比 punchDuration 长")]
+    [SerializeField] private float punchDurationAt100 = 0.55f;
+    [Tooltip("旋转颤动幅度（Z轴度数）")]
+    [SerializeField] private float punchRotationAngle = 9f;
+    [Tooltip("缩放颤动幅度（叠加在当前 scale 上的额外倍数）")]
+    [SerializeField] private float punchScaleAmount = 0.28f;
+
+    [Header("Score Sound")]
+    [Tooltip("每次数字跳动（整数变化）时播放的嘀嘀音效")]
+    [SerializeField] private AudioClip tickSound;
+    [Tooltip("嘀嘀音效的起始音调（分数为 0% 时）")]
+    [SerializeField] private float tickPitchMin = 0.8f;
+    [Tooltip("嘀嘀音效的结束音调（分数为 100% 时）")]
+    [SerializeField] private float tickPitchMax = 2.0f;
+    [Tooltip("里程碑颤动时额外播放的音效（可与 tickSound 相同或不同）")]
+    [SerializeField] private AudioClip milestoneSound;
+    [Tooltip("里程碑音效音量")]
+    [SerializeField] private float milestoneSoundVolume = 1.0f;
+    [Tooltip("用于播放计分音效的 AudioSource（留空则自动在本物件上添加）")]
+    [SerializeField] private AudioSource scoreAudioSource;
+
+    [Header("Score Grades")]
+    [Tooltip("成绩档次列表，按 threshold 从高到低填写（如 90、80、60）。计分结束瞬间从上往下匹配第一个满足的档次，激活其 objects。")]
+    public ScoreGrade[] scoreGrades;
+
+    [System.Serializable]
+    public class ScoreGrade
+    {
+        [Tooltip("触发该档次的最低完成度（整数百分比，0~100），例如填 90 表示 >= 90%")]
+        public int threshold;
+        [Tooltip("满足该档次时激活的物件列表")]
+        public GameObject[] objects;
+    }
+
     [Header("Results Screen")]
     [Tooltip("结算面板根节点，游戏结束时自动激活")]
     [SerializeField] private GameObject resultsPanel;
@@ -138,6 +177,11 @@ public class GameManager : MonoBehaviour
     {
         if (timerImage != null)
             timerImageInitialWidth = timerImage.sizeDelta.x;
+
+        // 自动补齐 AudioSource
+        if (scoreAudioSource == null)
+            scoreAudioSource = GetComponent<AudioSource>() ?? gameObject.AddComponent<AudioSource>();
+        scoreAudioSource.playOnAwake = false;
 
         foreach (var level in levelList)
         {
@@ -233,6 +277,7 @@ public class GameManager : MonoBehaviour
             completionText.gameObject.SetActive(false);
             completionText.text = "0%";
             completionText.transform.localScale = Vector3.one * completionScaleMin;
+            completionText.transform.localRotation = Quaternion.identity;
         }
 
         currentLevel = nextLevel;
@@ -288,12 +333,18 @@ public class GameManager : MonoBehaviour
         {
             completionText.text = "0%";
             completionText.transform.localScale = Vector3.one * completionScaleMin;
+            completionText.transform.localRotation = Quaternion.identity;
             completionText.gameObject.SetActive(true);
         }
 
         float targetPercent  = Mathf.Round(level.similarity * 100f);
         float currentPercent = 0f;
         float duration       = Mathf.Max(0f, completionCountDuration);
+
+        // 追踪上一次触发颤动的整十里程碑，防止同一里程碑重复触发
+        int lastMilestone = 0;
+        // 追踪上一帧显示的整数，用于检测数字跳变
+        int lastDisplayed = 0;
 
         if (duration <= 0f)
         {
@@ -308,20 +359,109 @@ public class GameManager : MonoBehaviour
                 x =>
                 {
                     currentPercent = x;
-                    completionText.text = Mathf.RoundToInt(currentPercent) + "%";
+
+                    int displayed = Mathf.RoundToInt(currentPercent);
+                    completionText.text = displayed + "%";
+
+                    // 主计数驱动的缩放
                     float t     = currentPercent / 100f;
                     float scale = Mathf.Lerp(completionScaleMin, completionScaleMax, t);
                     completionText.transform.localScale = Vector3.one * scale;
+
+                    // ── 嘀嘀音效：每当显示整数发生变化时播放，音调随分数升高 ──
+                    if (displayed != lastDisplayed && displayed > 0)
+                    {
+                        lastDisplayed = displayed;
+                        if (tickSound != null && scoreAudioSource != null)
+                        {
+                            scoreAudioSource.pitch = Mathf.Lerp(tickPitchMin, tickPitchMax, displayed / 100f);
+                            scoreAudioSource.PlayOneShot(tickSound);
+                        }
+                    }
+
+                    // ── 里程碑检测 ──────────────────────────────
+                    // 用四舍五入后的整数（即文字显示的值）判断，
+                    // 确保颤动与数字跳变发生在同一帧
+                    int interval = Mathf.Max(1, milestoneInterval);
+                    if (displayed > 0 && displayed % interval == 0 && displayed > lastMilestone)
+                    {
+                        lastMilestone = displayed;
+                        PunchCompletionText(completionText.transform, scale, displayed == 100);
+
+                        // ── 里程碑音效 ──────────────────────────
+                        if (milestoneSound != null && scoreAudioSource != null)
+                            scoreAudioSource.PlayOneShot(milestoneSound, milestoneSoundVolume);
+                    }
                 },
                 targetPercent,
                 duration
             ).SetEase(Ease.OutCubic).WaitForCompletion();
         }
 
+        // ── 计分结束瞬间：按档次激活对应物件 ──────────
+        ActivateScoreGrade(level.similarity);
+
         if (completionTriggerDelay > 0f)
             yield return new WaitForSeconds(completionTriggerDelay);
 
         TriggerAnimator(completionTextAnimator, completionFinishTrigger);
+    }
+
+    /// <summary>
+    /// 按 scoreGrades 从上往下找第一个满足 similarity >= threshold 的档次，激活其物件。
+    /// </summary>
+    private void ActivateScoreGrade(float similarity)
+    {
+        if (scoreGrades == null || scoreGrades.Length == 0) return;
+
+        foreach (var grade in scoreGrades)
+        {
+            if (similarity * 100f >= grade.threshold)
+            {
+                if (grade.objects != null)
+                    foreach (var obj in grade.objects)
+                        if (obj != null) obj.SetActive(true);
+                return; // 只匹配第一个（最高）满足的档次
+            }
+        }
+    }
+
+    /// <summary>
+    /// 在不打断主计数 tween 的前提下，对 completionText 做一次
+    /// 快速颤动：旋转晃动 + scale 弹跳，两轨并行，总时长极短。
+    /// </summary>
+    /// <param name="isMax">是否是 100% 里程碑，为 true 时使用更长的颤动时长</param>
+    private void PunchCompletionText(Transform tf, float baseScale, bool isMax = false)
+    {
+        // 停止上一次尚未结束的颤动（false = 不跳到终点）
+        tf.DOKill(false);
+
+        // 确保 scale / rotation 在正确基础上再开始新 punch
+        tf.localScale    = Vector3.one * baseScale;
+        tf.localRotation = Quaternion.identity;
+
+        float dur = isMax ? punchDurationAt100 : punchDuration;
+
+        // 旋转颤动
+        tf.DOPunchRotation(
+            punch:      new Vector3(0f, 0f, punchRotationAngle),
+            duration:   dur,
+            vibrato:    isMax ? 12 : 7,
+            elasticity: 0.4f
+        );
+
+        // 缩放颤动，结束后还原到主计数应有的 scale
+        tf.DOPunchScale(
+            punch:      Vector3.one * (isMax ? punchScaleAmount * 1.5f : punchScaleAmount),
+            duration:   dur,
+            vibrato:    isMax ? 10 : 6,
+            elasticity: 0.5f
+        ).OnComplete(() =>
+        {
+            // punch 结束后精确还原，主计数 tween 下一帧继续接管
+            if (tf != null)
+                tf.localScale = Vector3.one * baseScale;
+        });
     }
 
     private void SetControllersEnabled(Level level, bool enabledState)
