@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
+    // ───────────────────────── Level ─────────────────────────
     [System.Serializable]
     public class Level
     {
@@ -20,13 +21,8 @@ public class GameManager : MonoBehaviour
         [HideInInspector] public float similarity = 0f;
         public string promptString;
 
-        [Tooltip("进入关卡时触发的 Trigger")]
         public string enterTrigger = "Enter";
-
-        [Tooltip("倒计时结束时触发的 Trigger")]
         public string exitTrigger = "Exit";
-
-        [Tooltip("所有关节都需要移动到这个区域内才能得到 100% 完成度")]
         public PolygonZone zone = new PolygonZone();
 
         public void Init()
@@ -43,145 +39,191 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // ───────────────────── Milestone Sound Config ─────────────────────
+    [System.Serializable]
+    public class MilestoneSound
+    {
+        [Tooltip("触发的百分比（整数 0~100，例如 50 表示 50%）")]
+        public int percent;
+        [Tooltip("该里程碑要播放的音效（可为空，为空则不播放）")]
+        public AudioClip clip;
+        [Range(0f, 1f)]
+        public float volume = 1f;
+    }
+
+    // ───────────────────────── Inspector ─────────────────────────
     [Header("Timer")]
     [SerializeField] private TMP_Text timerText;
     [SerializeField] private RectTransform timerImage;
-    [SerializeField] private float time = 30f;
+    [Tooltip("每关的倒计时时长（秒），按出场顺序填写。index 0 = 第1关，以此类推。数组不足时使用最后一个值。")]
+    [SerializeField] private float[] levelTimes = { 60f, 50f, 40f, 30f, 20f };
+
+    [Header("Gameplay BGM")]
+    [Tooltip("第一关开始后全程循环播放的背景音乐")]
+    [SerializeField] private AudioClip gameplayBgmClip;
+    [SerializeField] private AudioSource gameplayBgmSource;
+    [Tooltip("游玩阶段（倒计时进行中）的音量")]
+    [Range(0f, 1f)]
+    [SerializeField] private float bgmVolumeGameplay = 1f;
+    [Tooltip("分数结算阶段的音量")]
+    [Range(0f, 1f)]
+    [SerializeField] private float bgmVolumeCompletion = 0.3f;
+    [Tooltip("音量切换的淡入淡出时间（秒）")]
+    [SerializeField] private float bgmVolumeFadeDuration = 0.5f;
+
+    [Header("Countdown Warning")]
+    [Tooltip("倒计时警告从剩余第几秒开始")]
+    [SerializeField] private int countdownWarnSeconds = 3;
+    [Tooltip("警告期间每秒播放的音效")]
+    [SerializeField] private AudioClip countdownClip;
+    [Tooltip("归零时播放的专属音效")]
+    [SerializeField] private AudioClip countdownFinishClip;
+    [Range(0f, 1f)]
+    [SerializeField] private float countdownVolume = 1f;
+    [SerializeField] private AudioSource countdownAudioSource;
+    [SerializeField] private float countdownPunchScale = 0.4f;
+    [SerializeField] private float countdownPunchDuration = 0.35f;
+    [SerializeField] private float ghostScaleMultiplier = 2.5f;
+    [SerializeField] private float ghostDuration = 0.5f;
 
     [Header("Flow Time")]
-    [Tooltip("进关卡触发 enterTrigger 后等待时长（秒）")]
     [SerializeField] private float enterWaitTime = 1.0f;
-    [Tooltip("闪光灯完全结束后，到下一关前的等待时长（秒）")]
     [SerializeField] private float betweenLevelDelay = 2.0f;
 
     [Header("Capture")]
     [SerializeField] private Image flashImage;
 
     [Header("Animator")]
-    [Tooltip("全关卡共用的目标 Animator")]
     [SerializeField] private Animator targetAnimator;
-    [Tooltip("每次切到下一关时额外触发的 Animator（可选）")]
     [SerializeField] private Animator levelTransitionAnimator;
-    [Tooltip("切到下一关时触发的 Trigger 名称")]
     [SerializeField] private string levelTransitionTrigger = "Enter";
 
     [Header("Level")]
-    [Tooltip("将所有关卡拖入此列表（资源池）")]
     [SerializeField] private List<Level> levelList;
-    [Tooltip("每局正式关卡数量，从资源池中随机抽取")]
     [SerializeField] private int levelCount = 5;
 
     [Header("Prompt")]
-    [Tooltip("在场景中放置与 levelCount 数量相同的 TMP Text，按顺序拖入（第0个对应第1关，以此类推）")]
+    [Tooltip("每个元素对应一关，promptTexts[0] 显示第一关，以此类推")]
     [SerializeField] private TMP_Text[] promptTexts;
 
     [Header("Picture")]
-    [Tooltip("在场景中放置与 levelCount 数量相同的 Image，按顺序拖入（第0个对应第1关，以此类推）")]
     [SerializeField] private Image[] pictureImages;
 
     [Header("Completion UI")]
-    [Tooltip("所有关卡共用的完成度文本")]
     [SerializeField] private TMP_Text completionText;
-    [Tooltip("完成度文本上的 Animator（用于下一关触发动画）")]
     [SerializeField] private Animator completionTextAnimator;
-    [Tooltip("切到下一关时，在完成度文本 Animator 上触发的 Trigger")]
     [SerializeField] private string completionNextLevelTrigger = "Next";
-    [Tooltip("每关结束后，延迟多少秒显示完成度文本")]
     [SerializeField] private float completionShowDelay = 0.5f;
-    [Tooltip("完成度从 0 增长到目标值的动画时长（秒）")]
     [SerializeField] private float completionCountDuration = 0.8f;
-    [Tooltip("分数显示完成后，延迟多少秒触发 completionTextAnimator 上的 Trigger")]
+    [Tooltip("百分比动画最短播放时长")]
+    [SerializeField] private float completionCountDurationMin = 0.3f;
     [SerializeField] private float completionTriggerDelay = 1.0f;
-    [Tooltip("分数显示完成后触发的 Trigger 名称")]
     [SerializeField] private string completionFinishTrigger = "Finish";
-
-    [Tooltip("完成度为 0% 时的字体缩放倍数")]
     [SerializeField] private float completionScaleMin = 0.8f;
-    [Tooltip("完成度为 100% 时的字体缩放倍数")]
     [SerializeField] private float completionScaleMax = 2.0f;
+    [Tooltip("结算页面最短停留时间（秒）")]
+    [SerializeField] private float completionMinDisplayTime = 8f;
 
     [Header("Milestone Punch")]
-    [Tooltip("每隔多少百分比触发一次颤动，默认 10 即每过 10%、20%、30%… 触发")]
     public int milestoneInterval = 10;
-    [Tooltip("普通里程碑颤动时长（秒），建议 0.15~0.25")]
     [SerializeField] private float punchDuration = 0.22f;
-    [Tooltip("100% 时的特殊颤动时长（秒），建议比 punchDuration 长")]
     [SerializeField] private float punchDurationAt100 = 0.55f;
-    [Tooltip("旋转颤动幅度（Z轴度数）")]
     [SerializeField] private float punchRotationAngle = 9f;
-    [Tooltip("缩放颤动幅度（叠加在当前 scale 上的额外倍数）")]
     [SerializeField] private float punchScaleAmount = 0.28f;
 
     [Header("Score Sound")]
-    [Tooltip("每次数字跳动（整数变化）时播放的嘀嘀音效")]
     [SerializeField] private AudioClip tickSound;
-    [Tooltip("嘀嘀音效的起始音调（分数为 0% 时）")]
     [SerializeField] private float tickPitchMin = 0.8f;
-    [Tooltip("嘀嘀音效的结束音调（分数为 100% 时）")]
     [SerializeField] private float tickPitchMax = 2.0f;
-    [Tooltip("里程碑颤动时额外播放的音效（可与 tickSound 相同或不同）")]
-    [SerializeField] private AudioClip milestoneSound;
-    [Tooltip("里程碑音效音量")]
-    [SerializeField] private float milestoneSoundVolume = 1.0f;
-    [Tooltip("用于播放计分音效的 AudioSource（留空则自动在本物件上添加）")]
-    [SerializeField] private AudioSource scoreAudioSource;
+    [SerializeField] private AudioSource tickAudioSource;
+
+    [Header("Milestone Sounds (Per Percent)")]
+    [SerializeField] private MilestoneSound[] milestoneSounds;
+    [SerializeField] private AudioSource milestoneAudioSource;
 
     [Header("Score Grades")]
-    [Tooltip("成绩档次列表，按 threshold 从高到低填写（如 90、80、60）。计分结束瞬间从上往下匹配第一个满足的档次，激活其 objects。")]
     public ScoreGrade[] scoreGrades;
 
     [System.Serializable]
     public class ScoreGrade
     {
-        [Tooltip("触发该档次的最低完成度（整数百分比，0~100），例如填 90 表示 >= 90%")]
         public int threshold;
-        [Tooltip("满足该档次时激活的物件列表")]
         public GameObject[] objects;
     }
 
     [Header("Results Screen")]
-    [Tooltip("结算面板根节点，游戏结束时自动激活")]
     [SerializeField] private GameObject resultsPanel;
-    [Tooltip("结算面板上用于展示截图的 Image 列表，顺序对应第1关、第2关……")]
     [SerializeField] private Image[] resultsImages;
 
     [Header("Game Over")]
-    [Tooltip("所有关卡结束后触发的事件列表")]
     [SerializeField] private UnityEvent onAllLevelsComplete;
 
-    // ── 运行时数据 ──────────────────────────────────
-    private float timer = 0f;
+    [Header("Tutorial")]
+    [Tooltip("开启后：第一关使用固定关卡，其余随机抽选；关闭则全部随机（原逻辑）")]
+    [SerializeField] private bool enableTutorial = false;
+    [Tooltip("固定的第一关 Level（enableTutorial 开启时使用）")]
+    [SerializeField] private Level fixedFirstLevel;
+    [Tooltip("教程弹窗的根 GameObject（显示/隐藏整体）")]
+    [SerializeField] private GameObject tutorialPanel;
+    [Tooltip("教程纸条的图片列表，按顺序填入，支持任意数量；每次按键/点击翻到下一张")]
+    [SerializeField] private Image[] tutorialImages;
+
+    // ───────────────────────── Runtime ─────────────────────────
+    private float timer;
     private float timerImageInitialWidth;
-    private int currentLevel = 0;
-    private List<Level> activeLevels = new List<Level>();
+    private float currentLevelTime;
+    private int currentLevel;
+    private List<Level> activeLevels = new();
 
-    private readonly List<Texture2D> capturedTextures = new List<Texture2D>();
-    private readonly List<Sprite>    capturedSprites   = new List<Sprite>();
+    private readonly List<Texture2D> capturedTextures = new();
+    private readonly List<Sprite> capturedSprites = new();
 
-    // ── 公开只读访问，供其他脚本直接使用内存数据 ──
-    /// <summary>本局所有截图的 Texture2D，适合赋给 RawImage 或材质</summary>
+    private float _scoreCurrentPercent;
+    private bool _scoreAnimRunning;
+
+    // BGM 淡入淡出 tween 缓存，防止重叠
+    private Tween _bgmFadeTween;
+
     public IReadOnlyList<Texture2D> CapturedTextures => capturedTextures;
-    /// <summary>本局所有截图的 Sprite，适合赋给 Image.sprite</summary>
-    public IReadOnlyList<Sprite>    CapturedSprites   => capturedSprites;
+    public IReadOnlyList<Sprite> CapturedSprites => capturedSprites;
+    public List<Level> LevelList => levelList;
+    public int CurrentLevel => currentLevel;
 
-    public List<Level> LevelList    => levelList;
-    public int         CurrentLevel => currentLevel;
-
-    // ───────────────────────────────────────────────
-    private void Awake()
-    {
-        Instance = this;
-    }
+    private void Awake() => Instance = this;
 
     private void Start()
     {
         if (timerImage != null)
             timerImageInitialWidth = timerImage.sizeDelta.x;
 
-        // 自动补齐 AudioSource
-        if (scoreAudioSource == null)
-            scoreAudioSource = GetComponent<AudioSource>() ?? gameObject.AddComponent<AudioSource>();
-        scoreAudioSource.playOnAwake = false;
+        if (tickAudioSource == null)
+        {
+            tickAudioSource = gameObject.AddComponent<AudioSource>();
+            tickAudioSource.playOnAwake = false;
+            tickAudioSource.spatialBlend = 0f;
+        }
+
+        if (milestoneAudioSource == null)
+        {
+            milestoneAudioSource = gameObject.AddComponent<AudioSource>();
+            milestoneAudioSource.playOnAwake = false;
+            milestoneAudioSource.spatialBlend = 0f;
+        }
+
+        if (countdownAudioSource == null)
+        {
+            countdownAudioSource = gameObject.AddComponent<AudioSource>();
+            countdownAudioSource.playOnAwake = false;
+            countdownAudioSource.spatialBlend = 0f;
+        }
+
+        if (gameplayBgmSource == null)
+        {
+            gameplayBgmSource = gameObject.AddComponent<AudioSource>();
+            gameplayBgmSource.playOnAwake = false;
+            gameplayBgmSource.spatialBlend = 0f;
+            gameplayBgmSource.loop = true;
+        }
 
         foreach (var level in levelList)
         {
@@ -190,40 +232,86 @@ public class GameManager : MonoBehaviour
             level.levelObj.SetActive(false);
         }
 
-        int count = Mathf.Min(levelCount, levelList.Count);
-        activeLevels = levelList
-            .Where(l => l != null && l.levelObj != null)
-            .OrderBy(_ => Random.value)
-            .Take(count)
-            .ToList();
+        // ── 构建 activeLevels ──────────────────────────────────
+        if (enableTutorial && fixedFirstLevel != null && fixedFirstLevel.levelObj != null)
+        {
+            // 固定第一关，其余从 levelList 中排除固定关卡后随机抽选
+            var pool = levelList
+                .Where(l => l != null && l.levelObj != null && l != fixedFirstLevel)
+                .OrderBy(_ => Random.value)
+                .Take(Mathf.Max(0, Mathf.Min(levelCount - 1, levelList.Count - 1)))
+                .ToList();
 
-        if (activeLevels.Count == 0) return;
+            activeLevels = new List<Level> { fixedFirstLevel };
+            activeLevels.AddRange(pool);
+        }
+        else
+        {
+            // 原逻辑：全部随机
+            activeLevels = levelList
+                .Where(l => l != null && l.levelObj != null)
+                .OrderBy(_ => Random.value)
+                .Take(Mathf.Min(levelCount, levelList.Count))
+                .ToList();
+        }
 
+        currentLevel = 0;
+        FillAllPromptTexts();
+    }
+
+    private float GetLevelTime(int positionIndex)
+    {
+        if (levelTimes == null || levelTimes.Length == 0) return 30f;
+        int idx = Mathf.Clamp(positionIndex, 0, levelTimes.Length - 1);
+        return Mathf.Max(1f, levelTimes[idx]);
+    }
+
+    private void FillAllPromptTexts()
+    {
+        if (promptTexts == null) return;
         for (int i = 0; i < promptTexts.Length; i++)
         {
             if (promptTexts[i] == null) continue;
-            promptTexts[i].text = i < activeLevels.Count ? activeLevels[i].promptString : string.Empty;
+            promptTexts[i].text = i < activeLevels.Count ? activeLevels[i].promptString : "";
         }
-
-        if (completionText != null)
-        {
-            completionText.gameObject.SetActive(false);
-            completionText.transform.localScale = Vector3.one * completionScaleMin;
-        }
-
-        // 结算面板初始隐藏
-        if (resultsPanel != null)
-            resultsPanel.SetActive(false);
-
-        currentLevel = 0;
-        StartCoroutine(RunCurrentLevelFlow());
     }
 
-    // ── 主流程 ──────────────────────────────────────
+    public void ShowPromptForCurrentLevel() { }
+
+    public void StartGame() => StartCoroutine(RunCurrentLevelFlow());
+
+    // ── BGM 控制 ──────────────────────────────────────────────
+
+    private void StartGameplayBgm()
+    {
+        if (gameplayBgmSource == null || gameplayBgmClip == null) return;
+        gameplayBgmSource.clip   = gameplayBgmClip;
+        gameplayBgmSource.loop   = true;
+        gameplayBgmSource.volume = bgmVolumeGameplay;
+        gameplayBgmSource.Play();
+    }
+
+    private void FadeBgmVolume(float targetVolume)
+    {
+        if (gameplayBgmSource == null) return;
+        _bgmFadeTween?.Kill();
+        _bgmFadeTween = gameplayBgmSource
+            .DOFade(targetVolume, bgmVolumeFadeDuration)
+            .SetEase(Ease.InOutSine);
+    }
+
+    // ── 主流程 ────────────────────────────────────────────────
     private IEnumerator RunCurrentLevelFlow()
     {
         Level level = activeLevels[currentLevel];
         level.levelObj.SetActive(true);
+
+        currentLevelTime = GetLevelTime(currentLevel);
+
+        if (currentLevel == 0)
+            StartGameplayBgm();
+
+        FadeBgmVolume(bgmVolumeGameplay);
 
         SetControllersEnabled(level, false);
         TriggerAnimator(targetAnimator, level.enterTrigger);
@@ -231,10 +319,13 @@ public class GameManager : MonoBehaviour
         if (enterWaitTime > 0f)
             yield return new WaitForSeconds(enterWaitTime);
 
+        // ── 第一关 + 教程开启：先显示教程弹窗，结束后再开始倒计时 ──
+        if (currentLevel == 0 && enableTutorial)
+            yield return StartCoroutine(ShowTutorialPanel());
+
         SetControllersEnabled(level, true);
         yield return StartCoroutine(TimingCoroutine());
 
-        // 闪光
         if (flashImage != null)
             yield return flashImage.DOFade(1f, 0.05f).WaitForCompletion();
 
@@ -253,7 +344,15 @@ public class GameManager : MonoBehaviour
             yield return flashImage.DOFade(0f, 2f).WaitForCompletion();
         }
 
+        FadeBgmVolume(bgmVolumeCompletion);
+
+        float completionStartTime = Time.time;
         yield return StartCoroutine(ShowCompletionForCurrentLevel(level));
+
+        float elapsed   = Time.time - completionStartTime;
+        float remaining = completionMinDisplayTime - elapsed;
+        if (remaining > 0f)
+            yield return new WaitForSeconds(remaining);
 
         if (betweenLevelDelay > 0f)
             yield return new WaitForSeconds(betweenLevelDelay);
@@ -263,12 +362,13 @@ public class GameManager : MonoBehaviour
         int nextLevel = currentLevel + 1;
         if (nextLevel >= activeLevels.Count)
         {
-            // 所有关卡完成 → 显示结算画面 → 触发事件
+            FadeBgmVolume(0f);
             ShowResultsScreen();
             onAllLevelsComplete?.Invoke();
             yield break;
         }
 
+        currentLevel = nextLevel;
         TriggerAnimator(completionTextAnimator, completionNextLevelTrigger);
         TriggerAnimator(levelTransitionAnimator, levelTransitionTrigger);
 
@@ -280,26 +380,65 @@ public class GameManager : MonoBehaviour
             completionText.transform.localRotation = Quaternion.identity;
         }
 
-        currentLevel = nextLevel;
         StartCoroutine(RunCurrentLevelFlow());
     }
 
-    // ── 结算画面 ─────────────────────────────────────
+    // ── 教程弹窗 ───────────────────────────────────────────────
+
     /// <summary>
-    /// 激活结算面板，并将本局所有截图依次填入 resultsImages。
-    /// 也可从外部调用：GameManager.Instance.ShowResultsScreen();
+    /// 逐张显示 tutorialImages，每次按任意键/鼠标键翻到下一张，全部看完后隐藏弹窗。
     /// </summary>
+    private IEnumerator ShowTutorialPanel()
+    {
+        if (tutorialPanel == null || tutorialImages == null || tutorialImages.Length == 0)
+            yield break;
+
+        // 先隐藏所有图片，再显示弹窗根节点
+        foreach (var img in tutorialImages)
+            if (img != null) img.gameObject.SetActive(false);
+
+        tutorialPanel.SetActive(true);
+
+        for (int i = 0; i < tutorialImages.Length; i++)
+        {
+            if (tutorialImages[i] != null)
+                tutorialImages[i].gameObject.SetActive(true);
+
+            yield return StartCoroutine(WaitForAnyInput());
+
+            if (tutorialImages[i] != null)
+                tutorialImages[i].gameObject.SetActive(false);
+        }
+
+        tutorialPanel.SetActive(false);
+    }
+
+    /// <summary>
+    /// 等待玩家按下任意键盘键或鼠标键（左/中/右键）。
+    /// 在帧末尾采样，避免触发本协程的同一帧输入被立即消费。
+    /// </summary>
+    private IEnumerator WaitForAnyInput()
+    {
+        yield return new WaitForEndOfFrame();
+        while (!Input.anyKeyDown
+               && !Input.GetMouseButtonDown(0)
+               && !Input.GetMouseButtonDown(1)
+               && !Input.GetMouseButtonDown(2))
+        {
+            yield return null;
+        }
+    }
+
+    // ── 结果画面 ───────────────────────────────────────────────
+
     public void ShowResultsScreen()
     {
-        if (resultsPanel != null)
-            resultsPanel.SetActive(true);
-
+        if (resultsPanel != null) resultsPanel.SetActive(true);
         if (resultsImages == null || resultsImages.Length == 0) return;
 
         for (int i = 0; i < resultsImages.Length; i++)
         {
             if (resultsImages[i] == null) continue;
-
             if (i < capturedSprites.Count && capturedSprites[i] != null)
             {
                 resultsImages[i].sprite         = capturedSprites[i];
@@ -309,25 +448,98 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                // 本局关卡数不足时隐藏多余槽位
                 resultsImages[i].gameObject.SetActive(false);
             }
         }
     }
 
-    // ── 工具方法 ─────────────────────────────────────
+    // ── 工具方法 ───────────────────────────────────────────────
+
     private void TriggerAnimator(Animator animator, string trigger)
     {
         if (animator == null || string.IsNullOrEmpty(trigger)) return;
         animator.SetTrigger(trigger);
     }
 
+    private IEnumerator TimingCoroutine()
+    {
+        int min = (int)(currentLevelTime / 60f);
+        int sec = (int)(currentLevelTime % 60f);
+
+        SetTimerValue(currentLevelTime);
+        if (timerText != null) timerText.text = FormatTime(min, sec);
+
+        while (min > 0 || sec > 0)
+        {
+            yield return new WaitForSeconds(1f);
+
+            SetTimerValue(timer - 1f);
+            if (sec > 0) sec--;
+            else { sec = 59; min--; }
+
+            if (timerText != null) timerText.text = FormatTime(min, sec);
+
+            int totalSec = min * 60 + sec;
+            if (totalSec > 0 && totalSec <= countdownWarnSeconds) TriggerCountdownWarning(false);
+            if (totalSec == 0) TriggerCountdownWarning(true);
+        }
+    }
+
+    private string FormatTime(int min, int sec) =>
+        (min > 9 ? min.ToString() : "0" + min) + ":" +
+        (sec > 9 ? sec.ToString() : "0" + sec);
+
+    private void TriggerCountdownWarning(bool isFinish)
+    {
+        AudioClip clip = isFinish ? countdownFinishClip : countdownClip;
+        if (clip != null) countdownAudioSource.PlayOneShot(clip, countdownVolume);
+
+        if (timerText != null)
+        {
+            timerText.transform.DOKill(false);
+            timerText.transform.DOPunchScale(
+                Vector3.one * countdownPunchScale, countdownPunchDuration, 6, 0.5f);
+            StartCoroutine(SpawnGhost(timerText));
+        }
+    }
+
+    private IEnumerator SpawnGhost(TMP_Text source)
+    {
+        GameObject ghostObj = new GameObject("CountdownGhost");
+        ghostObj.transform.SetParent(source.transform.parent, false);
+        ghostObj.transform.SetSiblingIndex(source.transform.GetSiblingIndex() + 1);
+
+        RectTransform ghostRect = ghostObj.AddComponent<RectTransform>();
+        RectTransform srcRect   = source.GetComponent<RectTransform>();
+        ghostRect.anchorMin        = srcRect.anchorMin;
+        ghostRect.anchorMax        = srcRect.anchorMax;
+        ghostRect.anchoredPosition = srcRect.anchoredPosition;
+        ghostRect.sizeDelta        = srcRect.sizeDelta;
+        ghostRect.pivot            = srcRect.pivot;
+        ghostRect.localScale       = source.transform.localScale;
+        ghostRect.localRotation    = source.transform.localRotation;
+
+        TMP_Text ghost      = ghostObj.AddComponent<TextMeshProUGUI>();
+        ghost.text          = source.text;
+        ghost.font          = source.font;
+        ghost.fontSize      = source.fontSize;
+        ghost.fontStyle     = source.fontStyle;
+        ghost.alignment     = source.alignment;
+        ghost.color         = new Color(source.color.r, source.color.g, source.color.b, 1f);
+        ghost.raycastTarget = false;
+
+        Tween scaleTween = ghostRect.DOScale(source.transform.localScale * ghostScaleMultiplier, ghostDuration).SetEase(Ease.OutCubic);
+                           ghost.DOFade(0f, ghostDuration).SetEase(Ease.InCubic);
+
+        yield return scaleTween.WaitForCompletion();
+        Destroy(ghostObj);
+    }
+
     private IEnumerator ShowCompletionForCurrentLevel(Level level)
     {
         if (completionText == null || level == null) yield break;
 
-        if (completionShowDelay > 0f)
-            yield return new WaitForSeconds(completionShowDelay);
+        if (completionShowDelay > 0f) yield return new WaitForSeconds(completionShowDelay);
 
         if (!completionText.gameObject.activeSelf)
         {
@@ -337,83 +549,99 @@ public class GameManager : MonoBehaviour
             completionText.gameObject.SetActive(true);
         }
 
-        float targetPercent  = Mathf.Round(level.similarity * 100f);
-        float currentPercent = 0f;
-        float duration       = Mathf.Max(0f, completionCountDuration);
-
-        // 追踪上一次触发颤动的整十里程碑，防止同一里程碑重复触发
-        int lastMilestone = 0;
-        // 追踪上一帧显示的整数，用于检测数字跳变
-        int lastDisplayed = 0;
+        float targetPercent = Mathf.Round(level.similarity * 100f);
+        float duration = Mathf.Max(completionCountDurationMin,
+            completionCountDuration * (targetPercent / 100f));
 
         if (duration <= 0f)
         {
             completionText.text = Mathf.RoundToInt(targetPercent) + "%";
-            float finalScale = Mathf.Lerp(completionScaleMin, completionScaleMax, level.similarity);
-            completionText.transform.localScale = Vector3.one * finalScale;
+            completionText.transform.localScale = Vector3.one *
+                Mathf.Lerp(completionScaleMin, completionScaleMax, level.similarity);
         }
         else
         {
+            _scoreCurrentPercent = 0f;
+            _scoreAnimRunning    = true;
+
+            StartCoroutine(ScoreSoundCoroutine(targetPercent));
+
             yield return DOTween.To(
-                () => currentPercent,
+                () => _scoreCurrentPercent,
                 x =>
                 {
-                    currentPercent = x;
-
-                    int displayed = Mathf.RoundToInt(currentPercent);
-                    completionText.text = displayed + "%";
-
-                    // 主计数驱动的缩放
-                    float t     = currentPercent / 100f;
-                    float scale = Mathf.Lerp(completionScaleMin, completionScaleMax, t);
-                    completionText.transform.localScale = Vector3.one * scale;
-
-                    // ── 嘀嘀音效：每当显示整数发生变化时播放，音调随分数升高 ──
-                    if (displayed != lastDisplayed && displayed > 0)
-                    {
-                        lastDisplayed = displayed;
-                        if (tickSound != null && scoreAudioSource != null)
-                        {
-                            scoreAudioSource.pitch = Mathf.Lerp(tickPitchMin, tickPitchMax, displayed / 100f);
-                            scoreAudioSource.PlayOneShot(tickSound);
-                        }
-                    }
-
-                    // ── 里程碑检测 ──────────────────────────────
-                    // 用四舍五入后的整数（即文字显示的值）判断，
-                    // 确保颤动与数字跳变发生在同一帧
-                    int interval = Mathf.Max(1, milestoneInterval);
-                    if (displayed > 0 && displayed % interval == 0 && displayed > lastMilestone)
-                    {
-                        lastMilestone = displayed;
-                        PunchCompletionText(completionText.transform, scale, displayed == 100);
-
-                        // ── 里程碑音效 ──────────────────────────
-                        if (milestoneSound != null && scoreAudioSource != null)
-                            scoreAudioSource.PlayOneShot(milestoneSound, milestoneSoundVolume);
-                    }
+                    _scoreCurrentPercent = x;
+                    completionText.text = Mathf.RoundToInt(x) + "%";
+                    completionText.transform.localScale = Vector3.one *
+                        Mathf.Lerp(completionScaleMin, completionScaleMax, x / 100f);
                 },
-                targetPercent,
-                duration
+                targetPercent, duration
             ).SetEase(Ease.OutCubic).WaitForCompletion();
+
+            _scoreAnimRunning = false;
+            yield return null;
         }
 
-        // ── 计分结束瞬间：按档次激活对应物件 ──────────
         ActivateScoreGrade(level.similarity);
 
-        if (completionTriggerDelay > 0f)
-            yield return new WaitForSeconds(completionTriggerDelay);
+        if (completionTriggerDelay > 0f) yield return new WaitForSeconds(completionTriggerDelay);
 
         TriggerAnimator(completionTextAnimator, completionFinishTrigger);
     }
 
-    /// <summary>
-    /// 按 scoreGrades 从上往下找第一个满足 similarity >= threshold 的档次，激活其物件。
-    /// </summary>
+    private IEnumerator ScoreSoundCoroutine(float targetPercent)
+    {
+        int lastTickDisplayed = -1, lastMilestone = 0;
+        int interval  = Mathf.Max(1, milestoneInterval);
+        int targetInt = Mathf.RoundToInt(targetPercent);
+
+        while (_scoreAnimRunning || lastTickDisplayed < targetInt)
+        {
+            int displayed = Mathf.RoundToInt(_scoreCurrentPercent);
+
+            if (displayed != lastTickDisplayed && displayed > 0)
+            {
+                if (tickSound != null)
+                {
+                    tickAudioSource.pitch = Mathf.Lerp(tickPitchMin, tickPitchMax, displayed / 100f);
+                    tickAudioSource.PlayOneShot(tickSound);
+                }
+                lastTickDisplayed = displayed;
+            }
+
+            if (displayed > lastMilestone)
+            {
+                for (int i = lastMilestone + 1; i <= displayed; i++)
+                {
+                    if (i % interval == 0)
+                    {
+                        lastMilestone = i;
+
+                        if (completionText != null)
+                            PunchCompletionText(completionText.transform,
+                                Mathf.Lerp(completionScaleMin, completionScaleMax, i / 100f), i == 100);
+
+                        if (milestoneSounds != null)
+                            foreach (var ms in milestoneSounds)
+                                if (ms != null && ms.percent == i && ms.clip != null)
+                                {
+                                    milestoneAudioSource.PlayOneShot(ms.clip, ms.volume);
+                                    break;
+                                }
+
+                        break;
+                    }
+                    lastMilestone = i;
+                }
+            }
+
+            yield return null;
+        }
+    }
+
     private void ActivateScoreGrade(float similarity)
     {
         if (scoreGrades == null || scoreGrades.Length == 0) return;
-
         foreach (var grade in scoreGrades)
         {
             if (similarity * 100f >= grade.threshold)
@@ -421,91 +649,42 @@ public class GameManager : MonoBehaviour
                 if (grade.objects != null)
                     foreach (var obj in grade.objects)
                         if (obj != null) obj.SetActive(true);
-                return; // 只匹配第一个（最高）满足的档次
+                return;
             }
         }
     }
 
-    /// <summary>
-    /// 在不打断主计数 tween 的前提下，对 completionText 做一次
-    /// 快速颤动：旋转晃动 + scale 弹跳，两轨并行，总时长极短。
-    /// </summary>
-    /// <param name="isMax">是否是 100% 里程碑，为 true 时使用更长的颤动时长</param>
     private void PunchCompletionText(Transform tf, float baseScale, bool isMax = false)
     {
-        // 停止上一次尚未结束的颤动（false = 不跳到终点）
         tf.DOKill(false);
-
-        // 确保 scale / rotation 在正确基础上再开始新 punch
         tf.localScale    = Vector3.one * baseScale;
         tf.localRotation = Quaternion.identity;
 
         float dur = isMax ? punchDurationAt100 : punchDuration;
-
-        // 旋转颤动
-        tf.DOPunchRotation(
-            punch:      new Vector3(0f, 0f, punchRotationAngle),
-            duration:   dur,
-            vibrato:    isMax ? 12 : 7,
-            elasticity: 0.4f
-        );
-
-        // 缩放颤动，结束后还原到主计数应有的 scale
-        tf.DOPunchScale(
-            punch:      Vector3.one * (isMax ? punchScaleAmount * 1.5f : punchScaleAmount),
-            duration:   dur,
-            vibrato:    isMax ? 10 : 6,
-            elasticity: 0.5f
-        ).OnComplete(() =>
-        {
-            // punch 结束后精确还原，主计数 tween 下一帧继续接管
-            if (tf != null)
-                tf.localScale = Vector3.one * baseScale;
-        });
+        tf.DOPunchRotation(new Vector3(0f, 0f, punchRotationAngle), dur, isMax ? 12 : 7, 0.4f);
+        tf.DOPunchScale(Vector3.one * (isMax ? punchScaleAmount * 1.5f : punchScaleAmount),
+                dur, isMax ? 10 : 6, 0.5f)
+           .OnComplete(() => { if (tf != null) tf.localScale = Vector3.one * baseScale; });
     }
 
     private void SetControllersEnabled(Level level, bool enabledState)
     {
         if (level == null || level.poseEditorControllerList == null) return;
-
         foreach (var controller in level.poseEditorControllerList)
         {
             if (controller == null) continue;
             if (enabledState) controller.Enable();
-            else controller.Disable();
+            else              controller.Disable();
         }
     }
 
     private void SetTimerValue(float value)
     {
-        timer = Mathf.Clamp(value, 0f, time);
-
-        if (timerImage != null && time > 0f)
-            timerImage.sizeDelta = new Vector2(timer / time * timerImageInitialWidth, timerImage.sizeDelta.y);
-    }
-
-    private IEnumerator TimingCoroutine()
-    {
-        int min = (int)(time / 60f), sec = (int)(time % 60f);
-        SetTimerValue(time);
-
-        if (timerText != null)
-            timerText.text = (min > 9 ? min.ToString() : "0" + min) + ":" +
-                             (sec > 9 ? sec.ToString() : "0" + sec);
-
-        while (min > 0 || sec > 0)
-        {
-            yield return new WaitForSeconds(1f);
-
-            SetTimerValue(timer - 1f);
-
-            if (sec > 0) sec--;
-            else { sec = 59; min--; }
-
-            if (timerText != null)
-                timerText.text = (min > 9 ? min.ToString() : "0" + min) + ":" +
-                                 (sec > 9 ? sec.ToString() : "0" + sec);
-        }
+        timer = Mathf.Clamp(value, 0f, currentLevelTime);
+        if (timerImage != null && currentLevelTime > 0f)
+            timerImage.sizeDelta = new Vector2(
+                timer / currentLevelTime * timerImageInitialWidth,
+                timerImage.sizeDelta.y);
     }
 
     private IEnumerator CaptureAndSetPicture()
@@ -519,10 +698,8 @@ public class GameManager : MonoBehaviour
         foreach (var go in hideObjects)
         {
             if (go == null || !go.activeSelf) continue;
-
             CanvasGroup cg = go.GetComponent<CanvasGroup>();
             if (cg == null) cg = go.AddComponent<CanvasGroup>();
-
             canvasGroups.Add((cg, cg.alpha));
             cg.alpha = 0f;
         }
@@ -539,12 +716,8 @@ public class GameManager : MonoBehaviour
 
         if (tex == null) yield break;
 
-        Sprite sprite = Sprite.Create(
-            tex,
-            new Rect(0, 0, tex.width, tex.height),
-            new Vector2(0.5f, 0.5f),
-            100f
-        );
+        Sprite sprite = Sprite.Create(tex,
+            new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100f);
 
         capturedTextures.Add(tex);
         capturedSprites.Add(sprite);
@@ -561,7 +734,6 @@ public class GameManager : MonoBehaviour
 
         var level = activeLevels[currentLevel];
         var zone  = level.zone;
-
         if (zone == null || zone.vertices == null || zone.vertices.Count < 3) return;
 
         Canvas canvas            = FindObjectOfType<Canvas>();
@@ -572,14 +744,11 @@ public class GameManager : MonoBehaviour
         foreach (var controller in level.poseEditorControllerList)
         {
             if (controller == null || controller.Joints == null) continue;
-
             foreach (var joint in controller.Joints)
             {
                 if (joint == null || joint.rect == null) continue;
                 total++;
-
-                Vector2 anchoredPos = WorldToAnchored(joint.rect.position, canvasRect);
-                if (zone.Contains(anchoredPos)) passed++;
+                if (zone.Contains(WorldToAnchored(joint.rect.position, canvasRect))) passed++;
             }
         }
 
@@ -594,15 +763,12 @@ public class GameManager : MonoBehaviour
         return new Vector2(local.x, local.y);
     }
 
-    // ── 生命周期 ─────────────────────────────────────
     private void OnDestroy()
     {
-        foreach (var s in capturedSprites)
-            if (s != null) Destroy(s);
-
-        foreach (var t in capturedTextures)
-            if (t != null) Destroy(t);
-
+        _bgmFadeTween?.Kill();
+        _scoreAnimRunning = false;
+        foreach (var s in capturedSprites) if (s != null) Destroy(s);
+        foreach (var t in capturedTextures) if (t != null) Destroy(t);
         capturedSprites.Clear();
         capturedTextures.Clear();
     }

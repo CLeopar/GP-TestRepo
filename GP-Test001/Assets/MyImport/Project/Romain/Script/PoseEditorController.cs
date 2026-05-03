@@ -26,6 +26,10 @@ public class PoseEditorController : MonoBehaviour
         [Range(-180f, 180f)] public float minAngle = -180f;
         [Tooltip("允许的最大本地 Z 角度（-180 ~ 180）")]
         [Range(-180f, 180f)] public float maxAngle =  180f;
+
+        [Header("IK Weight")]
+        [Tooltip("子集拖动时该关节跟随的权重，0=完全不动，1=完全跟随")]
+        [Range(0f, 1f)] public float ikWeight = 1f;
     }
 
     [Serializable]
@@ -47,9 +51,6 @@ public class PoseEditorController : MonoBehaviour
     [SerializeField] private float ikTolerance = 2f;
     [SerializeField] private bool snapCursorOnSelect = true;
 
-    [Header("IK Smoothing")]
-    [SerializeField, Range(1f, 40f)] private float ikSmoothSpeed = 18f;
-
     [Header("Body Translation")]
     [SerializeField] private RectTransform bodyRoot;
     [SerializeField] private float translateAcceleration = 400f;
@@ -64,11 +65,10 @@ public class PoseEditorController : MonoBehaviour
 
     private readonly List<RectTransform> ikChain = new List<RectTransform>();
     private readonly Dictionary<RectTransform, Joint> boneToJoint = new Dictionary<RectTransform, Joint>();
-
-    // 平滑用：存储上一帧平滑后的实际显示角度
     private readonly Dictionary<RectTransform, float> boneSmoothedAngles = new Dictionary<RectTransform, float>();
 
     private Vector2 translateVelocity = Vector2.zero;
+    private Vector2 ikTargetPos;
 
     public Joint[] Joints => joints;
     public RectTransform BodyRoot => bodyRoot;
@@ -96,14 +96,11 @@ public class PoseEditorController : MonoBehaviour
             HandleIKInput();
     }
 
-    // ── 光标移动 ──────────────────────────────────────────────────────────────
+    // ── 输入方向读取 ──────────────────────────────────────────────────────────
 
-    void HandleCursorMove()
+    Vector2 GetInputDirection()
     {
-        if (selectedJoint != null && selectedJoint.isTranslationJoint) return;
-
         Vector2 dir = Vector2.zero;
-
         if (playerType == PlayerType.Player1)
         {
             if (Input.GetKey(KeyCode.W)) dir.y += 1f;
@@ -118,13 +115,26 @@ public class PoseEditorController : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftArrow))  dir.x -= 1f;
             if (Input.GetKey(KeyCode.RightArrow)) dir.x += 1f;
         }
+        return dir;
+    }
 
-        if (dir.sqrMagnitude > 0f)
-        {
-            dir.Normalize();
-            float speed = (selectedJoint != null) ? ikMoveSpeed : moveSpeed;
-            cursor.anchoredPosition += dir * speed * Time.deltaTime;
-        }
+    // ── 光标 / IK目标 移动 ────────────────────────────────────────────────────
+
+    void HandleCursorMove()
+    {
+        if (selectedJoint != null && selectedJoint.isTranslationJoint) return;
+
+        Vector2 dir = GetInputDirection();
+        if (dir.sqrMagnitude == 0f) return;
+
+        dir.Normalize();
+        float speed = (selectedJoint != null) ? ikMoveSpeed : moveSpeed;
+        Vector2 delta = dir * speed * Time.deltaTime;
+
+        if (selectedJoint != null && !selectedJoint.isTranslationJoint)
+            ikTargetPos += delta;
+        else
+            cursor.anchoredPosition += delta;
     }
 
     // ── Hover 检测 ────────────────────────────────────────────────────────────
@@ -182,8 +192,7 @@ public class PoseEditorController : MonoBehaviour
             }
             else
             {
-                if (snapCursorOnSelect)
-                    cursor.position = selectedJoint.rect.position;
+                ikTargetPos = selectedJoint.rect.position;
                 cursor.gameObject.SetActive(false);
                 BuildIKChain(selectedJoint);
             }
@@ -222,7 +231,6 @@ public class PoseEditorController : MonoBehaviour
                 if (rt != null)
                 {
                     ikChain.Add(rt);
-                    // 初始化平滑角度为当前实际角度
                     boneSmoothedAngles[rt] = NormalizeAngle(rt.localEulerAngles.z);
                 }
             }
@@ -242,11 +250,10 @@ public class PoseEditorController : MonoBehaviour
     {
         if (selectedJoint == null || ikChain.Count == 0) return;
 
-        Vector2 targetWorld   = cursor.position;
+        Vector2 targetWorld   = ikTargetPos;
         Transform endEffector = selectedJoint.rect;
 
-        // ── 步骤一：把骨骼临时设置为上一帧平滑后的角度，作为本帧求解起点 ──
-        // 这样 CCD 在正确的空间里计算，又不会因为 Lerp 滞后而累积误差
+        // 步骤一：还原上一帧角度作为求解起点
         for (int i = 0; i < ikChain.Count; i++)
         {
             RectTransform bone = ikChain[i];
@@ -256,7 +263,7 @@ public class PoseEditorController : MonoBehaviour
             bone.localEulerAngles = euler;
         }
 
-        // ── 步骤二：CCD 求解，直接在骨骼上操作（保证世界空间计算正确）──
+        // 步骤二：CCD 求解，权重来自每个关节自身的 ikWeight
         for (int iter = 0; iter < ikIterations; iter++)
         {
             if (Vector2.Distance(endEffector.position, targetWorld) < ikTolerance) break;
@@ -266,15 +273,18 @@ public class PoseEditorController : MonoBehaviour
                 RectTransform bone = ikChain[i];
                 if (bone == null) continue;
 
+                // ★ 从该骨骼对应的 Joint 读取 ikWeight，找不到则默认 1
+                boneToJoint.TryGetValue(bone, out Joint jc);
+                float weight = (jc != null) ? jc.ikWeight : 1f;
+
                 Vector2 toEnd    = (Vector2)endEffector.position - (Vector2)bone.position;
                 Vector2 toTarget = targetWorld - (Vector2)bone.position;
                 if (toEnd.sqrMagnitude < 0.0001f) continue;
 
-                float delta = Vector2.SignedAngle(toEnd, toTarget);
+                float delta = Vector2.SignedAngle(toEnd, toTarget) * weight;
                 Vector3 euler = bone.localEulerAngles;
                 float newZ = NormalizeAngle(euler.z) + delta;
 
-                boneToJoint.TryGetValue(bone, out Joint jc);
                 if (jc != null && jc.enableConstraint)
                     newZ = Mathf.Clamp(newZ, jc.minAngle, jc.maxAngle);
 
@@ -283,24 +293,12 @@ public class PoseEditorController : MonoBehaviour
             }
         }
 
-        // ── 步骤三：记录求解结果，再平滑插值到实际显示角度 ──
+        // 步骤三：直接记录求解结果，不做插值
         for (int i = 0; i < ikChain.Count; i++)
         {
             RectTransform bone = ikChain[i];
             if (bone == null) continue;
-
-            float solvedZ  = NormalizeAngle(bone.localEulerAngles.z);
-            float smoothed = boneSmoothedAngles[bone];
-
-            // DeltaAngle 处理跨 ±180 边界
-            float diff = Mathf.DeltaAngle(smoothed, solvedZ);
-            smoothed += diff * Mathf.Clamp01(ikSmoothSpeed * Time.deltaTime);
-
-            boneSmoothedAngles[bone] = smoothed;
-
-            Vector3 euler = bone.localEulerAngles;
-            euler.z = smoothed;
-            bone.localEulerAngles = euler;
+            boneSmoothedAngles[bone] = NormalizeAngle(bone.localEulerAngles.z);
         }
     }
 
@@ -310,22 +308,7 @@ public class PoseEditorController : MonoBehaviour
     {
         if (bodyRoot == null) return;
 
-        Vector2 inputDir = Vector2.zero;
-
-        if (playerType == PlayerType.Player1)
-        {
-            if (Input.GetKey(KeyCode.W)) inputDir.y += 1f;
-            if (Input.GetKey(KeyCode.S)) inputDir.y -= 1f;
-            if (Input.GetKey(KeyCode.A)) inputDir.x -= 1f;
-            if (Input.GetKey(KeyCode.D)) inputDir.x += 1f;
-        }
-        else
-        {
-            if (Input.GetKey(KeyCode.UpArrow))    inputDir.y += 1f;
-            if (Input.GetKey(KeyCode.DownArrow))  inputDir.y -= 1f;
-            if (Input.GetKey(KeyCode.LeftArrow))  inputDir.x -= 1f;
-            if (Input.GetKey(KeyCode.RightArrow)) inputDir.x += 1f;
-        }
+        Vector2 inputDir = GetInputDirection();
 
         if (inputDir.sqrMagnitude > 0f)
         {

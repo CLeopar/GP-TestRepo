@@ -4,92 +4,148 @@ using UnityEditor;
 using UnityEngine;
 
 /// <summary>
-/// 通用 PolygonZone Scene 编辑器
-/// 用法：在任意 CustomEditor 里调用 PolygonZoneEditor.Draw(zone, canvasRect, color, serializedObject)
+/// 通用 PolygonZone Scene 编辑器（支持多环镂空）
+/// 用法：在任意 CustomEditor 里调用 DrawInspectorGUI / DrawSceneGUI
 /// </summary>
 public static class PolygonZoneEditor
 {
-    // 每个 zone 独立的编辑状态
+    // ── 每个 zone 的编辑状态 ─────────────────────────────────────
     private class ZoneState
     {
-        public bool editMode = false;
-        public int hoveredVertex = -1;
-        public int hoveredEdge = -1;      // 鼠标悬停在哪条边上（用于插入顶点预览）
-        public Vector2 edgeInsertPos;     // 插入点预览位置
+        public int  activeContour  = 0;     // 当前正在编辑的环索引
+        public bool editMode       = false;
+
+        // 每个环独立的 hover 状态
+        public int  hoveredVertex  = -1;
+        public int  hoveredEdge    = -1;
+        public Vector2 edgeInsertPos;
     }
 
-    private static Dictionary<string, ZoneState> _states = new Dictionary<string, ZoneState>();
+    private static readonly Dictionary<string, ZoneState> _states = new Dictionary<string, ZoneState>();
 
     private static ZoneState GetState(string key)
     {
-        if (!_states.ContainsKey(key))
-            _states[key] = new ZoneState();
+        if (!_states.ContainsKey(key)) _states[key] = new ZoneState();
         return _states[key];
     }
 
-    // ─── 颜色常量 ───────────────────────────────────────────────
-    private static Color ColFill(Color c) => new Color(c.r, c.g, c.b, 0.12f);
-    private static Color ColEdge(Color c) => new Color(c.r, c.g, c.b, 0.85f);
-    private static Color ColVertex      = new Color(1f, 1f, 1f, 0.95f);
-    private static Color ColVertexHover = new Color(1f, 0.85f, 0f, 1f);
-    private static Color ColEdgeHover   = new Color(0.4f, 1f, 0.4f, 1f);
-    private static Color ColInsertDot   = new Color(0.4f, 1f, 0.4f, 0.9f);
+    // ── 颜色工具 ─────────────────────────────────────────────────
+    private static Color ColFill(Color c)       => new Color(c.r, c.g, c.b, 0.12f);
+    private static Color ColFillHole(Color c)   => new Color(c.r, c.g, c.b, 0.06f);  // 镂空孔洞填充更透明
+    private static Color ColEdge(Color c)       => new Color(c.r, c.g, c.b, 0.85f);
+    private static Color ColEdgeHole(Color c)   => new Color(c.r * 0.7f, c.g * 0.7f, c.b * 0.7f, 0.7f); // 内环边颜色偏暗
+    private static Color ColEdgeActive(Color c) => new Color(c.r, c.g, c.b, 1f);     // 当前编辑环高亮
 
-    private const float VERTEX_RADIUS   = 0.05f;   // HandleUtility.GetHandleSize 倍数
-    private const float EDGE_HIT_DIST   = 12f;      // 鼠标距边多少像素触发悬停（屏幕像素）
+    private static readonly Color ColVertex      = new Color(1f, 1f,    1f,  0.95f);
+    private static readonly Color ColVertexHover = new Color(1f, 0.85f, 0f,  1f);
+    private static readonly Color ColEdgeHover   = new Color(0.4f, 1f,  0.4f,1f);
+    private static readonly Color ColInsertDot   = new Color(0.4f, 1f,  0.4f,0.9f);
 
-    // ─── 主入口：在 CustomEditor.OnInspectorGUI 里调用 ─────────
-    /// <summary>
-    /// 绘制 Inspector 内的编辑按钮，并注册 Scene 绘制。
-    /// key 用于区分同一个 Inspector 里的多个 zone（如 "joint_0"）。
-    /// </summary>
+    private const float VERTEX_RADIUS = 0.05f;
+    private const float EDGE_HIT_DIST = 12f;
+
+    // ── Inspector GUI 主入口 ──────────────────────────────────────
     public static void DrawInspectorGUI(
         string key,
         PolygonZone zone,
         SerializedObject serializedObj,
         Color color)
     {
-        var state = GetState(key);
+        // 确保至少有一个外环
+        if (zone.contours.Count == 0) zone.contours.Add(new Contour());
 
+        var state = GetState(key);
+        // 防止 activeContour 越界
+        state.activeContour = Mathf.Clamp(state.activeContour, 0, zone.contours.Count - 1);
+
+        // ── 环选择 Toolbar ───────────────────────────────────────
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("环：", GUILayout.Width(28));
+        for (int ci = 0; ci < zone.contours.Count; ci++)
+        {
+            bool isActive = (state.activeContour == ci);
+            GUI.backgroundColor = isActive ? new Color(0.4f, 1f, 0.5f) : Color.white;
+            string label = ci == 0 ? $"外环({zone.contours[ci].vertices.Count})" : $"孔{ci}({zone.contours[ci].vertices.Count})";
+            if (GUILayout.Button(label, GUILayout.Height(20)))
+            {
+                state.activeContour = ci;
+                SceneView.RepaintAll();
+            }
+        }
+        GUI.backgroundColor = Color.white;
+
+        // 添加新环按钮
+        GUI.backgroundColor = new Color(0.6f, 0.85f, 1f);
+        if (GUILayout.Button("+ 添加孔洞", GUILayout.Height(20)))
+        {
+            Undo.RecordObject(serializedObj.targetObject, "Add Contour");
+            zone.AddContour();
+            state.activeContour = zone.contours.Count - 1;
+            EditorUtility.SetDirty(serializedObj.targetObject);
+            SceneView.RepaintAll();
+        }
+        GUI.backgroundColor = Color.white;
+        EditorGUILayout.EndHorizontal();
+
+        // ── 当前环操作行 ─────────────────────────────────────────
         EditorGUILayout.BeginHorizontal();
 
-        // 编辑模式切换按钮
+        // 编辑模式切换
         GUI.backgroundColor = state.editMode ? new Color(0.4f, 1f, 0.5f) : Color.white;
-        if (GUILayout.Button(state.editMode ? "✏ 编辑中（点击退出）" : "✏ 编辑多边形", GUILayout.Height(22)))
+        string btnLabel = state.editMode ? "✏ 编辑中（点击退出）" : "✏ 编辑多边形";
+        if (GUILayout.Button(btnLabel, GUILayout.Height(22)))
         {
             state.editMode = !state.editMode;
             SceneView.RepaintAll();
         }
         GUI.backgroundColor = Color.white;
 
-        // 清空按钮
-        GUI.backgroundColor = new Color(1f, 0.5f, 0.5f);
+        // 清空当前环
+        GUI.backgroundColor = new Color(1f, 0.6f, 0.6f);
         if (GUILayout.Button("清空", GUILayout.Width(48), GUILayout.Height(22)))
         {
-            Undo.RecordObject(serializedObj.targetObject, "Clear PolygonZone");
-            zone.vertices.Clear();
+            Undo.RecordObject(serializedObj.targetObject, "Clear Contour");
+            zone.contours[state.activeContour].vertices.Clear();
             EditorUtility.SetDirty(serializedObj.targetObject);
             SceneView.RepaintAll();
         }
         GUI.backgroundColor = Color.white;
 
+        // 删除当前环（外环不可删）
+        if (state.activeContour > 0)
+        {
+            GUI.backgroundColor = new Color(1f, 0.4f, 0.4f);
+            if (GUILayout.Button("删除此孔", GUILayout.Width(64), GUILayout.Height(22)))
+            {
+                Undo.RecordObject(serializedObj.targetObject, "Remove Contour");
+                zone.RemoveContour(state.activeContour);
+                state.activeContour = Mathf.Max(0, state.activeContour - 1);
+                EditorUtility.SetDirty(serializedObj.targetObject);
+                SceneView.RepaintAll();
+            }
+            GUI.backgroundColor = Color.white;
+        }
+
         EditorGUILayout.EndHorizontal();
 
         // 顶点数量提示
-        string hint = zone.vertices.Count < 3
-            ? $"  ⚠ 需要至少 3 个顶点（当前 {zone.vertices.Count} 个）"
-            : $"  ✓ {zone.vertices.Count} 个顶点";
+        int vCount = zone.contours[state.activeContour].vertices.Count;
+        string hint = vCount < 3
+            ? $"  ⚠ 需要至少 3 个顶点（当前 {vCount} 个）"
+            : $"  ✓ {vCount} 个顶点";
         EditorGUILayout.LabelField(hint, EditorStyles.miniLabel);
 
         if (state.editMode)
         {
+            string contourType = state.activeContour == 0 ? "外环" : $"孔洞 {state.activeContour}";
             EditorGUILayout.HelpBox(
+                $"当前编辑：{contourType}\n" +
                 "左键空白处：添加顶点\n左键拖拽顶点：移动\n左键边中间绿点：插入顶点\n右键顶点：删除",
                 MessageType.Info);
         }
     }
 
-    // ─── Scene 绘制入口：在 CustomEditor.OnSceneGUI 里调用 ─────
+    // ── Scene GUI 主入口 ──────────────────────────────────────────
     public static void DrawSceneGUI(
         string key,
         PolygonZone zone,
@@ -98,107 +154,127 @@ public static class PolygonZoneEditor
         Color color)
     {
         if (canvasRect == null) return;
-        var state = GetState(key);
+        if (zone.contours.Count == 0) return;
 
-        // 始终绘制多边形轮廓（不管是否在编辑模式）
-        DrawPolygon(zone, canvasRect, color, state);
+        var state = GetState(key);
+        state.activeContour = Mathf.Clamp(state.activeContour, 0, zone.contours.Count - 1);
+
+        // 先绘制所有环
+        DrawAllContours(zone, canvasRect, color, state);
 
         if (!state.editMode) return;
 
-        // 编辑模式：处理交互
-        HandleSceneInput(key, zone, canvasRect, targetObject, state, color);
+        // 只对当前选中的环做交互
+        var activeVerts = zone.contours[state.activeContour].vertices;
+        HandleSceneInput(key, activeVerts, canvasRect, targetObject, state, color);
     }
 
-    // ─── 绘制多边形 ──────────────────────────────────────────────
-    private static void DrawPolygon(
+    // ── 绘制所有环 ────────────────────────────────────────────────
+    private static void DrawAllContours(
         PolygonZone zone,
         RectTransform canvasRect,
         Color color,
         ZoneState state)
     {
-        var verts = zone.vertices;
-        if (verts == null || verts.Count == 0) return;
-
-        // 转换所有顶点到世界坐标
-        Vector3[] worldVerts = new Vector3[verts.Count];
-        for (int i = 0; i < verts.Count; i++)
-            worldVerts[i] = AnchoredToWorld(verts[i], canvasRect);
-
-        // 填充
-        if (verts.Count >= 3)
+        for (int ci = 0; ci < zone.contours.Count; ci++)
         {
-            Handles.color = ColFill(color);
-            // 用扇形三角剖分填充（适合凸多边形；凹多边形用射线法时填充会有瑕疵，但足够直观）
-            Vector3 center = Vector3.zero;
-            foreach (var v in worldVerts) center += v;
-            center /= worldVerts.Length;
+            var verts = zone.contours[ci].vertices;
+            if (verts == null || verts.Count == 0) continue;
 
+            bool isActive   = state.editMode && (ci == state.activeContour);
+            bool isHole     = (ci > 0);
+
+            // 转世界坐标
+            Vector3[] worldVerts = new Vector3[verts.Count];
+            for (int i = 0; i < verts.Count; i++)
+                worldVerts[i] = AnchoredToWorld(verts[i], canvasRect);
+
+            // 填充
+            if (verts.Count >= 3)
+            {
+                Handles.color = isHole ? ColFillHole(color) : ColFill(color);
+                Vector3 center = Vector3.zero;
+                foreach (var v in worldVerts) center += v;
+                center /= worldVerts.Length;
+
+                for (int i = 0; i < worldVerts.Length; i++)
+                {
+                    int next = (i + 1) % worldVerts.Length;
+                    Handles.DrawAAConvexPolygon(center, worldVerts[i], worldVerts[next]);
+                }
+            }
+
+            // 边
             for (int i = 0; i < worldVerts.Length; i++)
             {
                 int next = (i + 1) % worldVerts.Length;
-                Handles.DrawAAConvexPolygon(center, worldVerts[i], worldVerts[next]);
+
+                if (isActive && state.hoveredEdge == i)
+                    Handles.color = ColEdgeHover;
+                else if (isActive)
+                    Handles.color = ColEdgeActive(color);
+                else if (isHole)
+                    Handles.color = ColEdgeHole(color);
+                else
+                    Handles.color = ColEdge(color);
+
+                Handles.DrawLine(worldVerts[i], worldVerts[next], isActive ? 2.5f : 1.5f);
             }
-        }
 
-        // 边
-        Handles.color = ColEdge(color);
-        for (int i = 0; i < worldVerts.Length; i++)
-        {
-            int next = (i + 1) % worldVerts.Length;
+            // 插入点预览（只在当前活动环显示）
+            if (isActive && state.hoveredEdge >= 0 && state.hoveredVertex < 0)
+            {
+                Handles.color = ColInsertDot;
+                Vector3 insertWorld = AnchoredToWorld(state.edgeInsertPos, canvasRect);
+                float sz = HandleUtility.GetHandleSize(insertWorld) * VERTEX_RADIUS * 0.8f;
+                Handles.DotHandleCap(0, insertWorld, Quaternion.identity, sz, EventType.Repaint);
+            }
 
-            // 悬停边用绿色高亮
-            if (state.editMode && state.hoveredEdge == i)
-                Handles.color = ColEdgeHover;
-            else
-                Handles.color = ColEdge(color);
+            // 顶点
+            for (int i = 0; i < worldVerts.Length; i++)
+            {
+                if (isActive)
+                    Handles.color = (state.hoveredVertex == i) ? ColVertexHover : ColVertex;
+                else
+                    Handles.color = new Color(ColVertex.r, ColVertex.g, ColVertex.b, 0.4f);
 
-            Handles.DrawLine(worldVerts[i], worldVerts[next], 2f);
-        }
+                float sz = HandleUtility.GetHandleSize(worldVerts[i]) * VERTEX_RADIUS;
+                Handles.DotHandleCap(0, worldVerts[i], Quaternion.identity, sz, EventType.Repaint);
 
-        // 插入点预览
-        if (state.editMode && state.hoveredEdge >= 0 && state.hoveredVertex < 0)
-        {
-            Handles.color = ColInsertDot;
-            Vector3 insertWorld = AnchoredToWorld(state.edgeInsertPos, canvasRect);
-            float sz = HandleUtility.GetHandleSize(insertWorld) * VERTEX_RADIUS * 0.8f;
-            Handles.DotHandleCap(0, insertWorld, Quaternion.identity, sz, EventType.Repaint);
-        }
+                if (isActive)
+                    Handles.Label(worldVerts[i] + Vector3.up * sz * 2.5f,
+                        i.ToString(), EditorStyles.boldLabel);
+            }
 
-        // 顶点
-        for (int i = 0; i < worldVerts.Length; i++)
-        {
-            Handles.color = (state.editMode && state.hoveredVertex == i)
-                ? ColVertexHover : ColVertex;
-            float sz = HandleUtility.GetHandleSize(worldVerts[i]) * VERTEX_RADIUS;
-            Handles.DotHandleCap(0, worldVerts[i], Quaternion.identity, sz, EventType.Repaint);
-
-            // 顶点序号标签
-            if (state.editMode)
-                Handles.Label(worldVerts[i] + Vector3.up * sz * 2.5f,
-                    i.ToString(), EditorStyles.boldLabel);
+            // 环标签（非编辑模式也显示）
+            if (worldVerts.Length > 0)
+            {
+                Vector3 labelPos = worldVerts[0];
+                string contourLabel = ci == 0 ? "外环" : $"孔{ci}";
+                Handles.color = isActive ? Color.white : new Color(1f, 1f, 1f, 0.4f);
+                Handles.Label(labelPos, contourLabel, EditorStyles.miniLabel);
+            }
         }
     }
 
-    // ─── 交互处理 ────────────────────────────────────────────────
+    // ── 交互：只作用于当前活动环的顶点列表 ──────────────────────
     private static int _draggingVertex = -1;
 
     private static void HandleSceneInput(
         string key,
-        PolygonZone zone,
+        List<Vector2> verts,
         RectTransform canvasRect,
         UnityEngine.Object targetObject,
         ZoneState state,
         Color color)
     {
         Event e = Event.current;
-        var verts = zone.vertices;
 
-        // 把所有顶点转为世界坐标备用
         List<Vector3> worldVerts = new List<Vector3>();
         for (int i = 0; i < verts.Count; i++)
             worldVerts.Add(AnchoredToWorld(verts[i], canvasRect));
 
-        // ── 每帧更新 hover 状态 ──────────────────────────────────
+        // ── Hover 检测 ───────────────────────────────────────────
         state.hoveredVertex = -1;
         state.hoveredEdge   = -1;
 
@@ -212,7 +288,6 @@ public static class PolygonZoneEditor
             }
         }
 
-        // 悬停在边上（只在没悬停顶点时检测）
         if (state.hoveredVertex < 0 && worldVerts.Count >= 2)
         {
             for (int i = 0; i < worldVerts.Count; i++)
@@ -225,17 +300,13 @@ public static class PolygonZoneEditor
                 if (Vector2.Distance(e.mousePosition, closest) < EDGE_HIT_DIST)
                 {
                     state.hoveredEdge = i;
-
-                    // 计算插入点的 anchoredPosition（线性插值）
-                    float t = Mathf.InverseLerp(0, Vector2.Distance(a, b),
-                                Vector2.Distance(a, closest));
+                    float t = Mathf.InverseLerp(0, Vector2.Distance(a, b), Vector2.Distance(a, closest));
                     state.edgeInsertPos = Vector2.Lerp(verts[i], verts[next], t);
                     break;
                 }
             }
         }
 
-        // 阻止 Unity 默认选中行为
         int controlID = GUIUtility.GetControlID(FocusType.Passive);
 
         // ── 拖拽顶点 ─────────────────────────────────────────────
@@ -243,7 +314,6 @@ public static class PolygonZoneEditor
         {
             if (e.type == EventType.MouseDrag && e.button == 0)
             {
-                // 把鼠标位置从屏幕坐标转为 anchoredPosition
                 Ray ray = HandleUtility.GUIPointToWorldRay(e.mousePosition);
                 Vector3 hitWorld = PlaneIntersect(ray, canvasRect);
                 Vector2 newAnchored = WorldToAnchored(hitWorld, canvasRect);
@@ -266,7 +336,6 @@ public static class PolygonZoneEditor
         // ── 鼠标按下 ─────────────────────────────────────────────
         if (e.type == EventType.MouseDown)
         {
-            // 右键 → 删除顶点
             if (e.button == 1 && state.hoveredVertex >= 0)
             {
                 Undo.RecordObject(targetObject, "Delete Polygon Vertex");
@@ -280,7 +349,6 @@ public static class PolygonZoneEditor
 
             if (e.button == 0)
             {
-                // 左键点顶点 → 开始拖拽
                 if (state.hoveredVertex >= 0)
                 {
                     _draggingVertex = state.hoveredVertex;
@@ -289,7 +357,6 @@ public static class PolygonZoneEditor
                     return;
                 }
 
-                // 左键点边中间 → 插入顶点
                 if (state.hoveredEdge >= 0)
                 {
                     Undo.RecordObject(targetObject, "Insert Polygon Vertex");
@@ -302,7 +369,6 @@ public static class PolygonZoneEditor
                     return;
                 }
 
-                // 左键点空白 → 添加新顶点
                 Ray ray = HandleUtility.GUIPointToWorldRay(e.mousePosition);
                 Vector3 hitWorld = PlaneIntersect(ray, canvasRect);
                 Vector2 newAnchored = WorldToAnchored(hitWorld, canvasRect);
@@ -317,19 +383,15 @@ public static class PolygonZoneEditor
             }
         }
 
-        // 持续重绘（更新 hover 效果）
         if (e.type == EventType.MouseMove)
             SceneView.RepaintAll();
 
         HandleUtility.AddDefaultControl(controlID);
     }
 
-    // ─── 坐标转换工具 ────────────────────────────────────────────
-
-    private static Vector3 AnchoredToWorld(Vector2 anchored, RectTransform canvasRect)
-    {
-        return canvasRect.TransformPoint(new Vector3(anchored.x, anchored.y, 0f));
-    }
+    // ── 坐标转换 ─────────────────────────────────────────────────
+    private static Vector3 AnchoredToWorld(Vector2 anchored, RectTransform canvasRect) =>
+        canvasRect.TransformPoint(new Vector3(anchored.x, anchored.y, 0f));
 
     private static Vector2 WorldToAnchored(Vector3 worldPos, RectTransform canvasRect)
     {
@@ -337,16 +399,13 @@ public static class PolygonZoneEditor
         return new Vector2(local.x, local.y);
     }
 
-    /// <summary>射线与 Canvas 平面求交</summary>
     private static Vector3 PlaneIntersect(Ray ray, RectTransform canvasRect)
     {
         Plane plane = new Plane(canvasRect.forward, canvasRect.position);
-        if (plane.Raycast(ray, out float dist))
-            return ray.GetPoint(dist);
+        if (plane.Raycast(ray, out float dist)) return ray.GetPoint(dist);
         return canvasRect.position;
     }
 
-    /// <summary>点到线段最近点</summary>
     private static Vector2 ClosestPointOnSegment(Vector2 p, Vector2 a, Vector2 b)
     {
         Vector2 ab = b - a;
