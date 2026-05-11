@@ -1,0 +1,776 @@
+fileFormatVersion: 2
+guid: 730fc74ce07722747b289c6557aa6d20
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: b2a9591990af98743ba3ff7cf1000886, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 1
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 1
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  spriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+    spritePosition: {x: 0, y: 0}
+  mosaicSpriteImportData: []
+  rigSpriteImportData:
+  - name: O_shit
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 2106
+      width: 715
+      height: 607
+    spriteID: 0f998627d64591b4591b8faabe7d52d5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 2106}
+    spritePosition: {x: 782, y: 757}
+  - name: O_Angry
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1446
+      y: 1071
+      width: 285
+      height: 300
+    spriteID: 7bef1edd144c5f84484029e848fa47bf
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1446, y: 1071}
+    spritePosition: {x: 2382, y: 1298}
+  - name: O_Hand_Orange
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1739
+      y: 1071
+      width: 272
+      height: 263
+    spriteID: 0c838dfc28db31a47ac131ac530286f1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1739, y: 1071}
+    spritePosition: {x: 2213, y: 607}
+  - name: O_Sweat 1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1292
+      y: 2613
+      width: 90
+      height: 68
+    spriteID: a7ddce6ecc93ae94e8aa23aebedb4de1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1292, y: 2613}
+    spritePosition: {x: 1355, y: 1213}
+  - name: O_Sweat 2
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1591
+      y: 2023
+      width: 91
+      height: 62
+    spriteID: bf47763721f64d34c8a689af7bbb8fec
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1591, y: 2023}
+    spritePosition: {x: 1377, y: 1334}
+  - name: O_Hand_Blue
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1739
+      y: 1342
+      width: 272
+      height: 263
+    spriteID: d6f08dc8645dbfc47a9543d6017c372e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1739, y: 1342}
+    spritePosition: {x: 1531, y: 1132}
+  - name: O_Spoon
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 2962
+      width: 608
+      height: 380
+    spriteID: 8028aedc98ada1f438ce48d998b25b31
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 2962}
+    spritePosition: {x: 1299, y: 1162}
+  - name: O_Hat
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1450
+      y: 2106
+      width: 495
+      height: 524
+    spriteID: c718a947f271fd043ab973dd1134ede1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1450, y: 2106}
+    spritePosition: {x: 1625, y: 1208}
+  - name: O_Portrait
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1446
+      y: 1379
+      width: 281
+      height: 282
+    spriteID: ea434a8390b04414b899448b22174c82
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1446, y: 1379}
+    spritePosition: {x: 1215, y: 501}
+  - name: O_Frame
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 1460
+      height: 1059
+    spriteID: 56c60e9f6d04bda4ab45c96170815aa7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+    spritePosition: {x: 1280, y: 575}
+  - name: Food1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1591
+      y: 1936
+      width: 76
+      height: 79
+    spriteID: 137c2487aaf2cbd4d971b8e2f5bc88d4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1591, y: 1936}
+    spritePosition: {x: 1686, y: 899}
+  - name: Food2
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1763
+      y: 2721
+      width: 73
+      height: 73
+    spriteID: c0168b1205c453c47ad690163cf8f053
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1763, y: 2721}
+    spritePosition: {x: 1919, y: 738}
+  - name: Food3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1472
+      y: 4
+      width: 351
+      height: 179
+    spriteID: 44d76d45b10c07a4186f831c4cc0613b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1472, y: 4}
+    spritePosition: {x: 1377, y: 775}
+  - name: Food4
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1446
+      y: 1669
+      width: 283
+      height: 259
+    spriteID: 149fccbdc6d4e1c489b57e0d43399a66
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1446, y: 1669}
+    spritePosition: {x: 1436, y: 846}
+  - name: Food5
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1446
+      y: 1936
+      width: 137
+      height: 130
+    spriteID: f2321fc8c52682446b28012dd18c21d7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1446, y: 1936}
+    spritePosition: {x: 1732, y: 783}
+  - name: O_plate
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 727
+      y: 2613
+      width: 557
+      height: 86
+    spriteID: 21ca0abad5b530e4c9a2553c7299b5cf
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 727, y: 2613}
+    spritePosition: {x: 1351, y: 745}
+  - name: O_Table
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 2721
+      width: 1751
+      height: 233
+    spriteID: 8d97de9691bc27b40a416a7ef39dff7c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 2721}
+    spritePosition: {x: 1116, y: 542}
+  - name: O_Background
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1071
+      width: 1434
+      height: 1027
+    spriteID: f6524f05133d36046ab1a891f713f82a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1071}
+    spritePosition: {x: 1293, y: 591}
+  - name: Symbol_Dialog
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 727
+      y: 2106
+      width: 715
+      height: 499
+    spriteID: 7e07822485e51e247b0b8bb56eabc6af
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 727, y: 2106}
+    spritePosition: {x: 1065, y: 320}
+  characterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    pivot: {x: 0, y: 0}
+    boneReadOnly: 0
+  sharedRigSpriteImportData: []
+  sharedRigCharacterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    pivot: {x: 0, y: 0}
+    boneReadOnly: 0
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  mosaicLayers: 1
+  characterMode: 1
+  documentPivot: {x: 0, y: 0}
+  documentAlignment: 7
+  importHiddenLayers: 0
+  layerMappingOption: 2
+  generatePhysicsShape: 0
+  paperDollMode: 0
+  keepDupilcateSpriteName: 1
+  skeletonAssetReferenceID: 
+  pipeline: {instanceID: 0}
+  pipelineVersion: 
+  padding: 4
+  spriteSizeExpand: 0
+  spriteCategoryList:
+    categories: []
+  spritePackingTag: 
+  resliceFromLayer: 0
+  mosaicPSDLayers: []
+  rigPSDLayers:
+  - name: O_shit
+    spriteName: O_shit
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 0f998627d64591b4591b8faabe7d52d5
+    layerID: 128
+    mosaicPosition: {x: 4, y: 2106}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: O_Angry
+    spriteName: O_Angry
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 7bef1edd144c5f84484029e848fa47bf
+    layerID: 80
+    mosaicPosition: {x: 1446, y: 1071}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: O_Hand_Orange
+    spriteName: O_Hand_Orange
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 0c838dfc28db31a47ac131ac530286f1
+    layerID: 62
+    mosaicPosition: {x: 1739, y: 1071}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Hand Blue
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 6f7cb830a797c5d449b1d7f9d22e5ca8
+    layerID: 89
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: O_Sweat 1
+    spriteName: O_Sweat 1
+    isGroup: 0
+    parentIndex: 3
+    spriteID: a7ddce6ecc93ae94e8aa23aebedb4de1
+    layerID: 91
+    mosaicPosition: {x: 1292, y: 2613}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: O_Sweat 2
+    spriteName: O_Sweat 2
+    isGroup: 0
+    parentIndex: 3
+    spriteID: bf47763721f64d34c8a689af7bbb8fec
+    layerID: 79
+    mosaicPosition: {x: 1591, y: 2023}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: O_Hand_Blue
+    spriteName: O_Hand_Blue
+    isGroup: 0
+    parentIndex: 3
+    spriteID: d6f08dc8645dbfc47a9543d6017c372e
+    layerID: 61
+    mosaicPosition: {x: 1739, y: 1342}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: O_Spoon
+    spriteName: O_Spoon
+    isGroup: 0
+    parentIndex: 3
+    spriteID: 8028aedc98ada1f438ce48d998b25b31
+    layerID: 68
+    mosaicPosition: {x: 4, y: 2962}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: O_Hat
+    spriteName: O_Hat
+    isGroup: 0
+    parentIndex: 3
+    spriteID: c718a947f271fd043ab973dd1134ede1
+    layerID: 60
+    mosaicPosition: {x: 1450, y: 2106}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: O_Portrait
+    spriteName: O_Portrait
+    isGroup: 0
+    parentIndex: -1
+    spriteID: ea434a8390b04414b899448b22174c82
+    layerID: 102
+    mosaicPosition: {x: 1446, y: 1379}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: O_Frame
+    spriteName: O_Frame
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 56c60e9f6d04bda4ab45c96170815aa7
+    layerID: 51
+    mosaicPosition: {x: 4, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Food
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 6b07696083fc7b649877a24b562cf818
+    layerID: 110
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Food1
+    spriteName: Food1
+    isGroup: 0
+    parentIndex: 11
+    spriteID: 137c2487aaf2cbd4d971b8e2f5bc88d4
+    layerID: 113
+    mosaicPosition: {x: 1591, y: 1936}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Food2
+    spriteName: Food2
+    isGroup: 0
+    parentIndex: 11
+    spriteID: c0168b1205c453c47ad690163cf8f053
+    layerID: 112
+    mosaicPosition: {x: 1763, y: 2721}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Food3
+    spriteName: Food3
+    isGroup: 0
+    parentIndex: 11
+    spriteID: 44d76d45b10c07a4186f831c4cc0613b
+    layerID: 105
+    mosaicPosition: {x: 1472, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Food4
+    spriteName: Food4
+    isGroup: 0
+    parentIndex: 11
+    spriteID: 149fccbdc6d4e1c489b57e0d43399a66
+    layerID: 107
+    mosaicPosition: {x: 1446, y: 1669}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Food5
+    spriteName: Food5
+    isGroup: 0
+    parentIndex: 11
+    spriteID: f2321fc8c52682446b28012dd18c21d7
+    layerID: 103
+    mosaicPosition: {x: 1446, y: 1936}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: O_plate
+    spriteName: O_plate
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 21ca0abad5b530e4c9a2553c7299b5cf
+    layerID: 25
+    mosaicPosition: {x: 727, y: 2613}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: O_Table
+    spriteName: O_Table
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 8d97de9691bc27b40a416a7ef39dff7c
+    layerID: 24
+    mosaicPosition: {x: 4, y: 2721}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: O_Background
+    spriteName: O_Background
+    isGroup: 0
+    parentIndex: -1
+    spriteID: f6524f05133d36046ab1a891f713f82a
+    layerID: 23
+    mosaicPosition: {x: 4, y: 1071}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Symbol_Dialog
+    spriteName: Symbol_Dialog
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 7e07822485e51e247b0b8bb56eabc6af
+    layerID: 78
+    mosaicPosition: {x: 727, y: 2106}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  sharedRigPSDLayers: []
+  pSDLayerImportSetting: []
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  spriteSizeExpandChanged: 0
+  generateGOHierarchy: 1
+  textureAssetName: 
+  prefabAssetName: 
+  spriteLibAssetName: 
+  skeletonAssetName: 
+  secondarySpriteTextures: []
