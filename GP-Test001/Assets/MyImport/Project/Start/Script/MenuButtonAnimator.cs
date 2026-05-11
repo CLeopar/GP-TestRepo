@@ -5,7 +5,7 @@ using DG.Tweening;
 public class MenuButtonAnimator : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("开场动画")]
-    [SerializeField] private float appearDelay = 0f;
+    [SerializeField] private float appearDelay;
     [SerializeField] private float slideUpDistance = 60f;
     [SerializeField] private float slideDuration = 0.5f;
     [SerializeField] private float fadeDuration = 0.4f;
@@ -16,8 +16,8 @@ public class MenuButtonAnimator : MonoBehaviour, IPointerEnterHandler, IPointerE
     [SerializeField] private float shakeDuration = 0.6f;
 
     [Header("Hover 交互")]
-    [SerializeField] private float hoverScale = 1.08f;
-    [SerializeField] private float hoverScaleDuration = 0.15f;
+    //[SerializeField] private float hoverScale = 1.08f;
+    //[SerializeField] private float hoverScaleDuration = 0.15f;
     [SerializeField] private float snapBackDuration = 0.12f;
 
     private RectTransform rectTransform;

@@ -10,6 +10,11 @@ using DG.Tweening;
 ///   - 微微缩放呼吸
 ///   - 轻微旋转摇摆（可选）
 ///   - 每个参数随机偏移，多个图片同时使用时不会完全同步，更自然
+///
+/// 注意：
+///   - 使用 OnEnable/OnDisable 管理动画，支持父物体隐藏后重新显示
+///   - 所有 Tween 使用 SetUpdate(true)，暂停游戏（timeScale=0）时仍可播放
+///   - 如果不希望暂停时继续漂浮，把所有 SetUpdate(true) 去掉即可
 /// </summary>
 public class FloatingUI : MonoBehaviour
 {
@@ -31,7 +36,7 @@ public class FloatingUI : MonoBehaviour
     [Tooltip("是否启用缩放呼吸效果")]
     [SerializeField] private bool enableScale = true;
 
-    [Tooltip("缩放的最大幅度（例如 0.06 表示在原始大小 ±6% 之间变化）")]
+    [Tooltip("缩放的最大幅度（例如 0.06 = 原始大小 ±6% 之间变化）")]
     [SerializeField] private float scaleMagnitude = 0.06f;
 
     [Tooltip("一次缩放呼吸的持续时间（秒），建议与 floatDuration 接近但不完全相同以产生错位感")]
@@ -46,7 +51,7 @@ public class FloatingUI : MonoBehaviour
     [Tooltip("是否启用轻微旋转摇摆")]
     [SerializeField] private bool enableRotation = false;
 
-    [Tooltip("旋转摇摆的最大角度")]
+    [Tooltip("旋转摇摆的最大角度（度）")]
     [SerializeField] private float rotationMagnitude = 3f;
 
     [Tooltip("一次旋转来回的持续时间（秒）")]
@@ -77,17 +82,35 @@ public class FloatingUI : MonoBehaviour
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+    }
+
+    private void OnEnable()
+    {
+        // 每次启用时重新记录原始状态
+        // 确保父物体隐藏后重新显示时，动画从正确的位置开始
         originalPosition = rectTransform.anchoredPosition;
         originalScale    = rectTransform.localScale;
         originalRotation = rectTransform.localEulerAngles;
+
+        float delay = Random.Range(0f, randomDelayRange);
+        DOVirtual.DelayedCall(delay, StartFloating, ignoreTimeScale: true);
     }
 
-    private void Start()
+    private void OnDisable()
     {
-        // 随机延迟，让多个漂浮图片的节奏错开
-        float delay = Random.Range(0f, randomDelayRange);
+        // 停止所有 Tween
+        floatTween?.Kill();
+        scaleTween?.Kill();
+        rotationTween?.Kill();
+        DOTween.Kill(rectTransform);
 
-        DOVirtual.DelayedCall(delay, StartFloating, ignoreTimeScale: false);
+        // 归位，防止下次启用时位置错乱
+        if (rectTransform != null)
+        {
+            rectTransform.anchoredPosition = originalPosition;
+            rectTransform.localScale       = originalScale;
+            rectTransform.localEulerAngles = originalRotation;
+        }
     }
 
     // ─── 启动所有动画 ─────────────────────────────────────────────────────────
@@ -109,11 +132,11 @@ public class FloatingUI : MonoBehaviour
     {
         floatTween?.Kill();
 
-        // 在原始位置基础上上下来回漂浮
         floatTween = rectTransform
             .DOAnchorPosY(originalPosition.y + floatDistance, floatDuration)
             .SetEase(floatEase)
-            .SetLoops(-1, LoopType.Yoyo); // Yoyo = 上去再回来，无限循环
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetUpdate(true);
     }
 
     // ─── 缩放呼吸 ─────────────────────────────────────────────────────────────
@@ -127,7 +150,8 @@ public class FloatingUI : MonoBehaviour
         scaleTween = rectTransform
             .DOScale(targetScale, scaleDuration)
             .SetEase(scaleEase)
-            .SetLoops(-1, LoopType.Yoyo);
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetUpdate(true);
     }
 
     // ─── 旋转摇摆 ─────────────────────────────────────────────────────────────
@@ -136,15 +160,19 @@ public class FloatingUI : MonoBehaviour
     {
         rotationTween?.Kill();
 
-        Vector3 targetRotation = originalRotation + new Vector3(0f, 0f, rotationMagnitude);
-
+        // RotateMode.FastBeyond360 防止 DOTween 自动走最短路径导致方向错误
         rotationTween = rectTransform
-            .DORotate(targetRotation, rotationDuration)
+            .DOLocalRotate(
+                originalRotation + new Vector3(0f, 0f, rotationMagnitude),
+                rotationDuration,
+                RotateMode.FastBeyond360
+            )
             .SetEase(rotationEase)
-            .SetLoops(-1, LoopType.Yoyo);
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetUpdate(true);
     }
 
-    // ─── 对外接口（需要时可暂停/恢复漂浮）────────────────────────────────────
+    // ─── 对外接口 ─────────────────────────────────────────────────────────────
 
     /// <summary>暂停所有漂浮动画，图片停在当前位置。</summary>
     public void PauseFloat()
@@ -172,9 +200,17 @@ public class FloatingUI : MonoBehaviour
         scaleTween?.Kill();
         rotationTween?.Kill();
 
-        rectTransform.DOAnchorPos(originalPosition, duration).SetEase(Ease.OutSine);
-        rectTransform.DOScale(originalScale, duration).SetEase(Ease.OutSine);
-        rectTransform.DORotate(originalRotation, duration).SetEase(Ease.OutSine);
+        rectTransform.DOAnchorPos(originalPosition, duration)
+                     .SetEase(Ease.OutSine)
+                     .SetUpdate(true);
+
+        rectTransform.DOScale(originalScale, duration)
+                     .SetEase(Ease.OutSine)
+                     .SetUpdate(true);
+
+        rectTransform.DOLocalRotate(originalRotation, duration, RotateMode.FastBeyond360)
+                     .SetEase(Ease.OutSine)
+                     .SetUpdate(true);
     }
 
     // ─── 清理 ─────────────────────────────────────────────────────────────────
