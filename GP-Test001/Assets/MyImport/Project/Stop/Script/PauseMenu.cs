@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 /// <summary>
 /// 暂停菜单控制器
@@ -69,6 +70,13 @@ public class PauseMenu : MonoBehaviour
 
     // ──────────────────────────────────────────────────────────────────────────
 
+    [Header("开场动画")]
+    [SerializeField] private Image backgroundImage; // 替换掉 backgroundCanvasGroup // Background 的 CanvasGroup
+    [SerializeField] private RectTransform topGroup;            // 上方 UI 元素的父物体
+    [SerializeField] private RectTransform bottomGroup;         // 下方 UI 元素的父物体
+    [SerializeField] private float animDuration = 0.4f;        // 动画时长
+    [SerializeField] private float slideDistance = 80f;        // 滑入距离（像素）
+    
     private void Awake()
     {
         // 单例设置
@@ -106,13 +114,48 @@ public class PauseMenu : MonoBehaviour
     {
         currentLevelIndex = levelIndex;
         gameObject.SetActive(true);
-        Time.timeScale = 0f; // 暂停游戏时间
+        Time.timeScale = 0f;
 
-        // 确保操作提示子面板关闭（防止上次没关就又打开）
         if (hintsOverlay != null)
             hintsOverlay.SetActive(false);
+
+        PlayOpenAnimation();
     }
 
+    private void PlayOpenAnimation()
+    {
+        // ── Background 淡入 ──────────────────────────────────────────
+        if (backgroundImage != null)
+        {
+            Color c = backgroundImage.color;
+            c.a = 0f;
+            backgroundImage.color = c;
+
+            backgroundImage.DOFade(0.9f, animDuration).SetUpdate(true);
+        }
+
+        // ── 上方元素从上滑入 ─────────────────────────────────────────
+        if (topGroup != null)
+        {
+            Vector2 originalPos = topGroup.anchoredPosition;
+            topGroup.anchoredPosition = originalPos + Vector2.up * slideDistance;
+
+            topGroup.DOAnchorPos(originalPos, animDuration)
+                .SetEase(Ease.OutCubic)
+                .SetUpdate(true);
+        }
+
+        // ── 下方元素从下滑入 ─────────────────────────────────────────
+        if (bottomGroup != null)
+        {
+            Vector2 originalPos = bottomGroup.anchoredPosition;
+            bottomGroup.anchoredPosition = originalPos + Vector2.down * slideDistance;
+
+            bottomGroup.DOAnchorPos(originalPos, animDuration)
+                .SetEase(Ease.OutCubic)
+                .SetUpdate(true);
+        }
+    }
     /// <summary>
     /// 关闭暂停菜单，恢复游戏时间。
     /// </summary>
