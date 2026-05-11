@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 3-4
+  m_Name: L2_Close
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -23,16 +23,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -125.321
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: -74.028
+        value: -723.71436
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -42,8 +33,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_AnchoredPosition.x
-    path: "\u5DF2\u5B8C\u6210\u5E95"
+    attribute: m_AnchoredPosition.y
+    path: LevelCount
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -53,16 +44,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 372.361
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 474.949
+        value: -636
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -72,8 +54,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_SizeDelta.x
-    path: "\u5DF2\u5B8C\u6210\u5E95"
+    attribute: m_AnchoredPosition.y
+    path: Timer
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -86,8 +68,8 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 439214805
-      attribute: 1460864421
+      path: 1061544892
+      attribute: 538195251
       script: {fileID: 0}
       typeID: 224
       customType: 28
@@ -95,8 +77,8 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 439214805
-      attribute: 1967290853
+      path: 2870079774
+      attribute: 538195251
       script: {fileID: 0}
       typeID: 224
       customType: 28
@@ -109,7 +91,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1
+    m_StopTime: 0
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -131,16 +113,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -125.321
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: -74.028
+        value: -723.71436
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -150,8 +123,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_AnchoredPosition.x
-    path: "\u5DF2\u5B8C\u6210\u5E95"
+    attribute: m_AnchoredPosition.y
+    path: LevelCount
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -161,16 +134,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 372.361
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 474.949
+        value: -636
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -180,8 +144,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_SizeDelta.x
-    path: "\u5DF2\u5B8C\u6210\u5E95"
+    attribute: m_AnchoredPosition.y
+    path: Timer
     classID: 224
     script: {fileID: 0}
     flags: 0

@@ -7,9 +7,46 @@ using UnityEngine;
 /// </summary>
 public class IntroManager : MonoBehaviour
 {
-    [Header("Animator")]
-    [SerializeField] private Animator introAnimator;
-    [SerializeField] private string introStateName = "Intro";
+    // ──────────────────────────────────────────────
+    // 内部数据结构
+    // ──────────────────────────────────────────────
+
+    [System.Serializable]
+    public class AnimatorEntry
+    {
+        [Tooltip("是否启用该动画机")]
+        public bool enabled = true;
+
+        public Animator animator;
+
+        [Tooltip("要触发的 Trigger 参数名")]
+        public string triggerName = "PlayIntro";
+
+        [Tooltip("从 Intro 开始后，等待多少秒再触发该 Trigger")]
+        [Min(0f)]
+        public float delayBeforeTrigger = 0f;
+
+        [Tooltip("触发后，等待多少秒视为该动画机播完（用于计算总时长）")]
+        [Min(0f)]
+        public float estimatedDuration = 1f;
+    }
+
+    [System.Serializable]
+    public class SfxEntry
+    {
+        public float triggerTime;
+        public AudioClip clip;
+        [Range(0f, 1f)]
+        public float volume = 1f;
+    }
+
+    // ──────────────────────────────────────────────
+    // Inspector 字段
+    // ──────────────────────────────────────────────
+
+    [Header("Animators")]
+    [Tooltip("可配置多个动画机，每个可单独开关、单独设置延迟与时长")]
+    [SerializeField] private AnimatorEntry[] animatorEntries;
 
     [Header("Audio - BGM")]
     [SerializeField] private AudioSource bgmSource;
@@ -25,20 +62,19 @@ public class IntroManager : MonoBehaviour
     [Tooltip("开头结束后要隐藏的根 GameObject")]
     [SerializeField] private GameObject introRoot;
 
-    [System.Serializable]
-    public class SfxEntry
-    {
-        public float triggerTime;
-        public AudioClip clip;
-        [Range(0f, 1f)]
-        public float volume = 1f;
-    }
+    // ──────────────────────────────────────────────
+    // 公开接口
+    // ──────────────────────────────────────────────
 
     /// <summary>由 TutorialManager 调用（无论教程开关开启还是关闭）。</summary>
     public void StartIntro()
     {
         StartCoroutine(RunIntro());
     }
+
+    // ──────────────────────────────────────────────
+    // 核心流程
+    // ──────────────────────────────────────────────
 
     private IEnumerator RunIntro()
     {
@@ -47,6 +83,7 @@ public class IntroManager : MonoBehaviour
         if (GameManager.Instance != null)
             GameManager.Instance.ShowPromptForCurrentLevel();
 
+        // ── BGM ──────────────────────────────────
         if (bgmSource != null && bgmClip != null)
         {
             bgmSource.clip   = bgmClip;
@@ -55,27 +92,58 @@ public class IntroManager : MonoBehaviour
             bgmSource.Play();
         }
 
-        float introDuration = 0f;
+        // ── 动画机：各自独立延迟触发 Trigger ─────
+        float maxFinishTime = 0f;
 
-        if (introAnimator != null)
+        if (animatorEntries != null)
         {
-            introAnimator.Play(introStateName, 0, 0f);
-            yield return null;
-            introDuration = introAnimator.GetCurrentAnimatorStateInfo(0).length;
+            foreach (AnimatorEntry entry in animatorEntries)
+            {
+                if (!entry.enabled || entry.animator == null)
+                    continue;
+
+                // 每个动画机启动独立协程，到时间后触发 Trigger
+                StartCoroutine(TriggerAfterDelay(entry));
+
+                // 该动画机预计完成的绝对时间 = 延迟 + 估算时长
+                float finishTime = entry.delayBeforeTrigger + entry.estimatedDuration;
+                if (finishTime > maxFinishTime)
+                    maxFinishTime = finishTime;
+            }
         }
 
+        // ── SFX 序列 ─────────────────────────────
         if (sfxEntries != null && sfxEntries.Length > 0 && sfxSource != null)
             StartCoroutine(PlaySfxSequence(sfxEntries));
 
-        if (introDuration > 0f)
-            yield return new WaitForSeconds(introDuration);
+        // ── 等待所有动画机均播完 ──────────────────
+        if (maxFinishTime > 0f)
+            yield return new WaitForSeconds(maxFinishTime);
 
+        // ── 收尾 ─────────────────────────────────
         if (introRoot != null)
             introRoot.SetActive(false);
 
         if (GameManager.Instance != null)
             GameManager.Instance.StartGame();
     }
+
+    // ──────────────────────────────────────────────
+    // 动画机延迟触发协程
+    // ──────────────────────────────────────────────
+
+    private IEnumerator TriggerAfterDelay(AnimatorEntry entry)
+    {
+        if (entry.delayBeforeTrigger > 0f)
+            yield return new WaitForSeconds(entry.delayBeforeTrigger);
+
+        if (entry.animator != null && !string.IsNullOrEmpty(entry.triggerName))
+            entry.animator.SetTrigger(entry.triggerName);
+    }
+
+    // ──────────────────────────────────────────────
+    // SFX 辅助协程
+    // ──────────────────────────────────────────────
 
     private IEnumerator PlaySfxSequence(SfxEntry[] entries)
     {

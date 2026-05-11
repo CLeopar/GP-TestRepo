@@ -21,9 +21,18 @@ public class GameManager : MonoBehaviour
         [HideInInspector] public float similarity = 0f;
         public string promptString;
 
-        public string enterTrigger = "Enter";
-        public string exitTrigger = "Exit";
-        public PolygonZone zone = new PolygonZone();
+        public string      enterTrigger = "Enter";
+        public string      exitTrigger  = "Exit";
+        public PolygonZone zone         = new PolygonZone();
+
+        [Tooltip("该关卡占总分的权重（所有关卡权重之和建议为 700）")]
+        public float scoreWeight = 140f;
+
+        [Tooltip("必须触碰区域列表：将场景中挂有 RequiredZone 组件的 GameObject 拖入")]
+        public RequiredZone[] requiredZones;
+
+        [Tooltip("组成身体的所有部位 RectTransform（用于必须触碰区域检测）")]
+        public RectTransform[] bodyParts;
 
         public void Init()
         {
@@ -81,13 +90,13 @@ public class GameManager : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] private float countdownVolume = 1f;
     [SerializeField] private AudioSource countdownAudioSource;
-    [SerializeField] private float countdownPunchScale = 0.4f;
+    [SerializeField] private float countdownPunchScale    = 0.4f;
     [SerializeField] private float countdownPunchDuration = 0.35f;
-    [SerializeField] private float ghostScaleMultiplier = 2.5f;
-    [SerializeField] private float ghostDuration = 0.5f;
+    [SerializeField] private float ghostScaleMultiplier   = 2.5f;
+    [SerializeField] private float ghostDuration          = 0.5f;
 
     [Header("Flow Time")]
-    [SerializeField] private float enterWaitTime = 1.0f;
+    [SerializeField] private float enterWaitTime     = 1.0f;
     [SerializeField] private float betweenLevelDelay = 2.0f;
 
     [Header("Capture")]
@@ -96,7 +105,7 @@ public class GameManager : MonoBehaviour
     [Header("Animator")]
     [SerializeField] private Animator targetAnimator;
     [SerializeField] private Animator levelTransitionAnimator;
-    [SerializeField] private string levelTransitionTrigger = "Enter";
+    [SerializeField] private string   levelTransitionTrigger = "Enter";
 
     [Header("Level")]
     [SerializeField] private List<Level> levelList;
@@ -112,34 +121,59 @@ public class GameManager : MonoBehaviour
     [Header("Completion UI")]
     [SerializeField] private TMP_Text completionText;
     [SerializeField] private Animator completionTextAnimator;
-    [SerializeField] private string completionNextLevelTrigger = "Next";
-    [SerializeField] private float completionShowDelay = 0.5f;
-    [SerializeField] private float completionCountDuration = 0.8f;
+    [SerializeField] private string   completionNextLevelTrigger = "Next";
+    [SerializeField] private float    completionShowDelay        = 0.5f;
+    [SerializeField] private float    completionCountDuration    = 0.8f;
     [Tooltip("百分比动画最短播放时长")]
     [SerializeField] private float completionCountDurationMin = 0.3f;
-    [SerializeField] private float completionTriggerDelay = 1.0f;
-    [SerializeField] private string completionFinishTrigger = "Finish";
-    [SerializeField] private float completionScaleMin = 0.8f;
-    [SerializeField] private float completionScaleMax = 2.0f;
+    [SerializeField] private float completionTriggerDelay     = 1.0f;
+    [SerializeField] private string completionFinishTrigger   = "Finish";
+    [SerializeField] private float  completionScaleMin        = 0.8f;
+    [SerializeField] private float  completionScaleMax        = 2.0f;
     [Tooltip("结算页面最短停留时间（秒）")]
     [SerializeField] private float completionMinDisplayTime = 8f;
 
+    [Header("Total Score UI")]
+    [Tooltip("始终显示在关卡上的总分文本")]
+    [SerializeField] private TMP_Text totalScoreText;
+    [Tooltip("completionFinishTrigger 触发后，延迟多少秒再开始滚动总分")]
+    [SerializeField] private float totalScoreDelay = 1.5f;
+    [Tooltip("总分滚动动画时长（秒）")]
+    [SerializeField] private float totalScoreCountDuration = 0.6f;
+    [Tooltip("总分满分值（仅用于显示参考）")]
+    [SerializeField] private float totalScoreMax = 700f;
+    [Tooltip("总分滚动时每次数字变化的抖动强度")]
+    [SerializeField] private float totalScorePunchScale = 0.15f;
+    [Tooltip("总分滚动时每次数字变化的抖动时长")]
+    [SerializeField] private float totalScorePunchDuration = 0.12f;
+    [Tooltip("总分每跳动一次播放的音效")]
+    [SerializeField] private AudioClip totalScoreTickSound;
+    [Tooltip("总分音效音量")]
+    [Range(0f, 1f)]
+    [SerializeField] private float totalScoreTickVolume = 0.8f;
+    [Tooltip("总分音效音调范围下限")]
+    [SerializeField] private float totalScoreTickPitchMin = 0.9f;
+    [Tooltip("总分音效音调范围上限")]
+    [SerializeField] private float totalScoreTickPitchMax = 1.3f;
+    [Tooltip("总分音效 AudioSource（留空则自动创建）")]
+    [SerializeField] private AudioSource totalScoreAudioSource;
+
     [Header("Milestone Punch")]
     public int milestoneInterval = 10;
-    [SerializeField] private float punchDuration = 0.22f;
+    [SerializeField] private float punchDuration      = 0.22f;
     [SerializeField] private float punchDurationAt100 = 0.55f;
     [SerializeField] private float punchRotationAngle = 9f;
-    [SerializeField] private float punchScaleAmount = 0.28f;
+    [SerializeField] private float punchScaleAmount   = 0.28f;
 
     [Header("Score Sound")]
-    [SerializeField] private AudioClip tickSound;
-    [SerializeField] private float tickPitchMin = 0.8f;
-    [SerializeField] private float tickPitchMax = 2.0f;
+    [SerializeField] private AudioClip   tickSound;
+    [SerializeField] private float       tickPitchMin = 0.8f;
+    [SerializeField] private float       tickPitchMax = 2.0f;
     [SerializeField] private AudioSource tickAudioSource;
 
     [Header("Milestone Sounds (Per Percent)")]
     [SerializeField] private MilestoneSound[] milestoneSounds;
-    [SerializeField] private AudioSource milestoneAudioSource;
+    [SerializeField] private AudioSource      milestoneAudioSource;
 
     [Header("Score Grades")]
     public ScoreGrade[] scoreGrades;
@@ -147,20 +181,20 @@ public class GameManager : MonoBehaviour
     [System.Serializable]
     public class ScoreGrade
     {
-        public int threshold;
+        public int          threshold;
         public GameObject[] objects;
     }
 
     [Header("Results Screen")]
     [SerializeField] private GameObject resultsPanel;
-    [SerializeField] private Image[] resultsImages;
+    [SerializeField] private Image[]    resultsImages;
 
     [Header("Game Over")]
     [SerializeField] private UnityEvent onAllLevelsComplete;
 
     [Header("Tutorial")]
     [Tooltip("开启后：第一关使用固定关卡，其余随机抽选；关闭则全部随机（原逻辑）")]
-    [SerializeField] private bool enableTutorial = false;
+    [SerializeField] private bool  enableTutorial = false;
     [Tooltip("固定的第一关 Level（enableTutorial 开启时使用）")]
     [SerializeField] private Level fixedFirstLevel;
     [Tooltip("教程弹窗的根 GameObject（显示/隐藏整体）")]
@@ -169,25 +203,26 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image[] tutorialImages;
 
     // ───────────────────────── Runtime ─────────────────────────
-    private float timer;
-    private float timerImageInitialWidth;
-    private float currentLevelTime;
-    private int currentLevel;
+    private float       timer;
+    private float       timerImageInitialWidth;
+    private float       currentLevelTime;
+    private int         currentLevel;
     private List<Level> activeLevels = new();
 
     private readonly List<Texture2D> capturedTextures = new();
-    private readonly List<Sprite> capturedSprites = new();
+    private readonly List<Sprite>    capturedSprites  = new();
 
     private float _scoreCurrentPercent;
-    private bool _scoreAnimRunning;
-
-    // BGM 淡入淡出 tween 缓存，防止重叠
+    private bool  _scoreAnimRunning;
     private Tween _bgmFadeTween;
 
+    private float _totalScore;
+    private Tween _totalScoreTween;
+
     public IReadOnlyList<Texture2D> CapturedTextures => capturedTextures;
-    public IReadOnlyList<Sprite> CapturedSprites => capturedSprites;
-    public List<Level> LevelList => levelList;
-    public int CurrentLevel => currentLevel;
+    public IReadOnlyList<Sprite>    CapturedSprites  => capturedSprites;
+    public List<Level>              LevelList        => levelList;
+    public int                      CurrentLevel     => currentLevel;
 
     private void Awake() => Instance = this;
 
@@ -199,30 +234,30 @@ public class GameManager : MonoBehaviour
         if (tickAudioSource == null)
         {
             tickAudioSource = gameObject.AddComponent<AudioSource>();
-            tickAudioSource.playOnAwake = false;
+            tickAudioSource.playOnAwake  = false;
             tickAudioSource.spatialBlend = 0f;
         }
 
         if (milestoneAudioSource == null)
         {
             milestoneAudioSource = gameObject.AddComponent<AudioSource>();
-            milestoneAudioSource.playOnAwake = false;
+            milestoneAudioSource.playOnAwake  = false;
             milestoneAudioSource.spatialBlend = 0f;
         }
 
         if (countdownAudioSource == null)
         {
             countdownAudioSource = gameObject.AddComponent<AudioSource>();
-            countdownAudioSource.playOnAwake = false;
+            countdownAudioSource.playOnAwake  = false;
             countdownAudioSource.spatialBlend = 0f;
         }
 
         if (gameplayBgmSource == null)
         {
             gameplayBgmSource = gameObject.AddComponent<AudioSource>();
-            gameplayBgmSource.playOnAwake = false;
+            gameplayBgmSource.playOnAwake  = false;
             gameplayBgmSource.spatialBlend = 0f;
-            gameplayBgmSource.loop = true;
+            gameplayBgmSource.loop         = true;
         }
 
         foreach (var level in levelList)
@@ -235,7 +270,12 @@ public class GameManager : MonoBehaviour
         // ── 构建 activeLevels ──────────────────────────────────
         if (enableTutorial && fixedFirstLevel != null && fixedFirstLevel.levelObj != null)
         {
-            // 固定第一关，其余从 levelList 中排除固定关卡后随机抽选
+            if (!levelList.Contains(fixedFirstLevel))
+            {
+                fixedFirstLevel.Init();
+                fixedFirstLevel.levelObj.SetActive(false);
+            }
+
             var pool = levelList
                 .Where(l => l != null && l.levelObj != null && l != fixedFirstLevel)
                 .OrderBy(_ => Random.value)
@@ -247,7 +287,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // 原逻辑：全部随机
             activeLevels = levelList
                 .Where(l => l != null && l.levelObj != null)
                 .OrderBy(_ => Random.value)
@@ -257,6 +296,17 @@ public class GameManager : MonoBehaviour
 
         currentLevel = 0;
         FillAllPromptTexts();
+
+        // ── 总分初始化 ─────────────────────────────────────────
+        _totalScore = 0f;
+        if (totalScoreText != null)
+            totalScoreText.text = "0";
+        if (totalScoreAudioSource == null)
+        {
+            totalScoreAudioSource = gameObject.AddComponent<AudioSource>();
+            totalScoreAudioSource.playOnAwake  = false;
+            totalScoreAudioSource.spatialBlend = 0f;
+        }
     }
 
     private float GetLevelTime(int positionIndex)
@@ -319,7 +369,6 @@ public class GameManager : MonoBehaviour
         if (enterWaitTime > 0f)
             yield return new WaitForSeconds(enterWaitTime);
 
-        // ── 第一关 + 教程开启：先显示教程弹窗，结束后再开始倒计时 ──
         if (currentLevel == 0 && enableTutorial)
             yield return StartCoroutine(ShowTutorialPanel());
 
@@ -376,7 +425,7 @@ public class GameManager : MonoBehaviour
         {
             completionText.gameObject.SetActive(false);
             completionText.text = "0%";
-            completionText.transform.localScale = Vector3.one * completionScaleMin;
+            completionText.transform.localScale    = Vector3.one * completionScaleMin;
             completionText.transform.localRotation = Quaternion.identity;
         }
 
@@ -385,15 +434,11 @@ public class GameManager : MonoBehaviour
 
     // ── 教程弹窗 ───────────────────────────────────────────────
 
-    /// <summary>
-    /// 逐张显示 tutorialImages，每次按任意键/鼠标键翻到下一张，全部看完后隐藏弹窗。
-    /// </summary>
     private IEnumerator ShowTutorialPanel()
     {
         if (tutorialPanel == null || tutorialImages == null || tutorialImages.Length == 0)
             yield break;
 
-        // 先隐藏所有图片，再显示弹窗根节点
         foreach (var img in tutorialImages)
             if (img != null) img.gameObject.SetActive(false);
 
@@ -413,10 +458,6 @@ public class GameManager : MonoBehaviour
         tutorialPanel.SetActive(false);
     }
 
-    /// <summary>
-    /// 等待玩家按下任意键盘键或鼠标键（左/中/右键）。
-    /// 在帧末尾采样，避免触发本协程的同一帧输入被立即消费。
-    /// </summary>
     private IEnumerator WaitForAnyInput()
     {
         yield return new WaitForEndOfFrame();
@@ -455,10 +496,10 @@ public class GameManager : MonoBehaviour
 
     // ── 工具方法 ───────────────────────────────────────────────
 
-    private void TriggerAnimator(Animator animator, string trigger)
+    private void TriggerAnimator(Animator anim, string trigger)
     {
-        if (animator == null || string.IsNullOrEmpty(trigger)) return;
-        animator.SetTrigger(trigger);
+        if (anim == null || string.IsNullOrEmpty(trigger)) return;
+        anim.SetTrigger(trigger);
     }
 
     private IEnumerator TimingCoroutine()
@@ -528,12 +569,16 @@ public class GameManager : MonoBehaviour
         ghost.color         = new Color(source.color.r, source.color.g, source.color.b, 1f);
         ghost.raycastTarget = false;
 
-        Tween scaleTween = ghostRect.DOScale(source.transform.localScale * ghostScaleMultiplier, ghostDuration).SetEase(Ease.OutCubic);
-                           ghost.DOFade(0f, ghostDuration).SetEase(Ease.InCubic);
+        Tween scaleTween = ghostRect
+            .DOScale(source.transform.localScale * ghostScaleMultiplier, ghostDuration)
+            .SetEase(Ease.OutCubic);
+        ghost.DOFade(0f, ghostDuration).SetEase(Ease.InCubic);
 
         yield return scaleTween.WaitForCompletion();
         Destroy(ghostObj);
     }
+
+    // ── 结算 UI ───────────────────────────────────────────────
 
     private IEnumerator ShowCompletionForCurrentLevel(Level level)
     {
@@ -544,7 +589,7 @@ public class GameManager : MonoBehaviour
         if (!completionText.gameObject.activeSelf)
         {
             completionText.text = "0%";
-            completionText.transform.localScale = Vector3.one * completionScaleMin;
+            completionText.transform.localScale    = Vector3.one * completionScaleMin;
             completionText.transform.localRotation = Quaternion.identity;
             completionText.gameObject.SetActive(true);
         }
@@ -571,7 +616,7 @@ public class GameManager : MonoBehaviour
                 x =>
                 {
                     _scoreCurrentPercent = x;
-                    completionText.text = Mathf.RoundToInt(x) + "%";
+                    completionText.text  = Mathf.RoundToInt(x) + "%";
                     completionText.transform.localScale = Vector3.one *
                         Mathf.Lerp(completionScaleMin, completionScaleMax, x / 100f);
                 },
@@ -586,9 +631,69 @@ public class GameManager : MonoBehaviour
 
         if (completionTriggerDelay > 0f) yield return new WaitForSeconds(completionTriggerDelay);
 
+        // ── Completion Finish Trigger 触发，同时开始滚动累加总分 ──
         TriggerAnimator(completionTextAnimator, completionFinishTrigger);
+        AddToTotalScore(level.similarity * level.scoreWeight);
     }
 
+    // ── 总分累加 ──────────────────────────────────────────────
+
+    private void AddToTotalScore(float addAmount)
+    {
+        StartCoroutine(AddToTotalScoreCoroutine(addAmount));
+    }
+    private IEnumerator AddToTotalScoreCoroutine(float addAmount)
+    {
+        // 延迟
+        if (totalScoreDelay > 0f)
+            yield return new WaitForSeconds(totalScoreDelay);
+
+        if (totalScoreText == null) yield break;
+
+        float fromScore = _totalScore;
+        float toScore   = _totalScore + addAmount;
+        _totalScore     = toScore;
+
+        int lastDisplayed = Mathf.RoundToInt(fromScore);
+
+        _totalScoreTween?.Kill();
+
+        float displayed = fromScore;
+        _totalScoreTween = DOTween.To(
+            ()  => displayed,
+            x   =>
+            {
+                displayed = x;
+                int current = Mathf.RoundToInt(x);
+
+                // 数字发生变化时触发抖动和音效
+                if (current != lastDisplayed)
+                {
+                    lastDisplayed = current;
+                    totalScoreText.text = current.ToString();
+
+                    // 抖动
+                    totalScoreText.transform.DOKill(false);
+                    totalScoreText.transform.DOPunchScale(
+                        Vector3.one * totalScorePunchScale,
+                        totalScorePunchDuration, 5, 0.4f);
+
+                    // 音效：音调随分数进度升高
+                    if (totalScoreTickSound != null && totalScoreAudioSource != null)
+                    {
+                        float progress = toScore > 0f
+                            ? Mathf.Clamp01((x - fromScore) / (toScore - fromScore))
+                            : 0f;
+                        totalScoreAudioSource.pitch =
+                            Mathf.Lerp(totalScoreTickPitchMin, totalScoreTickPitchMax, progress);
+                        totalScoreAudioSource.PlayOneShot(totalScoreTickSound, totalScoreTickVolume);
+                    }
+                }
+            },
+            toScore,
+            totalScoreCountDuration
+        ).SetEase(Ease.OutCubic);
+    }
     private IEnumerator ScoreSoundCoroutine(float targetPercent)
     {
         int lastTickDisplayed = -1, lastMilestone = 0;
@@ -728,32 +833,95 @@ public class GameManager : MonoBehaviour
         pictureImage.color          = Color.white;
     }
 
+    // ── 姿势检测 ──────────────────────────────────────────────
+
     private void CheckPose()
     {
         if (currentLevel >= activeLevels.Count) return;
 
         var level = activeLevels[currentLevel];
-        var zone  = level.zone;
-        if (zone == null || zone.vertices == null || zone.vertices.Count < 3) return;
-
         Canvas canvas            = FindObjectOfType<Canvas>();
         RectTransform canvasRect = canvas != null ? canvas.GetComponent<RectTransform>() : null;
 
-        float passed = 0f, total = 0f;
+        // ── 1. 关节在主 zone 内的占比 ─────────────────────────
+        float baseSimilarity = 0f;
+        var zone = level.zone;
 
-        foreach (var controller in level.poseEditorControllerList)
+        if (zone != null && zone.vertices != null && zone.vertices.Count >= 3)
         {
-            if (controller == null || controller.Joints == null) continue;
-            foreach (var joint in controller.Joints)
+            float passed = 0f, total = 0f;
+
+            foreach (var controller in level.poseEditorControllerList)
             {
-                if (joint == null || joint.rect == null) continue;
-                total++;
-                if (zone.Contains(WorldToAnchored(joint.rect.position, canvasRect))) passed++;
+                if (controller == null || controller.Joints == null) continue;
+                foreach (var joint in controller.Joints)
+                {
+                    if (joint == null || joint.rect == null) continue;
+                    total++;
+                    if (zone.Contains(WorldToAnchored(joint.rect.position, canvasRect))) passed++;
+                }
+            }
+
+            baseSimilarity = total > 0f ? passed / total : 0f;
+        }
+
+        // ── 2. 必须触碰区域扣分 ───────────────────────────────
+        float totalPenalty = 0f;
+
+        if (level.requiredZones != null && level.requiredZones.Length > 0
+            && level.bodyParts   != null && level.bodyParts.Length   > 0)
+        {
+            foreach (var required in level.requiredZones)
+            {
+                if (required == null) continue;
+                if (required.zone == null || required.zone.vertices == null
+                    || required.zone.vertices.Count < 3) continue;
+
+                bool touched = false;
+
+                foreach (var bodyPart in level.bodyParts)
+                {
+                    if (bodyPart == null) continue;
+                    if (BodyPartOverlapsZone(bodyPart, required.zone, canvasRect))
+                    {
+                        touched = true;
+                        break;
+                    }
+                }
+
+                if (!touched)
+                {
+                    totalPenalty += required.penaltyScore;
+                    Debug.Log($"[GameManager] 必须触碰区域 [{required.gameObject.name}] 未命中，扣 {required.penaltyScore} 分");
+                }
             }
         }
 
-        level.similarity = total > 0f ? passed / total : 0f;
-        Debug.Log($"[GameManager] 完成度：{level.similarity * 100f:F2}% ({passed}/{total})");
+        // ── 3. 合并结果 ───────────────────────────────────────
+        float penaltyNormalized = totalPenalty / 100f;
+        level.similarity = Mathf.Clamp01(baseSimilarity - penaltyNormalized);
+
+        Debug.Log($"[GameManager] 基础：{baseSimilarity * 100f:F1}%  " +
+                  $"扣分：{totalPenalty:F1}  " +
+                  $"最终：{level.similarity * 100f:F1}%");
+    }
+
+    private bool BodyPartOverlapsZone(RectTransform bodyPart, PolygonZone zone, RectTransform canvasRect)
+    {
+        Vector3[] worldCorners = new Vector3[4];
+        bodyPart.GetWorldCorners(worldCorners);
+
+        Vector3 worldCenter = (worldCorners[0] + worldCorners[2]) * 0.5f;
+        if (zone.Contains(WorldToAnchored(worldCenter, canvasRect))) return true;
+
+        const float inset = 0.3f;
+        for (int i = 0; i < 4; i++)
+        {
+            Vector3 insetPoint = Vector3.Lerp(worldCorners[i], worldCenter, inset);
+            if (zone.Contains(WorldToAnchored(insetPoint, canvasRect))) return true;
+        }
+
+        return false;
     }
 
     private Vector2 WorldToAnchored(Vector3 worldPos, RectTransform canvasRect)
@@ -766,8 +934,9 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         _bgmFadeTween?.Kill();
+        _totalScoreTween?.Kill();
         _scoreAnimRunning = false;
-        foreach (var s in capturedSprites) if (s != null) Destroy(s);
+        foreach (var s in capturedSprites)  if (s != null) Destroy(s);
         foreach (var t in capturedTextures) if (t != null) Destroy(t);
         capturedSprites.Clear();
         capturedTextures.Clear();

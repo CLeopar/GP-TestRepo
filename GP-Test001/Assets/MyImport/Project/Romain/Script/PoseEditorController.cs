@@ -17,23 +17,15 @@ public class PoseEditorController : MonoBehaviour
         public Color selectedColor = Color.green;
 
         [Header("Translation")]
-        public bool isTranslationJoint = false;
-
-        [Header("Rotation Constraint")]
-        [Tooltip("是否启用本地旋转角度限制")]
-        public bool enableConstraint = false;
-        [Tooltip("允许的最小本地 Z 角度（-180 ~ 180）")]
-        [Range(-180f, 180f)] public float minAngle = -180f;
-        [Tooltip("允许的最大本地 Z 角度（-180 ~ 180）")]
-        [Range(-180f, 180f)] public float maxAngle =  180f;
-
-        [Header("IK Weight")]
-        [Tooltip("子集拖动时该关节跟随的权重，0=完全不动，1=完全跟随")]
-        [Range(0f, 1f)] public float ikWeight = 1f;
+        public bool isTranslationJoint = false; // 勾选后此关节用于控制整体平移
     }
 
     [Serializable]
-    private enum PlayerType { Player1, Player2 }
+    private enum PlayerType
+    {
+        Player1,
+        Player2
+    }
 
     [Header("Player")]
     [SerializeField] private PlayerType playerType = PlayerType.Player1;
@@ -41,15 +33,14 @@ public class PoseEditorController : MonoBehaviour
     [Header("Cursor")]
     [SerializeField] private RectTransform cursor;
     [SerializeField] private float moveSpeed = 300f;
-    [SerializeField] private float ikMoveSpeed = 300f;
 
     [Header("Joints")]
     [SerializeField] private Joint[] joints;
 
-    [Header("IK")]
-    [SerializeField] private int ikIterations = 5;
-    [SerializeField] private float ikTolerance = 2f;
-    [SerializeField] private bool snapCursorOnSelect = true;
+    [Header("Rotation")]
+    [SerializeField] private float rotateAcceleration = 180f;
+    [SerializeField] private float rotateFriction = 6f;
+    [SerializeField] private float maxRotateSpeed = 270f;
 
     [Header("Body Translation")]
     [SerializeField] private RectTransform bodyRoot;
@@ -57,29 +48,30 @@ public class PoseEditorController : MonoBehaviour
     [SerializeField] private float translateFriction = 8f;
     [SerializeField] private float maxTranslateSpeed = 400f;
 
-    // ── 内部状态 ──────────────────────────────────────────────────────────────
+    // ── 新增：Screen Space - Camera 模式下必须拿到挂载此 Canvas 的摄像机 ──
     private Camera uiCamera;
     private Canvas rootCanvas;
+
     private Joint hoveredJoint;
     private Joint selectedJoint;
 
-    private readonly List<RectTransform> ikChain = new List<RectTransform>();
-    private readonly Dictionary<RectTransform, Joint> boneToJoint = new Dictionary<RectTransform, Joint>();
-    private readonly Dictionary<RectTransform, float> boneSmoothedAngles = new Dictionary<RectTransform, float>();
-
+    private float angularVelocity = 0f;
     private Vector2 translateVelocity = Vector2.zero;
-    private Vector2 ikTargetPos;
 
     public Joint[] Joints => joints;
     public RectTransform BodyRoot => bodyRoot;
 
-    // ── 生命周期 ──────────────────────────────────────────────────────────────
-
     void Awake()
     {
+        // 向上查找根 Canvas，取其 worldCamera
+        // Screen Space - Camera 模式下 worldCamera 就是渲染该 Canvas 的摄像机
+        // Screen Space - Overlay 模式下 worldCamera 为 null，WorldToScreenPoint 传 null 也能正常工作
         rootCanvas = GetComponentInParent<Canvas>();
-        if (rootCanvas != null) rootCanvas = rootCanvas.rootCanvas;
-        if (rootCanvas != null) uiCamera = rootCanvas.worldCamera;
+        if (rootCanvas != null)
+            rootCanvas = rootCanvas.rootCanvas;          // 确保拿到根 Canvas
+
+        if (rootCanvas != null)
+            uiCamera = rootCanvas.worldCamera;           // Screen Space - Camera → 非 null；Overlay → null（可接受）
     }
 
     void Update()
@@ -88,19 +80,19 @@ public class PoseEditorController : MonoBehaviour
         UpdateHoveredJoint();
         HandleSelectInput();
 
-        if (selectedJoint == null) return;
-
-        if (selectedJoint.isTranslationJoint)
+        if (selectedJoint != null && selectedJoint.isTranslationJoint)
             HandleTranslateInput();
         else
-            HandleIKInput();
+            HandleRotateInput();
     }
 
-    // ── 输入方向读取 ──────────────────────────────────────────────────────────
-
-    Vector2 GetInputDirection()
+    void HandleCursorMove()
     {
+        if (selectedJoint != null)
+            return;
+
         Vector2 dir = Vector2.zero;
+
         if (playerType == PlayerType.Player1)
         {
             if (Input.GetKey(KeyCode.W)) dir.y += 1f;
@@ -108,207 +100,155 @@ public class PoseEditorController : MonoBehaviour
             if (Input.GetKey(KeyCode.A)) dir.x -= 1f;
             if (Input.GetKey(KeyCode.D)) dir.x += 1f;
         }
-        else
+        else if (playerType == PlayerType.Player2)
         {
             if (Input.GetKey(KeyCode.UpArrow))    dir.y += 1f;
             if (Input.GetKey(KeyCode.DownArrow))  dir.y -= 1f;
             if (Input.GetKey(KeyCode.LeftArrow))  dir.x -= 1f;
             if (Input.GetKey(KeyCode.RightArrow)) dir.x += 1f;
         }
-        return dir;
+
+        if (dir.sqrMagnitude > 0f)
+        {
+            dir.Normalize();
+            cursor.anchoredPosition += dir * moveSpeed * Time.deltaTime;
+        }
     }
-
-    // ── 光标 / IK目标 移动 ────────────────────────────────────────────────────
-
-    void HandleCursorMove()
-    {
-        if (selectedJoint != null && selectedJoint.isTranslationJoint) return;
-
-        Vector2 dir = GetInputDirection();
-        if (dir.sqrMagnitude == 0f) return;
-
-        dir.Normalize();
-        float speed = (selectedJoint != null) ? ikMoveSpeed : moveSpeed;
-        Vector2 delta = dir * speed * Time.deltaTime;
-
-        if (selectedJoint != null && !selectedJoint.isTranslationJoint)
-            ikTargetPos += delta;
-        else
-            cursor.anchoredPosition += delta;
-    }
-
-    // ── Hover 检测 ────────────────────────────────────────────────────────────
 
     void UpdateHoveredJoint()
     {
+        // ── 修复：选中状态下光标隐藏且不移动，强制清空 hover，避免残留高亮 ──
         if (selectedJoint != null)
         {
-            if (hoveredJoint != null) { hoveredJoint = null; UpdateJointColors(); }
+            if (hoveredJoint != null)
+            {
+                hoveredJoint = null;
+                UpdateJointColors();
+            }
             return;
         }
 
+        // ── 修复：Screen Space - Camera 下必须用 Canvas 的 worldCamera 作为参数 ──
+        // uiCamera 在 Awake 中从根 Canvas.worldCamera 取得；
+        // Overlay 模式下为 null，WorldToScreenPoint(null, ...) 行为与旧代码一致。
         Vector2 cursorScreenPos = RectTransformUtility.WorldToScreenPoint(uiCamera, cursor.position);
+
         Joint newHovered = null;
         float bestDist = float.MaxValue;
-        const float hoverRadius = 30f;
+        float hoverRadius = 30f;
 
         for (int i = 0; i < joints.Length; i++)
         {
             Joint j = joints[i];
             if (j == null || j.rect == null) continue;
+
             Vector2 jointScreenPos = RectTransformUtility.WorldToScreenPoint(uiCamera, j.rect.position);
             float dist = Vector2.Distance(cursorScreenPos, jointScreenPos);
-            if (dist < hoverRadius && dist < bestDist) { bestDist = dist; newHovered = j; }
+
+            if (dist < hoverRadius && dist < bestDist)
+            {
+                bestDist = dist;
+                newHovered = j;
+            }
         }
 
-        if (newHovered != hoveredJoint) { hoveredJoint = newHovered; UpdateJointColors(); }
+        if (newHovered != hoveredJoint)
+        {
+            hoveredJoint = newHovered;
+            UpdateJointColors();
+        }
     }
-
-    // ── 选中/取消 ─────────────────────────────────────────────────────────────
 
     void HandleSelectInput()
     {
-        bool confirm = (playerType == PlayerType.Player1 && Input.GetKeyDown(KeyCode.Space))
-                    || (playerType == PlayerType.Player2 && Input.GetKeyDown(KeyCode.Return));
-        if (!confirm) return;
-
-        if (selectedJoint != null)
+        if ((playerType == PlayerType.Player1 && Input.GetKeyDown(KeyCode.Space)) ||
+            (playerType == PlayerType.Player2 && Input.GetKeyDown(KeyCode.Return)))
         {
-            cursor.position = selectedJoint.rect.position;
-            selectedJoint = null;
-            translateVelocity = Vector2.zero;
-            ikChain.Clear();
-            boneSmoothedAngles.Clear();
-            cursor.gameObject.SetActive(true);
-        }
-        else if (hoveredJoint != null)
-        {
-            selectedJoint = hoveredJoint;
-            hoveredJoint = null;
-
-            if (selectedJoint.isTranslationJoint)
+            if (selectedJoint != null)
             {
-                cursor.gameObject.SetActive(false);
+                // 退出选中时，把光标移到关节的中心位置
+                cursor.position = selectedJoint.rect.position;
+
+                selectedJoint = null;
+                angularVelocity = 0f;
+                translateVelocity = Vector2.zero;
+                cursor.gameObject.SetActive(true);
             }
             else
             {
-                ikTargetPos = selectedJoint.rect.position;
-                cursor.gameObject.SetActive(false);
-                BuildIKChain(selectedJoint);
-            }
-        }
-
-        UpdateJointColors();
-    }
-
-    // ── IK 链构建 ─────────────────────────────────────────────────────────────
-
-    void BuildIKChain(Joint joint)
-    {
-        ikChain.Clear();
-        boneToJoint.Clear();
-        boneSmoothedAngles.Clear();
-
-        if (joint == null || joint.rect == null) return;
-
-        var skeletonSet = new HashSet<Transform>();
-        foreach (var j in joints)
-        {
-            if (j == null || j.rect == null || j.rect.parent == null) continue;
-            skeletonSet.Add(j.rect.parent);
-            var rt = j.rect.parent as RectTransform;
-            if (rt != null && !boneToJoint.ContainsKey(rt))
-                boneToJoint[rt] = j;
-        }
-
-        Transform current = joint.rect.parent;
-        while (current != null)
-        {
-            if (bodyRoot != null && current == bodyRoot) break;
-            if (skeletonSet.Contains(current))
-            {
-                var rt = current as RectTransform;
-                if (rt != null)
+                if (hoveredJoint != null)
                 {
-                    ikChain.Add(rt);
-                    boneSmoothedAngles[rt] = NormalizeAngle(rt.localEulerAngles.z);
+                    selectedJoint = hoveredJoint;
+                    hoveredJoint = null;          // 选中时立刻清空 hover，防止同一关节同时显示两种颜色
+                    cursor.gameObject.SetActive(false);
                 }
             }
-            current = current.parent;
+
+            UpdateJointColors();
         }
     }
 
-    static float NormalizeAngle(float angle)
+    void HandleRotateInput()
     {
-        angle %= 360f;
-        if (angle > 180f)  angle -= 360f;
-        if (angle < -180f) angle += 360f;
-        return angle;
-    }
-
-    void HandleIKInput()
-    {
-        if (selectedJoint == null || ikChain.Count == 0) return;
-
-        Vector2 targetWorld   = ikTargetPos;
-        Transform endEffector = selectedJoint.rect;
-
-        // 步骤一：还原上一帧角度作为求解起点
-        for (int i = 0; i < ikChain.Count; i++)
+        if (selectedJoint == null || selectedJoint.skeleton == null)
         {
-            RectTransform bone = ikChain[i];
-            if (bone == null) continue;
-            Vector3 euler = bone.localEulerAngles;
-            euler.z = boneSmoothedAngles[bone];
-            bone.localEulerAngles = euler;
+            angularVelocity = 0f;
+            return;
         }
 
-        // 步骤二：CCD 求解，权重来自每个关节自身的 ikWeight
-        for (int iter = 0; iter < ikIterations; iter++)
+        float inputDir = 0f;
+
+        if (playerType == PlayerType.Player1)
         {
-            if (Vector2.Distance(endEffector.position, targetWorld) < ikTolerance) break;
-
-            for (int i = 0; i < ikChain.Count; i++)
-            {
-                RectTransform bone = ikChain[i];
-                if (bone == null) continue;
-
-                // ★ 从该骨骼对应的 Joint 读取 ikWeight，找不到则默认 1
-                boneToJoint.TryGetValue(bone, out Joint jc);
-                float weight = (jc != null) ? jc.ikWeight : 1f;
-
-                Vector2 toEnd    = (Vector2)endEffector.position - (Vector2)bone.position;
-                Vector2 toTarget = targetWorld - (Vector2)bone.position;
-                if (toEnd.sqrMagnitude < 0.0001f) continue;
-
-                float delta = Vector2.SignedAngle(toEnd, toTarget) * weight;
-                Vector3 euler = bone.localEulerAngles;
-                float newZ = NormalizeAngle(euler.z) + delta;
-
-                if (jc != null && jc.enableConstraint)
-                    newZ = Mathf.Clamp(newZ, jc.minAngle, jc.maxAngle);
-
-                euler.z = newZ;
-                bone.localEulerAngles = euler;
-            }
+            if (Input.GetKey(KeyCode.A)) inputDir -= 1f;
+            if (Input.GetKey(KeyCode.D)) inputDir += 1f;
+        }
+        else if (playerType == PlayerType.Player2)
+        {
+            if (Input.GetKey(KeyCode.LeftArrow))  inputDir -= 1f;
+            if (Input.GetKey(KeyCode.RightArrow)) inputDir += 1f;
         }
 
-        // 步骤三：直接记录求解结果，不做插值
-        for (int i = 0; i < ikChain.Count; i++)
+        if (inputDir != 0f)
         {
-            RectTransform bone = ikChain[i];
-            if (bone == null) continue;
-            boneSmoothedAngles[bone] = NormalizeAngle(bone.localEulerAngles.z);
+            angularVelocity += inputDir * rotateAcceleration * Time.deltaTime;
+            angularVelocity = Mathf.Clamp(angularVelocity, -maxRotateSpeed, maxRotateSpeed);
+        }
+        else
+        {
+            angularVelocity = Mathf.Lerp(angularVelocity, 0f, rotateFriction * Time.deltaTime);
+            if (Mathf.Abs(angularVelocity) < 0.1f)
+                angularVelocity = 0f;
+        }
+
+        if (Mathf.Abs(angularVelocity) > 0f)
+        {
+            Vector3 euler = selectedJoint.skeleton.localEulerAngles;
+            euler.z += angularVelocity * Time.deltaTime;
+            selectedJoint.skeleton.localEulerAngles = euler;
         }
     }
-
-    // ── 整体平移 ──────────────────────────────────────────────────────────────
 
     void HandleTranslateInput()
     {
         if (bodyRoot == null) return;
 
-        Vector2 inputDir = GetInputDirection();
+        Vector2 inputDir = Vector2.zero;
+
+        if (playerType == PlayerType.Player1)
+        {
+            if (Input.GetKey(KeyCode.W)) inputDir.y += 1f;
+            if (Input.GetKey(KeyCode.S)) inputDir.y -= 1f;
+            if (Input.GetKey(KeyCode.A)) inputDir.x -= 1f;
+            if (Input.GetKey(KeyCode.D)) inputDir.x += 1f;
+        }
+        else if (playerType == PlayerType.Player2)
+        {
+            if (Input.GetKey(KeyCode.UpArrow))    inputDir.y += 1f;
+            if (Input.GetKey(KeyCode.DownArrow))  inputDir.y -= 1f;
+            if (Input.GetKey(KeyCode.LeftArrow))  inputDir.x -= 1f;
+            if (Input.GetKey(KeyCode.RightArrow)) inputDir.x += 1f;
+        }
 
         if (inputDir.sqrMagnitude > 0f)
         {
@@ -320,14 +260,14 @@ public class PoseEditorController : MonoBehaviour
         else
         {
             translateVelocity = Vector2.Lerp(translateVelocity, Vector2.zero, translateFriction * Time.deltaTime);
-            if (translateVelocity.magnitude < 0.1f) translateVelocity = Vector2.zero;
+            if (translateVelocity.magnitude < 0.1f)
+                translateVelocity = Vector2.zero;
         }
 
         if (translateVelocity.sqrMagnitude > 0f)
             bodyRoot.anchoredPosition += translateVelocity * Time.deltaTime;
+        Debug.Log($"[Translate] velocity={translateVelocity}  pos={bodyRoot.anchoredPosition}");
     }
-
-    // ── 颜色更新 ──────────────────────────────────────────────────────────────
 
     void UpdateJointColors()
     {
@@ -335,30 +275,34 @@ public class PoseEditorController : MonoBehaviour
         {
             Joint j = joints[i];
             if (j == null || j.image == null) continue;
-            if (j == selectedJoint)       j.image.color = j.selectedColor;
-            else if (j == hoveredJoint)   j.image.color = j.hoverColor;
-            else                          j.image.color = j.normalColor;
+
+            if (j == selectedJoint)
+                j.image.color = j.selectedColor;
+            else if (j == hoveredJoint)
+                j.image.color = j.hoverColor;
+            else
+                j.image.color = j.normalColor;
         }
     }
 
-    // ── Enable / Disable ─────────────────────────────────────────────────────
-
     public void Disable()
     {
+        // 禁用时同时清理选中/hover 状态，避免状态残留到下一次 Enable
         selectedJoint = null;
         hoveredJoint = null;
+        angularVelocity = 0f;
         translateVelocity = Vector2.zero;
-        ikChain.Clear();
-        boneToJoint.Clear();
-        boneSmoothedAngles.Clear();
         UpdateJointColors();
+
         enabled = false;
-        if (cursor != null) cursor.gameObject.SetActive(false);
+        if (cursor != null)
+            cursor.gameObject.SetActive(false);
     }
 
     public void Enable()
     {
         enabled = true;
-        if (cursor != null) cursor.gameObject.SetActive(true);
+        if (cursor != null)
+            cursor.gameObject.SetActive(true);
     }
 }
