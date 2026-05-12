@@ -1,0 +1,50 @@
+[
+  {
+    "Id": 101,
+    "Change": "Space",
+    "Move_W": "W",
+    "Move_A": "A",
+    "Move_S": "S",
+    "Move_D": "D",
+    "Rotate_L": "J",
+    "Rotate_R": "K",
+    "Hold": "N",
+    "Hit": "L"
+  },
+  {
+    "Id": 102,
+    "Change": "X",
+    "Move_W": "L",
+    "Move_A": "",
+    "Move_S": "",
+    "Move_D": "",
+    "Rotate_L": "LT",
+    "Rotate_R": "RT",
+    "Hold": "A",
+    "Hit": "Y"
+  },
+  {
+    "Id": 201,
+    "Change": "KeypadEnter",
+    "Move_W": "UpArrow",
+    "Move_A": "LeftArrow",
+    "Move_S": "DownArrow",
+    "Move_D": "RightArrow",
+    "Rotate_L": "Keypad1",
+    "Rotate_R": "Keypad2",
+    "Hold": "Keypad6",
+    "Hit": "Keypad4"
+  },
+  {
+    "Id": 202,
+    "Change": "X",
+    "Move_W": "L",
+    "Move_A": "",
+    "Move_S": "",
+    "Move_D": "",
+    "Rotate_L": "LT",
+    "Rotate_R": "RT",
+    "Hold": "A",
+    "Hit": "Y"
+  }
+]

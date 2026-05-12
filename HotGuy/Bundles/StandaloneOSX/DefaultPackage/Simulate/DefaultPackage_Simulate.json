@@ -1,0 +1,878 @@
+{
+    "FileVersion": "2025.9.30",
+    "EnableAddressable": true,
+    "SupportExtensionless": true,
+    "LocationToLower": false,
+    "IncludeAssetGUID": false,
+    "ReplaceAssetPathWithAddress": false,
+    "OutputNameStyle": 0,
+    "BuildBundleType": 1,
+    "BuildPipeline": "EditorSimulateBuildPipeline",
+    "PackageName": "DefaultPackage",
+    "PackageVersion": "Simulate",
+    "PackageNote": "5/5/2026 6:04:41 PM",
+    "AssetList": [
+        {
+            "Address": "ConstConfigCategory",
+            "AssetPath": "Assets/Bundles/Config/Bin/ConstConfigCategory.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "FoodConfigCategory",
+            "AssetPath": "Assets/Bundles/Config/Bin/FoodConfigCategory.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "InputKeyMapCategory",
+            "AssetPath": "Assets/Bundles/Config/Bin/InputKeyMapCategory.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Apple1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Apple1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Apple2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Apple2.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Apple3",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Apple3.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Apple4",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Apple4.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Biscuit1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Biscuit1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_BlueBerryA",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_BlueBerryA.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_BlueBerryB",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_BlueBerryB.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_BlueBerryC",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_BlueBerryC.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_BlueBerryD",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_BlueBerryD.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Broccoli1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Broccoli1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Broccoli2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Broccoli2.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Carrot0",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Carrot0.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Carrot1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Carrot1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Carrot2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Carrot2.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_ChickenLeg0",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_ChickenLeg0.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_ChickenLeg1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_ChickenLeg1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_ChickenLeg2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_ChickenLeg2.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_ChickenLeg3",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_ChickenLeg3.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Cucumber1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Cucumber1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Cucumber2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Cucumber2.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Cucumber3",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Cucumber3.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Cucumber4",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Cucumber4.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Egg1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Egg1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Pumpkin0",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Pumpkin0.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Pumpkin1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Pumpkin1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Pumpkin2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Pumpkin2.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Pumpkin3",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Pumpkin3.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Samon1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Samon1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Samon2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Samon2.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Shrimp0",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Shrimp0.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Shrimp1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Shrimp1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_LHand_1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_LHand_1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_LHand_2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_LHand_2.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_LHand_3",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_LHand_3.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_LHand_4",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_LHand_4.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_LHand_5",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_LHand_5.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_RHand_1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_RHand_1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_RHand_2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_RHand_2.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_RHand_3",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_RHand_3.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_RHand_4",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_RHand_4.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_RHand_5",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_RHand_5.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Spoon1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_Spoon1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Spoon2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_Spoon2.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L0_BeagleLiveStreaming",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L0_LevelSelect/L0_BeagleLiveStreaming.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 3,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L0_Dog2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L0_LevelSelect/L0_Dog2.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 3,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Eating",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_Eating.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 4,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Handled_L",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_Handled_L.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 4,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Handled_R",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_Handled_R.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 4,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_HitRight",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_HitRight.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 4,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Hitted1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_Hitted1.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 4,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Hitted2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_Hitted2.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 4,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_HittedWrong",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_HittedWrong.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 4,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_I_Eat&Peaking",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_I_Eat&Peaking.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 4,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_I_Peaking",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_I_Peaking.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 4,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Idle",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_Idle.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 4,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_II_Approach",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_II_Approach.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 4,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_III_Sneaking",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_III_Sneaking.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 4,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_III_SneakSuccess",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_III_SneakSuccess.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 4,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_psb_Eating",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_Eating.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 5,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_psb_Handled_L",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_Handled_L.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 5,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_psb_Handled_L2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_Handled_L2.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 5,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_psb_Handled_R",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_Handled_R.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 5,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_psb_Handled_R2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_Handled_R2.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 5,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_psb_HitRight",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_HitRight.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 5,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_psb_Hitted1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_Hitted1.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 5,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_psb_Hitted2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_Hitted2.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 5,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_psb_HittedWrong",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_HittedWrong.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 5,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_psb_I_Eat&Peaking",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_I_Eat&Peaking.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 5,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_psb_I_Peaking",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_I_Peaking.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 5,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_psb_Idle",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_Idle.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 5,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_psb_IdleOld",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_IdleOld.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 5,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_psb_II_Approach",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_II_Approach.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 5,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_psb_III_Sneaking",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_III_Sneaking.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 5,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_psb_III_SneakSuccess",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_III_SneakSuccess.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 5,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "CommentArea",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Comment/CommentArea.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 6,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "OneComment",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Comment/OneComment.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 6,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Apple",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Apple.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 7,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Biscuit",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Biscuit.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 7,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Blueberry_A",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Blueberry_A.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 7,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Blueberry_B",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Blueberry_B.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 7,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Blueberry_C",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Blueberry_C.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 7,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Blueberry_D",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Blueberry_D.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 7,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Broccoli",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Broccoli.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 7,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Carrot",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Carrot.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 7,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_ChickenLeg",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_ChickenLeg.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 7,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Cucumber",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Cucumber.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 7,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Egg",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Egg.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 7,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Pumpkin",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Pumpkin.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 7,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Salmon",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Salmon.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 7,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Shrimp",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Shrimp.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 7,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Shit",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Robot&Shit/L1_Shit.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 8,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Tissue",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Tissue/L1_Tissue.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 9,
+            "DependBundleIDs": []
+        }
+    ],
+    "BundleList": [
+        {
+            "BundleName": "assets_bundles_config_bin.bundle",
+            "UnityCRC": 0,
+            "FileHash": "3049b80e99df86829f251d7f645a9ca5",
+            "FileCRC": 0,
+            "FileSize": 384,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_arts_load_food.bundle",
+            "UnityCRC": 0,
+            "FileHash": "768356fb951d4fdf5b56b24a0310bdce",
+            "FileCRC": 0,
+            "FileSize": 343666,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_arts_load_hand.bundle",
+            "UnityCRC": 0,
+            "FileHash": "03588440c0b112159ec3c385d71df9f9",
+            "FileCRC": 0,
+            "FileSize": 551723,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_prefab_l0_levelselect.bundle",
+            "UnityCRC": 0,
+            "FileHash": "92696e0629eb8379f277311098200e39",
+            "FileCRC": 0,
+            "FileSize": 80739,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_prefab_l1_beagle.bundle",
+            "UnityCRC": 0,
+            "FileHash": "b6c3cb4f953f1934f5d60ad9ebadddd0",
+            "FileCRC": 0,
+            "FileSize": 126378,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_prefab_l1_beagle_psb.bundle",
+            "UnityCRC": 0,
+            "FileHash": "188a65722f189976becfb875fa43dc84",
+            "FileCRC": 0,
+            "FileSize": 64875406,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_prefab_l1_comment.bundle",
+            "UnityCRC": 0,
+            "FileHash": "28330fa90419aca036e959bcd5a4f742",
+            "FileCRC": 0,
+            "FileSize": 17564,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_prefab_l1_food.bundle",
+            "UnityCRC": 0,
+            "FileHash": "35d4f45563c0965bf350d7830441b473",
+            "FileCRC": 0,
+            "FileSize": 201594,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_prefab_l1_robot&shit.bundle",
+            "UnityCRC": 0,
+            "FileHash": "cfd2b0c7f0d305ba98d493ffae0f4cf2",
+            "FileCRC": 0,
+            "FileSize": 17468,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_prefab_l1_tissue.bundle",
+            "UnityCRC": 0,
+            "FileHash": "45329ceda403dcbea9e501fc02b2b778",
+            "FileCRC": 0,
+            "FileSize": 14007,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        }
+    ]
+}

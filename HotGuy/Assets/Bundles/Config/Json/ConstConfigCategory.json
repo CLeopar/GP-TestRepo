@@ -1,0 +1,14 @@
+[
+  {
+    "FoodCheckDistance": 1.5,
+    "PeekCheckDistance": 5,
+    "EatSecretlyInterval": 5000,
+    "FoodChangeStateInterval": 1000,
+    "HitDuration": 500,
+    "TurnRotateToFoodDuration": 0.2,
+    "NewFruitTime": 3000,
+    "NewShitTime": 3000,
+    "ShitMoveYTime": 2,
+    "ShitBeEatenTime": 3500
+  }
+]
