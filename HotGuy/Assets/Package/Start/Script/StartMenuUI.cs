@@ -1,170 +1,120 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 /// <summary>
-/// Manages the Start Menu UI.
-/// Attach this script to a GameObject in your Start/Main Menu scene.
-///
-/// Inspector Setup:
-///   - Assign scene names in the Inspector fields.
-///   - Assign all Button references from your Canvas hierarchy.
-///   - "Continue Game" and "New Game" buttons should be initially hidden (disabled).
-///     They are shown automatically when the player has saved progress.
-///
-/// PlayerPrefs Key Used:
-///   "HasSaveData" (int, 1 = has save, 0 or missing = no save)
-///   Set PlayerPrefs.SetInt("HasSaveData", 1) from your gameplay scene when a level is started/saved.
+/// 主菜单 UI 控制器
+/// 点击开始/继续游戏后，黑色 Image 透明度逐渐提高（渐黑），
+/// 完成后加载对应场景。
 /// </summary>
 public class StartMenuUI : MonoBehaviour
 {
-    // ─── Scene Names (set in Inspector) ───────────────────────────────────────
-    [Header("Scene Names")]
-    [Tooltip("Name of the scene to load when starting a new game.")]
-    [SerializeField] private string newGameSceneName = "Level_01";
+    // ─── 场景索引 ─────────────────────────────────────────────────────────────
 
-    [Tooltip("Name of the scene to load when continuing a saved game.")]
-    [SerializeField] private string continueSceneName = "Level_01";
+    [Header("场景索引（对应 Build Settings 中的顺序）")]
+    [SerializeField] private int newGameSceneIndex = 1;
+    [SerializeField] private int continueSceneIndex = 1;
 
-    // ─── Button References (assign in Inspector) ───────────────────────────────
-    [Header("Always-Visible Buttons")]
-    [SerializeField] private Button startButton;       // "Start Game" — shown when NO save data exists
-    [SerializeField] private Button settingsButton;    // Opens Settings (no-op for now)
-    [SerializeField] private Button creditsButton;     // Opens Credits / Producer info (no-op for now)
-    [SerializeField] private Button quitButton;        // Exits the application
+    // ─── 渐黑图片 ─────────────────────────────────────────────────────────────
 
-    [Header("Buttons Shown Only After First Play")]
-    [SerializeField] private Button continueButton;    // Continue saved game
-    [SerializeField] private Button newGameButton;     // Start a brand-new game (discards save)
+    [Header("渐黑遮罩")]
+    [Tooltip("黑色全屏 Image，初始 Alpha = 0")]
+    [SerializeField] private Image fadeImage;
 
-    // ─── Optional: root GameObjects to show/hide entire button areas ──────────
-    [Header("Optional Layout Groups (can be left empty)")]
-    [Tooltip("Root object that holds Continue + New Game buttons. Will be toggled.")]
+    [Tooltip("渐黑持续时间（秒）")]
+    [SerializeField] private float fadeDuration = 0.5f;
+
+    // ─── 常驻按钮 ─────────────────────────────────────────────────────────────
+
+    [Header("常驻按钮")]
+    [SerializeField] private Button startButton;
+    [SerializeField] private Button settingsButton;
+    [SerializeField] private Button creditsButton;
+    [SerializeField] private Button quitButton;
+
+    // ─── 有存档时显示的按钮 ───────────────────────────────────────────────────
+
+    [Header("有存档时显示的按钮")]
+    [SerializeField] private Button continueButton;
+    [SerializeField] private Button newGameButton;
+
+    [Header("可选")]
     [SerializeField] private GameObject saveButtonsGroup;
 
     // ──────────────────────────────────────────────────────────────────────────
 
     private void Start()
     {
+        // 确保初始完全透明
+        if (fadeImage != null)
+        {
+            Color c = fadeImage.color;
+            c.a = 0f;
+            fadeImage.color = c;
+        }
+
         RefreshSaveButtonVisibility();
         RegisterButtonListeners();
     }
 
-    // ─── Save-state visibility ─────────────────────────────────────────────────
+    // ─── 存档按钮显示逻辑 ─────────────────────────────────────────────────────
 
-    /// <summary>
-    /// Shows or hides the Continue / New Game buttons depending on whether
-    /// a save file exists. Call this again after clearing save data if needed.
-    /// </summary>
     private void RefreshSaveButtonVisibility()
     {
         bool hasSave = PlayerPrefs.GetInt("HasSaveData", 0) == 1;
 
-        // "Start Game" button is shown only when there is NO existing save.
-        if (startButton != null)
-            startButton.gameObject.SetActive(!hasSave);
-
-        // Continue and New Game are shown only when save data exists.
-        if (continueButton != null)
-            continueButton.gameObject.SetActive(hasSave);
-
-        if (newGameButton != null)
-            newGameButton.gameObject.SetActive(hasSave);
-
-        // If you grouped Continue + New Game under one parent, toggle that too.
-        if (saveButtonsGroup != null)
-            saveButtonsGroup.SetActive(hasSave);
+        if (startButton    != null) startButton.gameObject.SetActive(!hasSave);
+        if (continueButton != null) continueButton.gameObject.SetActive(hasSave);
+        if (newGameButton  != null) newGameButton.gameObject.SetActive(hasSave);
+        if (saveButtonsGroup != null) saveButtonsGroup.SetActive(hasSave);
     }
 
-    // ─── Button wiring ─────────────────────────────────────────────────────────
+    // ─── 按钮注册 ─────────────────────────────────────────────────────────────
 
     private void RegisterButtonListeners()
     {
-        // Guard-check each reference so the menu doesn't crash if a button
-        // hasn't been assigned in the Inspector yet.
-
-        if (startButton != null)
-            startButton.onClick.AddListener(OnStartGame);
-
-        if (continueButton != null)
-            continueButton.onClick.AddListener(OnContinueGame);
-
-        if (newGameButton != null)
-            newGameButton.onClick.AddListener(OnNewGame);
-
-        if (settingsButton != null)
-            settingsButton.onClick.AddListener(OnSettings);
-
-        if (creditsButton != null)
-            creditsButton.onClick.AddListener(OnCredits);
-
-        if (quitButton != null)
-            quitButton.onClick.AddListener(OnQuit);
+        if (startButton    != null) startButton.onClick.AddListener(OnStartGame);
+        if (continueButton != null) continueButton.onClick.AddListener(OnContinueGame);
+        if (newGameButton  != null) newGameButton.onClick.AddListener(OnNewGame);
+        if (settingsButton != null) settingsButton.onClick.AddListener(OnSettings);
+        if (creditsButton  != null) creditsButton.onClick.AddListener(OnCredits);
+        if (quitButton     != null) quitButton.onClick.AddListener(OnQuit);
     }
 
-    // ─── Button Handlers ───────────────────────────────────────────────────────
+    // ─── 按钮逻辑 ─────────────────────────────────────────────────────────────
 
-    /// <summary>
-    /// "Start Game" — visible only when there is no save data.
-    /// Marks that the player has started, then loads the first level.
-    /// </summary>
     private void OnStartGame()
     {
-        Debug.Log("[StartMenu] Start Game pressed.");
         PlayerPrefs.SetInt("HasSaveData", 1);
         PlayerPrefs.Save();
-        LoadScene(newGameSceneName);
+        FadeAndLoad(newGameSceneIndex);
     }
 
-    /// <summary>
-    /// "Continue" — loads the scene the player last reached.
-    /// </summary>
     private void OnContinueGame()
     {
-        Debug.Log("[StartMenu] Continue Game pressed.");
-        LoadScene(continueSceneName);
+        FadeAndLoad(continueSceneIndex);
     }
 
-    /// <summary>
-    /// "New Game" — clears save data and starts from the beginning.
-    /// You may want to show a confirmation dialog before calling this.
-    /// </summary>
     private void OnNewGame()
     {
-        Debug.Log("[StartMenu] New Game pressed — clearing save data.");
         PlayerPrefs.DeleteKey("HasSaveData");
-        // Delete any other save-related keys here, e.g.:
-        // PlayerPrefs.DeleteKey("CurrentLevel");
         PlayerPrefs.Save();
-        LoadScene(newGameSceneName);
+        FadeAndLoad(newGameSceneIndex);
     }
 
-    /// <summary>
-    /// "Settings" — placeholder. Wire up your Settings panel/scene here later.
-    /// </summary>
     private void OnSettings()
     {
-        Debug.Log("[StartMenu] Settings pressed — no interface yet.");
-        // TODO: Open settings panel, e.g.:
-        // settingsPanel.SetActive(true);
+        Debug.Log("[StartMenu] 设置按下 — 暂无界面");
     }
 
-    /// <summary>
-    /// "Credits / Producer" — placeholder. Wire up your Credits panel/scene here later.
-    /// </summary>
     private void OnCredits()
     {
-        Debug.Log("[StartMenu] Credits pressed — no interface yet.");
-        // TODO: Open credits panel, e.g.:
-        // creditsPanel.SetActive(true);
+        Debug.Log("[StartMenu] 制作人员按下 — 暂无界面");
     }
 
-    /// <summary>
-    /// "Quit" — exits the application (or stops Play Mode in the Editor).
-    /// </summary>
     private void OnQuit()
     {
-        Debug.Log("[StartMenu] Quit pressed.");
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
@@ -172,29 +122,43 @@ public class StartMenuUI : MonoBehaviour
 #endif
     }
 
-    // ─── Utility ───────────────────────────────────────────────────────────────
+    // ─── 渐黑后加载场景 ───────────────────────────────────────────────────────
 
-    private void LoadScene(string sceneName)
+    private void FadeAndLoad(int sceneIndex)
     {
-        if (string.IsNullOrEmpty(sceneName))
+
+        if (fadeImage == null)
         {
-            Debug.LogWarning("[StartMenu] Scene name is empty. Please set it in the Inspector.");
+            Debug.LogWarning("[StartMenu] fadeImage 未赋值，直接跳转。");
+            SceneManager.LoadScene(sceneIndex);
             return;
         }
-        SceneManager.LoadScene(sceneName);
+
+        // 从透明渐变到不透明，完成后加载场景
+        fadeImage.DOFade(1f, fadeDuration)
+                 .SetEase(Ease.InQuad)
+                 .OnComplete(() => SceneManager.LoadScene(sceneIndex));
     }
 
-    // ─── Cleanup ───────────────────────────────────────────────────────────────
+    private void SetButtonsInteractable(bool interactable)
+    {
+        if (startButton    != null) startButton.interactable    = interactable;
+        if (continueButton != null) continueButton.interactable = interactable;
+        if (newGameButton  != null) newGameButton.interactable  = interactable;
+        if (settingsButton != null) settingsButton.interactable = interactable;
+        if (creditsButton  != null) creditsButton.interactable  = interactable;
+        if (quitButton     != null) quitButton.interactable     = interactable;
+    }
+
+    // ─── 清理 ─────────────────────────────────────────────────────────────────
 
     private void OnDestroy()
     {
-        // Remove listeners to prevent memory leaks if the object is destroyed
-        // before Unity's GC cleans up button references.
-        if (startButton != null)    startButton.onClick.RemoveListener(OnStartGame);
+        if (startButton    != null) startButton.onClick.RemoveListener(OnStartGame);
         if (continueButton != null) continueButton.onClick.RemoveListener(OnContinueGame);
-        if (newGameButton != null)  newGameButton.onClick.RemoveListener(OnNewGame);
+        if (newGameButton  != null) newGameButton.onClick.RemoveListener(OnNewGame);
         if (settingsButton != null) settingsButton.onClick.RemoveListener(OnSettings);
-        if (creditsButton != null)  creditsButton.onClick.RemoveListener(OnCredits);
-        if (quitButton != null)     quitButton.onClick.RemoveListener(OnQuit);
+        if (creditsButton  != null) creditsButton.onClick.RemoveListener(OnCredits);
+        if (quitButton     != null) quitButton.onClick.RemoveListener(OnQuit);
     }
 }
