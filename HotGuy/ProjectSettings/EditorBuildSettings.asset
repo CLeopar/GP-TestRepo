@@ -15,8 +15,13 @@ EditorBuildSettings:
     path: Assets/Scenes/L0_LevelSelection/LevelSelection.unity
     guid: 81539d2b53d92a443a35ac965cee6858
   - enabled: 1
+<<<<<<< Updated upstream
     path: Assets/Scenes/L1_Settlement/Settlement.unity
     guid: e380ffcbeeb4577459e5bda80e1cca2f
+=======
+    path: Assets/Scenes/Init.unity
+    guid: e0d691ac8c1d0454ba07089ea820e18a
+>>>>>>> Stashed changes
   - enabled: 1
     path: Assets/Package/Romain/Scene/Demo.unity
     guid: 198a909004a26d04a9da714803e7b736
