@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InfiniteScrollingBackground : MonoBehaviour
+public class InfiniteScrollingUIBackground : MonoBehaviour
 {
     [Header("滚动设置")]
     [Tooltip("滚动的速度向量 (x: 水平速度, y: 垂直速度)")]

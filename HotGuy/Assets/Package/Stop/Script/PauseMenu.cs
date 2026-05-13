@@ -9,13 +9,14 @@ using DG.Tweening;
 ///
 /// 预制体层级结构建议：
 ///   PauseMenuPanel (此脚本挂在这里)
-///   ├── Background (半透明遮罩)
+///   ├── Background (半透明遮罩 Image)
 ///   ├── Panel (主面板)
-///   │   ├── BtnResume        继续
-///   │   ├── BtnRestart       重新开始（重新加载当前关卡）
-///   │   ├── BtnHints         操作提示
-///   │   ├── BtnSettings      设置（暂无反应）
-///   │   └── BtnMainMenu      回到主菜单（场景0）
+///   │   ├── TopGroup (上方 UI 的父物体)
+///   │   │   ├── Title
+///   │   │   └── BtnResume
+///   │   └── BottomGroup (下方 UI 的父物体)
+///   │       ├── BtnSettings
+///   │       └── BtnMainMenu
 ///   └── HintsOverlay         操作提示子面板
 ///       ├── HintsImage       显示提示图片的 Image 组件
 ///       └── BtnCloseHints    关闭提示
@@ -24,10 +25,28 @@ public class PauseMenu : MonoBehaviour
 {
     public static PauseMenu Instance { get; private set; }
 
-    // ─── 渐黑遮罩 ─────────────────────────────────────────────────────────────
+    // ─── 开场动画 ─────────────────────────────────────────────────────────────
+
+    [Header("开场动画")]
+    [Tooltip("Background 的 Image（用于淡入淡出）")]
+    [SerializeField] private Image backgroundImage;
+
+    [Tooltip("上方 UI 元素的父物体（如标题、继续按钮）")]
+    [SerializeField] private RectTransform topGroup;
+
+    [Tooltip("下方 UI 元素的父物体（如设置、返回主菜单）")]
+    [SerializeField] private RectTransform bottomGroup;
+
+    [Tooltip("动画时长（秒）")]
+    [SerializeField] private float animDuration = 0.4f;
+
+    [Tooltip("滑入距离（像素）")]
+    [SerializeField] private float slideDistance = 80f;
+
+    // ─── 渐黑遮罩（用于场景切换）──────────────────────────────────────────────
 
     [Header("渐黑遮罩")]
-    [Tooltip("黑色全屏 Image，初始 Alpha = 0")]
+    [Tooltip("黑色全屏 Image，初始 Alpha = 0，用于切换场景时渐黑")]
     [SerializeField] private Image fadeImage;
 
     [Tooltip("渐黑持续时间（秒）")]
@@ -59,6 +78,10 @@ public class PauseMenu : MonoBehaviour
 
     private int currentLevelIndex = 0;
 
+    // 缓存原始位置，用于动画
+    private Vector2 topGroupOriginalPos;
+    private Vector2 bottomGroupOriginalPos;
+
     // ──────────────────────────────────────────────────────────────────────────
 
     private void Awake()
@@ -73,13 +96,27 @@ public class PauseMenu : MonoBehaviour
 
     private void Start()
     {
-        // 确保 fadeImage 初始透明
+        // 确保渐黑遮罩初始透明
         if (fadeImage != null)
         {
             Color c = fadeImage.color;
             c.a = 0f;
             fadeImage.color = c;
         }
+
+        // 确保背景初始透明
+        if (backgroundImage != null)
+        {
+            Color c = backgroundImage.color;
+            c.a = 0f;
+            backgroundImage.color = c;
+        }
+
+        // 缓存原始位置
+        if (topGroup != null)
+            topGroupOriginalPos = topGroup.anchoredPosition;
+        if (bottomGroup != null)
+            bottomGroupOriginalPos = bottomGroup.anchoredPosition;
 
         RegisterButtonListeners();
 
@@ -103,16 +140,59 @@ public class PauseMenu : MonoBehaviour
 
         if (hintsOverlay != null)
             hintsOverlay.SetActive(false);
+
+        PlayOpenAnimation();
     }
 
     /// <summary>关闭暂停菜单，恢复游戏时间。</summary>
     public void Close()
     {
+        // 如果有动画在播放，先杀掉避免冲突
+        if (backgroundImage != null) DOTween.Kill(backgroundImage);
+        if (topGroup != null) DOTween.Kill(topGroup);
+        if (bottomGroup != null) DOTween.Kill(bottomGroup);
+
         if (hintsOverlay != null)
             hintsOverlay.SetActive(false);
 
         gameObject.SetActive(false);
         Time.timeScale = 1f;
+    }
+
+    // ─── 开场动画 ─────────────────────────────────────────────────────────────
+
+    private void PlayOpenAnimation()
+    {
+        // ── Background 淡入 ──────────────────────────────────────────
+        if (backgroundImage != null)
+        {
+            Color c = backgroundImage.color;
+            c.a = 0f;
+            backgroundImage.color = c;
+
+            backgroundImage.DOFade(1f, animDuration)
+                           .SetUpdate(true); // timeScale=0 下也能播放
+        }
+
+        // ── 上方元素从上滑入 ─────────────────────────────────────────
+        if (topGroup != null)
+        {
+            topGroup.anchoredPosition = topGroupOriginalPos + Vector2.up * slideDistance;
+
+            topGroup.DOAnchorPos(topGroupOriginalPos, animDuration)
+                    .SetEase(Ease.OutCubic)
+                    .SetUpdate(true);
+        }
+
+        // ── 下方元素从下滑入 ─────────────────────────────────────────
+        if (bottomGroup != null)
+        {
+            bottomGroup.anchoredPosition = bottomGroupOriginalPos + Vector2.down * slideDistance;
+
+            bottomGroup.DOAnchorPos(bottomGroupOriginalPos, animDuration)
+                       .SetEase(Ease.OutCubic)
+                       .SetUpdate(true);
+        }
     }
 
     // ─── 按钮注册 ─────────────────────────────────────────────────────────────
@@ -182,7 +262,7 @@ public class PauseMenu : MonoBehaviour
 
     private void FadeAndLoad(int sceneIndex)
     {
-        // 恢复时间，否则 DOTween SetUpdate(false) 的 tween 不会播放
+        // 恢复时间，否则 DOTween 的 tween 不会播放
         Time.timeScale = 1f;
 
         if (fadeImage == null)
@@ -199,7 +279,7 @@ public class PauseMenu : MonoBehaviour
 
         fadeImage.DOFade(1f, fadeDuration)
                  .SetEase(Ease.InQuad)
-                 .SetUpdate(true) // timeScale=1 后其实不需要，但保险
+                 .SetUpdate(true)
                  .OnComplete(() => SceneManager.LoadScene(sceneIndex));
     }
 
@@ -208,7 +288,7 @@ public class PauseMenu : MonoBehaviour
     private void OnDestroy()
     {
         if (btnResume    != null) btnResume.onClick.RemoveListener(OnResume);
-        if (btnRestart   != null) btnRestart.onClick.RemoveListener(OnRestart);
+        if (btnRestart   != null) btnRestart.onClick.AddListener(OnRestart);
         if (btnHints     != null) btnHints.onClick.RemoveListener(OnHints);
         if (btnSettings  != null) btnSettings.onClick.RemoveListener(OnSettings);
         if (btnMainMenu  != null) btnMainMenu.onClick.RemoveListener(OnMainMenu);

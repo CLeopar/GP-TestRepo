@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class InfiniteScroll1 : MonoBehaviour
+public class InfiniteScrollButton : MonoBehaviour
 {
     [Header("瓦片")]
     public SpriteRenderer tilePrefab;
