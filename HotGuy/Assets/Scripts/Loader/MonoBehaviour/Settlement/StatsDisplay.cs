@@ -1,10 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using TMPro;
 
-/// <summary>
-/// 把 GameStatsManager 的数据同步显示到 TextMeshPro
-/// 挂载在任意 TextMeshPro GameObject 上
-/// </summary>
 public class StatsDisplay : MonoBehaviour
 {
     public enum DisplayType
@@ -13,73 +10,118 @@ public class StatsDisplay : MonoBehaviour
         HighScore,
         AverageCompletion,
         CompletionBelow60Count,
-        CompletionAbove95Count
+        CompletionAbove95Count,
+        NewRecord           // ★ 新增：是否刷新记录
     }
 
     [Header("显示内容")]
-    [Tooltip("选择要显示的数据类型")]
     [SerializeField] private DisplayType displayType = DisplayType.TotalScore;
 
-    [Header("格式")]
-    [Tooltip("显示前缀，例如 '总分：'")]
-    [SerializeField] private string prefix = "";
+    [Header("新记录显示")]
+    [Tooltip("当 DisplayType 为 NewRecord 时，如果刷新记录显示这个物体")]
+    [SerializeField] private GameObject newRecordObject;
 
-    [Tooltip("显示后缀，例如 ' 分'")]
-    [SerializeField] private string suffix = "";
-
-    [Tooltip("小数位数（仅对浮点数生效）")]
-    [SerializeField] private int decimalPlaces = 0;
-
-    [Header("刷新频率")]
-    [Tooltip("每秒刷新次数，0 = 只在 Start 时刷新一次")]
-    [SerializeField] private float refreshRate = 0f;
-
-    private TMP_Text text;
-    private float timer;
+    private TMP_Text textUI;
+    private TextMeshPro text3D;
+    private bool is3D;
 
     private void Awake()
     {
-        text = GetComponent<TMP_Text>();
+        text3D = GetComponent<TextMeshPro>();
+        textUI = GetComponent<TMP_Text>();
+
+        if (text3D != null)
+        {
+            is3D = true;
+        }
+        else if (textUI != null)
+        {
+            is3D = false;
+        }
+        else
+        {
+            Debug.LogError($"[{nameof(StatsDisplay)}] 未找到 TMP 组件！", this);
+        }
     }
 
     private void Start()
     {
-        UpdateDisplay();
-    }
-
-    private void Update()
-    {
-        if (refreshRate <= 0) return;
-
-        timer += Time.deltaTime;
-        if (timer >= 1f / refreshRate)
+        if (GameStatsManager.Instance == null)
         {
-            timer = 0f;
+            StartCoroutine(WaitForStatsManager());
+        }
+        else
+        {
             UpdateDisplay();
         }
     }
 
-    // GameStatsManager.Instance.Refresh() 后手动调用，或者设 refreshRate > 0 自动刷新
+    private IEnumerator WaitForStatsManager()
+    {
+        float timeout = 3f;
+        float timer = 0f;
+        
+        while (GameStatsManager.Instance == null && timer < timeout)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        
+        if (GameStatsManager.Instance == null)
+        {
+            Debug.LogError("[StatsDisplay] 等待超时，GameStatsManager 未找到！");
+            yield break;
+        }
+        
+        UpdateDisplay();
+    }
+
     public void UpdateDisplay()
     {
-        if (GameStatsManager.Instance == null || text == null) return;
+        if (!is3D && textUI == null) return;
+        if (is3D && text3D == null) return;
 
-        var stats = GameStatsManager.Instance;
         string value = displayType switch
         {
-            DisplayType.TotalScore             => FormatFloat(stats.TotalScore),
-            DisplayType.HighScore              => FormatFloat(stats.HighScore),
-            DisplayType.AverageCompletion      => FormatFloat(stats.AverageCompletion * 100f) + "%",
-            DisplayType.CompletionBelow60Count => stats.CompletionBelow60Count.ToString(),
-            DisplayType.CompletionAbove95Count => stats.CompletionAbove95Count.ToString(),
+            DisplayType.TotalScore             => Mathf.RoundToInt(PlayerPrefs.GetFloat("GameStats_TotalScore", 0f)).ToString(),
+            DisplayType.HighScore              => Mathf.RoundToInt(PlayerPrefs.GetFloat("GameStats_HighScore", 0f)).ToString(),
+            DisplayType.AverageCompletion      => Mathf.RoundToInt(PlayerPrefs.GetFloat("GameStats_AverageCompletion", 0f) * 100f).ToString() + "%",
+            DisplayType.CompletionBelow60Count => PlayerPrefs.GetInt("GameStats_Below60", 0).ToString(),
+            DisplayType.CompletionAbove95Count => PlayerPrefs.GetInt("GameStats_Above95", 0).ToString(),
+            DisplayType.NewRecord              => HandleNewRecord(),  // ★ 新增
             _                                  => ""
         };
 
-        text.text = prefix + value + suffix;
+        if (displayType != DisplayType.NewRecord)
+        {
+            if (is3D)
+                text3D.text = value;
+            else
+                textUI.text = value;
+        }
     }
 
-    private string FormatFloat(float value)
+    /// <summary>
+    /// 处理新记录显示：如果本次总分 > 之前的最高分，显示物体
+    /// </summary>
+    private string HandleNewRecord()
     {
-        return value.ToString($"F{decimalPlaces}");
+        float currentScore = PlayerPrefs.GetFloat("GameStats_TotalScore", 0f);
+        float highScore = PlayerPrefs.GetFloat("GameStats_HighScore", 0f);
+        
+        // 注意：如果当前分数等于最高分，且之前没有记录过（首次游戏），也算新记录
+        bool isNewRecord = currentScore >= highScore && currentScore > 0;
+        
+        if (newRecordObject != null)
+        {
+            newRecordObject.SetActive(isNewRecord);
+            Debug.Log($"[StatsDisplay] 新记录检测: 当前{currentScore}, 最高{highScore}, 结果:{isNewRecord}");
+        }
+        else
+        {
+            Debug.LogWarning("[StatsDisplay] newRecordObject 未赋值！");
+        }
+
+        return ""; // NewRecord 不需要返回文本
     }
 }

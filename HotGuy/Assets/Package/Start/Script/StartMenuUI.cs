@@ -98,8 +98,23 @@ public class StartMenuUI : MonoBehaviour
 
     private void OnNewGame()
     {
-        PlayerPrefs.DeleteKey("HasSaveData");
-        PlayerPrefs.Save();
+        // 清空所有游戏数据
+        if (GameStatsManager.Instance != null)
+        {
+            GameStatsManager.Instance.ClearAllData();
+        }
+        else
+        {
+            // 备用：直接清除 PlayerPrefs
+            PlayerPrefs.DeleteKey("GameStats_TotalScore");
+            PlayerPrefs.DeleteKey("GameStats_HighScore");
+            PlayerPrefs.DeleteKey("GameStats_AverageCompletion");
+            PlayerPrefs.DeleteKey("GameStats_Below60");
+            PlayerPrefs.DeleteKey("GameStats_Above95");
+            PlayerPrefs.DeleteKey("HasSaveData");
+            PlayerPrefs.Save();
+        }
+
         FadeAndLoad(newGameSceneIndex);
     }
 

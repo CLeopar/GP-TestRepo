@@ -314,6 +314,9 @@ public class GameManager : MonoBehaviour
         int nextLevel = currentLevel + 1;
         if (nextLevel >= activeLevels.Count)
         {
+            // ★★★ 所有关卡结束，保存最终数据 ★★★
+            GameStatsManager.Instance.SaveSession();
+            
             FadeBgmVolume(0f);
             ShowResultsScreen();
             onAllLevelsComplete?.Invoke();
