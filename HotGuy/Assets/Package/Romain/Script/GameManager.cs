@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
+    /// <summary>每关姿势检测完成后触发（GameStatsManager 订阅此事件）</summary>
+    public static event System.Action OnLevelCompleted;
+
     // ───────────────────────── Level ─────────────────────────
     [System.Serializable]
     public class Level
@@ -48,28 +51,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ───────────────────── Milestone Sound Config ─────────────────────
-    [System.Serializable]
-    public class MilestoneSound
-    {
-        [Tooltip("触发的百分比（整数 0~100，例如 50 表示 50%）")]
-        public int percent;
-        [Tooltip("该里程碑要播放的音效（可为空，为空则不播放）")]
-        public AudioClip clip;
-        [Range(0f, 1f)]
-        public float volume = 1f;
-    }
-
     // ───────────────────────── Inspector ─────────────────────────
     [Header("Timer")]
-    [SerializeField] private TMP_Text timerText;
+    [SerializeField] private TMP_Text      timerText;
     [SerializeField] private RectTransform timerImage;
     [Tooltip("每关的倒计时时长（秒），按出场顺序填写。index 0 = 第1关，以此类推。数组不足时使用最后一个值。")]
     [SerializeField] private float[] levelTimes = { 60f, 50f, 40f, 30f, 20f };
 
     [Header("Gameplay BGM")]
     [Tooltip("第一关开始后全程循环播放的背景音乐")]
-    [SerializeField] private AudioClip gameplayBgmClip;
+    [SerializeField] private AudioClip   gameplayBgmClip;
     [SerializeField] private AudioSource gameplayBgmSource;
     [Tooltip("游玩阶段（倒计时进行中）的音量")]
     [Range(0f, 1f)]
@@ -82,18 +73,18 @@ public class GameManager : MonoBehaviour
 
     [Header("Countdown Warning")]
     [Tooltip("倒计时警告从剩余第几秒开始")]
-    [SerializeField] private int countdownWarnSeconds = 3;
+    [SerializeField] private int         countdownWarnSeconds = 3;
     [Tooltip("警告期间每秒播放的音效")]
-    [SerializeField] private AudioClip countdownClip;
+    [SerializeField] private AudioClip   countdownClip;
     [Tooltip("归零时播放的专属音效")]
-    [SerializeField] private AudioClip countdownFinishClip;
+    [SerializeField] private AudioClip   countdownFinishClip;
     [Range(0f, 1f)]
-    [SerializeField] private float countdownVolume = 1f;
+    [SerializeField] private float       countdownVolume = 1f;
     [SerializeField] private AudioSource countdownAudioSource;
-    [SerializeField] private float countdownPunchScale    = 0.4f;
-    [SerializeField] private float countdownPunchDuration = 0.35f;
-    [SerializeField] private float ghostScaleMultiplier   = 2.5f;
-    [SerializeField] private float ghostDuration          = 0.5f;
+    [SerializeField] private float       countdownPunchScale    = 0.4f;
+    [SerializeField] private float       countdownPunchDuration = 0.35f;
+    [SerializeField] private float       ghostScaleMultiplier   = 2.5f;
+    [SerializeField] private float       ghostDuration          = 0.5f;
 
     [Header("Flow Time")]
     [SerializeField] private float enterWaitTime     = 1.0f;
@@ -109,7 +100,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Level")]
     [SerializeField] private List<Level> levelList;
-    [SerializeField] private int levelCount = 5;
+    [SerializeField] private int         levelCount = 5;
 
     [Header("Prompt")]
     [Tooltip("每个元素对应一关，promptTexts[0] 显示第一关，以此类推")]
@@ -119,71 +110,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image[] pictureImages;
 
     [Header("Completion UI")]
-    [SerializeField] private TMP_Text completionText;
-    [SerializeField] private Animator completionTextAnimator;
-    [SerializeField] private string   completionNextLevelTrigger = "Next";
-    [SerializeField] private float    completionShowDelay        = 0.5f;
-    [SerializeField] private float    completionCountDuration    = 0.8f;
-    [Tooltip("百分比动画最短播放时长")]
-    [SerializeField] private float completionCountDurationMin = 0.3f;
-    [SerializeField] private float completionTriggerDelay     = 1.0f;
-    [SerializeField] private string completionFinishTrigger   = "Finish";
-    [SerializeField] private float  completionScaleMin        = 0.8f;
-    [SerializeField] private float  completionScaleMax        = 2.0f;
     [Tooltip("结算页面最短停留时间（秒）")]
     [SerializeField] private float completionMinDisplayTime = 8f;
-
-    [Header("Total Score UI")]
-    [Tooltip("始终显示在关卡上的总分文本")]
-    [SerializeField] private TMP_Text totalScoreText;
-    [Tooltip("completionFinishTrigger 触发后，延迟多少秒再开始滚动总分")]
-    [SerializeField] private float totalScoreDelay = 1.5f;
-    [Tooltip("总分滚动动画时长（秒）")]
-    [SerializeField] private float totalScoreCountDuration = 0.6f;
-    [Tooltip("总分满分值（仅用于显示参考）")]
-    [SerializeField] private float totalScoreMax = 700f;
-    [Tooltip("总分滚动时每次数字变化的抖动强度")]
-    [SerializeField] private float totalScorePunchScale = 0.15f;
-    [Tooltip("总分滚动时每次数字变化的抖动时长")]
-    [SerializeField] private float totalScorePunchDuration = 0.12f;
-    [Tooltip("总分每跳动一次播放的音效")]
-    [SerializeField] private AudioClip totalScoreTickSound;
-    [Tooltip("总分音效音量")]
-    [Range(0f, 1f)]
-    [SerializeField] private float totalScoreTickVolume = 0.8f;
-    [Tooltip("总分音效音调范围下限")]
-    [SerializeField] private float totalScoreTickPitchMin = 0.9f;
-    [Tooltip("总分音效音调范围上限")]
-    [SerializeField] private float totalScoreTickPitchMax = 1.3f;
-    [Tooltip("总分音效 AudioSource（留空则自动创建）")]
-    [SerializeField] private AudioSource totalScoreAudioSource;
-
-    [Header("Milestone Punch")]
-    public int milestoneInterval = 10;
-    [SerializeField] private float punchDuration      = 0.22f;
-    [SerializeField] private float punchDurationAt100 = 0.55f;
-    [SerializeField] private float punchRotationAngle = 9f;
-    [SerializeField] private float punchScaleAmount   = 0.28f;
-
-    [Header("Score Sound")]
-    [SerializeField] private AudioClip   tickSound;
-    [SerializeField] private float       tickPitchMin = 0.8f;
-    [SerializeField] private float       tickPitchMax = 2.0f;
-    [SerializeField] private AudioSource tickAudioSource;
-
-    [Header("Milestone Sounds (Per Percent)")]
-    [SerializeField] private MilestoneSound[] milestoneSounds;
-    [SerializeField] private AudioSource      milestoneAudioSource;
-
-    [Header("Score Grades")]
-    public ScoreGrade[] scoreGrades;
-
-    [System.Serializable]
-    public class ScoreGrade
-    {
-        public int          threshold;
-        public GameObject[] objects;
-    }
 
     [Header("Results Screen")]
     [SerializeField] private GameObject resultsPanel;
@@ -212,12 +140,7 @@ public class GameManager : MonoBehaviour
     private readonly List<Texture2D> capturedTextures = new();
     private readonly List<Sprite>    capturedSprites  = new();
 
-    private float _scoreCurrentPercent;
-    private bool  _scoreAnimRunning;
     private Tween _bgmFadeTween;
-
-    private float _totalScore;
-    private Tween _totalScoreTween;
 
     public IReadOnlyList<Texture2D> CapturedTextures => capturedTextures;
     public IReadOnlyList<Sprite>    CapturedSprites  => capturedSprites;
@@ -230,20 +153,6 @@ public class GameManager : MonoBehaviour
     {
         if (timerImage != null)
             timerImageInitialWidth = timerImage.sizeDelta.x;
-
-        if (tickAudioSource == null)
-        {
-            tickAudioSource = gameObject.AddComponent<AudioSource>();
-            tickAudioSource.playOnAwake  = false;
-            tickAudioSource.spatialBlend = 0f;
-        }
-
-        if (milestoneAudioSource == null)
-        {
-            milestoneAudioSource = gameObject.AddComponent<AudioSource>();
-            milestoneAudioSource.playOnAwake  = false;
-            milestoneAudioSource.spatialBlend = 0f;
-        }
 
         if (countdownAudioSource == null)
         {
@@ -296,17 +205,6 @@ public class GameManager : MonoBehaviour
 
         currentLevel = 0;
         FillAllPromptTexts();
-
-        // ── 总分初始化 ─────────────────────────────────────────
-        _totalScore = 0f;
-        if (totalScoreText != null)
-            totalScoreText.text = "0";
-        if (totalScoreAudioSource == null)
-        {
-            totalScoreAudioSource = gameObject.AddComponent<AudioSource>();
-            totalScoreAudioSource.playOnAwake  = false;
-            totalScoreAudioSource.spatialBlend = 0f;
-        }
     }
 
     private float GetLevelTime(int positionIndex)
@@ -351,6 +249,7 @@ public class GameManager : MonoBehaviour
     }
 
     // ── 主流程 ────────────────────────────────────────────────
+
     private IEnumerator RunCurrentLevelFlow()
     {
         Level level = activeLevels[currentLevel];
@@ -382,6 +281,7 @@ public class GameManager : MonoBehaviour
             pictureImages[currentLevel].gameObject.SetActive(true);
 
         CheckPose();
+        OnLevelCompleted?.Invoke();
         yield return StartCoroutine(CaptureAndSetPicture());
 
         SetControllersEnabled(level, false);
@@ -395,8 +295,11 @@ public class GameManager : MonoBehaviour
 
         FadeBgmVolume(bgmVolumeCompletion);
 
+        // ── 委托 ScoreManager 播放结算动画并累加分数 ──────────
         float completionStartTime = Time.time;
-        yield return StartCoroutine(ShowCompletionForCurrentLevel(level));
+        yield return StartCoroutine(
+            ScoreManager.Instance.ShowCompletionAndAddScore(level.similarity, level.scoreWeight)
+        );
 
         float elapsed   = Time.time - completionStartTime;
         float remaining = completionMinDisplayTime - elapsed;
@@ -418,16 +321,8 @@ public class GameManager : MonoBehaviour
         }
 
         currentLevel = nextLevel;
-        TriggerAnimator(completionTextAnimator, completionNextLevelTrigger);
         TriggerAnimator(levelTransitionAnimator, levelTransitionTrigger);
-
-        if (completionText != null)
-        {
-            completionText.gameObject.SetActive(false);
-            completionText.text = "0%";
-            completionText.transform.localScale    = Vector3.one * completionScaleMin;
-            completionText.transform.localRotation = Quaternion.identity;
-        }
+        ScoreManager.Instance.ResetCompletionText();
 
         StartCoroutine(RunCurrentLevelFlow());
     }
@@ -576,200 +471,6 @@ public class GameManager : MonoBehaviour
 
         yield return scaleTween.WaitForCompletion();
         Destroy(ghostObj);
-    }
-
-    // ── 结算 UI ───────────────────────────────────────────────
-
-    private IEnumerator ShowCompletionForCurrentLevel(Level level)
-    {
-        if (completionText == null || level == null) yield break;
-
-        if (completionShowDelay > 0f) yield return new WaitForSeconds(completionShowDelay);
-
-        if (!completionText.gameObject.activeSelf)
-        {
-            completionText.text = "0%";
-            completionText.transform.localScale    = Vector3.one * completionScaleMin;
-            completionText.transform.localRotation = Quaternion.identity;
-            completionText.gameObject.SetActive(true);
-        }
-
-        float targetPercent = Mathf.Round(level.similarity * 100f);
-        float duration = Mathf.Max(completionCountDurationMin,
-            completionCountDuration * (targetPercent / 100f));
-
-        if (duration <= 0f)
-        {
-            completionText.text = Mathf.RoundToInt(targetPercent) + "%";
-            completionText.transform.localScale = Vector3.one *
-                Mathf.Lerp(completionScaleMin, completionScaleMax, level.similarity);
-        }
-        else
-        {
-            _scoreCurrentPercent = 0f;
-            _scoreAnimRunning    = true;
-
-            StartCoroutine(ScoreSoundCoroutine(targetPercent));
-
-            yield return DOTween.To(
-                () => _scoreCurrentPercent,
-                x =>
-                {
-                    _scoreCurrentPercent = x;
-                    completionText.text  = Mathf.RoundToInt(x) + "%";
-                    completionText.transform.localScale = Vector3.one *
-                        Mathf.Lerp(completionScaleMin, completionScaleMax, x / 100f);
-                },
-                targetPercent, duration
-            ).SetEase(Ease.OutCubic).WaitForCompletion();
-
-            _scoreAnimRunning = false;
-            yield return null;
-        }
-
-        ActivateScoreGrade(level.similarity);
-
-        if (completionTriggerDelay > 0f) yield return new WaitForSeconds(completionTriggerDelay);
-
-        // ── Completion Finish Trigger 触发，同时开始滚动累加总分 ──
-        TriggerAnimator(completionTextAnimator, completionFinishTrigger);
-        AddToTotalScore(level.similarity * level.scoreWeight);
-    }
-
-    // ── 总分累加 ──────────────────────────────────────────────
-
-    private void AddToTotalScore(float addAmount)
-    {
-        StartCoroutine(AddToTotalScoreCoroutine(addAmount));
-    }
-    private IEnumerator AddToTotalScoreCoroutine(float addAmount)
-    {
-        // 延迟
-        if (totalScoreDelay > 0f)
-            yield return new WaitForSeconds(totalScoreDelay);
-
-        if (totalScoreText == null) yield break;
-
-        float fromScore = _totalScore;
-        float toScore   = _totalScore + addAmount;
-        _totalScore     = toScore;
-
-        int lastDisplayed = Mathf.RoundToInt(fromScore);
-
-        _totalScoreTween?.Kill();
-
-        float displayed = fromScore;
-        _totalScoreTween = DOTween.To(
-            ()  => displayed,
-            x   =>
-            {
-                displayed = x;
-                int current = Mathf.RoundToInt(x);
-
-                // 数字发生变化时触发抖动和音效
-                if (current != lastDisplayed)
-                {
-                    lastDisplayed = current;
-                    totalScoreText.text = current.ToString();
-
-                    // 抖动
-                    totalScoreText.transform.DOKill(false);
-                    totalScoreText.transform.DOPunchScale(
-                        Vector3.one * totalScorePunchScale,
-                        totalScorePunchDuration, 5, 0.4f);
-
-                    // 音效：音调随分数进度升高
-                    if (totalScoreTickSound != null && totalScoreAudioSource != null)
-                    {
-                        float progress = toScore > 0f
-                            ? Mathf.Clamp01((x - fromScore) / (toScore - fromScore))
-                            : 0f;
-                        totalScoreAudioSource.pitch =
-                            Mathf.Lerp(totalScoreTickPitchMin, totalScoreTickPitchMax, progress);
-                        totalScoreAudioSource.PlayOneShot(totalScoreTickSound, totalScoreTickVolume);
-                    }
-                }
-            },
-            toScore,
-            totalScoreCountDuration
-        ).SetEase(Ease.OutCubic);
-    }
-    private IEnumerator ScoreSoundCoroutine(float targetPercent)
-    {
-        int lastTickDisplayed = -1, lastMilestone = 0;
-        int interval  = Mathf.Max(1, milestoneInterval);
-        int targetInt = Mathf.RoundToInt(targetPercent);
-
-        while (_scoreAnimRunning || lastTickDisplayed < targetInt)
-        {
-            int displayed = Mathf.RoundToInt(_scoreCurrentPercent);
-
-            if (displayed != lastTickDisplayed && displayed > 0)
-            {
-                if (tickSound != null)
-                {
-                    tickAudioSource.pitch = Mathf.Lerp(tickPitchMin, tickPitchMax, displayed / 100f);
-                    tickAudioSource.PlayOneShot(tickSound);
-                }
-                lastTickDisplayed = displayed;
-            }
-
-            if (displayed > lastMilestone)
-            {
-                for (int i = lastMilestone + 1; i <= displayed; i++)
-                {
-                    if (i % interval == 0)
-                    {
-                        lastMilestone = i;
-
-                        if (completionText != null)
-                            PunchCompletionText(completionText.transform,
-                                Mathf.Lerp(completionScaleMin, completionScaleMax, i / 100f), i == 100);
-
-                        if (milestoneSounds != null)
-                            foreach (var ms in milestoneSounds)
-                                if (ms != null && ms.percent == i && ms.clip != null)
-                                {
-                                    milestoneAudioSource.PlayOneShot(ms.clip, ms.volume);
-                                    break;
-                                }
-
-                        break;
-                    }
-                    lastMilestone = i;
-                }
-            }
-
-            yield return null;
-        }
-    }
-
-    private void ActivateScoreGrade(float similarity)
-    {
-        if (scoreGrades == null || scoreGrades.Length == 0) return;
-        foreach (var grade in scoreGrades)
-        {
-            if (similarity * 100f >= grade.threshold)
-            {
-                if (grade.objects != null)
-                    foreach (var obj in grade.objects)
-                        if (obj != null) obj.SetActive(true);
-                return;
-            }
-        }
-    }
-
-    private void PunchCompletionText(Transform tf, float baseScale, bool isMax = false)
-    {
-        tf.DOKill(false);
-        tf.localScale    = Vector3.one * baseScale;
-        tf.localRotation = Quaternion.identity;
-
-        float dur = isMax ? punchDurationAt100 : punchDuration;
-        tf.DOPunchRotation(new Vector3(0f, 0f, punchRotationAngle), dur, isMax ? 12 : 7, 0.4f);
-        tf.DOPunchScale(Vector3.one * (isMax ? punchScaleAmount * 1.5f : punchScaleAmount),
-                dur, isMax ? 10 : 6, 0.5f)
-           .OnComplete(() => { if (tf != null) tf.localScale = Vector3.one * baseScale; });
     }
 
     private void SetControllersEnabled(Level level, bool enabledState)
@@ -934,8 +635,6 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         _bgmFadeTween?.Kill();
-        _totalScoreTween?.Kill();
-        _scoreAnimRunning = false;
         foreach (var s in capturedSprites)  if (s != null) Destroy(s);
         foreach (var t in capturedTextures) if (t != null) Destroy(t);
         capturedSprites.Clear();

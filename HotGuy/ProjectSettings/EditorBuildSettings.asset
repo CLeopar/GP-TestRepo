@@ -8,6 +8,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Package/Start/Scene/Start.unity
+    guid: 0350d5bf5208d404f88f8a18d890d7ad
+  - enabled: 1
+    path: Assets/Scenes/L0_LevelSelection/LevelSelection.unity
+    guid: 81539d2b53d92a443a35ac965cee6858
+  - enabled: 1
+    path: Assets/Scenes/L1_Settlement/Settlement.unity
+    guid: e380ffcbeeb4577459e5bda80e1cca2f
+  - enabled: 1
+    path: Assets/Package/Romain/Scene/Demo.unity
+    guid: 198a909004a26d04a9da714803e7b736
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 7e3c84d43750aaa418485a985bfc6741, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: c3e867165c881ad418863bfbd6a55be9, type: 3}
