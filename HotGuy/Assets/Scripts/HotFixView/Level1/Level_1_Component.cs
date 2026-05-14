@@ -72,6 +72,16 @@ public class Level_1_Component_Awake : AwakeSystem<Level_1_Component>
     protected override void Awake(Level_1_Component self)
     {
         self.Init();
+        
+          
+         
+        // 注册分数组件
+        if (self.Scene.GetComponent<ScoreComponent>() == null)
+            self.Scene.AddComponent<ScoreComponent>();
+        
+        // 注册分数UI组件
+        if (self.Scene.GetComponent<ScoreUIComponent>() == null)
+            self.Scene.AddComponent<ScoreUIComponent>();
     }
 }
 

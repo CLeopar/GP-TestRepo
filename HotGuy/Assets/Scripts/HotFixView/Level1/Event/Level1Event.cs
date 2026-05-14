@@ -64,3 +64,22 @@ public struct HoldDog
 public struct HitDog
 {
 }
+
+// 加到 Level1Event.cs 文件末尾
+
+/// <summary>
+/// 分数变化事件
+/// </summary>
+public struct ScoreChanged
+{
+    public int Delta;
+    public int CurrentScore;
+    public long TargetId;
+}
+
+/// <summary>
+/// 重置分数事件
+/// </summary>
+public struct ScoreReset
+{
+}
