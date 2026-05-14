@@ -82,6 +82,10 @@ public class Level_1_Component_Awake : AwakeSystem<Level_1_Component>
         // 注册分数UI组件
         if (self.Scene.GetComponent<ScoreUIComponent>() == null)
             self.Scene.AddComponent<ScoreUIComponent>();
+        
+        // ========== 注册粒子特效组件 ==========
+        if (self.Scene.GetComponent<FoodParticleEffectComponent>() == null)
+            self.Scene.AddComponent<FoodParticleEffectComponent>();
     }
 }
 

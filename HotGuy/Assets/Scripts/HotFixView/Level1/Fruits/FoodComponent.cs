@@ -22,6 +22,10 @@ public class FoodComponent : Entity, ISupportedMultiEntity
 
     public bool isStayHands { get; set; } = false;
 
+    // ========== 新增：持续粒子控制 ==========
+    public bool IsBeingEaten = false;
+    public long ParticleTimer = 0;
+
     public async FTask Init(Transform fruitParent, FoodType fruitTypes)
     {
         foodType = fruitTypes;
@@ -44,7 +48,6 @@ public class FoodComponent : Entity, ISupportedMultiEntity
         {
             var child = Fruit_Tr.GetChild(i).gameObject;
             stateGameObjects.Add(child);
-            //默认显示第一状态
             if (i > 0)
                 child.SetActive(false);
         }
@@ -100,7 +103,6 @@ public class FoodComponent : Entity, ISupportedMultiEntity
         collider2D.enabled = false;
         rigidBody2D.gravityScale = 0;
         ChangeSpriteSortOrder(101);
-        // spriteRenderer.sortingOrder = 101;
         Fruit_Tr.SetParent(parent);
         Fruit_Tr.localPosition = Vector3.zero;
         rigidBody2D.velocity = Vector2.zero;
@@ -115,45 +117,106 @@ public class FoodComponent : Entity, ISupportedMultiEntity
         rigidBody2D.gravityScale = 1;
         collider2D.enabled = true;
         ChangeSpriteSortOrder(0);
-        // spriteRenderer.sortingOrder = 0;
 
         isInPickUp = false;
     }
 
     public async FTask StartEat(bool isNormal)
     {
-        //四个阶段，目前用颜色区分
-        //红、黄、蓝、黑
+        IsBeingEaten = true;
         CancellationToken = FCancellationToken.ToKen;
+        
+        // 启动持续粒子
+        StartContinuousParticles();
+        
         var duration = Scene.GetComponent<Tables>().ConstConfigCategory.FoodChangeStateInterval;
+
         if (fruitStateType == FruitStateType.Normal)
         {
             await Scene.TimerComponent.Net.WaitAsync(duration, CancellationToken);
-            if (CancellationToken.IsCancel)
-                return;
+            if (CancellationToken.IsCancel) { StopParticles(); return; }
             ShowState(1, isNormal);
         }
 
         if (fruitStateType == FruitStateType.Eat_2)
         {
             await Scene.TimerComponent.Net.WaitAsync(duration, CancellationToken);
-            if (CancellationToken.IsCancel)
-                return;
+            if (CancellationToken.IsCancel) { StopParticles(); return; }
             ShowState(2, isNormal);
         }
 
         if (fruitStateType == FruitStateType.Eat_3)
         {
             await Scene.TimerComponent.Net.WaitAsync(duration, CancellationToken);
-            if (CancellationToken.IsCancel)
-                return;
+            if (CancellationToken.IsCancel) { StopParticles(); return; }
             ShowState(3, isNormal);
         }
+        
+        StopParticles();
     }
 
     public void CancelEat()
     {
         CancellationToken?.Cancel();
+        StopParticles();
+    }
+
+    /// <summary>
+    /// 启动持续粒子
+    /// </summary>
+    private void StartContinuousParticles()
+    {
+        ParticleTimer = Scene.TimerComponent.Net.RepeatedTimer(200, () =>
+        {
+            if (!IsBeingEaten) return;
+            SpawnParticles();
+        });
+    }
+
+    /// <summary>
+    /// 停止粒子
+    /// </summary>
+    private void StopParticles()
+    {
+        IsBeingEaten = false;
+        Scene.TimerComponent.Net.Remove(ref ParticleTimer);
+    }
+
+    /// <summary>
+    /// 单次粒子释放
+    /// </summary>
+    private void SpawnParticles()
+    {
+        var particleEffect = Scene.GetComponent<FoodParticleEffectComponent>();
+        if (particleEffect == null) return;
+        
+        Color foodColor = GetCurrentFoodColor();
+        particleEffect.SpawnEffect(Fruit_Tr.position, foodColor);
+    }
+
+    /// <summary>
+    /// 获取食物颜色（硬编码）
+    /// </summary>
+    private Color GetCurrentFoodColor()
+    {
+        return foodType switch
+        {
+            FoodType.Cucumber     => new Color(0.4f, 0.8f, 0.2f),
+            FoodType.Pumpkin      => new Color(1.0f, 0.6f, 0.0f),
+            FoodType.ChickenLeg   => new Color(0.9f, 0.5f, 0.2f),
+            FoodType.Apple        => new Color(0.9f, 0.2f, 0.2f),
+            FoodType.Broccoli     => new Color(0.2f, 0.6f, 0.2f),
+            FoodType.Biscuit      => new Color(0.9f, 0.7f, 0.4f),
+            FoodType.Blueberry_A  => new Color(0.3f, 0.4f, 0.8f),
+            FoodType.Blueberry_B  => new Color(0.3f, 0.4f, 0.8f),
+            FoodType.Blueberry_C  => new Color(0.3f, 0.4f, 0.8f),
+            FoodType.Blueberry_D  => new Color(0.3f, 0.4f, 0.8f),
+            FoodType.Carrot       => new Color(1.0f, 0.5f, 0.1f),
+            FoodType.Egg          => new Color(1.0f, 0.9f, 0.7f),
+            FoodType.Salmon       => new Color(1.0f, 0.6f, 0.5f),
+            FoodType.Shrimp       => new Color(1.0f, 0.7f, 0.6f),
+            _                     => Color.white
+        };
     }
 
     public void ShowState(int idx, bool isNormal)
@@ -168,7 +231,6 @@ public class FoodComponent : Entity, ISupportedMultiEntity
         {
             if (isNormal)
             {
-                //通知食物已被吃完
                 Scene.EventComponent.Publish(new FoodBeEaten_Normal
                 {
                     fruitId = Id

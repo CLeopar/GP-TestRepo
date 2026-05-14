@@ -3540,6 +3540,8 @@ MonoBehaviour:
     gameObject: {fileID: 438767553}
   - key: ScoreChangeText
     gameObject: {fileID: 832964601}
+  - key: L1_FoodParticle
+    gameObject: {fileID: 6232270530905488101, guid: d73af1c1708df5e459c2f6ef7efc269e, type: 3}
 --- !u!1 &847302928
 GameObject:
   m_ObjectHideFlags: 0
