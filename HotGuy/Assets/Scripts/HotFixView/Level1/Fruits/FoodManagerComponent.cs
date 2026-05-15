@@ -200,13 +200,11 @@ public class FoodManagerComponent : Entity
         return null;
     }
 
-    public void CancelEatShit()
-    {
-        Scene.TimerComponent.Net.Remove(ref Timer_EatShit);
-    }
-
     public void EatShit()
     {
+        var shit = GetComponent<ShitComponent>();
+        shit?.StartEat();  // ← 新增：启动粒子
+    
         //3.5s吃完屎
         Timer_EatShit = Scene.TimerComponent.Net.OnceTimer(Scene.GetComponent<Tables>().ConstConfigCategory.ShitBeEatenTime, () =>
         {
@@ -215,8 +213,19 @@ public class FoodManagerComponent : Entity
         });
     }
 
+    public void CancelEatShit()
+    {
+        var shit = GetComponent<ShitComponent>();
+        shit?.CancelEat();  // ← 新增：停止粒子
+    
+        Scene.TimerComponent.Net.Remove(ref Timer_EatShit);
+    }
+
     public void RemoveShit()
     {
+        var shit = GetComponent<ShitComponent>();
+        shit?.FinishEat();  // ← 新增：停止粒子
+    
         if (GetComponent<ShitComponent>() != null)
         {
             RemoveComponent<ShitComponent>();

@@ -83,3 +83,32 @@ public struct ScoreChanged
 public struct ScoreReset
 {
 }
+
+/// <summary>
+/// 倒计时更新事件（每秒触发）
+/// </summary>
+public struct LevelTimerUpdate
+{
+    /// <summary>
+    /// 剩余时间（毫秒）
+    /// </summary>
+    public long RemainingTime;
+    
+    /// <summary>
+    /// 已用时间（毫秒）
+    /// </summary>
+    public long ElapsedTime;
+    
+    /// <summary>
+    /// 总时长（毫秒）
+    /// </summary>
+    public long TotalTime;
+}
+
+/// <summary>
+/// 倒计时结束事件
+/// </summary>
+public struct LevelTimerFinished
+{
+}
+

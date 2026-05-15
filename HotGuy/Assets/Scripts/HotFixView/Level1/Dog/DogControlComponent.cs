@@ -50,10 +50,14 @@ public class DogControlComponent : Entity
 
     public void AddEatSecretlyTimer()
     {
-        var dura = Scene.GetComponent<Level_1_Component>().GetDogEatSecretlyDuration();
-        Log.Error($"dura : {dura}");
+        var levelComponent = Scene.GetComponent<Level_1_Component>();
+        var dura = levelComponent.GetDogEatSecretlyDuration();
+    
+        Log.Error($"dura : {dura}, Stage: {levelComponent.Level_Stage}");
+    
         if (dura <= 0)
             return;
+    
         Timer = Scene.TimerComponent.Net.OnceTimer(dura, () => SetIsOpenPeek(true));
     }
 
@@ -426,5 +430,12 @@ public class DogControlComponent_Update : UpdateSystem<DogControlComponent>
     protected override void Update(DogControlComponent self)
     {
         self.CheckFoodDistance();
+        
+        // ========== 新增：检查阶段变化，重置偷吃定时器 ==========
+        var level = self.Scene.GetComponent<Level_1_Component>();
+        if (level != null && level.Level_Stage >= 2 && !self.isOpenPeek && self.Timer == 0)
+        {
+            self.AddEatSecretlyTimer();
+        }
     }
 }

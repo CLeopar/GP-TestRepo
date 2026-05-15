@@ -14,10 +14,17 @@ public class Level_1_Component : Entity
         Timer = Scene.TimerComponent.Net.RepeatedTimer(1000, () =>
         {
             Level_Duration += 1000;
+            
+            // ========== 新增：发布倒计时更新事件 ==========
+            PublishTimerUpdate();
+            
             if (Level_Duration >= 120 * 1000)
             {
                 Scene.TimerComponent.Net.Remove(ref Timer);
                 Level_Stage = 4;
+                
+                // ========== 新增：发布倒计时结束事件 ==========
+                Scene.EventComponent.Publish(new LevelTimerFinished());
             }
             else
             {
@@ -30,6 +37,18 @@ public class Level_1_Component : Entity
                 else if (Level_Duration <= 100 * 1000)
                     Level_Stage = 3;
             }
+        });
+    }
+
+    // ========== 新增：发布倒计时更新 ==========
+    private void PublishTimerUpdate()
+    {
+        long remaining = 120 * 1000 - Level_Duration;
+        Scene.EventComponent.Publish(new LevelTimerUpdate
+        {
+            RemainingTime = remaining,
+            ElapsedTime = Level_Duration,
+            TotalTime = 120 * 1000
         });
     }
 
@@ -73,19 +92,18 @@ public class Level_1_Component_Awake : AwakeSystem<Level_1_Component>
     {
         self.Init();
         
-          
-         
-        // 注册分数组件
         if (self.Scene.GetComponent<ScoreComponent>() == null)
             self.Scene.AddComponent<ScoreComponent>();
         
-        // 注册分数UI组件
         if (self.Scene.GetComponent<ScoreUIComponent>() == null)
             self.Scene.AddComponent<ScoreUIComponent>();
-        
-        // ========== 注册粒子特效组件 ==========
+            
         if (self.Scene.GetComponent<FoodParticleEffectComponent>() == null)
             self.Scene.AddComponent<FoodParticleEffectComponent>();
+        
+        // ========== 新增：注册倒计时UI组件 ==========
+        if (self.Scene.GetComponent<LevelTimerUIComponent>() == null)
+            self.Scene.AddComponent<LevelTimerUIComponent>();
     }
 }
 
