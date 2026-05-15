@@ -30,13 +30,15 @@ public class SCTaskUI : MonoBehaviour
     private float _totalDuration;
     private float _remainingTime;
 
+    // ========== 新增：静态 Sprite 缓存，全局复用 ==========
+    private static Dictionary<string, Sprite> _spriteCache = new Dictionary<string, Sprite>();
+
     public void Init(long taskId, List<FoodType> foodSequence, List<SCItemData> scItems)
     {
         TaskId = taskId;
         _foodSequence = foodSequence;
         _foodCount = foodSequence.Count;
 
-        // 设置容器
         if (_foodCount == 2)
         {
             Food2Container.SetActive(true);
@@ -53,24 +55,19 @@ public class SCTaskUI : MonoBehaviour
             _activeFoodImages.Add(Food3Frame3);
         }
 
-        // 加载图标（初始状态为 Normal）
         for (int i = 0; i < _foodCount; i++)
         {
             LoadFoodIcon(i, foodSequence[i], SCUIState.Normal).Coroutine();
         }
 
-        // 从 Config 读取总时长
         var config = GameEntry.Instance._scene.GetComponent<Tables>().ConstConfigCategory.Data;
         _totalDuration = scItems[0].DurationType == SCDurationType.Green_10s
             ? config.SCGreenDuration
             : config.SCOrangeDuration;
 
         _remainingTime = _totalDuration;
-
         SCUnFinishedImage.fillAmount = 1f;
         UpdateTimerDisplay();
-
-        Log.Error($"[SCTaskUI] Init: TaskId={taskId}, Type={scItems[0].DurationType}, TotalDuration={_totalDuration}s");
     }
 
     public void UpdateTimer(float remainingTime)
@@ -88,8 +85,6 @@ public class SCTaskUI : MonoBehaviour
         int minutes = totalSeconds / 60;
         int seconds = totalSeconds % 60;
         SCTimerText.text = $"{minutes:D2}:{seconds:D2}";
-
-        Log.Error($"[SCTaskUI] UpdateDisplay: TaskId={TaskId}, Remaining={_remainingTime}s, Text={SCTimerText.text}");
     }
 
     public void SetFoodState(int index, SCUIState state)
@@ -100,7 +95,7 @@ public class SCTaskUI : MonoBehaviour
 
     public void PlayCompleteAnimation()
     {
-        Log.Error($"[SCTaskUI] Task {TaskId} completed");
+        // TODO: 实际播放动画
     }
 
     private async FTask LoadFoodIcon(int index, FoodType foodType, SCUIState state)
@@ -109,14 +104,17 @@ public class SCTaskUI : MonoBehaviour
 
         var scene = GameEntry.Instance._scene;
         var foodConfig = scene.GetComponent<Tables>().FoodConfigCategory.Get(foodType);
-
-        // ========== 修改：根据状态拼接后缀 ==========
-        // 例如：L1_Food_Apple_Normal / L1_Food_Apple_Eating / L1_Food_Apple_Completed
         string resName = $"{foodConfig.IconResName}_{state}";
 
-        var sprite = await scene.GetComponent<ResourceLoaderComponent>().LoadAssetAsync<Sprite>(resName);
+        // ========== 修改：先查缓存，没有再加载 ==========
+        if (!_spriteCache.TryGetValue(resName, out var sprite))
+        {
+            sprite = await scene.GetComponent<ResourceLoaderComponent>().LoadAssetAsync<Sprite>(resName);
+            if (sprite != null)
+                _spriteCache[resName] = sprite;
+        }
 
-        if (_activeFoodImages[index] != null)
+        if (_activeFoodImages[index] != null && sprite != null)
             _activeFoodImages[index].sprite = sprite;
     }
 }
