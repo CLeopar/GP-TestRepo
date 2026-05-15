@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 6900260441701876786}
   - component: {fileID: 731011823216828766}
   m_Layer: 5
-  m_Name: 10SC_Score
+  m_Name: SC_Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -219,7 +219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5838320271887999386}
   m_Layer: 5
-  m_Name: 10SC
+  m_Name: SC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 3492383408026338994}
   - component: {fileID: 8577558031770643683}
   m_Layer: 5
-  m_Name: Time_Text
+  m_Name: SCTimerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -391,7 +391,7 @@ GameObject:
   - component: {fileID: 3710846123450131131}
   - component: {fileID: 1592359073593157880}
   m_Layer: 5
-  m_Name: 3Food
+  m_Name: Food3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -457,7 +457,7 @@ GameObject:
   - component: {fileID: 8475370696233297594}
   - component: {fileID: 2554539149824789304}
   m_Layer: 5
-  m_Name: 3FoodFrame3
+  m_Name: FoodFrame3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -532,7 +532,7 @@ GameObject:
   - component: {fileID: 4971193478759970189}
   - component: {fileID: 6371214902899357568}
   m_Layer: 5
-  m_Name: 2FoodFrame2
+  m_Name: FoodFrame2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -607,7 +607,7 @@ GameObject:
   - component: {fileID: 1549185917771594405}
   - component: {fileID: 5576271250249846046}
   m_Layer: 5
-  m_Name: 10SC_UnFinished
+  m_Name: SC_UnFinished
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -682,7 +682,7 @@ GameObject:
   - component: {fileID: 5359030636319499809}
   - component: {fileID: 4401813807054612303}
   m_Layer: 5
-  m_Name: 10SC_Finished
+  m_Name: SC_Finished
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -757,7 +757,7 @@ GameObject:
   - component: {fileID: 813082801727268448}
   - component: {fileID: 7497769379598909551}
   m_Layer: 5
-  m_Name: 3FoodFrame1
+  m_Name: FoodFrame1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -832,7 +832,7 @@ GameObject:
   - component: {fileID: 7855920786897643804}
   - component: {fileID: 9161942875955296801}
   m_Layer: 5
-  m_Name: 3FoodFrame2
+  m_Name: FoodFrame2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -907,7 +907,7 @@ GameObject:
   - component: {fileID: 1192655061993898969}
   - component: {fileID: 526747316553934358}
   m_Layer: 5
-  m_Name: 2FoodFrame1
+  m_Name: FoodFrame1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -979,6 +979,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4233111728812799092}
+  - component: {fileID: 8346177475938085456}
   m_Layer: 5
   m_Name: L1_10SC
   m_TagString: Untagged
@@ -1011,6 +1012,31 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8346177475938085456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8917735252147196235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b11fbc4a357ce3d469b2233ea9f273b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SCUnFinishedImage: {fileID: 5576271250249846046}
+  SCFinishedImage: {fileID: 4401813807054612303}
+  SCTimerText: {fileID: 8577558031770643683}
+  Food2Container: {fileID: 9056193524446774392}
+  Food2Frame1: {fileID: 526747316553934358}
+  Food2Frame2: {fileID: 6371214902899357568}
+  Food3Container: {fileID: 2268899198189810739}
+  Food3Frame1: {fileID: 7497769379598909551}
+  Food3Frame2: {fileID: 9161942875955296801}
+  Food3Frame3: {fileID: 2554539149824789304}
+  NormalSprite: {fileID: 0}
+  EatingSprite: {fileID: 0}
+  CompletedSprite: {fileID: 0}
 --- !u!1 &9056193524446774392
 GameObject:
   m_ObjectHideFlags: 0
@@ -1022,7 +1048,7 @@ GameObject:
   - component: {fileID: 8222749460921764980}
   - component: {fileID: 1938193482224380819}
   m_Layer: 5
-  m_Name: 2Food
+  m_Name: Food2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

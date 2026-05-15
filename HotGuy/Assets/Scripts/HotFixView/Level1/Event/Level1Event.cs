@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 /// <summary>
 /// 开始吃食物
 /// </summary>
@@ -112,3 +114,51 @@ public struct LevelTimerFinished
 {
 }
 
+// ================== SC任务系统事件 ==================
+
+/// <summary>
+/// SC任务生成事件
+/// </summary>
+public struct SCTaskSpawned
+{
+    public long TaskId;
+    public List<FoodType> FoodSequence;
+    public List<SCItemData> SCItems;
+}
+
+/// <summary>
+/// SC食物项状态变化事件
+/// </summary>
+public struct SCItemStateChanged
+{
+    public long TaskId;
+    public int ItemIndex;
+    public SCUIState NewState;
+    public float RemainingTime;
+}
+
+/// <summary>
+/// SC任务完成事件
+/// </summary>
+public struct SCTaskCompleted
+{
+    public long TaskId;
+}
+
+/// <summary>
+/// SC任务超时/消失事件
+/// </summary>
+public struct SCTaskTimeout
+{
+    public long TaskId;
+}
+
+/// <summary>
+/// SC倒计时更新事件（每秒）
+/// </summary>
+public struct SCTimerUpdate
+{
+    public long TaskId;
+    public int ItemIndex;
+    public float RemainingTime;
+}

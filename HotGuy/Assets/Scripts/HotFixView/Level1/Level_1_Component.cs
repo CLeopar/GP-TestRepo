@@ -104,6 +104,13 @@ public class Level_1_Component_Awake : AwakeSystem<Level_1_Component>
         // ========== 新增：注册倒计时UI组件 ==========
         if (self.Scene.GetComponent<LevelTimerUIComponent>() == null)
             self.Scene.AddComponent<LevelTimerUIComponent>();
+        
+        // ========== 新增：注册SC任务系统组件 ==========
+        if (self.Scene.GetComponent<TaskManagerComponent>() == null)
+            self.Scene.AddComponent<TaskManagerComponent>();
+
+        if (self.Scene.GetComponent<SCUIComponent>() == null)
+            self.Scene.AddComponent<SCUIComponent>();
     }
 }
 
