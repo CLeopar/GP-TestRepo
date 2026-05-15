@@ -225,11 +225,15 @@ public class DogControlComponent : Entity
         hitCancellationToken?.Cancel();
         hitCancellationToken = FCancellationToken.ToKen;
 
+        // 错误打狗扣50分
+        Scene.GetComponent<ScoreComponent>()?.AddScore(-50);
+        
         // Hit_Wrong 持续时间（比如 2 秒）
         await Scene.TimerComponent.Net.WaitAsync(5000, hitCancellationToken);
         if (hitCancellationToken.IsCancel)
             return;
-
+        
+        
         isInHit = false;
         ChangeDogState(DogState.Normal);
     }
