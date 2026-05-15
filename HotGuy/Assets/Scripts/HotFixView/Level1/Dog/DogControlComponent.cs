@@ -76,6 +76,13 @@ public class DogControlComponent : Entity
         Dog_Front.SetActive(state == DogState.Normal);
         Dog_1.SetActive(state == DogState.Eat_Secretly_1);
         Dog_2.SetActive(state == DogState.Eat_Secretly_2);
+        
+        if (state == DogState.Eat_Secretly_3)
+        {
+            Dog_3.transform.position = Dog_2.transform.position;
+            Dog_3.transform.rotation = Dog_2.transform.rotation;
+        }
+        
         Dog_3.SetActive(state == DogState.Eat_Secretly_3);
         Dog_4.SetActive(state == DogState.Eat_Secretly_4);
         Dog_Hold_L.SetActive(state == DogState.Hold && isL);
@@ -448,17 +455,19 @@ public class DogControlComponent : Entity
             return;
         SetIsOpenPeek(false);
         ChangeDogState(DogState.Eat_Secretly_2);
+        
         var shitComponent_1 = Scene.GetComponent<FoodManagerComponent>().GetShit();
         if (shitComponent_1 != null)
         {
             var target = shitComponent_1.shit.transform;
             Vector3 direction = target.position - Dog_2.transform.position;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            angle -= 90f;
-            Vector3 targetRotation = new Vector3(0, 0, angle);
+            
             currentRotateTween?.Kill();
+            float moveDistance = 0.5f;
+            Vector3 moveDirection = direction.normalized * moveDistance;
             var duration = Scene.GetComponent<Tables>().ConstConfigCategory.TurnRotateToFoodDuration;
-            currentRotateTween = Dog_2.transform.DORotate(targetRotation, duration).SetEase(Ease.Linear);
+            currentRotateTween = Dog_2.transform.DOMove(Dog_2.transform.position + moveDirection, duration).SetEase(Ease.Linear);
+            
             await Scene.TimerComponent.Net.WaitAsync((long)(duration * 1000), cancellationToken);
             if (cancellationToken.IsCancel)
                 return;
@@ -473,9 +482,13 @@ public class DogControlComponent : Entity
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 angle -= 90f;
                 Vector3 targetRotation = new Vector3(0, 0, angle);
+                
                 currentRotateTween?.Kill();
+                float moveDistance = 0.5f;
+                Vector3 moveDirection = direction.normalized * moveDistance;
                 var duration = Scene.GetComponent<Tables>().ConstConfigCategory.TurnRotateToFoodDuration;
-                currentRotateTween = Dog_2.transform.DORotate(targetRotation, duration).SetEase(Ease.Linear);
+                currentRotateTween = Dog_2.transform.DOMove(Dog_2.transform.position + moveDirection, duration).SetEase(Ease.Linear);
+                
                 await Scene.TimerComponent.Net.WaitAsync((long)(duration * 1000), cancellationToken);
                 if (cancellationToken.IsCancel)
                     return;
