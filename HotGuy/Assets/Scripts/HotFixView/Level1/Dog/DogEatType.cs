@@ -9,7 +9,9 @@ public enum DogState
     Eat_Normal,
     Eat_Normal_Secretly,
     Hit,
-    Hit_Error
+    Hit_Error,
+    Hit_Right, 
+    Hit_Wrong,  
 }
 
 public enum FruitStateType

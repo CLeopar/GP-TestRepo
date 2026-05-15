@@ -22,14 +22,13 @@ public class DogControlComponent : Entity
     public GameObject Dog_Hit;
     public GameObject Dog_Hit_1;
     public GameObject Dog_Hit_2;
+    public GameObject Dog_Hit_Right;
+    public GameObject Dog_Hit_Wrong;
 
     public DogState dogState = DogState.Normal;
 
     public FCancellationToken cancellationToken;
 
-    /// <summary>
-    /// 包含屎
-    /// </summary>
     public (FoodType, long) CurEatFoodData;
 
     public long Timer;
@@ -42,6 +41,12 @@ public class DogControlComponent : Entity
 
     public bool isOpenPeek = false;
 
+    // Hit 动画期间的取消令牌
+    private FCancellationToken hitCancellationToken;
+
+    // 记录进入 Hit 状态时是否在偷吃（用于后续判定正确/错误）
+    private bool wasSecretlyEatingWhenHit;
+
     public void Init()
     {
         ChangeDogSpriteState(DogState.Normal);
@@ -52,18 +57,12 @@ public class DogControlComponent : Entity
     {
         var levelComponent = Scene.GetComponent<Level_1_Component>();
         var dura = levelComponent.GetDogEatSecretlyDuration();
-    
-        Log.Error($"dura : {dura}, Stage: {levelComponent.Level_Stage}");
-    
-        if (dura <= 0)
-            return;
-    
+        if (dura <= 0) return;
         Timer = Scene.TimerComponent.Net.OnceTimer(dura, () => SetIsOpenPeek(true));
     }
 
     public void SetIsOpenPeek(bool isOpen)
     {
-        Log.Error($"SetIsOpenPeek {isOpen}");
         if (isOpenPeek)
             Scene.TimerComponent.Net.Remove(ref Timer);
         isOpenPeek = isOpen;
@@ -83,6 +82,8 @@ public class DogControlComponent : Entity
         Dog_Hold_R.SetActive(state == DogState.Hold && !isL);
         Dog_Eat.SetActive(state == DogState.Eat_Normal);
         Dog_Eat_Secretly.SetActive(state == DogState.Eat_Normal_Secretly);
+        
+        // Hit 状态：随机显示 Hit_1 或 Hit_2
         Dog_Hit.SetActive(state == DogState.Hit);
         if (state == DogState.Hit)
         {
@@ -90,12 +91,19 @@ public class DogControlComponent : Entity
             Dog_Hit_1.SetActive(hitState == 1);
             Dog_Hit_2.SetActive(hitState == 2);
         }
+        else
+        {
+            Dog_Hit_1.SetActive(false);
+            Dog_Hit_2.SetActive(false);
+        }
+        
+        Dog_Hit_Right.SetActive(state == DogState.Hit_Right);
+        Dog_Hit_Wrong.SetActive(state == DogState.Hit_Wrong);
     }
 
     public void ChangeDogState(DogState newState, bool isL = true)
     {
-        if (dogState == newState)
-            return;
+        if (dogState == newState) return;
         Log.Error($"ChangeDogState {dogState}, {newState}");
         
         var previousState = dogState;
@@ -109,9 +117,7 @@ public class DogControlComponent : Entity
                 DogEatSecretly().Coroutine();
                 break;
             case DogState.Eat_Secretly_2:
-                break;
             case DogState.Eat_Secretly_3:
-                break;
             case DogState.Eat_Secretly_4:
                 break;
             case DogState.Hold:
@@ -119,6 +125,12 @@ public class DogControlComponent : Entity
                 break;
             case DogState.Hit:
                 HitDog().Coroutine();
+                break;
+            case DogState.Hit_Right:
+                HitDogRight().Coroutine();
+                break;
+            case DogState.Hit_Wrong:
+                HitDogWrong().Coroutine();
                 break;
             case DogState.Eat_Normal:
                 break;
@@ -130,39 +142,93 @@ public class DogControlComponent : Entity
         }
     }
 
+    /// <summary>
+    /// 外部打狗入口：先播放 Hit 动画，再判定正确/错误
+    /// </summary>
+    public void TriggerHit()
+    {
+        // 记录当前是否在偷吃，用于后续判定
+        wasSecretlyEatingWhenHit =
+            dogState == DogState.Eat_Secretly_1 ||
+            dogState == DogState.Eat_Secretly_2 ||
+            dogState == DogState.Eat_Secretly_3 ||
+            dogState == DogState.Eat_Secretly_4 ||
+            dogState == DogState.Eat_Normal_Secretly;
+
+        // 先进入 Hit 状态（播放随机挨打动画）
+        ChangeDogState(DogState.Hit);
+    }
+
     public void HoldDog(DogState previousState)
     {
-        // 上个状态为偷瞄系列，则打断偷吃流程并取消食物进食状态
         if (previousState == DogState.Eat_Secretly_1 ||
             previousState == DogState.Eat_Secretly_2 ||
             previousState == DogState.Eat_Secretly_3 ||
             previousState == DogState.Eat_Secretly_4 ||
-            previousState == DogState.Eat_Normal_Secretly)
-        {
-            CancelCurrentEating();
-        }
-        // 上个状态为Eat_Normal，则打断进食倒计时
-        else if (previousState == DogState.Eat_Normal)
+            previousState == DogState.Eat_Normal_Secretly ||
+            previousState == DogState.Eat_Normal)
         {
             CancelCurrentEating();
         }
     }
 
+    /// <summary>
+    /// 统一的挨打动画（先执行这个，然后判定正确/错误）
+    /// </summary>
     public async FTask HitDog()
     {
         isInHit = true;
-        
-        // 打断偷吃流程并取消食物进食状态
         CancelCurrentEating();
+        
+        hitCancellationToken?.Cancel();
+        hitCancellationToken = FCancellationToken.ToKen;
 
-        await Scene.TimerComponent.Net.WaitAsync(Scene.GetComponent<Tables>().ConstConfigCategory.HitDuration);
-        //如果还是hit状态则切换为none
+        await Scene.TimerComponent.Net.WaitAsync(500, hitCancellationToken);
+        if (hitCancellationToken.IsCancel)
+        {
+            isInHit = false;
+            return;
+        }
+
+        // 1秒结束后，根据之前记录的判定结果切换状态
+        isInHit = false;
+        ChangeDogState(wasSecretlyEatingWhenHit ? DogState.Hit_Right : DogState.Hit_Wrong);
+    }
+
+    public async FTask HitDogRight()
+    {
+        isInHit = true;
+
+        hitCancellationToken?.Cancel();
+        hitCancellationToken = FCancellationToken.ToKen;
+
+        // Hit_Right 持续时间（比如 2 秒）
+        await Scene.TimerComponent.Net.WaitAsync(5000, hitCancellationToken);
+        if (hitCancellationToken.IsCancel)
+            return;
+
+        isInHit = false;
+        ChangeDogState(DogState.Normal);
+    }
+
+    public async FTask HitDogWrong()
+    {
+        isInHit = true;
+
+        hitCancellationToken?.Cancel();
+        hitCancellationToken = FCancellationToken.ToKen;
+
+        // Hit_Wrong 持续时间（比如 2 秒）
+        await Scene.TimerComponent.Net.WaitAsync(5000, hitCancellationToken);
+        if (hitCancellationToken.IsCancel)
+            return;
+
         isInHit = false;
         ChangeDogState(DogState.Normal);
     }
 
     /// <summary>
-    /// 统一取消当前进食状态：取消协程、发布取消事件、清空食物数据
+    /// 统一取消当前进食状态
     /// </summary>
     private void CancelCurrentEating()
     {
@@ -218,9 +284,10 @@ public class DogControlComponent : Entity
     {
         if (dogState == DogState.Hit || dogState == DogState.Hold)
             return;
-        if (isInHit)
-            return;
 
+        if (isInHit && dogState != DogState.Hit_Right && dogState != DogState.Hit_Wrong)
+            return;
+        
         var fruitType_Normal = Scene.GetComponent<FoodManagerComponent>().GetMinFruitDistance(FoodCheckDistance_Gizmos.position);
         FoodComponent fruitType_Secretly = null;
         if (isOpenPeek)
@@ -318,7 +385,7 @@ public class DogControlComponent : Entity
                 ChangeDogState(DogState.Eat_Secretly_1);
             }
         }
-        // ===== 修复：偷瞄/偷吃状态下响应玩家喂食 =====
+        // 偷瞄/偷吃状态下响应玩家喂食
         else if (dogState == DogState.Eat_Secretly_1 ||
                  dogState == DogState.Eat_Secretly_2 ||
                  dogState == DogState.Eat_Secretly_3 ||
@@ -329,17 +396,38 @@ public class DogControlComponent : Entity
             {
                 if (CurEatFoodData.Item2 == fruitType_Normal.Id)
                     return;
-                
+
                 CancelCurrentEating();
 
                 var targetState = (foodType_Secretly == FoodType.None && shitComponent == null)
                     ? DogState.Eat_Normal
                     : DogState.Eat_Normal_Secretly;
 
-                // 强制重置状态，避免 same-state 导致 ChangeDogState 提前 return
-                dogState = DogState.Normal;
+                dogState = DogState.Normal; 
                 ChangeDogState(targetState);
+
+                Scene.EventComponent.Publish(new StartEatFood
+                {
+                    fruitId = fruitType_Normal.Id,
+                    isNormal = true
+                });
+                CurEatFoodData = (fruitType_Normal.foodType, fruitType_Normal.Id);
+            }
+        }
+        // 正确/错误被打状态下，玩家喂食可打断
+        else if (dogState == DogState.Hit_Right || dogState == DogState.Hit_Wrong)
+        {
+            if (foodType_Normal != FoodType.None)
+            {
+                hitCancellationToken?.Cancel();
+                isInHit = false;
+
+                var targetState = (foodType_Secretly == FoodType.None && shitComponent == null)
+                    ? DogState.Eat_Normal
+                    : DogState.Eat_Normal_Secretly;
                 
+                ChangeDogState(targetState);
+
                 Scene.EventComponent.Publish(new StartEatFood
                 {
                     fruitId = fruitType_Normal.Id,
@@ -352,7 +440,6 @@ public class DogControlComponent : Entity
 
     public async FTask DogEatSecretly()
     {
-        // 先取消旧的协程，防止残留
         cancellationToken?.Cancel();
         cancellationToken = FCancellationToken.ToKen;
 
@@ -368,11 +455,8 @@ public class DogControlComponent : Entity
             Vector3 direction = target.position - Dog_2.transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             angle -= 90f;
-
             Vector3 targetRotation = new Vector3(0, 0, angle);
-
             currentRotateTween?.Kill();
-
             var duration = Scene.GetComponent<Tables>().ConstConfigCategory.TurnRotateToFoodDuration;
             currentRotateTween = Dog_2.transform.DORotate(targetRotation, duration).SetEase(Ease.Linear);
             await Scene.TimerComponent.Net.WaitAsync((long)(duration * 1000), cancellationToken);
@@ -388,11 +472,8 @@ public class DogControlComponent : Entity
                 Vector3 direction = target.position - Dog_2.transform.position;
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 angle -= 90f;
-
                 Vector3 targetRotation = new Vector3(0, 0, angle);
-
                 currentRotateTween?.Kill();
-
                 var duration = Scene.GetComponent<Tables>().ConstConfigCategory.TurnRotateToFoodDuration;
                 currentRotateTween = Dog_2.transform.DORotate(targetRotation, duration).SetEase(Ease.Linear);
                 await Scene.TimerComponent.Net.WaitAsync((long)(duration * 1000), cancellationToken);
@@ -449,6 +530,8 @@ public class DogControlComponent_Awake : AwakeSystem<DogControlComponent>
         self.Dog_Hit = rc.Get<GameObject>("Dog_Hit");
         self.Dog_Hit_1 = rc.Get<GameObject>("Dog_Hit_1");
         self.Dog_Hit_2 = rc.Get<GameObject>("Dog_Hit_2");
+        self.Dog_Hit_Right = rc.Get<GameObject>("Dog_Hit_Right");
+        self.Dog_Hit_Wrong = rc.Get<GameObject>("Dog_Hit_Wrong");
         self.FoodCheckDistance_Gizmos = rc.Get<Transform>("FoodCheckDistance_Gizmos");
         self.FoodCheckDistance_Gizmos_Secretly = rc.Get<Transform>("FoodCheckDistance_Gizmos_Secretly");
 
