@@ -16,7 +16,7 @@
   {
     "FoodType": 3,
     "FoodStateCount": 4,
-    "HasReamin": false,
+    "HasReamin": true,
     "UIResName": "L1_ChickenLeg",
     "IconResName": "L1_Icon_ChickenLeg"
   },

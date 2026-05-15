@@ -8,6 +8,7 @@ public class Event_FoodEatenSecretly_Handler : EventSystem<FoodBeEaten_Secretly>
         Log.Error($"FoodBeEaten_Secretly {self.fruitId}");
         GameEntry.Instance._scene.GetComponent<DogControlComponent>().FoodBeEatenSecretly().Coroutine();
         
-        GameEntry.Instance._scene.GetComponent<ScoreComponent>()?.AddScore(-15, self.fruitId);
+        var scoreConfig = GameEntry.Instance._scene.GetComponent<Tables>().ScoreConfigCategory.Data;
+        GameEntry.Instance._scene.GetComponent<ScoreComponent>()?.AddScore(scoreConfig.SecretEatPenalty, self.fruitId);
     }
 }

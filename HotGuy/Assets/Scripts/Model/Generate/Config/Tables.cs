@@ -15,12 +15,14 @@ public partial class Tables : Entity
     public InputKeyMapCategory InputKeyMapCategory {get; private set; }
     public ConstConfigCategory ConstConfigCategory {get; private set; }
     public FoodConfigCategory FoodConfigCategory {get; private set; }
+    public ScoreConfigCategory ScoreConfigCategory {get; private set; }
 
     public void Init(System.Func<string, ByteBuf> loader)
     {
         InputKeyMapCategory = new InputKeyMapCategory(loader("InputKeyMapCategory"));
         ConstConfigCategory = new ConstConfigCategory(loader("ConstConfigCategory"));
         FoodConfigCategory = new FoodConfigCategory(loader("FoodConfigCategory"));
+        ScoreConfigCategory = new ScoreConfigCategory(loader("ScoreConfigCategory"));
         ResolveRef();
     }
     
@@ -29,5 +31,6 @@ public partial class Tables : Entity
         InputKeyMapCategory.ResolveRef(this);
         ConstConfigCategory.ResolveRef(this);
         FoodConfigCategory.ResolveRef(this);
+        ScoreConfigCategory.ResolveRef(this);
     }
 }

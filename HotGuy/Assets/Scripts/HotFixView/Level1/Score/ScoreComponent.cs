@@ -31,13 +31,15 @@ public class ScoreComponent : Entity
     {
         var config = Scene.GetComponent<Tables>().FoodConfigCategory.Get(foodType);
         int biteCount = config == null ? 1 : System.Math.Max(1, config.FoodStateCount - 1);
-        
+    
+        var scoreConfig = Scene.GetComponent<Tables>().ScoreConfigCategory.Data;
+    
         return biteCount switch
         {
-            1 => 10,
-            2 => 15,
-            3 => 20,
-            _ => 10
+            1 => scoreConfig.FoodScore1Bite,
+            2 => scoreConfig.FoodScore2Bite,
+            3 => scoreConfig.FoodScore3Bite,
+            _ => scoreConfig.FoodScore1Bite
         };
     }
 }

@@ -14,7 +14,7 @@ public class Event_SCTaskCompleted_Handler : EventSystem<SCTaskCompleted>
             taskUI.PlayCompleteAnimation();
         }
 
-        // ========== 新增：任务完成奖励分数 ==========
+        // 任务完成奖励分数
         CalculateAndAddTaskBonus(self.TaskId);
     }
 
@@ -37,6 +37,8 @@ public class Event_SCTaskCompleted_Handler : EventSystem<SCTaskCompleted>
 
         // 计算任务中所有食物的基础分总和
         var scoreComp = GameEntry.Instance._scene.GetComponent<ScoreComponent>();
+        var scoreConfig = GameEntry.Instance._scene.GetComponent<Tables>().ScoreConfigCategory.Data;
+        
         int totalBaseScore = 0;
         foreach (var foodType in taskComp.FoodSequence)
         {
@@ -44,7 +46,10 @@ public class Event_SCTaskCompleted_Handler : EventSystem<SCTaskCompleted>
         }
 
         // 根据颜色应用倍率：橙色 x2，绿色 x1.5
-        float multiplier = durationType == SCDurationType.Orange_8s ? 2f : 1.5f;
+        float multiplier = durationType == SCDurationType.Orange_8s 
+            ? scoreConfig.TaskMultiplierOrange 
+            : scoreConfig.TaskMultiplierGreen;
+            
         int bonusScore = Mathf.RoundToInt(totalBaseScore * multiplier);
 
         // 直接加到总体分数

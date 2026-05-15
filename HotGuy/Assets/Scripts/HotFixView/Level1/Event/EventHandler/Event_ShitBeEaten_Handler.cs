@@ -9,8 +9,8 @@ public class Event_ShitBeEaten_Handler : EventSystem<ShitBeEaten>
         
         GameEntry.Instance._scene.GetComponent<DogControlComponent>().ShitBeEaten().Coroutine();
         
-        // 扣100分
-        GameEntry.Instance._scene.GetComponent<ScoreComponent>()?.AddScore(-100);
+        var scoreConfig = GameEntry.Instance._scene.GetComponent<Tables>().ScoreConfigCategory.Data;
+        GameEntry.Instance._scene.GetComponent<ScoreComponent>()?.AddScore(scoreConfig.EatShitPenalty);
         
         // 停止粒子（保险）
         var shit = GameEntry.Instance._scene.GetComponent<FoodManagerComponent>()?.GetComponent<ShitComponent>();
