@@ -37,6 +37,22 @@ public class GameManager : MonoBehaviour
         [Tooltip("组成身体的所有部位 RectTransform（用于必须触碰区域检测）")]
         public RectTransform[] bodyParts;
 
+        // ═══════════════════════════════════════════════════════
+        // 【关卡衔接配置】
+        // ═══════════════════════════════════════════════════════
+        [Header("关卡衔接配置")]
+        [Tooltip("本关开场动画时长（秒）。进入本关时，上一关会延迟这么久才关闭，避免穿帮")]
+        public float openAnimationDuration = 1.5f;
+
+        [Tooltip("本关打开后，在父级中的目标 SiblingIndex（越小越靠前，0=最前面）")]
+        public int targetSiblingIndex = 0;
+
+        [Tooltip("开场动画期间是否禁用玩家控制器（等开场动画完成后再启用）")]
+        public bool disableControllersDuringOpen = true;
+
+        [Tooltip("开场动画播放完成后，额外等待多久才启用控制器")]
+        public float openAnimationExtraWait = 0.2f;
+
         public void Init()
         {
             poseEditorControllerList = new List<PoseEditorController>();
@@ -142,6 +158,10 @@ public class GameManager : MonoBehaviour
 
     private Tween _bgmFadeTween;
 
+    // 【新增】记录需要延迟关闭的上一关
+    private Level _pendingCloseLevel;
+    private float _pendingCloseDelay;
+
     public IReadOnlyList<Texture2D> CapturedTextures => capturedTextures;
     public IReadOnlyList<Sprite>    CapturedSprites  => capturedSprites;
     public List<Level>              LevelList        => levelList;
@@ -204,6 +224,8 @@ public class GameManager : MonoBehaviour
         }
 
         currentLevel = 0;
+        _pendingCloseLevel = null;
+        _pendingCloseDelay = 0f;
         FillAllPromptTexts();
     }
 
@@ -253,7 +275,28 @@ public class GameManager : MonoBehaviour
     private IEnumerator RunCurrentLevelFlow()
     {
         Level level = activeLevels[currentLevel];
+        
+        // ═══════════════════════════════════════════════════════
+        // 【关键 1】先处理待关闭的上一关（如果有）
+        // 这是上一关留下的任务：等本关开场动画完再关闭它
+        // ═══════════════════════════════════════════════════════
+        if (_pendingCloseLevel != null && _pendingCloseLevel.levelObj != null)
+        {
+            // 等本关的开场动画时长
+            if (_pendingCloseDelay > 0f)
+                yield return new WaitForSeconds(_pendingCloseDelay);
+            
+            _pendingCloseLevel.levelObj.SetActive(false);
+            _pendingCloseLevel = null;
+            _pendingCloseDelay = 0f;
+        }
+
+        // ═══════════════════════════════════════════════════════
+        // 2. 打开新关卡并置顶
+        // ═══════════════════════════════════════════════════════
         level.levelObj.SetActive(true);
+        level.levelObj.transform.SetSiblingIndex(level.targetSiblingIndex);
+        Canvas.ForceUpdateCanvases();
 
         currentLevelTime = GetLevelTime(currentLevel);
 
@@ -262,18 +305,46 @@ public class GameManager : MonoBehaviour
 
         FadeBgmVolume(bgmVolumeGameplay);
 
-        SetControllersEnabled(level, false);
+        // ═══════════════════════════════════════════════════════
+        // 3. 开场动画期间禁用控制器
+        // ═══════════════════════════════════════════════════════
+        if (level.disableControllersDuringOpen)
+            SetControllersEnabled(level, false);
+        else
+            SetControllersEnabled(level, true);
+
         TriggerAnimator(targetAnimator, level.enterTrigger);
 
+        // 基础等待
         if (enterWaitTime > 0f)
             yield return new WaitForSeconds(enterWaitTime);
 
+        // 教程（仅第一关）
         if (currentLevel == 0 && enableTutorial)
             yield return StartCoroutine(ShowTutorialPanel());
 
-        SetControllersEnabled(level, true);
+        // ═══════════════════════════════════════════════════════
+        // 4. 等开场动画完成
+        // ═══════════════════════════════════════════════════════
+        if (level.disableControllersDuringOpen)
+        {
+            float openWaitTime = Mathf.Max(0f, level.openAnimationDuration - enterWaitTime);
+            if (openWaitTime > 0f)
+                yield return new WaitForSeconds(openWaitTime);
+
+            if (level.openAnimationExtraWait > 0f)
+                yield return new WaitForSeconds(level.openAnimationExtraWait);
+
+            // 现在启用控制器
+            SetControllersEnabled(level, true);
+        }
+
+        // ═══════════════════════════════════════════════════════
+        // 5. 正式开始倒计时（玩家可以操作了）
+        // ═══════════════════════════════════════════════════════
         yield return StartCoroutine(TimingCoroutine());
 
+        // ── 关卡结束流程 ───────────────────────────────────────
         if (flashImage != null)
             yield return flashImage.DOFade(1f, 0.05f).WaitForCompletion();
 
@@ -295,7 +366,7 @@ public class GameManager : MonoBehaviour
 
         FadeBgmVolume(bgmVolumeCompletion);
 
-        // ── 委托 ScoreManager 播放结算动画并累加分数 ──────────
+        // ── 结算动画 ───────────────────────────────────────────
         float completionStartTime = Time.time;
         yield return StartCoroutine(
             ScoreManager.Instance.ShowCompletionAndAddScore(level.similarity, level.scoreWeight)
@@ -309,24 +380,37 @@ public class GameManager : MonoBehaviour
         if (betweenLevelDelay > 0f)
             yield return new WaitForSeconds(betweenLevelDelay);
 
-        level.levelObj.SetActive(false);
-
+        // ═══════════════════════════════════════════════════════
+        // 6. 准备切换下一关
+        // ═══════════════════════════════════════════════════════
         int nextLevel = currentLevel + 1;
         if (nextLevel >= activeLevels.Count)
         {
-            // ★★★ 所有关卡结束，保存最终数据 ★★★
-            GameStatsManager.Instance.SaveSession();
+            // 最后一关：直接关闭
+            level.levelObj.SetActive(false);
             
+            GameStatsManager.Instance.SaveSession();
             FadeBgmVolume(0f);
             ShowResultsScreen();
             onAllLevelsComplete?.Invoke();
             yield break;
         }
 
-        currentLevel = nextLevel;
+        // 触发转场动画
         TriggerAnimator(levelTransitionAnimator, levelTransitionTrigger);
         ScoreManager.Instance.ResetCompletionText();
 
+        // ═══════════════════════════════════════════════════════
+        // 【关键 2】设置"待关闭的上一关"
+        // 下一关打开后，会读取这个配置，等其开场动画完再关闭本关
+        // ═══════════════════════════════════════════════════════
+        Level nextLevelData = activeLevels[nextLevel];
+        _pendingCloseLevel = level;
+        _pendingCloseDelay = nextLevelData.openAnimationDuration;
+
+        currentLevel = nextLevel;
+        
+        // 进入下一关（非递归，使用 StartCoroutine）
         StartCoroutine(RunCurrentLevelFlow());
     }
 

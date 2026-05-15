@@ -811,6 +811,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barMask: {fileID: 484833188}
+  maxScaleX: 50
+  maxScore: 1000
   starRenderers:
   - {fileID: 1717152548}
   - {fileID: 1119325873}
@@ -820,7 +822,6 @@ MonoBehaviour:
   star1Threshold: 200
   star2Threshold: 300
   star3Threshold: 700
-  maxScore: 1000
 --- !u!1 &92371524
 GameObject:
   m_ObjectHideFlags: 0
@@ -4087,6 +4088,8 @@ MonoBehaviour:
   _scrollX: 0.05
   _scrollY: 0.05
   _transitionDuration: 0.5
+  _tilesPerScreenHeight: 1.7
+  _tileScale: 1
   _cardSelector: {fileID: 1833371970}
 --- !u!1 &509476404
 GameObject:
@@ -4602,7 +4605,7 @@ Transform:
   m_GameObject: {fileID: 555627324}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1108.7338, y: -575.683, z: 6.6392236}
+  m_LocalPosition: {x: -83, y: 2, z: 6.6392236}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6319,6 +6322,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8412000860930238471, guid: 097481017d8bd9344b5df42f96f8f68a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6763,7 +6770,7 @@ Transform:
   m_GameObject: {fileID: 883645717}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1108.7338, y: -575.683, z: 6.6392236}
+  m_LocalPosition: {x: -83, y: 2, z: 6.6392236}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9263,7 +9270,7 @@ Transform:
   m_GameObject: {fileID: 1352486898}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1108.7338, y: -575.683, z: 6.6392236}
+  m_LocalPosition: {x: -83, y: 2, z: 6.6392236}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11498,6 +11505,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1833371971}
   - component: {fileID: 1833371970}
+  - component: {fileID: 1833371972}
   m_Layer: 0
   m_Name: CardContainer
   m_TagString: Untagged
@@ -11536,7 +11544,7 @@ Transform:
   m_GameObject: {fileID: 1833371969}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1108.7338, y: 575.683, z: 0}
+  m_LocalPosition: {x: 89, y: -13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11545,6 +11553,27 @@ Transform:
   - {fileID: 883645718}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1833371972
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833371969}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ea703cbb7dbf9dd4b9159bc83af3916e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1850044383
 GameObject:
   m_ObjectHideFlags: 0
@@ -12050,7 +12079,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1949276763
 Transform:
   m_ObjectHideFlags: 0
@@ -17175,7 +17204,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &6773597140333187876
 Animator:
   serializedVersion: 5

@@ -16,16 +16,21 @@ public class PoseEditorController : MonoBehaviour
         public Color hoverColor = Color.yellow;
         public Color selectedColor = Color.green;
 
+        [Header("Shape Override")]
+        public Sprite normalSprite;   // 留空则运行时自动记录初始 Sprite
+        public Sprite selectedSprite; // 选中时替换的 Sprite
+
         [Header("Translation")]
-        public bool isTranslationJoint = false; // 勾选后此关节用于控制整体平移
+        public bool isTranslationJoint = false;
+
+        [Header("Angle Limit")]
+        public bool useAngleLimit = false;
+        [Range(-180f, 180f)] public float minAngle = -45f;
+        [Range(-180f, 180f)] public float maxAngle = 45f;
     }
 
     [Serializable]
-    private enum PlayerType
-    {
-        Player1,
-        Player2
-    }
+    private enum PlayerType { Player1, Player2 }
 
     [Header("Player")]
     [SerializeField] private PlayerType playerType = PlayerType.Player1;
@@ -36,6 +41,7 @@ public class PoseEditorController : MonoBehaviour
 
     [Header("Joints")]
     [SerializeField] private Joint[] joints;
+    [SerializeField] private float hoverRadius = 15f; // 所有关节统一扩展的命中半径
 
     [Header("Rotation")]
     [SerializeField] private float rotateAcceleration = 180f;
@@ -48,7 +54,6 @@ public class PoseEditorController : MonoBehaviour
     [SerializeField] private float translateFriction = 8f;
     [SerializeField] private float maxTranslateSpeed = 400f;
 
-    // ── 新增：Screen Space - Camera 模式下必须拿到挂载此 Canvas 的摄像机 ──
     private Camera uiCamera;
     private Canvas rootCanvas;
 
@@ -58,20 +63,31 @@ public class PoseEditorController : MonoBehaviour
     private float angularVelocity = 0f;
     private Vector2 translateVelocity = Vector2.zero;
 
+    private float[] jointTrackedAngles;
+
     public Joint[] Joints => joints;
     public RectTransform BodyRoot => bodyRoot;
 
     void Awake()
     {
-        // 向上查找根 Canvas，取其 worldCamera
-        // Screen Space - Camera 模式下 worldCamera 就是渲染该 Canvas 的摄像机
-        // Screen Space - Overlay 模式下 worldCamera 为 null，WorldToScreenPoint 传 null 也能正常工作
         rootCanvas = GetComponentInParent<Canvas>();
         if (rootCanvas != null)
-            rootCanvas = rootCanvas.rootCanvas;          // 确保拿到根 Canvas
-
+            rootCanvas = rootCanvas.rootCanvas;
         if (rootCanvas != null)
-            uiCamera = rootCanvas.worldCamera;           // Screen Space - Camera → 非 null；Overlay → null（可接受）
+            uiCamera = rootCanvas.worldCamera;
+
+        jointTrackedAngles = new float[joints.Length];
+        for (int i = 0; i < joints.Length; i++)
+        {
+            // 自动记录初始 Sprite，Inspector 留空时生效
+            if (joints[i] != null && joints[i].image != null && joints[i].normalSprite == null)
+                joints[i].normalSprite = joints[i].image.sprite;
+
+            if (joints[i] != null && joints[i].skeleton != null)
+                jointTrackedAngles[i] = NormalizeAngle(joints[i].skeleton.localEulerAngles.z);
+            else
+                jointTrackedAngles[i] = 0f;
+        }
     }
 
     void Update()
@@ -88,8 +104,7 @@ public class PoseEditorController : MonoBehaviour
 
     void HandleCursorMove()
     {
-        if (selectedJoint != null)
-            return;
+        if (selectedJoint != null) return;
 
         Vector2 dir = Vector2.zero;
 
@@ -117,46 +132,52 @@ public class PoseEditorController : MonoBehaviour
 
     void UpdateHoveredJoint()
     {
-        // ── 修复：选中状态下光标隐藏且不移动，强制清空 hover，避免残留高亮 ──
         if (selectedJoint != null)
         {
             if (hoveredJoint != null)
             {
                 hoveredJoint = null;
-                UpdateJointColors();
+                UpdateJointVisuals();
             }
             return;
         }
 
-        // ── 修复：Screen Space - Camera 下必须用 Canvas 的 worldCamera 作为参数 ──
-        // uiCamera 在 Awake 中从根 Canvas.worldCamera 取得；
-        // Overlay 模式下为 null，WorldToScreenPoint(null, ...) 行为与旧代码一致。
         Vector2 cursorScreenPos = RectTransformUtility.WorldToScreenPoint(uiCamera, cursor.position);
 
         Joint newHovered = null;
-        float bestDist = float.MaxValue;
-        float hoverRadius = 30f;
 
         for (int i = 0; i < joints.Length; i++)
         {
             Joint j = joints[i];
-            if (j == null || j.rect == null) continue;
+            if (j == null || j.rect == null || j.image == null) continue;
 
-            Vector2 jointScreenPos = RectTransformUtility.WorldToScreenPoint(uiCamera, j.rect.position);
-            float dist = Vector2.Distance(cursorScreenPos, jointScreenPos);
+            if (!CircleContainsScreenPoint(j, cursorScreenPos, hoverRadius))
+                continue;
 
-            if (dist < hoverRadius && dist < bestDist)
-            {
-                bestDist = dist;
-                newHovered = j;
-            }
+            newHovered = j;
+            break;
         }
 
         if (newHovered != hoveredJoint)
         {
             hoveredJoint = newHovered;
-            UpdateJointColors();
+            UpdateJointVisuals();
         }
+    }
+
+    // 圆形命中检测：以 RectTransform 中心为圆心，半径 = 图片短边的一半 + hoverRadius 扩展量
+    // 圆形命中检测：以 RectTransform 中心为圆心，半径 = 图片短边的一半 + 全局 hoverRadius
+    private bool CircleContainsScreenPoint(Joint j, Vector2 screenPoint, float extraRadius)
+    {
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            j.rect, screenPoint, uiCamera, out Vector2 localPoint);
+
+        Rect r = j.rect.rect;
+        Vector2 center = r.center;
+        float imageRadius = Mathf.Min(r.width, r.height) * 0.5f;
+        float hitRadius = imageRadius + extraRadius;
+
+        return (localPoint - center).sqrMagnitude <= hitRadius * hitRadius;
     }
 
     void HandleSelectInput()
@@ -166,9 +187,7 @@ public class PoseEditorController : MonoBehaviour
         {
             if (selectedJoint != null)
             {
-                // 退出选中时，把光标移到关节的中心位置
                 cursor.position = selectedJoint.rect.position;
-
                 selectedJoint = null;
                 angularVelocity = 0f;
                 translateVelocity = Vector2.zero;
@@ -179,18 +198,30 @@ public class PoseEditorController : MonoBehaviour
                 if (hoveredJoint != null)
                 {
                     selectedJoint = hoveredJoint;
-                    hoveredJoint = null;          // 选中时立刻清空 hover，防止同一关节同时显示两种颜色
+                    hoveredJoint = null;
+
+                    int idx = Array.IndexOf(joints, selectedJoint);
+                    if (idx >= 0 && selectedJoint.skeleton != null)
+                        jointTrackedAngles[idx] = NormalizeAngle(selectedJoint.skeleton.localEulerAngles.z);
+
                     cursor.gameObject.SetActive(false);
                 }
             }
 
-            UpdateJointColors();
+            UpdateJointVisuals();
         }
     }
 
     void HandleRotateInput()
     {
         if (selectedJoint == null || selectedJoint.skeleton == null)
+        {
+            angularVelocity = 0f;
+            return;
+        }
+
+        int idx = Array.IndexOf(joints, selectedJoint);
+        if (idx < 0)
         {
             angularVelocity = 0f;
             return;
@@ -223,8 +254,20 @@ public class PoseEditorController : MonoBehaviour
 
         if (Mathf.Abs(angularVelocity) > 0f)
         {
+            float newAngle = jointTrackedAngles[idx] + angularVelocity * Time.deltaTime;
+
+            if (selectedJoint.useAngleLimit)
+            {
+                float clamped = Mathf.Clamp(newAngle, selectedJoint.minAngle, selectedJoint.maxAngle);
+                if (Mathf.Abs(clamped - newAngle) > 0.001f)
+                    angularVelocity = 0f;
+                newAngle = clamped;
+            }
+
+            jointTrackedAngles[idx] = newAngle;
+
             Vector3 euler = selectedJoint.skeleton.localEulerAngles;
-            euler.z += angularVelocity * Time.deltaTime;
+            euler.z = newAngle;
             selectedJoint.skeleton.localEulerAngles = euler;
         }
     }
@@ -266,10 +309,12 @@ public class PoseEditorController : MonoBehaviour
 
         if (translateVelocity.sqrMagnitude > 0f)
             bodyRoot.anchoredPosition += translateVelocity * Time.deltaTime;
+
         Debug.Log($"[Translate] velocity={translateVelocity}  pos={bodyRoot.anchoredPosition}");
     }
 
-    void UpdateJointColors()
+    // 原 UpdateJointColors() 改名为 UpdateJointVisuals()，同时处理颜色和 Sprite 切换
+    void UpdateJointVisuals()
     {
         for (int i = 0; i < joints.Length; i++)
         {
@@ -277,22 +322,36 @@ public class PoseEditorController : MonoBehaviour
             if (j == null || j.image == null) continue;
 
             if (j == selectedJoint)
+            {
                 j.image.color = j.selectedColor;
-            else if (j == hoveredJoint)
-                j.image.color = j.hoverColor;
+                // 切换到选中形状
+                if (j.selectedSprite != null)
+                    j.image.sprite = j.selectedSprite;
+            }
             else
-                j.image.color = j.normalColor;
+            {
+                j.image.color = (j == hoveredJoint) ? j.hoverColor : j.normalColor;
+                // 恢复原始形状
+                if (j.normalSprite != null)
+                    j.image.sprite = j.normalSprite;
+            }
         }
+    }
+
+    private float NormalizeAngle(float angle)
+    {
+        while (angle > 180f)  angle -= 360f;
+        while (angle < -180f) angle += 360f;
+        return angle;
     }
 
     public void Disable()
     {
-        // 禁用时同时清理选中/hover 状态，避免状态残留到下一次 Enable
         selectedJoint = null;
         hoveredJoint = null;
         angularVelocity = 0f;
         translateVelocity = Vector2.zero;
-        UpdateJointColors();
+        UpdateJointVisuals();
 
         enabled = false;
         if (cursor != null)
