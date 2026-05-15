@@ -398,7 +398,7 @@ public partial class @InputAction_Player: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""84339b97-2495-4544-a6bf-3f2eb0968bed"",
-                    ""path"": ""<Keyboard>/rightBracket"",
+                    ""path"": ""<Keyboard>/numpad1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -409,7 +409,7 @@ public partial class @InputAction_Player: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""555639c4-f59a-4022-a18f-224dbdad7d17"",
-                    ""path"": ""<Keyboard>/leftBracket"",
+                    ""path"": ""<Keyboard>/numpad2"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -420,7 +420,7 @@ public partial class @InputAction_Player: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""d749c2f1-95e9-4536-bdd2-a980556d3b1b"",
-                    ""path"": ""<Keyboard>/enter"",
+                    ""path"": ""<Keyboard>/numpad0"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",

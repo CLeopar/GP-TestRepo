@@ -10,8 +10,8 @@
     "NewShitTime": 10000,
     "ShitMoveYTime": 5,
     "ShitBeEatenTime": 3500,
-    "SCGreenDuration": 30,
-    "SCOrangeDuration": 20,
+    "SCGreenDuration": 60,
+    "SCOrangeDuration": 50,
     "SCSpawnInterval": 10,
     "SCMaxTaskCount": 3,
     "SCGreenProbability": 0.6
