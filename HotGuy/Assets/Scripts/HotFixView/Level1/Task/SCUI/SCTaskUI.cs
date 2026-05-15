@@ -53,7 +53,7 @@ public class SCTaskUI : MonoBehaviour
             _activeFoodImages.Add(Food3Frame3);
         }
 
-        // 加载图标
+        // 加载图标（初始状态为 Normal）
         for (int i = 0; i < _foodCount; i++)
         {
             LoadFoodIcon(i, foodSequence[i], SCUIState.Normal).Coroutine();
@@ -110,7 +110,11 @@ public class SCTaskUI : MonoBehaviour
         var scene = GameEntry.Instance._scene;
         var foodConfig = scene.GetComponent<Tables>().FoodConfigCategory.Get(foodType);
 
-        var sprite = await scene.GetComponent<ResourceLoaderComponent>().LoadAssetAsync<Sprite>(foodConfig.IconResName);
+        // ========== 修改：根据状态拼接后缀 ==========
+        // 例如：L1_Food_Apple_Normal / L1_Food_Apple_Eating / L1_Food_Apple_Completed
+        string resName = $"{foodConfig.IconResName}_{state}";
+
+        var sprite = await scene.GetComponent<ResourceLoaderComponent>().LoadAssetAsync<Sprite>(resName);
 
         if (_activeFoodImages[index] != null)
             _activeFoodImages[index].sprite = sprite;
