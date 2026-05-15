@@ -123,6 +123,8 @@ public class FoodComponent : Entity, ISupportedMultiEntity
 
     public async FTask StartEat(bool isNormal)
     {
+        Log.Error($"[Food] StartEat fruitStateType={fruitStateType}, IsBeingEaten={IsBeingEaten}");
+        
         IsBeingEaten = true;
         CancellationToken = FCancellationToken.ToKen;
         
