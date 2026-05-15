@@ -14,6 +14,8 @@ public class Event_SCTaskCompleted_Handler : EventSystem<SCTaskCompleted>
             taskUI.PlayCompleteAnimation();
         }
 
+        GameEntry.Instance._scene.GetComponent<LevelStatsComponent>()?.AddTaskCompleted();
+        
         // 任务完成奖励分数
         CalculateAndAddTaskBonus(self.TaskId);
     }

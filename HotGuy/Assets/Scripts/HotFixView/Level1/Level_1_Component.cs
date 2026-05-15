@@ -111,6 +111,10 @@ public class Level_1_Component_Awake : AwakeSystem<Level_1_Component>
 
         if (self.Scene.GetComponent<SCUIComponent>() == null)
             self.Scene.AddComponent<SCUIComponent>();
+        
+        // ========== 新增：注册统计组件 ==========
+        if (self.Scene.GetComponent<LevelStatsComponent>() == null)
+            self.Scene.AddComponent<LevelStatsComponent>();
     }
 }
 

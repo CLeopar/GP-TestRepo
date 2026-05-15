@@ -11,14 +11,16 @@ public class StatsDisplay : MonoBehaviour
         AverageCompletion,
         CompletionBelow60Count,
         CompletionAbove95Count,
-        NewRecord           // ★ 新增：是否刷新记录
+        NewRecord,
+        L1_TotalScore,
+        L1_HighScore,
+        L1_TasksCompleted,
+        L1_ShitEaten,
+        L1_FoodEaten,
+        L1_NewRecord,
     }
 
-    [Header("显示内容")]
     [SerializeField] private DisplayType displayType = DisplayType.TotalScore;
-
-    [Header("新记录显示")]
-    [Tooltip("当 DisplayType 为 NewRecord 时，如果刷新记录显示这个物体")]
     [SerializeField] private GameObject newRecordObject;
 
     private TMP_Text textUI;
@@ -31,29 +33,37 @@ public class StatsDisplay : MonoBehaviour
         textUI = GetComponent<TMP_Text>();
 
         if (text3D != null)
-        {
             is3D = true;
-        }
         else if (textUI != null)
-        {
             is3D = false;
-        }
         else
-        {
             Debug.LogError($"[{nameof(StatsDisplay)}] 未找到 TMP 组件！", this);
-        }
     }
 
     private void Start()
     {
-        if (GameStatsManager.Instance == null)
-        {
-            StartCoroutine(WaitForStatsManager());
-        }
-        else
+        // ========== 修改：L1 数据直接更新，不等待 GameStatsManager ==========
+        if (IsL1DisplayType())
         {
             UpdateDisplay();
+            return;
         }
+
+        // 其他关卡保持原有逻辑
+        if (GameStatsManager.Instance == null)
+            StartCoroutine(WaitForStatsManager());
+        else
+            UpdateDisplay();
+    }
+
+    private bool IsL1DisplayType()
+    {
+        return displayType == DisplayType.L1_TotalScore
+            || displayType == DisplayType.L1_HighScore
+            || displayType == DisplayType.L1_TasksCompleted
+            || displayType == DisplayType.L1_ShitEaten
+            || displayType == DisplayType.L1_FoodEaten
+            || displayType == DisplayType.L1_NewRecord;
     }
 
     private IEnumerator WaitForStatsManager()
@@ -65,12 +75,6 @@ public class StatsDisplay : MonoBehaviour
         {
             timer += Time.deltaTime;
             yield return null;
-        }
-        
-        if (GameStatsManager.Instance == null)
-        {
-            Debug.LogError("[StatsDisplay] 等待超时，GameStatsManager 未找到！");
-            yield break;
         }
         
         UpdateDisplay();
@@ -88,11 +92,23 @@ public class StatsDisplay : MonoBehaviour
             DisplayType.AverageCompletion      => Mathf.RoundToInt(PlayerPrefs.GetFloat("GameStats_AverageCompletion", 0f) * 100f).ToString() + "%",
             DisplayType.CompletionBelow60Count => PlayerPrefs.GetInt("GameStats_Below60", 0).ToString(),
             DisplayType.CompletionAbove95Count => PlayerPrefs.GetInt("GameStats_Above95", 0).ToString(),
-            DisplayType.NewRecord              => HandleNewRecord(),  // ★ 新增
+            DisplayType.NewRecord              => HandleNewRecord(
+                                                        PlayerPrefs.GetFloat("GameStats_TotalScore", 0f),
+                                                        PlayerPrefs.GetFloat("GameStats_HighScore", 0f)),
+
+            DisplayType.L1_TotalScore          => PlayerPrefs.GetInt("L1_TotalScore", 0).ToString(),
+            DisplayType.L1_HighScore           => PlayerPrefs.GetInt("L1_HighScore", 0).ToString(),
+            DisplayType.L1_TasksCompleted      => PlayerPrefs.GetInt("L1_TasksCompleted", 0).ToString(),
+            DisplayType.L1_ShitEaten           => PlayerPrefs.GetInt("L1_ShitEaten", 0).ToString(),
+            DisplayType.L1_FoodEaten           => PlayerPrefs.GetInt("L1_FoodEaten", 0).ToString(),
+            DisplayType.L1_NewRecord           => HandleNewRecord(
+                                                        PlayerPrefs.GetInt("L1_TotalScore", 0),
+                                                        PlayerPrefs.GetInt("L1_HighScore", 0)),
+
             _                                  => ""
         };
 
-        if (displayType != DisplayType.NewRecord)
+        if (displayType != DisplayType.NewRecord && displayType != DisplayType.L1_NewRecord)
         {
             if (is3D)
                 text3D.text = value;
@@ -101,27 +117,20 @@ public class StatsDisplay : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 处理新记录显示：如果本次总分 > 之前的最高分，显示物体
-    /// </summary>
-    private string HandleNewRecord()
+    private string HandleNewRecord(float currentScore, float highScore)
     {
-        float currentScore = PlayerPrefs.GetFloat("GameStats_TotalScore", 0f);
-        float highScore = PlayerPrefs.GetFloat("GameStats_HighScore", 0f);
-        
-        // 注意：如果当前分数等于最高分，且之前没有记录过（首次游戏），也算新记录
         bool isNewRecord = currentScore >= highScore && currentScore > 0;
         
         if (newRecordObject != null)
-        {
             newRecordObject.SetActive(isNewRecord);
-            Debug.Log($"[StatsDisplay] 新记录检测: 当前{currentScore}, 最高{highScore}, 结果:{isNewRecord}");
-        }
         else
-        {
             Debug.LogWarning("[StatsDisplay] newRecordObject 未赋值！");
-        }
 
-        return ""; // NewRecord 不需要返回文本
+        return "";
+    }
+
+    private string HandleNewRecord(int currentScore, int highScore)
+    {
+        return HandleNewRecord((float)currentScore, (float)highScore);
     }
 }

@@ -19,6 +19,8 @@ public class Event_FoodBeEatenNormal_Handler : EventSystem<FoodBeEaten_Normal>
 
         // 通知任务系统
         CheckTaskProgress(food?.foodType);
+        
+        GameEntry.Instance._scene.GetComponent<LevelStatsComponent>()?.AddFoodEaten();
     }
 
     private void CheckTaskProgress(FoodType? eatenFoodType)
