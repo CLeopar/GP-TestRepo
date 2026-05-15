@@ -3,84 +3,98 @@
     "FoodType": 1,
     "FoodStateCount": 4,
     "HasReamin": false,
-    "UIResName": "L1_Cucumber"
+    "UIResName": "L1_Cucumber",
+    "IconResName": "L1_Icon_Cucumber"
   },
   {
     "FoodType": 2,
     "FoodStateCount": 4,
     "HasReamin": true,
-    "UIResName": "L1_Pumpkin"
+    "UIResName": "L1_Pumpkin",
+    "IconResName": "\tL1_Icon_Pumpkin"
   },
   {
     "FoodType": 3,
     "FoodStateCount": 4,
     "HasReamin": false,
-    "UIResName": "L1_ChickenLeg"
+    "UIResName": "L1_ChickenLeg",
+    "IconResName": "L1_Icon_ChickenLeg"
   },
   {
     "FoodType": 4,
     "FoodStateCount": 4,
     "HasReamin": true,
-    "UIResName": "L1_Apple"
+    "UIResName": "L1_Apple",
+    "IconResName": "L1_Icon_Apple"
   },
   {
     "FoodType": 5,
     "FoodStateCount": 2,
     "HasReamin": false,
-    "UIResName": "L1_Broccoli"
+    "UIResName": "L1_Broccoli",
+    "IconResName": "L1_Icon_Broccoli"
   },
   {
     "FoodType": 6,
     "FoodStateCount": 1,
     "HasReamin": true,
-    "UIResName": "L1_Biscuit"
+    "UIResName": "L1_Biscuit",
+    "IconResName": "L1_Icon_Biscuit"
   },
   {
     "FoodType": 7,
     "FoodStateCount": 1,
     "HasReamin": false,
-    "UIResName": "L1_Blueberry_A"
+    "UIResName": "L1_Blueberry_A",
+    "IconResName": "L1_Icon_Blueberry"
   },
   {
     "FoodType": 8,
     "FoodStateCount": 1,
     "HasReamin": true,
-    "UIResName": "L1_Blueberry_B"
+    "UIResName": "L1_Blueberry_B",
+    "IconResName": "L1_Icon_Blueberry"
   },
   {
     "FoodType": 9,
     "FoodStateCount": 1,
     "HasReamin": false,
-    "UIResName": "L1_Blueberry_C"
+    "UIResName": "L1_Blueberry_C",
+    "IconResName": "L1_Icon_Blueberry"
   },
   {
     "FoodType": 10,
     "FoodStateCount": 1,
     "HasReamin": true,
-    "UIResName": "L1_Blueberry_D"
+    "UIResName": "L1_Blueberry_D",
+    "IconResName": "L1_Icon_Blueberry"
   },
   {
     "FoodType": 11,
     "FoodStateCount": 3,
     "HasReamin": false,
-    "UIResName": "L1_Carrot"
+    "UIResName": "L1_Carrot",
+    "IconResName": "L1_Icon_Carrot"
   },
   {
     "FoodType": 12,
     "FoodStateCount": 1,
     "HasReamin": true,
-    "UIResName": "L1_Egg"
+    "UIResName": "L1_Egg",
+    "IconResName": "L1_Icon_Egg"
   },
   {
     "FoodType": 13,
     "FoodStateCount": 2,
     "HasReamin": false,
-    "UIResName": "L1_Salmon"
+    "UIResName": "L1_Salmon",
+    "IconResName": "L1_Icon_Salmon"
   },
   {
     "FoodType": 14,
     "FoodStateCount": 2,
     "HasReamin": true,
-    "UIResName": "L1_Shrimp"
+    "UIResName": "L1_Shrimp",
+    "IconResName": "L1_Icon_Shrimp"
   }
 ]

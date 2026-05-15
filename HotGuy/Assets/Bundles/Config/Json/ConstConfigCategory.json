@@ -5,10 +5,15 @@
     "EatSecretlyInterval": 5000,
     "FoodChangeStateInterval": 1000,
     "HitDuration": 500,
-    "TurnRotateToFoodDuration": 0.2,
+    "TurnRotateToFoodDuration": 1,
     "NewFruitTime": 3000,
-    "NewShitTime": 3000,
-    "ShitMoveYTime": 2,
-    "ShitBeEatenTime": 3500
+    "NewShitTime": 10000,
+    "ShitMoveYTime": 5,
+    "ShitBeEatenTime": 3500,
+    "SCGreenDuration": 20,
+    "SCOrangeDuration": 15,
+    "SCSpawnInterval": 10,
+    "SCMaxTaskCount": 3,
+    "SCGreenProbability": 0.6
   }
 ]

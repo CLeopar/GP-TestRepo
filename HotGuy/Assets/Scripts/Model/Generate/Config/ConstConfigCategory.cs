@@ -65,6 +65,26 @@ public partial class ConstConfigCategory
     /// 屎被吃完的时间(ms)
     /// </summary>
      public long ShitBeEatenTime => _data.ShitBeEatenTime;
+    /// <summary>
+    /// 绿色任务秒数(s)
+    /// </summary>
+     public int SCGreenDuration => _data.SCGreenDuration;
+    /// <summary>
+    /// 橙色任务秒数(s)
+    /// </summary>
+     public int SCOrangeDuration => _data.SCOrangeDuration;
+    /// <summary>
+    /// 生成间隔秒数(s)
+    /// </summary>
+     public int SCSpawnInterval => _data.SCSpawnInterval;
+    /// <summary>
+    /// 最大任务数
+    /// </summary>
+     public int SCMaxTaskCount => _data.SCMaxTaskCount;
+    /// <summary>
+    /// 绿色概率
+    /// </summary>
+     public float SCGreenProbability => _data.SCGreenProbability;
     
     public void ResolveRef(Tables tables)
     {

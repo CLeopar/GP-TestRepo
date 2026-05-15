@@ -8,9 +8,9 @@ using UnityEngine;
 
 public class TaskManagerComponent : Entity
 {
-    [Header("生成配置")]
-    public float SpawnInterval = 30f;
-    public int MaxTaskCount = 3;
+    private float SpawnInterval => Scene.GetComponent<Tables>().ConstConfigCategory.Data.SCSpawnInterval;
+    private int MaxTaskCount => Scene.GetComponent<Tables>().ConstConfigCategory.Data.SCMaxTaskCount;
+
     public int MinFoodCount = 2;
     public int MaxFoodCount = 3;
 
@@ -22,21 +22,20 @@ public class TaskManagerComponent : Entity
     {
         Log.Error("[TaskManager] === Init called ===");
         StartSpawnTimer();
-        Log.Error("[TaskManager] Initialized");
+        Log.Error($"[TaskManager] Initialized, SpawnInterval={SpawnInterval}s, MaxTaskCount={MaxTaskCount}");
     }
 
-    // ========== 新增：这个方法之前缺失了 ==========
     private void StartSpawnTimer()
     {
-        float randomInterval = Random.Range(SpawnInterval - 5f, SpawnInterval + 5f);
+        float interval = SpawnInterval;
+        float randomInterval = Random.Range(interval - 5f, interval + 5f);
         _spawnTimer = Scene.TimerComponent.Net.OnceTimer((long)(randomInterval * 1000), OnSpawnTimer);
     }
-    // ==============================================
 
     private void OnSpawnTimer()
     {
         Log.Error($"[TaskManager] === OnSpawnTimer called, ActiveTasks: {ActiveTaskIds.Count} ===");
-    
+
         if (ActiveTaskIds.Count >= MaxTaskCount)
         {
             Log.Error($"[TaskManager] Max task count reached ({MaxTaskCount}), skip spawn");
@@ -65,57 +64,48 @@ public class TaskManagerComponent : Entity
 
     private async FTask<TaskComponent> GenerateTask()
     {
+        // 1. 获取可用食物列表
         var availableFoods = GetAvailableFoods();
-        if (availableFoods.Count < MinFoodCount)
+        if (availableFoods.Count == 0)
         {
-            Log.Error($"[TaskManager] Not enough available foods: {availableFoods.Count}");
+            Log.Error("[TaskManager] No available foods");
             return null;
         }
 
-        int foodCount = Random.Range(MinFoodCount, MaxFoodCount + 1);
-        foodCount = Mathf.Min(foodCount, availableFoods.Count);
-
+        // 2. 生成食物序列
+        int count = Random.Range(MinFoodCount, MaxFoodCount + 1);
         var foodSequence = new List<FoodType>();
-        for (int i = 0; i < foodCount; i++)
+        for (int i = 0; i < count; i++)
         {
-            int idx = Random.Range(0, availableFoods.Count);
-            foodSequence.Add(availableFoods[idx]);
+            foodSequence.Add(availableFoods[Random.Range(0, availableFoods.Count)]);
         }
 
+        // 3. 检查是否与已有任务重复
         if (IsSequenceDuplicate(foodSequence))
         {
-            Log.Error("[TaskManager] Sequence duplicate, retry...");
-            foodSequence.Clear();
-            for (int i = 0; i < foodCount; i++)
-            {
-                int idx = Random.Range(0, availableFoods.Count);
-                foodSequence.Add(availableFoods[idx]);
-            }
-
-            if (IsSequenceDuplicate(foodSequence))
-            {
-                Log.Error("[TaskManager] Still duplicate after retry, skip");
-                return null;
-            }
+            Log.Error("[TaskManager] Duplicate sequence, skip");
+            return null;
         }
 
-        var taskComp = AddComponent<TaskComponent>(_taskIdGenerator++);
+        // 4. 创建 TaskComponent
+        var taskComp = AddComponent<TaskComponent>(++_taskIdGenerator);
         taskComp.FoodSequence = foodSequence;
-        taskComp.CurrentStep = 0;
         taskComp.IsCompleted = false;
         taskComp.IsFailed = false;
 
+        // 5. 创建 SCItemComponent 并收集 SCItemData
         var scItemDataList = new List<SCItemData>();
+        var config = Scene.GetComponent<Tables>().ConstConfigCategory.Data;
+
+        float rand = Random.value;
+        var durationType = rand < config.SCGreenProbability
+            ? SCDurationType.Green_10s
+            : SCDurationType.Orange_8s;
+        
         for (int i = 0; i < foodSequence.Count; i++)
         {
-            float rand = Random.value;
-            float duration = rand < 0.6f ? 10f : 8f;
-            var durationType = rand < 0.6f ? SCDurationType.Green_10s : SCDurationType.Orange_8s;
-
             var itemComp = taskComp.AddComponent<SCItemComponent>(i);
             itemComp.FoodType = foodSequence[i];
-            itemComp.TotalDuration = duration;
-            itemComp.RemainingTime = duration;
             itemComp.DurationType = durationType;
             itemComp.UIState = SCUIState.Normal;
             itemComp.IsCompleted = false;
@@ -126,11 +116,13 @@ public class TaskManagerComponent : Entity
             {
                 Index = i,
                 FoodType = foodSequence[i],
-                TotalDuration = duration,
                 DurationType = durationType
             });
+
+            Log.Error($"[TaskManager] Item {i}: Type={durationType}, ConfigTime={itemComp.TotalDuration}s");
         }
 
+        // 6. 发布 SCTaskSpawned 事件通知 UI
         Scene.EventComponent.Publish(new SCTaskSpawned
         {
             TaskId = taskComp.Id,
@@ -138,6 +130,7 @@ public class TaskManagerComponent : Entity
             SCItems = scItemDataList
         });
 
+        // 7. 启动所有 Item 的倒计时
         taskComp.StartCountdown();
 
         return taskComp;
@@ -207,7 +200,6 @@ public class TaskManagerComponent : Entity
         var taskComp = GetComponent<TaskComponent>(taskId);
         if (taskComp != null)
         {
-            // 先收集，再移除，避免遍历中修改
             var itemsToRemove = new List<SCItemComponent>();
             foreach (var item in taskComp.ForEachMultiEntity)
             {
@@ -217,12 +209,12 @@ public class TaskManagerComponent : Entity
                     itemsToRemove.Add(itemComp);
                 }
             }
-        
+
             foreach (var itemComp in itemsToRemove)
             {
                 taskComp.RemoveComponent(itemComp);
             }
-        
+
             RemoveComponent(taskComp);
         }
 

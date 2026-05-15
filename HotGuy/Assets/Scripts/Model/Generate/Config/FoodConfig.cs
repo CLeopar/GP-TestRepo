@@ -18,6 +18,7 @@ public sealed partial class FoodConfig : Luban.BeanBase
         FoodStateCount = _buf.ReadInt();
         HasReamin = _buf.ReadBool();
         UIResName = _buf.ReadString();
+        IconResName = _buf.ReadString();
     }
 
     public static FoodConfig DeserializeFoodConfig(ByteBuf _buf)
@@ -38,6 +39,7 @@ public sealed partial class FoodConfig : Luban.BeanBase
     /// </summary>
     public readonly bool HasReamin;
     public readonly string UIResName;
+    public readonly string IconResName;
    
     public const int __ID__ = 1123490144;
     public override int GetTypeId() => __ID__;
@@ -54,6 +56,7 @@ public sealed partial class FoodConfig : Luban.BeanBase
         + "FoodStateCount:" + FoodStateCount + ","
         + "HasReamin:" + HasReamin + ","
         + "UIResName:" + UIResName + ","
+        + "IconResName:" + IconResName + ","
         + "}";
     }
 

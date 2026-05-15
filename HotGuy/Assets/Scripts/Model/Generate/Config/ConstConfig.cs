@@ -24,6 +24,11 @@ public sealed partial class ConstConfig : Luban.BeanBase
         NewShitTime = _buf.ReadLong();
         ShitMoveYTime = _buf.ReadFloat();
         ShitBeEatenTime = _buf.ReadLong();
+        SCGreenDuration = _buf.ReadInt();
+        SCOrangeDuration = _buf.ReadInt();
+        SCSpawnInterval = _buf.ReadInt();
+        SCMaxTaskCount = _buf.ReadInt();
+        SCGreenProbability = _buf.ReadFloat();
     }
 
     public static ConstConfig DeserializeConstConfig(ByteBuf _buf)
@@ -71,6 +76,26 @@ public sealed partial class ConstConfig : Luban.BeanBase
     /// 屎被吃完的时间(ms)
     /// </summary>
     public readonly long ShitBeEatenTime;
+    /// <summary>
+    /// 绿色任务秒数(s)
+    /// </summary>
+    public readonly int SCGreenDuration;
+    /// <summary>
+    /// 橙色任务秒数(s)
+    /// </summary>
+    public readonly int SCOrangeDuration;
+    /// <summary>
+    /// 生成间隔秒数(s)
+    /// </summary>
+    public readonly int SCSpawnInterval;
+    /// <summary>
+    /// 最大任务数
+    /// </summary>
+    public readonly int SCMaxTaskCount;
+    /// <summary>
+    /// 绿色概率
+    /// </summary>
+    public readonly float SCGreenProbability;
    
     public const int __ID__ = -1271334811;
     public override int GetTypeId() => __ID__;
@@ -93,6 +118,11 @@ public sealed partial class ConstConfig : Luban.BeanBase
         + "NewShitTime:" + NewShitTime + ","
         + "ShitMoveYTime:" + ShitMoveYTime + ","
         + "ShitBeEatenTime:" + ShitBeEatenTime + ","
+        + "SCGreenDuration:" + SCGreenDuration + ","
+        + "SCOrangeDuration:" + SCOrangeDuration + ","
+        + "SCSpawnInterval:" + SCSpawnInterval + ","
+        + "SCMaxTaskCount:" + SCMaxTaskCount + ","
+        + "SCGreenProbability:" + SCGreenProbability + ","
         + "}";
     }
 

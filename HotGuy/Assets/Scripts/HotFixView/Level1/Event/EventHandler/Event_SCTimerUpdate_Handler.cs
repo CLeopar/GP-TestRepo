@@ -10,7 +10,7 @@ public class Event_SCTimerUpdate_Handler : EventSystem<SCTimerUpdate>
 
         if (uiComp.TaskUIInstances.TryGetValue(self.TaskId, out var taskUI))
         {
-            taskUI.UpdateTimer(self.RemainingTime);
+            taskUI.UpdateTimer(self.RemainingTime);  // ← 只透传，不计算
         }
     }
 }

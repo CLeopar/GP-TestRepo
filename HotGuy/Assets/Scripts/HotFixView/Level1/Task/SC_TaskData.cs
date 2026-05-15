@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+// SC_TaskData.cs
+
+using System.Collections.Generic;
 
 /// <summary>
 /// SC倒计时类型
@@ -14,9 +17,9 @@ public enum SCDurationType
 /// </summary>
 public enum SCUIState
 {
-    Normal,      // 常规状态（半透明/灰色）
-    Eating,      // 正在吃（玩家开始喂这个食物）
-    Completed,   // 已完成（吃对了）
+    Normal,      // 常规状态（示意图）
+    Eating,      // 正在吃
+    Completed,   // 已完成
 }
 
 /// <summary>
@@ -26,6 +29,8 @@ public struct SCItemData
 {
     public int Index;
     public FoodType FoodType;
-    public float TotalDuration;
-    public SCDurationType DurationType;
+    public SCDurationType DurationType;  // ← 只传类型，时间从 Config 读
+    
+    // 保留兼容，但不再作为时间源
+    public float TotalDuration;  // ← 可选：完全删除或保留不用
 }

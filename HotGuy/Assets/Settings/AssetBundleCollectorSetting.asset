@@ -59,3 +59,11 @@ MonoBehaviour:
         FilterRuleName: CollectAll
         AssetTags: 
         UserData: 
+      - CollectPath: Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon
+        CollectorGUID: e7de6106803005341845883f3e893f32
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 
