@@ -204,7 +204,7 @@ public class FoodComponent : Entity, ISupportedMultiEntity
         return foodType switch
         {
             FoodType.Cucumber     => new Color(0.4f, 0.8f, 0.2f),
-            FoodType.Pumpkin      => new Color(1.0f, 0.6f, 0.0f),
+            FoodType.Pumpkin      => new Color(1.0f, 1.0f, 1.0f),
             FoodType.ChickenLeg   => new Color(0.9f, 0.5f, 0.2f),
             FoodType.Apple        => new Color(0.9f, 0.2f, 0.2f),
             FoodType.Broccoli     => new Color(0.2f, 0.6f, 0.2f),

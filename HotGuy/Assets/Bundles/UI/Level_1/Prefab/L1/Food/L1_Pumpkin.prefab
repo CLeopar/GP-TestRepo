@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 321070650995236896}
   - component: {fileID: 6254359477062155184}
-  - component: {fileID: 3204190655051928297}
+  - component: {fileID: 7352401547108984251}
   m_Layer: 10
   m_Name: Pumpkin_3
   m_TagString: Untagged
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 874216111183542965}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.1, y: -1.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -85,8 +85,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &3204190655051928297
-PolygonCollider2D:
+--- !u!70 &7352401547108984251
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,96 +118,8 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.24, y: 2.48}
-    newSize: {x: 2.66, y: 1.16}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 1.0699999, y: -1.05}
-      - {x: 1.41, y: -0.87}
-      - {x: 1.66, y: -0.68}
-      - {x: 1.81, y: -0.55}
-      - {x: 2.01, y: -0.34}
-      - {x: 2.1, y: -0.22999999}
-      - {x: 2.18, y: -0.12}
-      - {x: 2.3, y: 0.07}
-      - {x: 2.4199998, y: 0.32}
-      - {x: 2.48, y: 0.47}
-      - {x: 2.54, y: 0.65}
-      - {x: 2.61, y: 0.90999997}
-      - {x: 2.62, y: 0.98999995}
-      - {x: 2.62, y: 1.24}
-      - {x: 2.27, y: 1.24}
-      - {x: 2.25, y: 1}
-      - {x: 2.1699998, y: 0.87}
-      - {x: 2.08, y: 0.78999996}
-      - {x: 1.93, y: 0.72999996}
-      - {x: 1.77, y: 0.72999996}
-      - {x: 1.6999999, y: 0.75}
-      - {x: 1.68, y: 0.71999997}
-      - {x: 1.66, y: 0.59}
-      - {x: 1.5899999, y: 0.38}
-      - {x: 1.4599999, y: 0.16}
-      - {x: 1.3, y: 0}
-      - {x: 1.14, y: -0.099999994}
-      - {x: 0.97999996, y: -0.17999999}
-      - {x: 0.71999997, y: -0.24}
-      - {x: 0.45, y: -0.25}
-      - {x: 0.44, y: -0.24}
-      - {x: 0.32, y: -0.22}
-      - {x: 0.17, y: -0.17}
-      - {x: 0.02, y: -0.089999996}
-      - {x: -0.14, y: 0}
-      - {x: -0.29999998, y: 0.16}
-      - {x: -0.38, y: 0.29}
-      - {x: -0.47, y: 0.47}
-      - {x: -0.53999996, y: 0.47}
-      - {x: -0.62, y: 0.37}
-      - {x: -0.74, y: 0.22999999}
-      - {x: -0.78999996, y: 0.19999999}
-      - {x: -0.84, y: 0.16}
-      - {x: -1.05, y: 0.07}
-      - {x: -1.23, y: 0.03}
-      - {x: -1.48, y: 0.03}
-      - {x: -1.55, y: 0.049999997}
-      - {x: -1.76, y: 0.089999996}
-      - {x: -1.91, y: 0.17999999}
-      - {x: -1.99, y: 0.22999999}
-      - {x: -2.12, y: 0.35999998}
-      - {x: -2.22, y: 0.53}
-      - {x: -2.27, y: 0.7}
-      - {x: -2.28, y: 0.90999997}
-      - {x: -2.27, y: 0.91999996}
-      - {x: -2.22, y: 1.09}
-      - {x: -2.1499999, y: 1.22}
-      - {x: -2.1499999, y: 1.24}
-      - {x: -2.62, y: 1.24}
-      - {x: -2.62, y: 1.04}
-      - {x: -2.6, y: 0.90999997}
-      - {x: -2.54, y: 0.61}
-      - {x: -2.47, y: 0.44}
-      - {x: -2.4299998, y: 0.31}
-      - {x: -2.25, y: -0.03}
-      - {x: -2.06, y: -0.28}
-      - {x: -1.8199999, y: -0.53999996}
-      - {x: -1.66, y: -0.68}
-      - {x: -1.5, y: -0.79999995}
-      - {x: -1.36, y: -0.89}
-      - {x: -1.06, y: -1.04}
-      - {x: -0.90999997, y: -1.1}
-      - {x: -0.72999996, y: -1.17}
-      - {x: -0.47, y: -1.22}
-      - {x: -0.34, y: -1.24}
-      - {x: 0.34, y: -1.24}
-      - {x: 0.58, y: -1.1999999}
-      - {x: 0.77, y: -1.16}
-  m_UseDelaunayMesh: 0
+  m_Size: {x: 3.2, y: 2.18}
+  m_Direction: 1
 --- !u!1 &1655953938635335468
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,7 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4484538758742917961}
   - component: {fileID: 9181060214837057689}
-  - component: {fileID: 6809676964832714503}
+  - component: {fileID: 74941771049419761}
   m_Layer: 10
   m_Name: Pumpkin_2
   m_TagString: Untagged
@@ -293,8 +205,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &6809676964832714503
-PolygonCollider2D:
+--- !u!70 &74941771049419761
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -326,81 +238,8 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.24, y: 2.48}
-    newSize: {x: 2.66, y: 1.16}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 1.0699999, y: -1.05}
-      - {x: 1.41, y: -0.87}
-      - {x: 1.66, y: -0.68}
-      - {x: 1.81, y: -0.55}
-      - {x: 2.01, y: -0.34}
-      - {x: 2.1, y: -0.22999999}
-      - {x: 2.18, y: -0.12}
-      - {x: 2.3, y: 0.07}
-      - {x: 2.4199998, y: 0.32}
-      - {x: 2.48, y: 0.47}
-      - {x: 2.54, y: 0.65}
-      - {x: 2.61, y: 0.90999997}
-      - {x: 2.62, y: 1.01}
-      - {x: 2.62, y: 1.24}
-      - {x: 0.11, y: 1.24}
-      - {x: 0.11, y: 1.22}
-      - {x: 0.13, y: 1.14}
-      - {x: 0.13, y: 0.96}
-      - {x: 0.089999996, y: 0.82}
-      - {x: 0.03, y: 0.7}
-      - {x: -0.099999994, y: 0.57}
-      - {x: -0.25, y: 0.5}
-      - {x: -0.35999998, y: 0.48}
-      - {x: -0.53999996, y: 0.45999998}
-      - {x: -0.61, y: 0.37}
-      - {x: -0.74, y: 0.22999999}
-      - {x: -0.78999996, y: 0.19999999}
-      - {x: -0.84, y: 0.16}
-      - {x: -1.05, y: 0.07}
-      - {x: -1.23, y: 0.03}
-      - {x: -1.48, y: 0.03}
-      - {x: -1.55, y: 0.049999997}
-      - {x: -1.76, y: 0.089999996}
-      - {x: -1.91, y: 0.17999999}
-      - {x: -1.99, y: 0.22999999}
-      - {x: -2.12, y: 0.35999998}
-      - {x: -2.22, y: 0.53}
-      - {x: -2.27, y: 0.7}
-      - {x: -2.28, y: 0.90999997}
-      - {x: -2.27, y: 0.91999996}
-      - {x: -2.22, y: 1.09}
-      - {x: -2.1499999, y: 1.22}
-      - {x: -2.1499999, y: 1.24}
-      - {x: -2.62, y: 1.24}
-      - {x: -2.62, y: 1.04}
-      - {x: -2.6, y: 0.90999997}
-      - {x: -2.54, y: 0.61}
-      - {x: -2.47, y: 0.44}
-      - {x: -2.4299998, y: 0.31}
-      - {x: -2.25, y: -0.03}
-      - {x: -2.06, y: -0.28}
-      - {x: -1.8199999, y: -0.53999996}
-      - {x: -1.66, y: -0.68}
-      - {x: -1.5, y: -0.79999995}
-      - {x: -1.36, y: -0.89}
-      - {x: -1.06, y: -1.04}
-      - {x: -0.90999997, y: -1.1}
-      - {x: -0.72999996, y: -1.17}
-      - {x: -0.47, y: -1.22}
-      - {x: -0.34, y: -1.24}
-      - {x: 0.34, y: -1.24}
-      - {x: 0.58, y: -1.1999999}
-      - {x: 0.77, y: -1.16}
-  m_UseDelaunayMesh: 0
+  m_Size: {x: 3.05, y: 5.47}
+  m_Direction: 0
 --- !u!1 &2532418539750746039
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,7 +250,7 @@ GameObject:
   m_Component:
   - component: {fileID: 864940337188753812}
   - component: {fileID: 7639042227887497158}
-  - component: {fileID: 1333626435135675604}
+  - component: {fileID: 3716081591760312482}
   m_Layer: 10
   m_Name: Pumpkin_4
   m_TagString: Untagged
@@ -428,7 +267,7 @@ Transform:
   m_GameObject: {fileID: 2532418539750746039}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -2.11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -486,8 +325,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &1333626435135675604
-PolygonCollider2D:
+--- !u!70 &3716081591760312482
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -519,100 +358,8 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.24, y: 2.48}
-    newSize: {x: 2.66, y: 1.16}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 1.0699999, y: -1.05}
-      - {x: 1.41, y: -0.87}
-      - {x: 1.66, y: -0.68}
-      - {x: 1.81, y: -0.55}
-      - {x: 2.01, y: -0.34}
-      - {x: 2.1, y: -0.22999999}
-      - {x: 2.18, y: -0.12}
-      - {x: 2.3, y: 0.07}
-      - {x: 2.4199998, y: 0.32}
-      - {x: 2.48, y: 0.47}
-      - {x: 2.54, y: 0.65}
-      - {x: 2.61, y: 0.90999997}
-      - {x: 2.62, y: 0.98999995}
-      - {x: 2.62, y: 1.24}
-      - {x: 2.32, y: 1.24}
-      - {x: 2.32, y: 1.18}
-      - {x: 2.33, y: 0.94}
-      - {x: 2.32, y: 0.93}
-      - {x: 2.28, y: 0.76}
-      - {x: 2.19, y: 0.55}
-      - {x: 2.1, y: 0.44}
-      - {x: 2.07, y: 0.39}
-      - {x: 1.91, y: 0.26999998}
-      - {x: 1.7199999, y: 0.22}
-      - {x: 1.62, y: 0.21}
-      - {x: 1.5999999, y: 0.19}
-      - {x: 1.5899999, y: 0.07}
-      - {x: 1.54, y: -0.099999994}
-      - {x: 1.4399999, y: -0.26999998}
-      - {x: 1.3199999, y: -0.39}
-      - {x: 1.27, y: -0.42}
-      - {x: 1.22, y: -0.45999998}
-      - {x: 1.09, y: -0.52}
-      - {x: 0.89, y: -0.57}
-      - {x: 0.65, y: -0.58}
-      - {x: 0.64, y: -0.57}
-      - {x: 0.37, y: -0.48999998}
-      - {x: 0.34, y: -0.48}
-      - {x: 0.13, y: -0.68}
-      - {x: 0, y: -0.74}
-      - {x: -0.13, y: -0.77}
-      - {x: -0.34, y: -0.77}
-      - {x: -0.48999998, y: -0.74}
-      - {x: -0.62, y: -0.65999997}
-      - {x: -0.71, y: -0.59}
-      - {x: -0.74, y: -0.58}
-      - {x: -0.93, y: -0.57}
-      - {x: -1.2099999, y: -0.51}
-      - {x: -1.43, y: -0.41}
-      - {x: -1.56, y: -0.32999998}
-      - {x: -1.66, y: -0.22999999}
-      - {x: -1.73, y: -0.089999996}
-      - {x: -1.75, y: 0.089999996}
-      - {x: -1.91, y: 0.19}
-      - {x: -1.99, y: 0.22999999}
-      - {x: -2.12, y: 0.35999998}
-      - {x: -2.22, y: 0.53}
-      - {x: -2.27, y: 0.7}
-      - {x: -2.27, y: 0.91999996}
-      - {x: -2.22, y: 1.09}
-      - {x: -2.1499999, y: 1.22}
-      - {x: -2.1499999, y: 1.24}
-      - {x: -2.62, y: 1.24}
-      - {x: -2.62, y: 1.04}
-      - {x: -2.6, y: 0.90999997}
-      - {x: -2.54, y: 0.61}
-      - {x: -2.47, y: 0.44}
-      - {x: -2.4299998, y: 0.31}
-      - {x: -2.25, y: -0.03}
-      - {x: -2.06, y: -0.28}
-      - {x: -1.8199999, y: -0.53999996}
-      - {x: -1.66, y: -0.68}
-      - {x: -1.5, y: -0.79999995}
-      - {x: -1.36, y: -0.89}
-      - {x: -1.06, y: -1.04}
-      - {x: -0.90999997, y: -1.1}
-      - {x: -0.72999996, y: -1.17}
-      - {x: -0.47, y: -1.22}
-      - {x: -0.34, y: -1.24}
-      - {x: 0.34, y: -1.24}
-      - {x: 0.58, y: -1.1999999}
-      - {x: 0.77, y: -1.16}
-  m_UseDelaunayMesh: 0
+  m_Size: {x: 1.75, y: 1.06}
+  m_Direction: 1
 --- !u!1 &6613760632518431391
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,7 +386,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6613760632518431391}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.11320323, w: 0.9935719}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.63, y: -2.42, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
@@ -649,7 +396,7 @@ Transform:
   - {fileID: 321070650995236896}
   - {fileID: 864940337188753812}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 13}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &5735915657845251616
 Rigidbody2D:
   serializedVersion: 4
@@ -699,7 +446,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8117238939163796695}
   - component: {fileID: 1533915275888582934}
-  - component: {fileID: 5102618389244659823}
+  - component: {fileID: 7316920720525938445}
   m_Layer: 10
   m_Name: Pumpkin_1
   m_TagString: Untagged
@@ -774,8 +521,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &5102618389244659823
-PolygonCollider2D:
+--- !u!70 &7316920720525938445
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -802,60 +549,10 @@ PolygonCollider2D:
     m_Bits: 109953
   m_CallbackLayers:
     serializedVersion: 2
-    m_Bits: 93569
+    m_Bits: 109953
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.24, y: 2.48}
-    newSize: {x: 2.66, y: 1.16}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.77, y: -1.16}
-      - {x: 0.94, y: -1.09}
-      - {x: 1.06, y: -1.04}
-      - {x: 1.31, y: -0.91999996}
-      - {x: 1.41, y: -0.85999995}
-      - {x: 1.5, y: -0.79999995}
-      - {x: 1.66, y: -0.68}
-      - {x: 1.81, y: -0.55}
-      - {x: 1.92, y: -0.42999998}
-      - {x: 2.1, y: -0.22999999}
-      - {x: 2.18, y: -0.12}
-      - {x: 2.3, y: 0.07}
-      - {x: 2.4199998, y: 0.32}
-      - {x: 2.48, y: 0.47}
-      - {x: 2.54, y: 0.65}
-      - {x: 2.61, y: 0.90999997}
-      - {x: 2.62, y: 1.01}
-      - {x: 2.62, y: 1.24}
-      - {x: -2.62, y: 1.24}
-      - {x: -2.62, y: 1.04}
-      - {x: -2.6, y: 0.90999997}
-      - {x: -2.54, y: 0.61}
-      - {x: -2.47, y: 0.44}
-      - {x: -2.4199998, y: 0.32}
-      - {x: -2.3, y: 0.07}
-      - {x: -2.24, y: -0.03}
-      - {x: -2.18, y: -0.12}
-      - {x: -2.06, y: -0.28}
-      - {x: -1.8199999, y: -0.53999996}
-      - {x: -1.66, y: -0.68}
-      - {x: -1.5, y: -0.79999995}
-      - {x: -1.36, y: -0.89}
-      - {x: -1.06, y: -1.04}
-      - {x: -0.90999997, y: -1.1}
-      - {x: -0.72999996, y: -1.17}
-      - {x: -0.47, y: -1.22}
-      - {x: -0.34, y: -1.24}
-      - {x: 0.34, y: -1.24}
-      - {x: 0.58, y: -1.1999999}
-      - {x: 0.65999997, y: -1.18}
-  m_UseDelaunayMesh: 0
+  m_Size: {x: 3.05, y: 5.47}
+  m_Direction: 0

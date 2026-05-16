@@ -10,11 +10,27 @@
     "BuildPipeline": "EditorSimulateBuildPipeline",
     "PackageName": "DefaultPackage",
     "PackageVersion": "Simulate",
-    "PackageNote": "2026/5/15 20:43:48",
+    "PackageNote": "2026/5/16 20:17:13",
     "AssetList": [
         {
             "Address": "ConstConfigCategory",
             "AssetPath": "Assets/Bundles/Config/Bin/ConstConfigCategory.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "DanmakuContentConfigCategory",
+            "AssetPath": "Assets/Bundles/Config/Bin/DanmakuContentConfigCategory.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "DanmakuPoolConfigCategory",
+            "AssetPath": "Assets/Bundles/Config/Bin/DanmakuPoolConfigCategory.bytes",
             "AssetGUID": "",
             "AssetTags": [],
             "BundleID": 0,
@@ -31,6 +47,22 @@
         {
             "Address": "InputKeyMapCategory",
             "AssetPath": "Assets/Bundles/Config/Bin/InputKeyMapCategory.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "ScoreConfigCategory",
+            "AssetPath": "Assets/Bundles/Config/Bin/ScoreConfigCategory.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "SCTaskQuoteConfigCategory",
+            "AssetPath": "Assets/Bundles/Config/Bin/SCTaskQuoteConfigCategory.bytes",
             "AssetGUID": "",
             "AssetTags": [],
             "BundleID": 0,
@@ -909,6 +941,14 @@
             "DependBundleIDs": []
         },
         {
+            "Address": "L1_Danmaku",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Comment/L1_Danmaku.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 7,
+            "DependBundleIDs": []
+        },
+        {
             "Address": "OneComment",
             "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Comment/OneComment.prefab",
             "AssetGUID": "",
@@ -1073,9 +1113,9 @@
         {
             "BundleName": "assets_bundles_config_bin.bundle",
             "UnityCRC": 0,
-            "FileHash": "5f473bca1b623a57d99cd5fb4f41af7f",
+            "FileHash": "31bae07204e6c154ca1670d1e9c78e75",
             "FileCRC": 0,
-            "FileSize": 620,
+            "FileSize": 4121,
             "Encrypted": false,
             "Tags": [],
             "DependBundleIDs": []
@@ -1083,9 +1123,9 @@
         {
             "BundleName": "assets_bundles_ui_level_1_arts_l1_formal_sc_foodicon.bundle",
             "UnityCRC": 0,
-            "FileHash": "344f6f0e44a0169c262db39cec9a0ce8",
+            "FileHash": "64c67d07e9475776b504101f331f90cb",
             "FileCRC": 0,
-            "FileSize": 201977,
+            "FileSize": 203498,
             "Encrypted": false,
             "Tags": [],
             "DependBundleIDs": []
@@ -1093,9 +1133,9 @@
         {
             "BundleName": "assets_bundles_ui_level_1_arts_load_food.bundle",
             "UnityCRC": 0,
-            "FileHash": "78b5ac8a12683b493f3a41481e15fcd1",
+            "FileHash": "2b5e727afbd961e5878c2b3e2c45b597",
             "FileCRC": 0,
-            "FileSize": 343666,
+            "FileSize": 299665,
             "Encrypted": false,
             "Tags": [],
             "DependBundleIDs": []
@@ -1103,7 +1143,7 @@
         {
             "BundleName": "assets_bundles_ui_level_1_arts_load_hand.bundle",
             "UnityCRC": 0,
-            "FileHash": "2fab2c02fc5fbb13829808d835add3a9",
+            "FileHash": "f9868e6eb0b2f036ecd68eb215bf3bd1",
             "FileCRC": 0,
             "FileSize": 551723,
             "Encrypted": false,
@@ -1113,9 +1153,9 @@
         {
             "BundleName": "assets_bundles_ui_level_1_prefab_l0_levelselect.bundle",
             "UnityCRC": 0,
-            "FileHash": "146940a31206750f32d2db64acbddc07",
+            "FileHash": "b29c04fabe674e621d201f87cc52c7d1",
             "FileCRC": 0,
-            "FileSize": 286180,
+            "FileSize": 295547,
             "Encrypted": false,
             "Tags": [],
             "DependBundleIDs": []
@@ -1123,9 +1163,9 @@
         {
             "BundleName": "assets_bundles_ui_level_1_prefab_l1_beagle.bundle",
             "UnityCRC": 0,
-            "FileHash": "84f2ab850e7b23e05fa5661d755969a0",
+            "FileHash": "30df18ae116f6c2469004e5ab6afc37b",
             "FileCRC": 0,
-            "FileSize": 128788,
+            "FileSize": 129838,
             "Encrypted": false,
             "Tags": [],
             "DependBundleIDs": []
@@ -1133,7 +1173,7 @@
         {
             "BundleName": "assets_bundles_ui_level_1_prefab_l1_beagle_psb.bundle",
             "UnityCRC": 0,
-            "FileHash": "a4552b27100008eb022c920509ca6cc8",
+            "FileHash": "15ef7fa5e1e83597395a511d333e3c58",
             "FileCRC": 0,
             "FileSize": 64875406,
             "Encrypted": false,
@@ -1143,9 +1183,9 @@
         {
             "BundleName": "assets_bundles_ui_level_1_prefab_l1_comment.bundle",
             "UnityCRC": 0,
-            "FileHash": "1548e8c1fc2589f5e5802eb0d9a73b29",
+            "FileHash": "be71621b99763c8dc45da87bcfe59134",
             "FileCRC": 0,
-            "FileSize": 17564,
+            "FileSize": 33115,
             "Encrypted": false,
             "Tags": [],
             "DependBundleIDs": []
@@ -1153,9 +1193,9 @@
         {
             "BundleName": "assets_bundles_ui_level_1_prefab_l1_food.bundle",
             "UnityCRC": 0,
-            "FileHash": "0d4fdf39a6e69ea15b1305467031c600",
+            "FileHash": "5a72494950e2d4e82e8d4dd247cf37df",
             "FileCRC": 0,
-            "FileSize": 205267,
+            "FileSize": 170450,
             "Encrypted": false,
             "Tags": [],
             "DependBundleIDs": []
@@ -1163,7 +1203,7 @@
         {
             "BundleName": "assets_bundles_ui_level_1_prefab_l1_robot&shit.bundle",
             "UnityCRC": 0,
-            "FileHash": "f918d0452989f196e8ee695412ab1d2a",
+            "FileHash": "caf1346351ba552c2c026750512e3caf",
             "FileCRC": 0,
             "FileSize": 29618,
             "Encrypted": false,
@@ -1173,9 +1213,9 @@
         {
             "BundleName": "assets_bundles_ui_level_1_prefab_l1_sc.bundle",
             "UnityCRC": 0,
-            "FileHash": "2078698a60035742b93a890799fda4d9",
+            "FileHash": "94aee61a45ca95ff4469337cdd6e1cb8",
             "FileCRC": 0,
-            "FileSize": 67252,
+            "FileSize": 67304,
             "Encrypted": false,
             "Tags": [],
             "DependBundleIDs": []
@@ -1183,7 +1223,7 @@
         {
             "BundleName": "assets_bundles_ui_level_1_prefab_l1_tissue.bundle",
             "UnityCRC": 0,
-            "FileHash": "2a3a2cafd16c1f07a1929e37068524a3",
+            "FileHash": "ed1ba5e04bf92e3133e38cdc4fb20910",
             "FileCRC": 0,
             "FileSize": 14496,
             "Encrypted": false,

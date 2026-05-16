@@ -437,10 +437,8 @@ public class DogControlComponent : Entity
             }
         }
         // 偷瞄/偷吃状态下响应玩家喂食
+        // 偷瞄状态（Eat_Secretly_1）及 Eat_Normal_Secretly：可以响应玩家喂食
         else if (dogState == DogState.Eat_Secretly_1 ||
-                 dogState == DogState.Eat_Secretly_2 ||
-                 dogState == DogState.Eat_Secretly_3 ||
-                 dogState == DogState.Eat_Secretly_4 ||
                  dogState == DogState.Eat_Normal_Secretly)
         {
             if (foodType_Normal != FoodType.None)
@@ -454,7 +452,7 @@ public class DogControlComponent : Entity
                     ? DogState.Eat_Normal
                     : DogState.Eat_Normal_Secretly;
 
-                dogState = DogState.Normal; 
+                dogState = DogState.Normal;
                 ChangeDogState(targetState);
 
                 Scene.EventComponent.Publish(new StartEatFood
@@ -464,6 +462,13 @@ public class DogControlComponent : Entity
                 });
                 CurEatFoodData = (fruitType_Normal.foodType, fruitType_Normal.Id);
             }
+        }
+// 偷吃状态（Eat_Secretly_2/3/4）：屏蔽玩家喂食
+        else if (dogState == DogState.Eat_Secretly_2 ||
+                 dogState == DogState.Eat_Secretly_3 ||
+                 dogState == DogState.Eat_Secretly_4)
+        {
+            return;
         }
         // 正确/错误被打状态下，玩家喂食可打断
         else if (dogState == DogState.Hit_Right || dogState == DogState.Hit_Wrong)
