@@ -4,6 +4,7 @@ using Fantasy.Async;
 using Fantasy.Entitas;
 using Fantasy.Entitas.Interface;
 using UnityEngine;
+using DG.Tweening;
 
 public class FoodComponent : Entity, ISupportedMultiEntity
 {
@@ -25,6 +26,7 @@ public class FoodComponent : Entity, ISupportedMultiEntity
     // ========== 新增：持续粒子控制 ==========
     public bool IsBeingEaten = false;
     public long ParticleTimer = 0;
+    
 
     public async FTask Init(Transform fruitParent, FoodType fruitTypes)
     {
@@ -168,11 +170,39 @@ public class FoodComponent : Entity, ISupportedMultiEntity
     /// </summary>
     private void StartContinuousParticles()
     {
+        StartShake();
         ParticleTimer = Scene.TimerComponent.Net.RepeatedTimer(200, () =>
         {
             if (!IsBeingEaten) return;
             SpawnParticles();
         });
+    }
+    
+    private Tween _shakeTween;
+
+    private void StartShake()
+    {
+        foreach (var go in stateGameObjects)
+        {
+            if (!go.activeSelf) continue;
+            var tr = go.transform;
+            _shakeTween = DOTween.Sequence()
+                .Append(tr.DOLocalMove(new Vector3(0.2f, 0.15f, 0), 0.1f).SetRelative(true))
+                .Append(tr.DOLocalMove(new Vector3(-0.2f, -0.15f, 0), 0.1f).SetRelative(true))
+                .SetLoops(-1, LoopType.Restart);
+            break;
+        }
+    }
+
+    private void StopShake()
+    {
+        _shakeTween?.Kill();
+        _shakeTween = null;
+        // 复位，防止残留偏移
+        foreach (var go in stateGameObjects)
+        {
+            go.transform.DOLocalMove(Vector3.zero, 0.1f);
+        }
     }
 
     /// <summary>
@@ -183,7 +213,7 @@ public class FoodComponent : Entity, ISupportedMultiEntity
         IsBeingEaten = false;
         Scene.TimerComponent.Net.Remove(ref ParticleTimer);
     }
-
+    
     /// <summary>
     /// 单次粒子释放
     /// </summary>
