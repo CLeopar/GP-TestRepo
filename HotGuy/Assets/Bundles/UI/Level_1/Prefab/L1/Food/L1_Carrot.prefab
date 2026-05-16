@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1158442576367672792}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.13728033, w: 0.9905323}
+  m_LocalRotation: {x: 0, y: 0, z: -0.13052624, w: 0.9914449}
   m_LocalPosition: {x: 6.43, y: -1.76, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
@@ -35,7 +35,7 @@ Transform:
   - {fileID: 9006355918680919581}
   - {fileID: 8608239405134303100}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -15.781}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -15}
 --- !u!50 &8901421740935633629
 Rigidbody2D:
   serializedVersion: 4
@@ -85,7 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9006355918680919581}
   - component: {fileID: 5434839145104217111}
-  - component: {fileID: 6574428524076774644}
+  - component: {fileID: 3504004654230011125}
   m_Layer: 10
   m_Name: Carrot2
   m_TagString: Untagged
@@ -160,8 +160,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &6574428524076774644
-PolygonCollider2D:
+--- !u!70 &3504004654230011125
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -193,55 +193,8 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.6, y: 1.37}
-    newSize: {x: 2.57, y: 3.06}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 1.8, y: -0.13499999}
-      - {x: 1.8, y: 0.16499999}
-      - {x: 1.66, y: 0.33499998}
-      - {x: 1.5899999, y: 0.515}
-      - {x: 1.5, y: 0.645}
-      - {x: 1.41, y: 0.685}
-      - {x: 1.27, y: 0.685}
-      - {x: 1.18, y: 0.675}
-      - {x: 1.05, y: 0.60499996}
-      - {x: 0.89, y: 0.42499998}
-      - {x: 0.76, y: 0.125}
-      - {x: 0.77, y: 0.375}
-      - {x: 0.59, y: 0.555}
-      - {x: 0.52, y: 0.585}
-      - {x: -1.14, y: 0.585}
-      - {x: -1.16, y: 0.565}
-      - {x: -1.1999999, y: 0.48499998}
-      - {x: -1.4, y: 0.305}
-      - {x: -1.5999999, y: 0.225}
-      - {x: -1.53, y: 0.044999998}
-      - {x: -1.52, y: -0.13499999}
-      - {x: -1.63, y: -0.33499998}
-      - {x: -1.79, y: -0.515}
-      - {x: -1.79, y: -0.545}
-      - {x: -1.65, y: -0.575}
-      - {x: 0.45999998, y: -0.555}
-      - {x: 0.55, y: -0.555}
-      - {x: 0.71999997, y: -0.42499998}
-      - {x: 0.77, y: -0.265}
-      - {x: 0.84, y: -0.355}
-      - {x: 0.94, y: -0.515}
-      - {x: 1.0799999, y: -0.655}
-      - {x: 1.16, y: -0.685}
-      - {x: 1.43, y: -0.685}
-      - {x: 1.52, y: -0.615}
-      - {x: 1.5899999, y: -0.48499998}
-      - {x: 1.66, y: -0.295}
-  m_UseDelaunayMesh: 0
+  m_Size: {x: 3.6, y: 1.11}
+  m_Direction: 1
 --- !u!1 &2787951441495635494
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,7 +205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8608239405134303100}
   - component: {fileID: 5531653677713665422}
-  - component: {fileID: 274480057835253250}
+  - component: {fileID: 2989858083134560757}
   m_Layer: 10
   m_Name: Carrot3
   m_TagString: Untagged
@@ -327,8 +280,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &274480057835253250
-PolygonCollider2D:
+--- !u!70 &2989858083134560757
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -360,50 +313,8 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.64, y: 1.37}
-    newSize: {x: 1.64, y: 1.37}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.7, y: -0.305}
-      - {x: 0.82, y: -0.13499999}
-      - {x: 0.82, y: 0.16499999}
-      - {x: 0.68, y: 0.33499998}
-      - {x: 0.61, y: 0.515}
-      - {x: 0.52, y: 0.645}
-      - {x: 0.42999998, y: 0.685}
-      - {x: 0.29, y: 0.685}
-      - {x: 0.19999999, y: 0.675}
-      - {x: 0.07, y: 0.60499996}
-      - {x: -0.089999996, y: 0.42499998}
-      - {x: -0.17, y: 0.235}
-      - {x: -0.22, y: 0.375}
-      - {x: -0.35, y: 0.53499997}
-      - {x: -0.47, y: 0.585}
-      - {x: -0.65999997, y: 0.59499997}
-      - {x: -0.66999996, y: 0.565}
-      - {x: -0.66999996, y: 0.33499998}
-      - {x: -0.77, y: 0.114999995}
-      - {x: -0.77, y: -0.235}
-      - {x: -0.82, y: -0.48499998}
-      - {x: -0.82, y: -0.565}
-      - {x: -0.45999998, y: -0.555}
-      - {x: -0.35999998, y: -0.49499997}
-      - {x: -0.26999998, y: -0.415}
-      - {x: -0.21, y: -0.265}
-      - {x: -0.04, y: -0.515}
-      - {x: 0.07, y: -0.635}
-      - {x: 0.17999999, y: -0.685}
-      - {x: 0.44, y: -0.685}
-      - {x: 0.53999996, y: -0.615}
-      - {x: 0.56, y: -0.575}
-  m_UseDelaunayMesh: 0
+  m_Size: {x: 1.64, y: 1.37}
+  m_Direction: 1
 --- !u!1 &3169598517765677011
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,7 +325,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8833994015981188399}
   - component: {fileID: 587275798669628266}
-  - component: {fileID: 860782985979401356}
+  - component: {fileID: 5576932887661358448}
   m_Layer: 10
   m_Name: Carrot1
   m_TagString: Untagged
@@ -489,8 +400,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &860782985979401356
-PolygonCollider2D:
+--- !u!70 &5576932887661358448
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -522,67 +433,5 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.33, y: 1.37}
-    newSize: {x: 3.69, y: 3.55}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 2.625, y: -0.195}
-      - {x: 2.665, y: -0.114999995}
-      - {x: 2.665, y: 0.13499999}
-      - {x: 2.605, y: 0.235}
-      - {x: 2.5149999, y: 0.315}
-      - {x: 2.465, y: 0.345}
-      - {x: 2.455, y: 0.515}
-      - {x: 2.365, y: 0.645}
-      - {x: 2.2749999, y: 0.685}
-      - {x: 2.135, y: 0.685}
-      - {x: 2.0449998, y: 0.675}
-      - {x: 1.915, y: 0.60499996}
-      - {x: 1.755, y: 0.42499998}
-      - {x: 1.625, y: 0.114999995}
-      - {x: 1.625, y: 0.285}
-      - {x: 1.615, y: 0.36499998}
-      - {x: 1.5649999, y: 0.445}
-      - {x: 1.4549999, y: 0.545}
-      - {x: 1.375, y: 0.585}
-      - {x: -0.78499997, y: 0.585}
-      - {x: -1.015, y: 0.575}
-      - {x: -1.385, y: 0.545}
-      - {x: -1.675, y: 0.505}
-      - {x: -1.9449999, y: 0.45499998}
-      - {x: -2.145, y: 0.415}
-      - {x: -2.415, y: 0.315}
-      - {x: -2.5249999, y: 0.24499999}
-      - {x: -2.655, y: 0.125}
-      - {x: -2.665, y: 0.095}
-      - {x: -2.665, y: -0.074999996}
-      - {x: -2.5549998, y: -0.205}
-      - {x: -2.2649999, y: -0.345}
-      - {x: -2.135, y: -0.385}
-      - {x: -1.805, y: -0.465}
-      - {x: -1.385, y: -0.515}
-      - {x: -1.165, y: -0.53499997}
-      - {x: -0.78499997, y: -0.555}
-      - {x: 1.3249999, y: -0.555}
-      - {x: 1.405, y: -0.545}
-      - {x: 1.485, y: -0.49499997}
-      - {x: 1.5749999, y: -0.415}
-      - {x: 1.635, y: -0.265}
-      - {x: 1.625, y: -0.095}
-      - {x: 1.685, y: -0.255}
-      - {x: 1.7049999, y: -0.355}
-      - {x: 1.805, y: -0.515}
-      - {x: 1.9449999, y: -0.655}
-      - {x: 2.0249999, y: -0.685}
-      - {x: 2.2949998, y: -0.685}
-      - {x: 2.385, y: -0.615}
-      - {x: 2.455, y: -0.48499998}
-      - {x: 2.485, y: -0.315}
-  m_UseDelaunayMesh: 0
+  m_Size: {x: 5.33, y: 1.14}
+  m_Direction: 1

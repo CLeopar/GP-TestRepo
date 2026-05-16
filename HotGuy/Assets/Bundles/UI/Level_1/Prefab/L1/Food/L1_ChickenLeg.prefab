@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1912193414676813412}
   - component: {fileID: 6308621365684363216}
-  - component: {fileID: 8664988167031888083}
+  - component: {fileID: 4178588356955503209}
+  - component: {fileID: 2018123205122695245}
   m_Layer: 10
   m_Name: Chickenleg1
   m_TagString: Untagged
@@ -85,8 +86,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &8664988167031888083
-PolygonCollider2D:
+--- !u!70 &4178588356955503209
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -117,80 +118,44 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.28, y: 2.57}
-    newSize: {x: 2.22, y: 1.81}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.35, y: -0.895}
-      - {x: 0.65, y: -0.585}
-      - {x: 0.88, y: -0.49499997}
-      - {x: 1.55, y: -0.48499998}
-      - {x: 1.5999999, y: -0.48499998}
-      - {x: 1.7199999, y: -0.39499998}
-      - {x: 1.75, y: -0.305}
-      - {x: 2.1299999, y: -0.33499998}
-      - {x: 2.1399999, y: -0.415}
-      - {x: 2.23, y: -0.515}
-      - {x: 2.35, y: -0.59499997}
-      - {x: 2.58, y: -0.545}
-      - {x: 2.6399999, y: -0.42499998}
-      - {x: 2.6399999, y: -0.185}
-      - {x: 2.6299999, y: -0.125}
-      - {x: 2.51, y: -0.055}
-      - {x: 2.62, y: 0.024999999}
-      - {x: 2.6399999, y: 0.085}
-      - {x: 2.6399999, y: 0.295}
-      - {x: 2.62, y: 0.355}
-      - {x: 2.48, y: 0.45499998}
-      - {x: 2.31, y: 0.45499998}
-      - {x: 2.23, y: 0.415}
-      - {x: 2.1399999, y: 0.305}
-      - {x: 2.1299999, y: 0.225}
-      - {x: 2.1299999, y: 0.175}
-      - {x: 1.73, y: 0.195}
-      - {x: 1.7099999, y: 0.24499999}
-      - {x: 1.64, y: 0.325}
-      - {x: 1.55, y: 0.355}
-      - {x: 0.91999996, y: 0.355}
-      - {x: 0.75, y: 0.445}
-      - {x: 0.56, y: 0.685}
-      - {x: 0.35, y: 0.885}
-      - {x: 0.25, y: 0.955}
-      - {x: 0.099999994, y: 1.055}
-      - {x: -0.16, y: 1.185}
-      - {x: -0.53999996, y: 1.285}
-      - {x: -1.31, y: 1.285}
-      - {x: -1.61, y: 1.2149999}
-      - {x: -1.79, y: 1.135}
-      - {x: -2.03, y: 1.015}
-      - {x: -2.12, y: 0.955}
-      - {x: -2.3, y: 0.805}
-      - {x: -2.4099998, y: 0.685}
-      - {x: -2.51, y: 0.545}
-      - {x: -2.61, y: 0.355}
-      - {x: -2.6399999, y: 0.21499999}
-      - {x: -2.6399999, y: -0.21499999}
-      - {x: -2.6, y: -0.385}
-      - {x: -2.48, y: -0.60499996}
-      - {x: -2.34, y: -0.765}
-      - {x: -2.21, y: -0.885}
-      - {x: -2.03, y: -1.025}
-      - {x: -1.6999999, y: -1.185}
-      - {x: -1.38, y: -1.275}
-      - {x: -1.3, y: -1.285}
-      - {x: -0.59999996, y: -1.285}
-      - {x: -0.35999998, y: -1.245}
-      - {x: -0.16, y: -1.185}
-      - {x: 0.17, y: -1.025}
-  m_UseDelaunayMesh: 0
+  m_Offset: {x: -0.92, y: 0}
+  m_Size: {x: 3.53, y: 2.66}
+  m_Direction: 1
+--- !u!70 &2018123205122695245
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339904871211292041}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 93697
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 109953
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 109953
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1.17, y: -0.05}
+  m_Size: {x: 3.39, y: 1.14}
+  m_Direction: 1
 --- !u!1 &1412659649796609818
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,7 +166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8619841234088673689}
   - component: {fileID: 9183404599230813792}
-  - component: {fileID: 8003770400742319378}
+  - component: {fileID: 7292166326936132930}
   m_Layer: 10
   m_Name: Chickenleg4
   m_TagString: Untagged
@@ -276,8 +241,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &8003770400742319378
-PolygonCollider2D:
+--- !u!70 &7292166326936132930
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -301,44 +266,16 @@ PolygonCollider2D:
     m_Bits: 93697
   m_ContactCaptureLayers:
     serializedVersion: 2
-    m_Bits: 109953
+    m_Bits: 93569
   m_CallbackLayers:
     serializedVersion: 2
-    m_Bits: 109953
+    m_Bits: 93569
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.77, y: 0.98}
-    newSize: {x: 2.22, y: 1.81}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 1.505, y: -0.48999998}
-      - {x: 1.8249999, y: -0.48999998}
-      - {x: 1.885, y: -0.41}
-      - {x: 1.885, y: 0.47}
-      - {x: 1.8549999, y: 0.48999998}
-      - {x: 1.405, y: 0.48999998}
-      - {x: 1.305, y: 0.29}
-      - {x: -1.365, y: 0.22999999}
-      - {x: -1.295, y: 0.39}
-      - {x: -1.4449999, y: 0.48999998}
-      - {x: -1.8449999, y: 0.48999998}
-      - {x: -1.885, y: 0.39999998}
-      - {x: -1.885, y: -0.39}
-      - {x: -1.795, y: -0.48999998}
-      - {x: -1.4649999, y: -0.48999998}
-      - {x: -1.305, y: -0.29}
-      - {x: 1.375, y: -0.24}
-      - {x: 1.365, y: -0.37}
-  m_UseDelaunayMesh: 0
+  m_Offset: {x: 0.0000019073486, y: -0.00000047683716}
+  m_Size: {x: 3.99, y: 0.97999996}
+  m_Direction: 1
 --- !u!1 &1848602568063477486
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,7 +286,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3581313518702286798}
   - component: {fileID: 756167561832173267}
-  - component: {fileID: 3701041995000964667}
+  - component: {fileID: 1139896120119545452}
+  - component: {fileID: 3485031028437249829}
   m_Layer: 10
   m_Name: Chickenleg2
   m_TagString: Untagged
@@ -424,8 +362,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &3701041995000964667
-PolygonCollider2D:
+--- !u!70 &1139896120119545452
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -456,85 +394,44 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.28, y: 2.17}
-    newSize: {x: 2.22, y: 1.81}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.35, y: -0.695}
-      - {x: 0.65, y: -0.385}
-      - {x: 0.88, y: -0.295}
-      - {x: 1.55, y: -0.285}
-      - {x: 1.5999999, y: -0.285}
-      - {x: 1.7199999, y: -0.195}
-      - {x: 1.75, y: -0.105}
-      - {x: 2.1299999, y: -0.13499999}
-      - {x: 2.1399999, y: -0.21499999}
-      - {x: 2.23, y: -0.315}
-      - {x: 2.35, y: -0.39499998}
-      - {x: 2.58, y: -0.345}
-      - {x: 2.6399999, y: -0.225}
-      - {x: 2.6399999, y: 0.015}
-      - {x: 2.6299999, y: 0.074999996}
-      - {x: 2.51, y: 0.145}
-      - {x: 2.62, y: 0.225}
-      - {x: 2.6399999, y: 0.285}
-      - {x: 2.6399999, y: 0.49499997}
-      - {x: 2.62, y: 0.555}
-      - {x: 2.48, y: 0.655}
-      - {x: 2.31, y: 0.655}
-      - {x: 2.23, y: 0.615}
-      - {x: 2.1399999, y: 0.505}
-      - {x: 2.1299999, y: 0.42499998}
-      - {x: 2.1299999, y: 0.375}
-      - {x: 1.73, y: 0.39499998}
-      - {x: 1.7099999, y: 0.445}
-      - {x: 1.64, y: 0.525}
-      - {x: 1.55, y: 0.555}
-      - {x: 0.91999996, y: 0.555}
-      - {x: 0.75, y: 0.645}
-      - {x: 0.55, y: 0.885}
-      - {x: 0.42999998, y: 1.005}
-      - {x: 0.34, y: 1.0849999}
-      - {x: 0.29, y: 1.0849999}
-      - {x: 0.06, y: 0.885}
-      - {x: -0.12, y: 0.805}
-      - {x: -0.7, y: 0.73499995}
-      - {x: -1.03, y: 0.805}
-      - {x: -1.0699999, y: 0.815}
-      - {x: -1.24, y: 0.585}
-      - {x: -1.51, y: 0.475}
-      - {x: -1.73, y: 0.475}
-      - {x: -2, y: 0.585}
-      - {x: -2.19, y: 0.875}
-      - {x: -2.19, y: 1.045}
-      - {x: -2.24, y: 1.0649999}
-      - {x: -2.3, y: 1.005}
-      - {x: -2.4099998, y: 0.885}
-      - {x: -2.51, y: 0.745}
-      - {x: -2.61, y: 0.555}
-      - {x: -2.6399999, y: 0.415}
-      - {x: -2.6399999, y: -0.015}
-      - {x: -2.6, y: -0.185}
-      - {x: -2.48, y: -0.405}
-      - {x: -2.34, y: -0.565}
-      - {x: -2.21, y: -0.685}
-      - {x: -2.03, y: -0.825}
-      - {x: -1.6999999, y: -0.98499995}
-      - {x: -1.38, y: -1.0749999}
-      - {x: -1.3, y: -1.0849999}
-      - {x: -0.59999996, y: -1.0849999}
-      - {x: -0.35999998, y: -1.045}
-      - {x: -0.16, y: -0.98499995}
-      - {x: 0.17, y: -0.825}
-  m_UseDelaunayMesh: 0
+  m_Offset: {x: 0.01, y: 0.16}
+  m_Size: {x: 5.32, y: 1.21}
+  m_Direction: 1
+--- !u!70 &3485031028437249829
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1848602568063477486}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 93697
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 109953
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 109953
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.97, y: 0.26}
+  m_Size: {x: 3.57, y: 2.67}
+  m_Direction: 1
 --- !u!1 &3921444574166741487
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,7 +518,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6998856439603734776}
   - component: {fileID: 5549016482038192604}
-  - component: {fileID: 8566116134587129924}
+  - component: {fileID: 7957187187793561710}
   m_Layer: 10
   m_Name: Chickenleg3
   m_TagString: Untagged
@@ -696,8 +593,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &8566116134587129924
-PolygonCollider2D:
+--- !u!70 &7957187187793561710
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -728,41 +625,6 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.77, y: 0.98}
-    newSize: {x: 2.22, y: 1.81}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.84499997, y: -0.45}
-      - {x: 0.965, y: -0.34}
-      - {x: 1.365, y: -0.37}
-      - {x: 1.505, y: -0.48999998}
-      - {x: 1.8249999, y: -0.48999998}
-      - {x: 1.885, y: -0.41}
-      - {x: 1.885, y: 0.42}
-      - {x: 1.805, y: 0.48999998}
-      - {x: 1.475, y: 0.48999998}
-      - {x: 1.305, y: 0.29}
-      - {x: 0.965, y: 0.32}
-      - {x: 0.805, y: 0.44}
-      - {x: -0.865, y: 0.39999998}
-      - {x: -1.365, y: 0.22999999}
-      - {x: -1.295, y: 0.39}
-      - {x: -1.485, y: 0.48999998}
-      - {x: -1.8349999, y: 0.48999998}
-      - {x: -1.875, y: 0.42}
-      - {x: -1.885, y: 0.38}
-      - {x: -1.885, y: -0.39}
-      - {x: -1.795, y: -0.48999998}
-      - {x: -1.4649999, y: -0.48999998}
-      - {x: -1.305, y: -0.29}
-      - {x: -1.025, y: -0.26}
-      - {x: -0.92499995, y: -0.44}
-  m_UseDelaunayMesh: 0
+  m_Offset: {x: 0.0000009536743, y: 0.00000047683716}
+  m_Size: {x: 4.09, y: 1.06}
+  m_Direction: 1

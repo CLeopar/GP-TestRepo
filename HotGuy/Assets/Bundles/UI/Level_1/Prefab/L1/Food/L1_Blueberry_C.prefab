@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 402166418293653241}
   - component: {fileID: 6381762597556775337}
   - component: {fileID: 3016043116058261843}
+  - component: {fileID: 1548484546115831079}
   m_Layer: 10
   m_Name: Blueberry1
   m_TagString: Untagged
@@ -250,7 +251,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8805804166070965061}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -306,3 +307,38 @@ PolygonCollider2D:
       - {x: 0.48499998, y: -0.33499998}
       - {x: 0.53499997, y: -0.185}
   m_UseDelaunayMesh: 0
+--- !u!58 &1548484546115831079
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8805804166070965061}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 69121
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 68993
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 68993
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0000009536743, y: -0.00000011920929}
+  serializedVersion: 2
+  m_Radius: 0.535

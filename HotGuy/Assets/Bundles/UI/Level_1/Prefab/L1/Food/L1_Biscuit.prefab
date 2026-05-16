@@ -168,7 +168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1522588607951826663}
   - component: {fileID: 8217049845390507305}
-  - component: {fileID: 8034767066711920722}
+  - component: {fileID: 7717533594203312823}
   m_Layer: 10
   m_Name: Biscuit1
   m_TagString: Untagged
@@ -243,8 +243,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &8034767066711920722
-PolygonCollider2D:
+--- !u!58 &7717533594203312823
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -276,60 +276,5 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.63, y: 2.53}
-    newSize: {x: 3.69, y: 3.55}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 1.0749999, y: -0.705}
-      - {x: 1.185, y: -0.525}
-      - {x: 1.275, y: -0.33499998}
-      - {x: 1.3149999, y: -0.195}
-      - {x: 1.3149999, y: 0.114999995}
-      - {x: 1.255, y: 0.285}
-      - {x: 1.135, y: 0.435}
-      - {x: 1.145, y: 0.565}
-      - {x: 1.105, y: 0.715}
-      - {x: 1.035, y: 0.835}
-      - {x: 0.885, y: 0.995}
-      - {x: 0.79499996, y: 1.055}
-      - {x: 0.66499996, y: 1.115}
-      - {x: 0.615, y: 1.135}
-      - {x: 0.545, y: 1.165}
-      - {x: 0.235, y: 1.235}
-      - {x: 0.145, y: 1.265}
-      - {x: -0.235, y: 1.265}
-      - {x: -0.295, y: 1.255}
-      - {x: -0.505, y: 1.175}
-      - {x: -0.625, y: 1.0849999}
-      - {x: -0.765, y: 0.935}
-      - {x: -0.805, y: 0.895}
-      - {x: -0.84499997, y: 0.825}
-      - {x: -1.035, y: 0.715}
-      - {x: -1.175, y: 0.585}
-      - {x: -1.275, y: 0.39499998}
-      - {x: -1.3149999, y: 0.24499999}
-      - {x: -1.3149999, y: -0.035}
-      - {x: -1.305, y: -0.114999995}
-      - {x: -1.2049999, y: -0.315}
-      - {x: -1.1949999, y: -0.53499997}
-      - {x: -1.145, y: -0.705}
-      - {x: -1.0649999, y: -0.865}
-      - {x: -0.955, y: -0.965}
-      - {x: -0.79499996, y: -1.055}
-      - {x: -0.575, y: -1.115}
-      - {x: -0.295, y: -1.105}
-      - {x: -0.055, y: -1.1949999}
-      - {x: 0.085, y: -1.255}
-      - {x: 0.175, y: -1.265}
-      - {x: 0.525, y: -1.265}
-      - {x: 0.775, y: -1.135}
-      - {x: 0.91499996, y: -0.995}
-      - {x: 1.015, y: -0.865}
-  m_UseDelaunayMesh: 0
+  serializedVersion: 2
+  m_Radius: 1.315

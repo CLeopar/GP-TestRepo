@@ -289,6 +289,35 @@ public class DogControlComponent : Entity
         }
     }
 
+    // ========== 新增：检查当前食物是否还在检测范围内 ==========
+    private bool IsCurrentFoodInRange()
+    {
+        if (CurEatFoodData.Item1 == FoodType.None)
+            return false;
+
+        var tables = Scene.GetComponent<Tables>();
+        float checkDistance = tables.ConstConfigCategory.FoodCheckDistance;
+
+        if (CurEatFoodData.Item1 == FoodType.Shit)
+        {
+            var shit = Scene.GetComponent<FoodManagerComponent>().GetShit();
+            if (shit == null || !shit.isLand || shit.shit == null)
+                return false;
+                
+            float dist = Vector3.Distance(FoodCheckDistance_Gizmos.position, shit.shit.transform.position);
+            return dist <= checkDistance;
+        }
+        else
+        {
+            var food = Scene.GetComponent<FoodManagerComponent>().GetFruitComponent(CurEatFoodData.Item2);
+            if (food == null || food.Fruit_Tr == null)
+                return false;
+                
+            float dist = Vector3.Distance(FoodCheckDistance_Gizmos.position, food.Fruit_Tr.position);
+            return dist <= checkDistance;
+        }
+    }
+
     /// <summary>
     /// 检测食物距离
     /// </summary>
@@ -299,6 +328,16 @@ public class DogControlComponent : Entity
 
         if (isInHit && dogState != DogState.Hit_Right && dogState != DogState.Hit_Wrong)
             return;
+
+        // ========== 新增：正在吃食物时，检测是否远离 ==========
+        if ((dogState == DogState.Eat_Normal || dogState == DogState.Eat_Normal_Secretly) 
+            && !IsCurrentFoodInRange())
+        {
+            Log.Error($"[Dog] Food moved away, cancel eating. State: {dogState}");
+            CancelCurrentEating();
+            ChangeDogState(DogState.Normal);
+            return;
+        }
         
         var fruitType_Normal = Scene.GetComponent<FoodManagerComponent>().GetMinFruitDistance(FoodCheckDistance_Gizmos.position);
         FoodComponent fruitType_Secretly = null;
