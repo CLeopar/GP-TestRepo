@@ -50,9 +50,14 @@ public class FoodManagerComponent : Entity
 
     public void StartBornShit()
     {
-        Timer_BornShit = Scene.TimerComponent.Net.OnceTimer(Scene.GetComponent<Tables>().ConstConfigCategory.NewShitTime, () => { AddComponent<ShitComponent>(); });
+        Timer_BornShit = Scene.TimerComponent.Net.OnceTimer(Scene.GetComponent<Tables>().ConstConfigCategory.NewShitTime, () => 
+        { 
+            AddComponent<ShitComponent>(); 
+        
+            // 屎生成时触发弹幕
+            Scene.GetComponent<DanmakuManagerComponent>()?.OnShitSpawned();
+        });
     }
-
     public void CancelBornShit()
     {
         Scene.TimerComponent.Net.Remove(ref Timer_BornShit);

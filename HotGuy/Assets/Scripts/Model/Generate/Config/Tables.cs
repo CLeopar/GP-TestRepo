@@ -17,6 +17,8 @@ public partial class Tables : Entity
     public FoodConfigCategory FoodConfigCategory {get; private set; }
     public ScoreConfigCategory ScoreConfigCategory {get; private set; }
     public SCTaskQuoteConfigCategory SCTaskQuoteConfigCategory {get; private set; }
+    public DanmakuPoolConfigCategory DanmakuPoolConfigCategory {get; private set; }
+    public DanmakuContentConfigCategory DanmakuContentConfigCategory {get; private set; }
 
     public void Init(System.Func<string, ByteBuf> loader)
     {
@@ -25,6 +27,8 @@ public partial class Tables : Entity
         FoodConfigCategory = new FoodConfigCategory(loader("FoodConfigCategory"));
         ScoreConfigCategory = new ScoreConfigCategory(loader("ScoreConfigCategory"));
         SCTaskQuoteConfigCategory = new SCTaskQuoteConfigCategory(loader("SCTaskQuoteConfigCategory"));
+        DanmakuPoolConfigCategory = new DanmakuPoolConfigCategory(loader("DanmakuPoolConfigCategory"));
+        DanmakuContentConfigCategory = new DanmakuContentConfigCategory(loader("DanmakuContentConfigCategory"));
         ResolveRef();
     }
     
@@ -35,5 +39,7 @@ public partial class Tables : Entity
         FoodConfigCategory.ResolveRef(this);
         ScoreConfigCategory.ResolveRef(this);
         SCTaskQuoteConfigCategory.ResolveRef(this);
+        DanmakuPoolConfigCategory.ResolveRef(this);
+        DanmakuContentConfigCategory.ResolveRef(this);
     }
 }

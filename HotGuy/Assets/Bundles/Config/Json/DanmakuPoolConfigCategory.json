@@ -1,0 +1,27 @@
+[
+  {
+    "StateType": 0,
+    "MinInterval": 2,
+    "MaxInterval": 4
+  },
+  {
+    "StateType": 1,
+    "MinInterval": 1.5,
+    "MaxInterval": 3
+  },
+  {
+    "StateType": 2,
+    "MinInterval": 0.8,
+    "MaxInterval": 2
+  },
+  {
+    "StateType": 3,
+    "MinInterval": 0.5,
+    "MaxInterval": 1
+  },
+  {
+    "StateType": 4,
+    "MinInterval": 1.5,
+    "MaxInterval": 2
+  }
+]
