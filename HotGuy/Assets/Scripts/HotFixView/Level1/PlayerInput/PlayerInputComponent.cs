@@ -167,7 +167,7 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
         bool isProps = layer == "Props";
         bool isTissueBox = layer == "TissueBox";
         bool isTissue = layer == "Tissue";
-        Log.Error($"isProps {isProps}, isTissue {isTissue}");
+        //Log.Error($"isProps {isProps}, isTissue {isTissue}");
         if (HandType == HandType.Palm && (isFruits || isProps || isTissue || isTissueBox))
             isStayFruitsOrProps = true;
         else
@@ -452,7 +452,7 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
         // Hand_Palm.SetActive(type == 1);
         // Hand_Prop.SetActive(type == 2);
         isChangeToFist = type == HandType.Fist && HandType == HandType.Palm && isStayFruitsOrProps;
-        Log.Error($"ChangeHandType {isChangeToFist}");
+        //Log.Error($"ChangeHandType {isChangeToFist}");
         HandType = type;
         Hand_Up.SetActive(type == HandType.Prop);
         switch (type)

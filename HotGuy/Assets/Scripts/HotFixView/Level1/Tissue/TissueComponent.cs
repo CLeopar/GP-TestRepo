@@ -35,7 +35,7 @@ public class TissueComponent : Entity, ISupportedMultiEntity
     public void OnCollisionEnter2D(Collision2D collision)
     {
         var layer = LayerMask.LayerToName(collision.gameObject.layer);
-        if (layer == "Rubbish" && isUsed)
+        if (layer == "Rubbish")
             Dispose();
     }
 
