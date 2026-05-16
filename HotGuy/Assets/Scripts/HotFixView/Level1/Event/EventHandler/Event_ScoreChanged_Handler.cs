@@ -7,57 +7,91 @@ public class Event_ScoreChanged_Handler : EventSystem<ScoreChanged>
 {
     protected override void Handler(ScoreChanged self)
     {
-        var ui = GameEntry.Instance._scene.GetComponent<ScoreUIComponent>();
-        if (ui == null) return;
+        Log.Error($"[ScoreEvent] Delta: {self.Delta}, Current: {self.CurrentScore}, Pos: {self.WorldPosition}");
         
-        // 更新主分数
+        var ui = GameEntry.Instance._scene.GetComponent<ScoreUIComponent>();
+        if (ui == null)
+        {
+            Log.Error("[ScoreEvent] ScoreUIComponent is null!");
+            return;
+        }
+        
+        // 更新主分数（固定位置）
         if (ui.ScoreText != null)
         {
             ui.ScoreText.text = self.CurrentScore.ToString();
-            // 缩放动画
+            ui.ScoreText.transform.DOKill();
             ui.ScoreText.transform.DOScale(1.3f, 0.1f)
                 .SetEase(Ease.OutBack)
                 .OnComplete(() => ui.ScoreText.transform.DOScale(1f, 0.15f));
         }
 
-        // 飘字动画（自动判断红/绿）
+        // 飘字动画（在事件发生位置）
         if (ui.ScoreChangeText != null && self.Delta != 0)
         {
-            ShowFloatingText(ui, self.Delta);
+            ShowFloatingTextAtPosition(ui, self.Delta, self.WorldPosition);
         }
     }
 
-    private void ShowFloatingText(ScoreUIComponent ui, int delta)
+    /// <summary>
+    /// 在指定世界位置显示飘字（适配 Overlay Canvas）
+    /// </summary>
+    private void ShowFloatingTextAtPosition(ScoreUIComponent ui, int delta, Vector3 worldPos)
     {
-        ui.ScoreChangeText.gameObject.SetActive(true);
-        ui.ScoreChangeText.transform.localPosition = Vector3.zero;
-        ui.ScoreChangeText.color = new Color(
-            ui.ScoreChangeText.color.r,
-            ui.ScoreChangeText.color.g,
-            ui.ScoreChangeText.color.b,
-            1f
-        );
+        var textObj = ui.ScoreChangeText;
+        var parentRect = textObj.transform.parent as RectTransform;
         
-        // 设置文本：+15 或 -50
-        ui.ScoreChangeText.text = delta > 0 ? $"+{delta}" : delta.ToString();
+        // ========== Overlay 模式坐标转换 ==========
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
         
-        // ========== 颜色自动切换 ==========
-        ui.ScoreChangeText.color = delta > 0 ? Color.green : Color.red;
+        // 如果物体在相机后方，显示在屏幕中心
+        if (screenPos.z < 0)
+        {
+            screenPos = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+        }
 
-        // 飘上去 + 淡出
-        ui.FloatTween = ui.ScoreChangeText.transform
-            .DOLocalMoveY(50f, 0.8f)
+        // ScreenPointToLocalPointInRectangle：Overlay 模式 camera 传 null
+        Vector2 localPos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            parentRect,
+            screenPos,
+            null,  // ← Overlay 模式传 null
+            out localPos);
+
+        Log.Error($"[ScoreFloat] World: {worldPos}, Screen: {screenPos}, Local: {localPos}");
+
+        // 激活并设置位置
+        textObj.gameObject.SetActive(true);
+        textObj.transform.localPosition = localPos;
+        textObj.transform.SetAsLastSibling(); // 确保在最上层
+        
+        // 重置透明度
+        textObj.color = new Color(textObj.color.r, textObj.color.g, textObj.color.b, 1f);
+
+        // 设置文本和颜色
+        textObj.text = delta > 0 ? $"+{delta}" : delta.ToString();
+        textObj.color = delta > 0 ? Color.green : Color.red;
+
+        // 杀掉旧动画
+        ui.FloatTween?.Kill();
+        DOTween.Kill(textObj.transform);
+        DOTween.Kill(textObj);
+
+        // 飘上去（相对当前位置向上飘）
+        ui.FloatTween = textObj.transform
+            .DOLocalMoveY(localPos.y + 100f, 1.2f)
             .SetEase(Ease.OutCubic);
 
-        ui.ScoreChangeText.DOFade(0f, 0.6f)
-            .SetDelay(0.2f)
+        // 淡出
+        textObj.DOFade(0f, 0.8f)
+            .SetDelay(0.4f)
             .OnComplete(() => 
             {
-                ui.ScoreChangeText.gameObject.SetActive(false);
-                ui.ScoreChangeText.color = new Color(
-                    ui.ScoreChangeText.color.r,
-                    ui.ScoreChangeText.color.g,
-                    ui.ScoreChangeText.color.b,
+                textObj.gameObject.SetActive(false);
+                textObj.color = new Color(
+                    textObj.color.r,
+                    textObj.color.g,
+                    textObj.color.b,
                     1f
                 );
             });

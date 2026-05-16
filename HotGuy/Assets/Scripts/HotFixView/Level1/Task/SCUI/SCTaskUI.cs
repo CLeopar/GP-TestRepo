@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using Fantasy;
 using Fantasy.Async;
 using TMPro;
@@ -7,6 +8,9 @@ using UnityEngine.UI;
 
 public class SCTaskUI : MonoBehaviour
 {
+    [Header("动画容器")]
+    public RectTransform Content;
+
     [Header("倒计时UI")]
     public Image SCUnFinishedImage;
     public Image SCFinishedImage;
@@ -23,6 +27,9 @@ public class SCTaskUI : MonoBehaviour
     public Image Food3Frame2;
     public Image Food3Frame3;
 
+    [Header("随机话语")]
+    public TextMeshProUGUI RandomQuoteText;
+
     public long TaskId { get; private set; }
     private List<Image> _activeFoodImages = new List<Image>();
     private int _foodCount;
@@ -30,14 +37,21 @@ public class SCTaskUI : MonoBehaviour
     private float _totalDuration;
     private float _remainingTime;
 
-    // ========== 新增：静态 Sprite 缓存，全局复用 ==========
     private static Dictionary<string, Sprite> _spriteCache = new Dictionary<string, Sprite>();
+
+    private Vector2 _contentTargetPos;
 
     public void Init(long taskId, List<FoodType> foodSequence, List<SCItemData> scItems)
     {
         TaskId = taskId;
         _foodSequence = foodSequence;
         _foodCount = foodSequence.Count;
+
+        if (Content != null)
+        {
+            _contentTargetPos = Content.anchoredPosition;
+            Content.anchoredPosition = new Vector2(_contentTargetPos.x - 300f, _contentTargetPos.y);
+        }
 
         if (_foodCount == 2)
         {
@@ -68,6 +82,10 @@ public class SCTaskUI : MonoBehaviour
         _remainingTime = _totalDuration;
         SCUnFinishedImage.fillAmount = 1f;
         UpdateTimerDisplay();
+
+        SetupRandomQuote();
+
+        PlaySpawnAnimation();
     }
 
     public void UpdateTimer(float remainingTime)
@@ -95,7 +113,38 @@ public class SCTaskUI : MonoBehaviour
 
     public void PlayCompleteAnimation()
     {
-        // TODO: 实际播放动画
+        if (Content == null) return;
+        
+        Content.DOShakeAnchorPos(0.4f, new Vector2(10f, 0f), 20, 0)
+            .SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                Content.DOScale(Vector3.zero, 0.25f)
+                    .SetEase(Ease.InBack)
+                    .OnComplete(() => gameObject.SetActive(false));
+            });
+    }
+
+    private void PlaySpawnAnimation()
+    {
+        if (Content == null) return;
+        
+        Content.DOAnchorPos(_contentTargetPos, 0.4f)
+            .SetEase(Ease.OutCubic);
+    }
+
+    private void SetupRandomQuote()
+    {
+        var quoteConfig = GameEntry.Instance._scene
+            .GetComponent<Tables>()
+            .SCTaskQuoteConfigCategory;
+
+        var allQuotes = quoteConfig.DataList;
+        if (allQuotes == null || allQuotes.Count == 0 || RandomQuoteText == null)
+            return;
+
+        int index = UnityEngine.Random.Range(0, allQuotes.Count);
+        RandomQuoteText.text = allQuotes[index].Content;
     }
 
     private async FTask LoadFoodIcon(int index, FoodType foodType, SCUIState state)
@@ -106,7 +155,6 @@ public class SCTaskUI : MonoBehaviour
         var foodConfig = scene.GetComponent<Tables>().FoodConfigCategory.Get(foodType);
         string resName = $"{foodConfig.IconResName}_{state}";
 
-        // ========== 修改：先查缓存，没有再加载 ==========
         if (!_spriteCache.TryGetValue(resName, out var sprite))
         {
             sprite = await scene.GetComponent<ResourceLoaderComponent>().LoadAssetAsync<Sprite>(resName);

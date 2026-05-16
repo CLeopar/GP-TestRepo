@@ -15,9 +15,14 @@ public class Event_SCTaskCompleted_Handler : EventSystem<SCTaskCompleted>
         }
 
         GameEntry.Instance._scene.GetComponent<LevelStatsComponent>()?.AddTaskCompleted();
-        
-        // 任务完成奖励分数
         CalculateAndAddTaskBonus(self.TaskId);
+
+        // 延迟移除，等动画播完
+        GameEntry.Instance._scene.TimerComponent.Net.OnceTimer(1000, () =>
+        {
+            var manager = GameEntry.Instance._scene.GetComponent<TaskManagerComponent>();
+            manager?.RemoveTask(self.TaskId);
+        });
     }
 
     private void CalculateAndAddTaskBonus(long taskId)

@@ -114,7 +114,14 @@ public class Level_1_Component_Awake : AwakeSystem<Level_1_Component>
         
         // ========== 新增：注册统计组件 ==========
         if (self.Scene.GetComponent<LevelStatsComponent>() == null)
+        {
             self.Scene.AddComponent<LevelStatsComponent>();
+            Log.Error("[Level_1] LevelStatsComponent ADDED");
+        }
+        
+        // 新增：注册渐黑面板
+        if (self.Scene.GetComponent<FadePanelUIComponent>() == null)
+            self.Scene.AddComponent<FadePanelUIComponent>();
     }
 }
 

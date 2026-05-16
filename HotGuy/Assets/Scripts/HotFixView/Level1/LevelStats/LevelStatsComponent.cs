@@ -1,8 +1,7 @@
 using Fantasy;
 using Fantasy.Entitas;
 using Fantasy.Entitas.Interface;
-using UnityEngine;  // ← 确保有这个
-using UnityEngine.SceneManagement;
+using UnityEngine;
 
 public class LevelStatsComponent : Entity
 {
@@ -16,29 +15,30 @@ public class LevelStatsComponent : Entity
 
     public void SaveToPlayerPrefs(int totalScore)
     {
-        // 累计数据（+=）
-        int prevTasks = PlayerPrefs.GetInt("L1_TasksCompleted", 0);
-        int prevShit = PlayerPrefs.GetInt("L1_ShitEaten", 0);
-        int prevFood = PlayerPrefs.GetInt("L1_FoodEaten", 0);
-
-        PlayerPrefs.SetInt("L1_TasksCompleted", prevTasks + TasksCompleted);
-        PlayerPrefs.SetInt("L1_ShitEaten", prevShit + ShitEaten);
-        PlayerPrefs.SetInt("L1_FoodEaten", prevFood + FoodEaten);
-
-        // 本次分数
         PlayerPrefs.SetInt("L1_TotalScore", totalScore);
+        PlayerPrefs.SetInt("L1_TasksCompleted", TasksCompleted);
+        PlayerPrefs.SetInt("L1_ShitEaten", ShitEaten);
+        PlayerPrefs.SetInt("L1_FoodEaten", FoodEaten);
 
-        // 最高分数（取 max）
         int prevHigh = PlayerPrefs.GetInt("L1_HighScore", 0);
-        PlayerPrefs.SetInt("L1_HighScore", Mathf.Max(prevHigh, totalScore));
+        if (totalScore > prevHigh)
+            PlayerPrefs.SetInt("L1_HighScore", totalScore);
 
         PlayerPrefs.Save();
+    }
 
-        Log.Error($"[LevelStats] Saved - Tasks:{TasksCompleted}, Shit:{ShitEaten}, Food:{FoodEaten}, Score:{totalScore}, HighScore:{Mathf.Max(prevHigh, totalScore)}");
+    public void Reset()
+    {
+        TasksCompleted = 0;
+        ShitEaten = 0;
+        FoodEaten = 0;
     }
 }
 
 public class LevelStatsComponent_Awake : AwakeSystem<LevelStatsComponent>
 {
-    protected override void Awake(LevelStatsComponent self) { }
+    protected override void Awake(LevelStatsComponent self)
+    {
+        self.Reset();
+    }
 }

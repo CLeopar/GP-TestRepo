@@ -269,7 +269,7 @@ public class TaskManagerComponent : Entity
         taskComp.StopAllCountdowns();
 
         Scene.EventComponent.Publish(new SCTaskCompleted { TaskId = taskId });
-        Scene.TimerComponent.Net.OnceTimer(2000, () => RemoveTask(taskId));
+        
     }
 
     public void ClearAllTasks()

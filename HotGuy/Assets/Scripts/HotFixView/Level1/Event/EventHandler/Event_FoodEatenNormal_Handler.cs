@@ -1,25 +1,28 @@
 using Fantasy;
 using Fantasy.Event;
+using UnityEngine;
 
 public class Event_FoodBeEatenNormal_Handler : EventSystem<FoodBeEaten_Normal>
 {
     protected override void Handler(FoodBeEaten_Normal self)
     {
         Log.Error($"FoodBeEaten_Normal {self.fruitId}");
-        
         GameEntry.Instance._scene.GetComponent<DogControlComponent>().FoodBeEatenNormal();
-        
-        // 计分
+
         var food = GameEntry.Instance._scene.GetComponent<FoodManagerComponent>().GetFruitComponent(self.fruitId);
         if (food != null)
         {
             var score = GameEntry.Instance._scene.GetComponent<ScoreComponent>();
-            score.AddScore(score.CalculateFoodScore(food.foodType), self.fruitId);
+            int foodScore = score.CalculateFoodScore(food.foodType);
+        
+            // 在食物位置加分
+            Vector3 foodPos = food.Fruit_Tr?.position ?? Vector3.zero;
+            score.AddScore(foodScore, self.fruitId, foodPos);
         }
 
-        // 通知任务系统
         CheckTaskProgress(food?.foodType);
-        
+    
+        // 统计吃食物
         GameEntry.Instance._scene.GetComponent<LevelStatsComponent>()?.AddFoodEaten();
     }
 

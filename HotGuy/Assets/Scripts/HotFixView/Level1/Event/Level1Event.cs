@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// 开始吃食物
@@ -77,6 +78,9 @@ public struct ScoreChanged
     public int Delta;
     public int CurrentScore;
     public long TargetId;
+    
+    public Vector3 WorldPosition;
+    
 }
 
 /// <summary>
@@ -162,3 +166,4 @@ public struct SCTimerUpdate
     public int ItemIndex;
     public float RemainingTime;
 }
+

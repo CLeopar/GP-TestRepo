@@ -221,19 +221,20 @@ public class DogControlComponent : Entity
     public async FTask HitDogWrong()
     {
         isInHit = true;
-
         hitCancellationToken?.Cancel();
         hitCancellationToken = FCancellationToken.ToKen;
 
-        var scoreConfig = Scene.GetComponent<Tables>().ScoreConfigCategory.Data;
-        Scene.GetComponent<ScoreComponent>()?.AddScore(scoreConfig.WrongHitPenalty);
-        
-        // Hit_Wrong 持续时间（比如 2 秒）
         await Scene.TimerComponent.Net.WaitAsync(5000, hitCancellationToken);
-        if (hitCancellationToken.IsCancel)
-            return;
-        
-        
+        if (hitCancellationToken.IsCancel) return;
+
+        var scoreConfig = Scene.GetComponent<Tables>().ScoreConfigCategory.Data;
+        var scoreComp = Scene.GetComponent<ScoreComponent>();
+    
+        // ========== 获取狗的位置 ==========
+        Vector3 dogPos = Dog?.position ?? Vector3.zero;
+    
+        scoreComp?.AddScore(scoreConfig.WrongHitPenalty, 0, dogPos);
+
         isInHit = false;
         ChangeDogState(DogState.Normal);
     }

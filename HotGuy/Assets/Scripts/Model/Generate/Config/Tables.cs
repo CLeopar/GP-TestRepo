@@ -16,6 +16,7 @@ public partial class Tables : Entity
     public ConstConfigCategory ConstConfigCategory {get; private set; }
     public FoodConfigCategory FoodConfigCategory {get; private set; }
     public ScoreConfigCategory ScoreConfigCategory {get; private set; }
+    public SCTaskQuoteConfigCategory SCTaskQuoteConfigCategory {get; private set; }
 
     public void Init(System.Func<string, ByteBuf> loader)
     {
@@ -23,6 +24,7 @@ public partial class Tables : Entity
         ConstConfigCategory = new ConstConfigCategory(loader("ConstConfigCategory"));
         FoodConfigCategory = new FoodConfigCategory(loader("FoodConfigCategory"));
         ScoreConfigCategory = new ScoreConfigCategory(loader("ScoreConfigCategory"));
+        SCTaskQuoteConfigCategory = new SCTaskQuoteConfigCategory(loader("SCTaskQuoteConfigCategory"));
         ResolveRef();
     }
     
@@ -32,5 +34,6 @@ public partial class Tables : Entity
         ConstConfigCategory.ResolveRef(this);
         FoodConfigCategory.ResolveRef(this);
         ScoreConfigCategory.ResolveRef(this);
+        SCTaskQuoteConfigCategory.ResolveRef(this);
     }
 }

@@ -20,6 +20,6 @@ public class Event_LevelTimerUpdate_Handler : EventSystem<LevelTimerUpdate>
         if (remainingSeconds <= 10)
             ui.TimerText.color = Color.red;
         else
-            ui.TimerText.color = Color.white;
+            ui.TimerText.color = new Color(90f/255f, 57f/255f, 57f/255f, 255f/255f);
     }
 }
