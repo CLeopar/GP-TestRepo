@@ -166,4 +166,18 @@ public struct SCTimerUpdate
     public int ItemIndex;
     public float RemainingTime;
 }
+// 在 Level1Event.cs 末尾添加：
 
+/// <summary>
+/// 开始摄像机震动
+/// </summary>
+public struct StartCameraShake
+{
+}
+
+/// <summary>
+/// 停止摄像机震动
+/// </summary>
+public struct StopCameraShake
+{
+}

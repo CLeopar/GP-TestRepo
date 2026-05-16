@@ -122,9 +122,6 @@ public class Level_1_Component_Awake : AwakeSystem<Level_1_Component>
         // 新增：注册渐黑面板
         if (self.Scene.GetComponent<FadePanelUIComponent>() == null)
             self.Scene.AddComponent<FadePanelUIComponent>();
-        
-        // 在 Level_1_Component_Awake 的 Awake 方法里追加：
-
 // 注册弹幕系统
         if (self.Scene.GetComponent<DanmakuUIComponent>() == null)
             self.Scene.AddComponent<DanmakuUIComponent>();
@@ -132,6 +129,9 @@ public class Level_1_Component_Awake : AwakeSystem<Level_1_Component>
         if (self.Scene.GetComponent<DanmakuManagerComponent>() == null)
             self.Scene.AddComponent<DanmakuManagerComponent>();
         
+        // 
+        if (self.Scene.GetComponent<CameraShakeComponent>() == null)
+            self.Scene.AddComponent<CameraShakeComponent>();
     }
 }
 

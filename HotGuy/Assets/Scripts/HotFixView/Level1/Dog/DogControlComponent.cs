@@ -69,7 +69,7 @@ public class DogControlComponent : Entity
         if (!isOpenPeek)
             AddEatSecretlyTimer();
     }
-
+    
     public void ChangeDogSpriteState(DogState state, bool isL = true)
     {
         this.dogState = state;
@@ -116,6 +116,9 @@ public class DogControlComponent : Entity
         var previousState = dogState;
         ChangeDogSpriteState(newState, isL);
         
+        // ========== 震动逻辑：只有 Eat_Secretly_3 震动，其他状态都停止 ==========
+        UpdateCameraShake(newState);
+        
         switch (newState)
         {
             case DogState.Normal:
@@ -124,7 +127,9 @@ public class DogControlComponent : Entity
                 DogEatSecretly().Coroutine();
                 break;
             case DogState.Eat_Secretly_2:
+                break;
             case DogState.Eat_Secretly_3:
+                break; // 震动在 UpdateCameraShake 处理
             case DogState.Eat_Secretly_4:
                 break;
             case DogState.Hold:
@@ -146,6 +151,26 @@ public class DogControlComponent : Entity
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
+        }
+    }
+
+    /// <summary>
+    /// 统一的震动控制：只有狗在偷吃食物（Secretly_3）时才震动
+    /// </summary>
+    private void UpdateCameraShake(DogState newState)
+    {
+        var cameraShake = Scene.GetComponent<CameraShakeComponent>();
+        if (cameraShake == null) return;
+
+        bool shouldShake = (newState == DogState.Eat_Secretly_3);
+        
+        if (shouldShake)
+        {
+            cameraShake.StartShake();
+        }
+        else
+        {
+            cameraShake.StopShake();
         }
     }
 
@@ -209,7 +234,6 @@ public class DogControlComponent : Entity
         hitCancellationToken?.Cancel();
         hitCancellationToken = FCancellationToken.ToKen;
 
-        // Hit_Right 持续时间（比如 2 秒）
         await Scene.TimerComponent.Net.WaitAsync(5000, hitCancellationToken);
         if (hitCancellationToken.IsCancel)
             return;
@@ -289,7 +313,7 @@ public class DogControlComponent : Entity
         }
     }
 
-    // ========== 新增：检查当前食物是否还在检测范围内 ==========
+    // ========== 检查当前食物是否还在检测范围内 ==========
     private bool IsCurrentFoodInRange()
     {
         if (CurEatFoodData.Item1 == FoodType.None)
@@ -329,7 +353,7 @@ public class DogControlComponent : Entity
         if (isInHit && dogState != DogState.Hit_Right && dogState != DogState.Hit_Wrong)
             return;
 
-        // ========== 新增：正在吃食物时，检测是否远离 ==========
+        // 正在吃食物时，检测是否远离
         if ((dogState == DogState.Eat_Normal || dogState == DogState.Eat_Normal_Secretly) 
             && !IsCurrentFoodInRange())
         {
@@ -436,8 +460,7 @@ public class DogControlComponent : Entity
                 ChangeDogState(DogState.Eat_Secretly_1);
             }
         }
-        // 偷瞄/偷吃状态下响应玩家喂食
-        // 偷瞄状态（Eat_Secretly_1）及 Eat_Normal_Secretly：可以响应玩家喂食
+        // 偷瞄（Eat_Secretly_1）及 Eat_Normal_Secretly：可以响应玩家喂食
         else if (dogState == DogState.Eat_Secretly_1 ||
                  dogState == DogState.Eat_Normal_Secretly)
         {
@@ -463,7 +486,7 @@ public class DogControlComponent : Entity
                 CurEatFoodData = (fruitType_Normal.foodType, fruitType_Normal.Id);
             }
         }
-// 偷吃状态（Eat_Secretly_2/3/4）：屏蔽玩家喂食
+        // 偷吃状态（Eat_Secretly_2/3/4）：屏蔽玩家喂食
         else if (dogState == DogState.Eat_Secretly_2 ||
                  dogState == DogState.Eat_Secretly_3 ||
                  dogState == DogState.Eat_Secretly_4)
