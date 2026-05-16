@@ -23,10 +23,9 @@ public class FoodComponent : Entity, ISupportedMultiEntity
 
     public bool isStayHands { get; set; } = false;
 
-    // ========== 新增：持续粒子控制 ==========
+    // 持续粒子控制
     public bool IsBeingEaten = false;
     public long ParticleTimer = 0;
-    
 
     public async FTask Init(Transform fruitParent, FoodType fruitTypes)
     {
@@ -121,6 +120,10 @@ public class FoodComponent : Entity, ISupportedMultiEntity
         ChangeSpriteSortOrder(0);
 
         isInPickUp = false;
+        
+        // 确保放下时停止抖动和粒子
+        StopShake();
+        StopParticles();
     }
 
     public async FTask StartEat(bool isNormal)
@@ -130,7 +133,7 @@ public class FoodComponent : Entity, ISupportedMultiEntity
         IsBeingEaten = true;
         CancellationToken = FCancellationToken.ToKen;
         
-        // 启动持续粒子
+        // 启动持续粒子 + 抖动
         StartContinuousParticles();
         
         var duration = Scene.GetComponent<Tables>().ConstConfigCategory.FoodChangeStateInterval;
@@ -138,30 +141,39 @@ public class FoodComponent : Entity, ISupportedMultiEntity
         if (fruitStateType == FruitStateType.Normal)
         {
             await Scene.TimerComponent.Net.WaitAsync(duration, CancellationToken);
-            if (CancellationToken.IsCancel) { StopParticles(); return; }
+            if (CancellationToken.IsCancel) { StopAllEffects(); return; }
             ShowState(1, isNormal);
         }
 
         if (fruitStateType == FruitStateType.Eat_2)
         {
             await Scene.TimerComponent.Net.WaitAsync(duration, CancellationToken);
-            if (CancellationToken.IsCancel) { StopParticles(); return; }
+            if (CancellationToken.IsCancel) { StopAllEffects(); return; }
             ShowState(2, isNormal);
         }
 
         if (fruitStateType == FruitStateType.Eat_3)
         {
             await Scene.TimerComponent.Net.WaitAsync(duration, CancellationToken);
-            if (CancellationToken.IsCancel) { StopParticles(); return; }
+            if (CancellationToken.IsCancel) { StopAllEffects(); return; }
             ShowState(3, isNormal);
         }
         
-        StopParticles();
+        StopAllEffects();
     }
 
     public void CancelEat()
     {
         CancellationToken?.Cancel();
+        StopAllEffects();  // ← 统一停止所有效果
+    }
+
+    /// <summary>
+    /// 统一停止所有效果（抖动 + 粒子）
+    /// </summary>
+    private void StopAllEffects()
+    {
+        StopShake();
         StopParticles();
     }
 
@@ -177,15 +189,22 @@ public class FoodComponent : Entity, ISupportedMultiEntity
             SpawnParticles();
         });
     }
-    
+
     private Tween _shakeTween;
 
     private void StartShake()
     {
+        // 先停止旧的，防止叠加
+        StopShake();
+        
         foreach (var go in stateGameObjects)
         {
             if (!go.activeSelf) continue;
             var tr = go.transform;
+            
+            // 确保从原点开始
+            tr.localPosition = Vector3.zero;
+            
             _shakeTween = DOTween.Sequence()
                 .Append(tr.DOLocalMove(new Vector3(0.2f, 0.15f, 0), 0.1f).SetRelative(true))
                 .Append(tr.DOLocalMove(new Vector3(-0.2f, -0.15f, 0), 0.1f).SetRelative(true))
@@ -196,12 +215,20 @@ public class FoodComponent : Entity, ISupportedMultiEntity
 
     private void StopShake()
     {
-        _shakeTween?.Kill();
-        _shakeTween = null;
-        // 复位，防止残留偏移
+        if (_shakeTween != null)
+        {
+            _shakeTween.Kill();
+            _shakeTween = null;
+        }
+        
+        // 复位所有 stateGameObjects，杀掉残留 tween
         foreach (var go in stateGameObjects)
         {
-            go.transform.DOLocalMove(Vector3.zero, 0.1f);
+            if (go != null)
+            {
+                DOTween.Kill(go.transform);
+                go.transform.localPosition = Vector3.zero;
+            }
         }
     }
 
@@ -261,6 +288,9 @@ public class FoodComponent : Entity, ISupportedMultiEntity
 
         if (idx >= stateGameObjects.Count - 1)
         {
+            // 吃完后停止所有效果
+            StopAllEffects();
+            
             if (isNormal)
             {
                 Scene.EventComponent.Publish(new FoodBeEaten_Normal

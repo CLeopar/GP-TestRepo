@@ -41,6 +41,10 @@ public class DogControlComponent : Entity
 
     public bool isOpenPeek = false;
 
+    // ========== 滞后检测：避免边缘抖动导致状态反复切换 ==========
+    private bool _foodInNormalRange = false;
+    private bool _foodInSecretlyRange = false;
+
     // Hit 动画期间的取消令牌
     private FCancellationToken hitCancellationToken;
 
@@ -69,27 +73,30 @@ public class DogControlComponent : Entity
         if (!isOpenPeek)
             AddEatSecretlyTimer();
     }
-    
+
     public void ChangeDogSpriteState(DogState state, bool isL = true)
     {
+        // ========== 新增：防止重复设置导致闪烁 ==========
+        if (this.dogState == state) return;
+
         this.dogState = state;
         Dog_Front.SetActive(state == DogState.Normal);
         Dog_1.SetActive(state == DogState.Eat_Secretly_1);
         Dog_2.SetActive(state == DogState.Eat_Secretly_2);
-        
+
         if (state == DogState.Eat_Secretly_3)
         {
             Dog_3.transform.position = Dog_2.transform.position;
             Dog_3.transform.rotation = Dog_2.transform.rotation;
         }
-        
+
         Dog_3.SetActive(state == DogState.Eat_Secretly_3);
         Dog_4.SetActive(state == DogState.Eat_Secretly_4);
         Dog_Hold_L.SetActive(state == DogState.Hold && isL);
         Dog_Hold_R.SetActive(state == DogState.Hold && !isL);
         Dog_Eat.SetActive(state == DogState.Eat_Normal);
         Dog_Eat_Secretly.SetActive(state == DogState.Eat_Normal_Secretly);
-        
+
         // Hit 状态：随机显示 Hit_1 或 Hit_2
         Dog_Hit.SetActive(state == DogState.Hit);
         if (state == DogState.Hit)
@@ -103,7 +110,7 @@ public class DogControlComponent : Entity
             Dog_Hit_1.SetActive(false);
             Dog_Hit_2.SetActive(false);
         }
-        
+
         Dog_Hit_Right.SetActive(state == DogState.Hit_Right);
         Dog_Hit_Wrong.SetActive(state == DogState.Hit_Wrong);
     }
@@ -111,14 +118,14 @@ public class DogControlComponent : Entity
     public void ChangeDogState(DogState newState, bool isL = true)
     {
         if (dogState == newState) return;
-        Log.Error($"ChangeDogState {dogState}, {newState}");
-        
+        Log.Error($"[DogState] {dogState} -> {newState}");
+
         var previousState = dogState;
         ChangeDogSpriteState(newState, isL);
-        
-        // ========== 震动逻辑：只有 Eat_Secretly_3 震动，其他状态都停止 ==========
+
+        // 统一的震动控制：只有 Eat_Secretly_3 震动，其他状态都停止
         UpdateCameraShake(newState);
-        
+
         switch (newState)
         {
             case DogState.Normal:
@@ -129,7 +136,7 @@ public class DogControlComponent : Entity
             case DogState.Eat_Secretly_2:
                 break;
             case DogState.Eat_Secretly_3:
-                break; // 震动在 UpdateCameraShake 处理
+                break;
             case DogState.Eat_Secretly_4:
                 break;
             case DogState.Hold:
@@ -160,10 +167,14 @@ public class DogControlComponent : Entity
     private void UpdateCameraShake(DogState newState)
     {
         var cameraShake = Scene.GetComponent<CameraShakeComponent>();
-        if (cameraShake == null) return;
+        if (cameraShake == null) 
+        {
+            Log.Error("[DogState] CameraShakeComponent is NULL!");
+            return;
+        }
 
         bool shouldShake = (newState == DogState.Eat_Secretly_3);
-        
+
         if (shouldShake)
         {
             cameraShake.StartShake();
@@ -211,7 +222,7 @@ public class DogControlComponent : Entity
     {
         isInHit = true;
         CancelCurrentEating();
-        
+
         hitCancellationToken?.Cancel();
         hitCancellationToken = FCancellationToken.ToKen;
 
@@ -253,10 +264,10 @@ public class DogControlComponent : Entity
 
         var scoreConfig = Scene.GetComponent<Tables>().ScoreConfigCategory.Data;
         var scoreComp = Scene.GetComponent<ScoreComponent>();
-    
+
         // ========== 获取狗的位置 ==========
         Vector3 dogPos = Dog?.position ?? Vector3.zero;
-    
+
         scoreComp?.AddScore(scoreConfig.WrongHitPenalty, 0, dogPos);
 
         isInHit = false;
@@ -313,37 +324,37 @@ public class DogControlComponent : Entity
         }
     }
 
-    // ========== 检查当前食物是否还在检测范围内 ==========
+    // ========== 检查当前食物是否还在检测范围内（使用滞后阈值，只用大阈值判断离开） ==========
     private bool IsCurrentFoodInRange()
     {
         if (CurEatFoodData.Item1 == FoodType.None)
             return false;
 
         var tables = Scene.GetComponent<Tables>();
-        float checkDistance = tables.ConstConfigCategory.FoodCheckDistance;
+        float exitDistance = tables.ConstConfigCategory.FoodCheckDistance * 1.15f; // 离开阈值比进入大15%
 
         if (CurEatFoodData.Item1 == FoodType.Shit)
         {
             var shit = Scene.GetComponent<FoodManagerComponent>().GetShit();
             if (shit == null || !shit.isLand || shit.shit == null)
                 return false;
-                
+
             float dist = Vector3.Distance(FoodCheckDistance_Gizmos.position, shit.shit.transform.position);
-            return dist <= checkDistance;
+            return dist <= exitDistance;
         }
         else
         {
             var food = Scene.GetComponent<FoodManagerComponent>().GetFruitComponent(CurEatFoodData.Item2);
             if (food == null || food.Fruit_Tr == null)
                 return false;
-                
+
             float dist = Vector3.Distance(FoodCheckDistance_Gizmos.position, food.Fruit_Tr.position);
-            return dist <= checkDistance;
+            return dist <= exitDistance;
         }
     }
 
     /// <summary>
-    /// 检测食物距离
+    /// 检测食物距离（使用滞后阈值，避免边缘抖动导致状态反复切换）
     /// </summary>
     public void CheckFoodDistance()
     {
@@ -353,7 +364,7 @@ public class DogControlComponent : Entity
         if (isInHit && dogState != DogState.Hit_Right && dogState != DogState.Hit_Wrong)
             return;
 
-        // 正在吃食物时，检测是否远离
+        // 正在吃食物时，检测是否远离（使用滞后阈值的大阈值判断离开）
         if ((dogState == DogState.Eat_Normal || dogState == DogState.Eat_Normal_Secretly) 
             && !IsCurrentFoodInRange())
         {
@@ -362,16 +373,67 @@ public class DogControlComponent : Entity
             ChangeDogState(DogState.Normal);
             return;
         }
-        
+
+        // ========== 滞后阈值配置 ==========
+        var tables = Scene.GetComponent<Tables>();
+        float enterDistance = tables.ConstConfigCategory.FoodCheckDistance;
+        float exitDistance  = enterDistance * 1.15f; // 离开阈值比进入大15%，形成缓冲带
+
+        // ========== 普通范围：用滞后逻辑判断是否"在范围内" ==========
         var fruitType_Normal = Scene.GetComponent<FoodManagerComponent>().GetMinFruitDistance(FoodCheckDistance_Gizmos.position);
+        float distNormal = fruitType_Normal != null && fruitType_Normal.Fruit_Tr != null
+            ? Vector3.Distance(FoodCheckDistance_Gizmos.position, fruitType_Normal.Fruit_Tr.position)
+            : float.MaxValue;
+
+        if (!_foodInNormalRange && distNormal <= enterDistance)
+            _foodInNormalRange = true;
+        else if (_foodInNormalRange && distNormal > exitDistance)
+            _foodInNormalRange = false;
+
+        FoodType foodType_Normal = (_foodInNormalRange && fruitType_Normal != null)
+            ? fruitType_Normal.foodType
+            : FoodType.None;
+
+        // ========== 偷吃范围：用滞后逻辑判断是否"在范围内" ==========
         FoodComponent fruitType_Secretly = null;
+        float distSecretly = float.MaxValue;
         if (isOpenPeek)
+        {
             fruitType_Secretly = Scene.GetComponent<FoodManagerComponent>().GetMinFruitDistance(FoodCheckDistance_Gizmos_Secretly.position, false);
-        FoodType foodType_Normal = fruitType_Normal?.foodType ?? FoodType.None;
-        FoodType foodType_Secretly = fruitType_Secretly?.foodType ?? FoodType.None;
+            distSecretly = fruitType_Secretly != null && fruitType_Secretly.Fruit_Tr != null
+                ? Vector3.Distance(FoodCheckDistance_Gizmos_Secretly.position, fruitType_Secretly.Fruit_Tr.position)
+                : float.MaxValue;
+
+            if (!_foodInSecretlyRange && distSecretly <= enterDistance)
+                _foodInSecretlyRange = true;
+            else if (_foodInSecretlyRange && distSecretly > exitDistance)
+                _foodInSecretlyRange = false;
+        }
+        else
+        {
+            _foodInSecretlyRange = false;
+        }
+
+        FoodType foodType_Secretly = (_foodInSecretlyRange && fruitType_Secretly != null)
+            ? fruitType_Secretly.foodType
+            : FoodType.None;
+
+        // 检查粪便（粪便也使用滞后阈值）
         ShitComponent shitComponent = null;
         if (isOpenPeek)
+        {
             shitComponent = Scene.GetComponent<FoodManagerComponent>().GetShit();
+            if (shitComponent != null && shitComponent.shit != null)
+            {
+                float shitDist = Vector3.Distance(FoodCheckDistance_Gizmos_Secretly.position, shitComponent.shit.transform.position);
+                // 粪便的"在范围内"逻辑：用同一个 _foodInSecretlyRange 状态（简化处理）
+                // 如果粪便在范围内但水果不在，仍然认为 secret range 有效
+                if (!_foodInSecretlyRange && shitDist <= enterDistance)
+                    _foodInSecretlyRange = true;
+                else if (_foodInSecretlyRange && shitDist > exitDistance && distSecretly > exitDistance)
+                    _foodInSecretlyRange = false;
+            }
+        }
 
         // 待机状态
         if (dogState == DogState.Normal)
@@ -475,7 +537,7 @@ public class DogControlComponent : Entity
                     ? DogState.Eat_Normal
                     : DogState.Eat_Normal_Secretly;
 
-                dogState = DogState.Normal;
+                // ========== 修复：移除直接修改 dogState，让 ChangeDogState 处理 ==========
                 ChangeDogState(targetState);
 
                 Scene.EventComponent.Publish(new StartEatFood
@@ -504,7 +566,7 @@ public class DogControlComponent : Entity
                 var targetState = (foodType_Secretly == FoodType.None && shitComponent == null)
                     ? DogState.Eat_Normal
                     : DogState.Eat_Normal_Secretly;
-                
+
                 ChangeDogState(targetState);
 
                 Scene.EventComponent.Publish(new StartEatFood
@@ -527,19 +589,19 @@ public class DogControlComponent : Entity
             return;
         SetIsOpenPeek(false);
         ChangeDogState(DogState.Eat_Secretly_2);
-        
+
         var shitComponent_1 = Scene.GetComponent<FoodManagerComponent>().GetShit();
         if (shitComponent_1 != null)
         {
             var target = shitComponent_1.shit.transform;
             Vector3 direction = target.position - Dog_2.transform.position;
-            
+
             currentRotateTween?.Kill();
             float moveDistance = 0.5f;
             Vector3 moveDirection = direction.normalized * moveDistance;
             var duration = Scene.GetComponent<Tables>().ConstConfigCategory.TurnRotateToFoodDuration;
             currentRotateTween = Dog_2.transform.DOMove(Dog_2.transform.position + moveDirection, duration).SetEase(Ease.Linear);
-            
+
             await Scene.TimerComponent.Net.WaitAsync((long)(duration * 1000), cancellationToken);
             if (cancellationToken.IsCancel)
                 return;
@@ -554,13 +616,13 @@ public class DogControlComponent : Entity
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 angle -= 90f;
                 Vector3 targetRotation = new Vector3(0, 0, angle);
-                
+
                 currentRotateTween?.Kill();
                 float moveDistance = 0.5f;
                 Vector3 moveDirection = direction.normalized * moveDistance;
                 var duration = Scene.GetComponent<Tables>().ConstConfigCategory.TurnRotateToFoodDuration;
                 currentRotateTween = Dog_2.transform.DOMove(Dog_2.transform.position + moveDirection, duration).SetEase(Ease.Linear);
-                
+
                 await Scene.TimerComponent.Net.WaitAsync((long)(duration * 1000), cancellationToken);
                 if (cancellationToken.IsCancel)
                     return;
@@ -639,7 +701,7 @@ public class DogControlComponent_Update : UpdateSystem<DogControlComponent>
     protected override void Update(DogControlComponent self)
     {
         self.CheckFoodDistance();
-        
+
         var level = self.Scene.GetComponent<Level_1_Component>();
         if (level != null && level.Level_Stage >= 2 && !self.isOpenPeek && self.Timer == 0)
         {
@@ -647,3 +709,4 @@ public class DogControlComponent_Update : UpdateSystem<DogControlComponent>
         }
     }
 }
+
