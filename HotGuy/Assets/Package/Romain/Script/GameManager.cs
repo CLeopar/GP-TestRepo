@@ -11,10 +11,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    /// <summary>每关姿势检测完成后触发（GameStatsManager 订阅此事件）</summary>
     public static event System.Action OnLevelCompleted;
 
-    // ───────────────────────── Level ─────────────────────────
     [System.Serializable]
     public class Level
     {
@@ -37,20 +35,14 @@ public class GameManager : MonoBehaviour
         [Tooltip("组成身体的所有部位 RectTransform（用于必须触碰区域检测）")]
         public RectTransform[] bodyParts;
 
-        // ═══════════════════════════════════════════════════════
-        // 【关卡衔接配置】
-        // ═══════════════════════════════════════════════════════
         [Header("关卡衔接配置")]
-        [Tooltip("本关开场动画时长（秒）。进入本关时，上一关会延迟这么久才关闭，避免穿帮")]
+        [Tooltip("本关开场动画时长（秒）。新关打开后等这么久再关闭上一关")]
         public float openAnimationDuration = 1.5f;
-
-        [Tooltip("本关打开后，在父级中的目标 SiblingIndex（越小越靠前，0=最前面）")]
-        public int targetSiblingIndex = 0;
 
         [Tooltip("开场动画期间是否禁用玩家控制器（等开场动画完成后再启用）")]
         public bool disableControllersDuringOpen = true;
 
-        [Tooltip("开场动画播放完成后，额外等待多久才启用控制器")]
+        [Tooltip("开场动画播放完成后，额外等待多久才启用控制器并开始倒计时")]
         public float openAnimationExtraWait = 0.2f;
 
         public void Init()
@@ -67,32 +59,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ───────────────────────── Inspector ─────────────────────────
     [Header("Timer")]
     [SerializeField] private TMP_Text      timerText;
     [SerializeField] private RectTransform timerImage;
-    [Tooltip("每关的倒计时时长（秒），按出场顺序填写。index 0 = 第1关，以此类推。数组不足时使用最后一个值。")]
     [SerializeField] private float[] levelTimes = { 60f, 50f, 40f, 30f, 20f };
 
     [Header("Gameplay BGM")]
-    [Tooltip("第一关开始后全程循环播放的背景音乐")]
     [SerializeField] private AudioClip   gameplayBgmClip;
     [SerializeField] private AudioSource gameplayBgmSource;
-    [Tooltip("游玩阶段（倒计时进行中）的音量")]
     [Range(0f, 1f)]
     [SerializeField] private float bgmVolumeGameplay = 1f;
-    [Tooltip("分数结算阶段的音量")]
     [Range(0f, 1f)]
     [SerializeField] private float bgmVolumeCompletion = 0.3f;
-    [Tooltip("音量切换的淡入淡出时间（秒）")]
     [SerializeField] private float bgmVolumeFadeDuration = 0.5f;
 
     [Header("Countdown Warning")]
-    [Tooltip("倒计时警告从剩余第几秒开始")]
     [SerializeField] private int         countdownWarnSeconds = 3;
-    [Tooltip("警告期间每秒播放的音效")]
     [SerializeField] private AudioClip   countdownClip;
-    [Tooltip("归零时播放的专属音效")]
     [SerializeField] private AudioClip   countdownFinishClip;
     [Range(0f, 1f)]
     [SerializeField] private float       countdownVolume = 1f;
@@ -119,14 +102,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int         levelCount = 5;
 
     [Header("Prompt")]
-    [Tooltip("每个元素对应一关，promptTexts[0] 显示第一关，以此类推")]
     [SerializeField] private TMP_Text[] promptTexts;
 
     [Header("Picture")]
     [SerializeField] private Image[] pictureImages;
 
     [Header("Completion UI")]
-    [Tooltip("结算页面最短停留时间（秒）")]
     [SerializeField] private float completionMinDisplayTime = 8f;
 
     [Header("Results Screen")]
@@ -137,30 +118,23 @@ public class GameManager : MonoBehaviour
     [SerializeField] private UnityEvent onAllLevelsComplete;
 
     [Header("Tutorial")]
-    [Tooltip("开启后：第一关使用固定关卡，其余随机抽选；关闭则全部随机（原逻辑）")]
-    [SerializeField] private bool  enableTutorial = false;
-    [Tooltip("固定的第一关 Level（enableTutorial 开启时使用）")]
-    [SerializeField] private Level fixedFirstLevel;
-    [Tooltip("教程弹窗的根 GameObject（显示/隐藏整体）")]
-    [SerializeField] private GameObject tutorialPanel;
-    [Tooltip("教程纸条的图片列表，按顺序填入，支持任意数量；每次按键/点击翻到下一张")]
-    [SerializeField] private Image[] tutorialImages;
+    [SerializeField] private bool        enableTutorial = false;
+    [SerializeField] private Level       fixedFirstLevel;
+    [SerializeField] private GameObject  tutorialPanel;
+    [SerializeField] private Image[]     tutorialImages;
 
     // ───────────────────────── Runtime ─────────────────────────
     private float       timer;
     private float       timerImageInitialWidth;
     private float       currentLevelTime;
     private int         currentLevel;
-    private List<Level> activeLevels = new();
+    private List<Level> activeLevels = new List<Level>();
 
-    private readonly List<Texture2D> capturedTextures = new();
-    private readonly List<Sprite>    capturedSprites  = new();
+    private readonly List<Texture2D> capturedTextures = new List<Texture2D>();
+    private readonly List<Sprite>    capturedSprites  = new List<Sprite>();
 
     private Tween _bgmFadeTween;
-
-    // 【新增】记录需要延迟关闭的上一关
     private Level _pendingCloseLevel;
-    private float _pendingCloseDelay;
 
     public IReadOnlyList<Texture2D> CapturedTextures => capturedTextures;
     public IReadOnlyList<Sprite>    CapturedSprites  => capturedSprites;
@@ -196,7 +170,6 @@ public class GameManager : MonoBehaviour
             level.levelObj.SetActive(false);
         }
 
-        // ── 构建 activeLevels ──────────────────────────────────
         if (enableTutorial && fixedFirstLevel != null && fixedFirstLevel.levelObj != null)
         {
             if (!levelList.Contains(fixedFirstLevel))
@@ -208,7 +181,7 @@ public class GameManager : MonoBehaviour
             var pool = levelList
                 .Where(l => l != null && l.levelObj != null && l != fixedFirstLevel)
                 .OrderBy(_ => Random.value)
-                .Take(Mathf.Max(0, Mathf.Min(levelCount - 1, levelList.Count - 1)))
+                .Take(levelCount - 1)
                 .ToList();
 
             activeLevels = new List<Level> { fixedFirstLevel };
@@ -223,9 +196,8 @@ public class GameManager : MonoBehaviour
                 .ToList();
         }
 
-        currentLevel = 0;
+        currentLevel       = 0;
         _pendingCloseLevel = null;
-        _pendingCloseDelay = 0f;
         FillAllPromptTexts();
     }
 
@@ -250,7 +222,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame() => StartCoroutine(RunCurrentLevelFlow());
 
-    // ── BGM 控制 ──────────────────────────────────────────────
+    // ── BGM ──────────────────────────────────────────────────
 
     private void StartGameplayBgm()
     {
@@ -275,39 +247,26 @@ public class GameManager : MonoBehaviour
     private IEnumerator RunCurrentLevelFlow()
     {
         Level level = activeLevels[currentLevel];
-        
-        // ═══════════════════════════════════════════════════════
-        // 【关键 1】先处理待关闭的上一关（如果有）
-        // 这是上一关留下的任务：等本关开场动画完再关闭它
-        // ═══════════════════════════════════════════════════════
-        if (_pendingCloseLevel != null && _pendingCloseLevel.levelObj != null)
-        {
-            // 等本关的开场动画时长
-            if (_pendingCloseDelay > 0f)
-                yield return new WaitForSeconds(_pendingCloseDelay);
-            
-            _pendingCloseLevel.levelObj.SetActive(false);
-            _pendingCloseLevel = null;
-            _pendingCloseDelay = 0f;
-        }
 
-        // ═══════════════════════════════════════════════════════
-        // 2. 打开新关卡并置顶
-        // ═══════════════════════════════════════════════════════
+        // ══════════════════════════════════════════════════════
+        // 1. 立刻打开新关卡并置顶（上一关此时仍然显示着）
+        // ══════════════════════════════════════════════════════
         level.levelObj.SetActive(true);
-        level.levelObj.transform.SetSiblingIndex(level.targetSiblingIndex);
+        level.levelObj.transform.SetAsLastSibling();
         Canvas.ForceUpdateCanvases();
 
         currentLevelTime = GetLevelTime(currentLevel);
 
+        SlideTimerToFull();
+        
         if (currentLevel == 0)
             StartGameplayBgm();
 
         FadeBgmVolume(bgmVolumeGameplay);
 
-        // ═══════════════════════════════════════════════════════
-        // 3. 开场动画期间禁用控制器
-        // ═══════════════════════════════════════════════════════
+        // ══════════════════════════════════════════════════════
+        // 2. 触发开场动画，开场期间禁用控制器
+        // ══════════════════════════════════════════════════════
         if (level.disableControllersDuringOpen)
             SetControllersEnabled(level, false);
         else
@@ -315,33 +274,42 @@ public class GameManager : MonoBehaviour
 
         TriggerAnimator(targetAnimator, level.enterTrigger);
 
-        // 基础等待
         if (enterWaitTime > 0f)
             yield return new WaitForSeconds(enterWaitTime);
 
-        // 教程（仅第一关）
         if (currentLevel == 0 && enableTutorial)
             yield return StartCoroutine(ShowTutorialPanel());
 
-        // ═══════════════════════════════════════════════════════
-        // 4. 等开场动画完成
-        // ═══════════════════════════════════════════════════════
+        // ══════════════════════════════════════════════════════
+        // 3. 等开场动画播完，然后关闭上一关
+        // ══════════════════════════════════════════════════════
         if (level.disableControllersDuringOpen)
         {
             float openWaitTime = Mathf.Max(0f, level.openAnimationDuration - enterWaitTime);
             if (openWaitTime > 0f)
                 yield return new WaitForSeconds(openWaitTime);
+        }
 
+        if (_pendingCloseLevel != null && _pendingCloseLevel.levelObj != null)
+        {
+            _pendingCloseLevel.levelObj.SetActive(false);
+            _pendingCloseLevel = null;
+        }
+
+        // ══════════════════════════════════════════════════════
+        // 4. 启用控制器，开始倒计时
+        // ══════════════════════════════════════════════════════
+        if (level.disableControllersDuringOpen)
+        {
             if (level.openAnimationExtraWait > 0f)
                 yield return new WaitForSeconds(level.openAnimationExtraWait);
 
-            // 现在启用控制器
             SetControllersEnabled(level, true);
         }
 
-        // ═══════════════════════════════════════════════════════
-        // 5. 正式开始倒计时（玩家可以操作了）
-        // ═══════════════════════════════════════════════════════
+        // ══════════════════════════════════════════════════════
+        // 5. 正式开始倒计时
+        // ══════════════════════════════════════════════════════
         yield return StartCoroutine(TimingCoroutine());
 
         // ── 关卡结束流程 ───────────────────────────────────────
@@ -366,7 +334,6 @@ public class GameManager : MonoBehaviour
 
         FadeBgmVolume(bgmVolumeCompletion);
 
-        // ── 结算动画 ───────────────────────────────────────────
         float completionStartTime = Time.time;
         yield return StartCoroutine(
             ScoreManager.Instance.ShowCompletionAndAddScore(level.similarity, level.scoreWeight)
@@ -380,15 +347,14 @@ public class GameManager : MonoBehaviour
         if (betweenLevelDelay > 0f)
             yield return new WaitForSeconds(betweenLevelDelay);
 
-        // ═══════════════════════════════════════════════════════
-        // 6. 准备切换下一关
-        // ═══════════════════════════════════════════════════════
+        // ══════════════════════════════════════════════════════
+        // 6. 切换下一关
+        // ══════════════════════════════════════════════════════
         int nextLevel = currentLevel + 1;
         if (nextLevel >= activeLevels.Count)
         {
-            // 最后一关：直接关闭
-            level.levelObj.SetActive(false);
-            
+            // ★ 最后一关：不关闭关卡画面，只禁用控制器，画面留在原地
+            SetControllersEnabled(level, false);
             GameStatsManager.Instance.SaveSession();
             FadeBgmVolume(0f);
             ShowResultsScreen();
@@ -396,26 +362,35 @@ public class GameManager : MonoBehaviour
             yield break;
         }
 
-        // 触发转场动画
         TriggerAnimator(levelTransitionAnimator, levelTransitionTrigger);
         ScoreManager.Instance.ResetCompletionText();
 
-        // ═══════════════════════════════════════════════════════
-        // 【关键 2】设置"待关闭的上一关"
-        // 下一关打开后，会读取这个配置，等其开场动画完再关闭本关
-        // ═══════════════════════════════════════════════════════
-        Level nextLevelData = activeLevels[nextLevel];
         _pendingCloseLevel = level;
-        _pendingCloseDelay = nextLevelData.openAnimationDuration;
 
         currentLevel = nextLevel;
-        
-        // 进入下一关（非递归，使用 StartCoroutine）
         StartCoroutine(RunCurrentLevelFlow());
     }
 
     // ── 教程弹窗 ───────────────────────────────────────────────
 
+    private void SlideTimerToFull()
+    {
+        if (timerImage == null || currentLevelTime <= 0f) return;
+
+        float currentWidth = timerImage.sizeDelta.x;
+        float targetWidth  = timerImageInitialWidth;
+        if (Mathf.Approximately(currentWidth, targetWidth)) return;
+
+        float fillRatio    = 1f - Mathf.Clamp01(currentWidth / timerImageInitialWidth);
+        float slideDuration = Mathf.Lerp(0.05f, 0.5f, fillRatio);
+
+        timerImage.DOKill(false);
+        timerImage
+            .DOSizeDelta(new Vector2(targetWidth, timerImage.sizeDelta.y), slideDuration)
+            .SetEase(Ease.OutCubic)
+            .OnComplete(() => timer = currentLevelTime);
+    }
+    
     private IEnumerator ShowTutorialPanel()
     {
         if (tutorialPanel == null || tutorialImages == null || tutorialImages.Length == 0)
@@ -489,6 +464,8 @@ public class GameManager : MonoBehaviour
         int min = (int)(currentLevelTime / 60f);
         int sec = (int)(currentLevelTime % 60f);
 
+        // 确保动画已结束、timer 已同步
+        timerImage?.DOKill(false);
         SetTimerValue(currentLevelTime);
         if (timerText != null) timerText.text = FormatTime(min, sec);
 
@@ -586,14 +563,16 @@ public class GameManager : MonoBehaviour
         if (pictureImage == null) yield break;
 
         GameObject[] hideObjects = GameObject.FindGameObjectsWithTag("Hide");
-        var canvasGroups = new List<(CanvasGroup cg, float originalAlpha)>();
+        var canvasGroups  = new List<CanvasGroup>();
+        var originalAlphas = new List<float>();
 
         foreach (var go in hideObjects)
         {
             if (go == null || !go.activeSelf) continue;
             CanvasGroup cg = go.GetComponent<CanvasGroup>();
             if (cg == null) cg = go.AddComponent<CanvasGroup>();
-            canvasGroups.Add((cg, cg.alpha));
+            canvasGroups.Add(cg);
+            originalAlphas.Add(cg.alpha);
             cg.alpha = 0f;
         }
 
@@ -604,8 +583,8 @@ public class GameManager : MonoBehaviour
 
         Texture2D tex = ScreenCapture.CaptureScreenshotAsTexture();
 
-        foreach (var (cg, originalAlpha) in canvasGroups)
-            if (cg != null) cg.alpha = originalAlpha;
+        for (int i = 0; i < canvasGroups.Count; i++)
+            if (canvasGroups[i] != null) canvasGroups[i].alpha = originalAlphas[i];
 
         if (tex == null) yield break;
 
@@ -631,7 +610,6 @@ public class GameManager : MonoBehaviour
         Canvas canvas            = FindObjectOfType<Canvas>();
         RectTransform canvasRect = canvas != null ? canvas.GetComponent<RectTransform>() : null;
 
-        // ── 1. 关节在主 zone 内的占比 ─────────────────────────
         float baseSimilarity = 0f;
         var zone = level.zone;
 
@@ -653,7 +631,6 @@ public class GameManager : MonoBehaviour
             baseSimilarity = total > 0f ? passed / total : 0f;
         }
 
-        // ── 2. 必须触碰区域扣分 ───────────────────────────────
         float totalPenalty = 0f;
 
         if (level.requiredZones != null && level.requiredZones.Length > 0
@@ -685,7 +662,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        // ── 3. 合并结果 ───────────────────────────────────────
         float penaltyNormalized = totalPenalty / 100f;
         level.similarity = Mathf.Clamp01(baseSimilarity - penaltyNormalized);
 

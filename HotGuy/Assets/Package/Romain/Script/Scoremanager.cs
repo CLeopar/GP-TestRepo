@@ -3,15 +3,10 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-/// <summary>
-/// 负责所有分数相关逻辑：单关结算动画、总分累加、音效、里程碑、评级。
-/// 挂在场景内任意常驻 GameObject 上，通过 ScoreManager.Instance 访问。
-/// </summary>
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance { get; private set; }
 
-    // ───────────────────── Completion UI ─────────────────────
     [Header("Completion UI")]
     [SerializeField] private TMP_Text  completionText;
     [SerializeField] private Animator  completionTextAnimator;
@@ -25,33 +20,20 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private float     completionScaleMin         = 0.8f;
     [SerializeField] private float     completionScaleMax         = 2.0f;
 
-    // ───────────────────── Total Score UI ─────────────────────
     [Header("Total Score UI")]
-    [Tooltip("始终显示在关卡上的总分文本")]
     [SerializeField] private TMP_Text totalScoreText;
-    [Tooltip("completionFinishTrigger 触发后，延迟多少秒再开始滚动总分")]
     [SerializeField] private float    totalScoreDelay         = 1.5f;
-    [Tooltip("总分滚动动画时长（秒）")]
     [SerializeField] private float    totalScoreCountDuration = 0.6f;
-    [Tooltip("总分满分值（仅用于显示参考）")]
     [SerializeField] private float    totalScoreMax           = 700f;
-    [Tooltip("总分滚动时每次数字变化的抖动强度")]
     [SerializeField] private float    totalScorePunchScale    = 0.15f;
-    [Tooltip("总分滚动时每次数字变化的抖动时长")]
     [SerializeField] private float    totalScorePunchDuration = 0.12f;
-    [Tooltip("总分每跳动一次播放的音效")]
     [SerializeField] private AudioClip totalScoreTickSound;
-    [Tooltip("总分音效音量")]
     [Range(0f, 1f)]
     [SerializeField] private float    totalScoreTickVolume   = 0.8f;
-    [Tooltip("总分音效音调范围下限")]
     [SerializeField] private float    totalScoreTickPitchMin = 0.9f;
-    [Tooltip("总分音效音调范围上限")]
     [SerializeField] private float    totalScoreTickPitchMax = 1.3f;
-    [Tooltip("总分音效 AudioSource（留空则自动创建）")]
     [SerializeField] private AudioSource totalScoreAudioSource;
 
-    // ───────────────────── Milestone Punch ─────────────────────
     [Header("Milestone Punch")]
     public int milestoneInterval = 10;
     [SerializeField] private float punchDuration      = 0.22f;
@@ -59,14 +41,12 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private float punchRotationAngle = 9f;
     [SerializeField] private float punchScaleAmount   = 0.28f;
 
-    // ───────────────────── Score Sound ─────────────────────────
     [Header("Score Sound")]
     [SerializeField] private AudioClip   tickSound;
     [SerializeField] private float       tickPitchMin = 0.8f;
     [SerializeField] private float       tickPitchMax = 2.0f;
     [SerializeField] private AudioSource tickAudioSource;
 
-    // ───────────────────── Milestone Sounds ────────────────────
     [Header("Milestone Sounds (Per Percent)")]
     [SerializeField] private MilestoneSound[] milestoneSounds;
     [SerializeField] private AudioSource      milestoneAudioSource;
@@ -82,7 +62,6 @@ public class ScoreManager : MonoBehaviour
         public float volume = 1f;
     }
 
-    // ───────────────────── Score Grades ────────────────────────
     [Header("Score Grades")]
     public ScoreGrade[] scoreGrades;
 
@@ -91,22 +70,25 @@ public class ScoreManager : MonoBehaviour
     {
         public int          threshold;
         public GameObject[] objects;
+
+        // ★ 新增：评级触发时播放的音效
+        [Tooltip("达到该评级时播放的音效（可为空）")]
+        public AudioClip gradeSound;
+        [Range(0f, 1f)]
+        public float gradeSoundVolume = 1f;
     }
 
-    // ───────────────────── 事件 ────────────────────────────────
-    /// <summary>总分数值发生变化时触发（GameStatsManager 订阅此事件）</summary>
     public static event System.Action OnScoreChanged;
 
-    // ───────────────────── Runtime ─────────────────────────────
     private float _totalScore;
     private float _scoreCurrentPercent;
     private bool  _scoreAnimRunning;
     private Tween _totalScoreTween;
 
-    /// <summary>当前累计总分（只读）</summary>
-    public float TotalScore => _totalScore;
+    // ★ 新增：用于播放评级音效的 AudioSource
+    private AudioSource _gradeAudioSource;
 
-    // ───────────────────────────────────────────────────────────
+    public float TotalScore => _totalScore;
 
     private void Awake()
     {
@@ -140,15 +122,13 @@ public class ScoreManager : MonoBehaviour
             totalScoreAudioSource.playOnAwake  = false;
             totalScoreAudioSource.spatialBlend = 0f;
         }
+
+        // ★ 新增
+        _gradeAudioSource = gameObject.AddComponent<AudioSource>();
+        _gradeAudioSource.playOnAwake  = false;
+        _gradeAudioSource.spatialBlend = 0f;
     }
 
-    // ── 对外主入口：GameManager 在每关结束时调用 ───────────────
-
-    /// <summary>
-    /// 播放单关结算百分比动画，动画结束后自动累加到总分。
-    /// </summary>
-    /// <param name="similarity">该关得分率 0~1</param>
-    /// <param name="scoreWeight">该关权重分值</param>
     public IEnumerator ShowCompletionAndAddScore(float similarity, float scoreWeight)
     {
         if (completionText == null) yield break;
@@ -156,7 +136,6 @@ public class ScoreManager : MonoBehaviour
         if (completionShowDelay > 0f)
             yield return new WaitForSeconds(completionShowDelay);
 
-        // 重置并显示
         if (!completionText.gameObject.activeSelf)
         {
             completionText.text = "0%";
@@ -198,6 +177,7 @@ public class ScoreManager : MonoBehaviour
             yield return null;
         }
 
+        // ★ ActivateScoreGrade 现在也会播音效
         ActivateScoreGrade(similarity);
 
         if (completionTriggerDelay > 0f)
@@ -205,11 +185,9 @@ public class ScoreManager : MonoBehaviour
 
         TriggerAnimator(completionTextAnimator, completionFinishTrigger);
 
-        // 累加总分
         AddToTotalScore(similarity * scoreWeight);
     }
 
-    /// <summary>重置结算文本到初始状态（关卡切换时调用）</summary>
     public void ResetCompletionText()
     {
         if (completionText == null) return;
@@ -219,8 +197,6 @@ public class ScoreManager : MonoBehaviour
         completionText.transform.localScale    = Vector3.one * completionScaleMin;
         completionText.transform.localRotation = Quaternion.identity;
     }
-
-    // ── 总分累加 ──────────────────────────────────────────────
 
     private void AddToTotalScore(float addAmount)
     {
@@ -277,8 +253,6 @@ public class ScoreManager : MonoBehaviour
         ).SetEase(Ease.OutCubic);
     }
 
-    // ── 单关百分比滚动音效与里程碑 ────────────────────────────
-
     private IEnumerator ScoreSoundCoroutine(float targetPercent)
     {
         int lastTickDisplayed = -1, lastMilestone = 0;
@@ -329,8 +303,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    // ── 评级激活 ──────────────────────────────────────────────
-
+    // ★ 改动：激活 GameObject 的同时播放对应评级音效
     private void ActivateScoreGrade(float similarity)
     {
         if (scoreGrades == null || scoreGrades.Length == 0) return;
@@ -341,12 +314,14 @@ public class ScoreManager : MonoBehaviour
                 if (grade.objects != null)
                     foreach (var obj in grade.objects)
                         if (obj != null) obj.SetActive(true);
+
+                if (grade.gradeSound != null && _gradeAudioSource != null)
+                    _gradeAudioSource.PlayOneShot(grade.gradeSound, grade.gradeSoundVolume);
+
                 return;
             }
         }
     }
-
-    // ── 结算文本抖动 ──────────────────────────────────────────
 
     private void PunchCompletionText(Transform tf, float baseScale, bool isMax = false)
     {
@@ -360,8 +335,6 @@ public class ScoreManager : MonoBehaviour
                 dur, isMax ? 10 : 6, 0.5f)
            .OnComplete(() => { if (tf != null) tf.localScale = Vector3.one * baseScale; });
     }
-
-    // ── 工具 ─────────────────────────────────────────────────
 
     private void TriggerAnimator(Animator anim, string trigger)
     {
