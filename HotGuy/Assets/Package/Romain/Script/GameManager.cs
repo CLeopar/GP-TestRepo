@@ -357,6 +357,7 @@ public class GameManager : MonoBehaviour
             SetControllersEnabled(level, false);
             GameStatsManager.Instance.SaveSession();
             FadeBgmVolume(0f);
+            ScoreManager.Instance.PlayGradeSoundForScore(level.similarity);
             ShowResultsScreen();
             onAllLevelsComplete?.Invoke();
             yield break;

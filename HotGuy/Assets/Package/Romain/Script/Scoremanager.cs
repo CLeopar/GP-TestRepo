@@ -235,7 +235,8 @@ public class ScoreManager : MonoBehaviour
                     totalScoreText.transform.DOKill(false);
                     totalScoreText.transform.DOPunchScale(
                         Vector3.one * totalScorePunchScale,
-                        totalScorePunchDuration, 5, 0.4f);
+                        totalScorePunchDuration, 5, 0.4f)
+                        .OnComplete(() => totalScoreText.transform.localScale = Vector3.one);
 
                     if (totalScoreTickSound != null && totalScoreAudioSource != null)
                     {
@@ -253,6 +254,20 @@ public class ScoreManager : MonoBehaviour
         ).SetEase(Ease.OutCubic);
     }
 
+    // 供外部（GameManager 最后一关）补播评级音效
+    public void PlayGradeSoundForScore(float similarity)
+    {
+        if (scoreGrades == null || scoreGrades.Length == 0) return;
+        foreach (var grade in scoreGrades)
+        {
+            if (similarity * 100f >= grade.threshold)
+            {
+                if (grade.gradeSound != null && _gradeAudioSource != null)
+                    _gradeAudioSource.PlayOneShot(grade.gradeSound, grade.gradeSoundVolume);
+                return;
+            }
+        }
+    }
     private IEnumerator ScoreSoundCoroutine(float targetPercent)
     {
         int lastTickDisplayed = -1, lastMilestone = 0;
@@ -306,6 +321,7 @@ public class ScoreManager : MonoBehaviour
     // ★ 改动：激活 GameObject 的同时播放对应评级音效
     private void ActivateScoreGrade(float similarity)
     {
+        Debug.Log($"[ScoreManager] ActivateScoreGrade called, similarity={similarity*100f:F1}%, grades={scoreGrades?.Length}");
         if (scoreGrades == null || scoreGrades.Length == 0) return;
         foreach (var grade in scoreGrades)
         {

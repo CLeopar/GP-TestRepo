@@ -310,7 +310,7 @@ public class PoseEditorController : MonoBehaviour
         if (translateVelocity.sqrMagnitude > 0f)
             bodyRoot.anchoredPosition += translateVelocity * Time.deltaTime;
 
-        Debug.Log($"[Translate] velocity={translateVelocity}  pos={bodyRoot.anchoredPosition}");
+        //Debug.Log($"[Translate] velocity={translateVelocity}  pos={bodyRoot.anchoredPosition}");
     }
 
     // 原 UpdateJointColors() 改名为 UpdateJointVisuals()，同时处理颜色和 Sprite 切换

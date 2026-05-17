@@ -1100,6 +1100,7 @@ GameObject:
   - component: {fileID: 78059519}
   - component: {fileID: 78059518}
   - component: {fileID: 78059517}
+  - component: {fileID: 78059520}
   m_Layer: 5
   m_Name: DownloadButton
   m_TagString: Untagged
@@ -1118,7 +1119,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 1912357723}
+  - {fileID: 1255702328}
+  - {fileID: 858436075}
   m_Father: {fileID: 2088852986}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1220,6 +1224,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 78059515}
   m_CullTransparentMesh: 1
+--- !u!114 &78059520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78059515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70ce35e40c36af44b8ee1ed414426fac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilePrefab: {fileID: 1399434816}
+  tileCount: 8
+  tileGap: 80
+  scrollSpeed: 200
+  scrollDirection: 1
+  groupAngle: 0
+  fadeDuration: 0.3
+  tileParent: {fileID: 1281713347}
 --- !u!1 &78174788
 GameObject:
   m_ObjectHideFlags: 0
@@ -2022,7 +2046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.72506726, g: 0.6126916, b: 0.6126916, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2075,7 +2099,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -341.74088, z: -841.7767}
-  m_LocalScale: {x: 6.5471516, y: 6.5471516, z: 6.5471516}
+  m_LocalScale: {x: 50.930634, y: 50.930634, z: 50.930634}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1181946038}
@@ -3140,6 +3164,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1425546831}
   - {fileID: 507117380}
   - {fileID: 1642870849}
   m_Father: {fileID: 1307758643}
@@ -7644,7 +7669,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.72506726, g: 0.6126916, b: 0.6126916, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7685,7 +7710,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &371727301
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7929,7 +7954,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.72506726, g: 0.6126916, b: 0.6126916, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8485,8 +8510,8 @@ MonoBehaviour:
     image: {fileID: 765414361}
     skeleton: {fileID: 403309570}
     normalColor: {r: 0.9960785, g: 0.9960785, b: 0.9960785, a: 1}
-    hoverColor: {r: 0.4784314, g: 0.7607844, b: 0.3019608, a: 1}
-    selectedColor: {r: 0.5647059, g: 0.19215688, b: 0.20392159, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     selectedSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     isTranslationJoint: 0
@@ -8497,8 +8522,8 @@ MonoBehaviour:
     image: {fileID: 216654469}
     skeleton: {fileID: 645740084}
     normalColor: {r: 0.9960785, g: 0.9960785, b: 0.9960785, a: 1}
-    hoverColor: {r: 0.5647059, g: 0.19215688, b: 0.20392159, a: 1}
-    selectedColor: {r: 1, g: 0.7796258, b: 0.5431266, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -8509,8 +8534,8 @@ MonoBehaviour:
     image: {fileID: 531342453}
     skeleton: {fileID: 1717095110}
     normalColor: {r: 0.9960785, g: 0.9960785, b: 0.9960785, a: 1}
-    hoverColor: {r: 0.5647059, g: 0.19215688, b: 0.20392159, a: 1}
-    selectedColor: {r: 1, g: 0.7803922, b: 0.5411765, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -8521,8 +8546,8 @@ MonoBehaviour:
     image: {fileID: 1131158462}
     skeleton: {fileID: 386979909}
     normalColor: {r: 0.9960785, g: 0.9960785, b: 0.9960785, a: 1}
-    hoverColor: {r: 0.5647059, g: 0.19215688, b: 0.20392159, a: 1}
-    selectedColor: {r: 1, g: 0.7803922, b: 0.5411765, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -8533,8 +8558,8 @@ MonoBehaviour:
     image: {fileID: 1116415306}
     skeleton: {fileID: 1316485579}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.5647059, g: 0.19215688, b: 0.20392159, a: 1}
-    selectedColor: {r: 1, g: 0.7803922, b: 0.5411765, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -8545,8 +8570,8 @@ MonoBehaviour:
     image: {fileID: 1807537479}
     skeleton: {fileID: 1894972368}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.5647059, g: 0.19215688, b: 0.20392159, a: 1}
-    selectedColor: {r: 1, g: 0.7803922, b: 0.5411765, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -8557,8 +8582,8 @@ MonoBehaviour:
     image: {fileID: 399717462}
     skeleton: {fileID: 1685727741}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.5647059, g: 0.19215688, b: 0.20392159, a: 1}
-    selectedColor: {r: 1, g: 0.7803922, b: 0.5411765, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -8569,8 +8594,8 @@ MonoBehaviour:
     image: {fileID: 1311130961}
     skeleton: {fileID: 1188435374}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.9058824, g: 0.74509805, b: 0.57254905, a: 1}
-    selectedColor: {r: 0.5647059, g: 0.19215688, b: 0.20392159, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -8581,8 +8606,8 @@ MonoBehaviour:
     image: {fileID: 1078271610}
     skeleton: {fileID: 1604297250}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.76819396, g: 0.2971315, b: 0.3120072, a: 1}
-    selectedColor: {r: 0.9058824, g: 0.74509805, b: 0.57254905, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -8593,8 +8618,8 @@ MonoBehaviour:
     image: {fileID: 1170906187}
     skeleton: {fileID: 2142327281}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.9058824, g: 0.74509805, b: 0.57254905, a: 1}
-    selectedColor: {r: 0.5647059, g: 0.19215688, b: 0.20392159, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -8605,8 +8630,8 @@ MonoBehaviour:
     image: {fileID: 1324497016}
     skeleton: {fileID: 403309570}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.4784314, g: 0.7607844, b: 0.3019608, a: 1}
-    selectedColor: {r: 0.5647059, g: 0.19215688, b: 0.20392159, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     selectedSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     isTranslationJoint: 1
@@ -10812,8 +10837,8 @@ MonoBehaviour:
     image: {fileID: 1539698310}
     skeleton: {fileID: 510275892}
     normalColor: {r: 0.9960785, g: 0.9960785, b: 0.9960785, a: 1}
-    hoverColor: {r: 0.47843137, g: 0.7607843, b: 0.3019608, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.8196079, b: 0.2901961, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     selectedSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     isTranslationJoint: 0
@@ -10824,8 +10849,8 @@ MonoBehaviour:
     image: {fileID: 97896006}
     skeleton: {fileID: 1922518611}
     normalColor: {r: 0.9960785, g: 0.9960785, b: 0.9960785, a: 1}
-    hoverColor: {r: 0.5058824, g: 0.8745099, b: 1, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.8196079, b: 0.2901961, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -10836,8 +10861,8 @@ MonoBehaviour:
     image: {fileID: 1695493582}
     skeleton: {fileID: 296833427}
     normalColor: {r: 0.9960785, g: 0.9960785, b: 0.9960785, a: 1}
-    hoverColor: {r: 0.5058824, g: 0.8745099, b: 1, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.8196079, b: 0.2901961, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -10848,8 +10873,8 @@ MonoBehaviour:
     image: {fileID: 1781288162}
     skeleton: {fileID: 459200765}
     normalColor: {r: 0.9960785, g: 0.9960785, b: 0.9960785, a: 1}
-    hoverColor: {r: 0.50539076, g: 0.8752385, b: 1, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.8196079, b: 0.2901961, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -10860,8 +10885,8 @@ MonoBehaviour:
     image: {fileID: 590878863}
     skeleton: {fileID: 2065579883}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.5058824, g: 0.8745099, b: 1, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.8196079, b: 0.2901961, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -10872,8 +10897,8 @@ MonoBehaviour:
     image: {fileID: 1180368680}
     skeleton: {fileID: 858980993}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.5058824, g: 0.8745099, b: 1, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.8196079, b: 0.2901961, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -10884,8 +10909,8 @@ MonoBehaviour:
     image: {fileID: 1724532322}
     skeleton: {fileID: 826473512}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.4784314, g: 0.7607844, b: 0.3019608, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.8196079, b: 0.2901961, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -10896,8 +10921,8 @@ MonoBehaviour:
     image: {fileID: 1129781935}
     skeleton: {fileID: 190553018}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.4784314, g: 0.7607844, b: 0.3019608, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.8196079, b: 0.2901961, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -10908,8 +10933,8 @@ MonoBehaviour:
     image: {fileID: 302988141}
     skeleton: {fileID: 1217287585}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.4784314, g: 0.7607844, b: 0.3019608, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.8196079, b: 0.2901961, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -10920,8 +10945,8 @@ MonoBehaviour:
     image: {fileID: 435311626}
     skeleton: {fileID: 1395176343}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.4784314, g: 0.7607844, b: 0.3019608, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.8196079, b: 0.2901961, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -10932,8 +10957,8 @@ MonoBehaviour:
     image: {fileID: 920135165}
     skeleton: {fileID: 510275892}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.4784314, g: 0.7607844, b: 0.3019608, a: 1}
-    selectedColor: {r: 0.9254902, g: 0.81936604, b: 0.29019612, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     selectedSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     isTranslationJoint: 1
@@ -14917,8 +14942,8 @@ MonoBehaviour:
     image: {fileID: 717447877}
     skeleton: {fileID: 758391900}
     normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     selectedSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     isTranslationJoint: 0
@@ -14929,8 +14954,8 @@ MonoBehaviour:
     image: {fileID: 303752139}
     skeleton: {fileID: 1873563579}
     normalColor: {r: 0.90196085, g: 0.72156864, b: 0.67058825, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -14941,8 +14966,8 @@ MonoBehaviour:
     image: {fileID: 1556652019}
     skeleton: {fileID: 1695239010}
     normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -14953,8 +14978,8 @@ MonoBehaviour:
     image: {fileID: 82756512}
     skeleton: {fileID: 1582447282}
     normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -14965,8 +14990,8 @@ MonoBehaviour:
     image: {fileID: 207426832}
     skeleton: {fileID: 1823098395}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -14977,8 +15002,8 @@ MonoBehaviour:
     image: {fileID: 1178512771}
     skeleton: {fileID: 1054983801}
     normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -14989,8 +15014,8 @@ MonoBehaviour:
     image: {fileID: 608143175}
     skeleton: {fileID: 1654010999}
     normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -15001,8 +15026,8 @@ MonoBehaviour:
     image: {fileID: 1880915845}
     skeleton: {fileID: 808410983}
     normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -15013,8 +15038,8 @@ MonoBehaviour:
     image: {fileID: 1780045670}
     skeleton: {fileID: 169545220}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -15025,8 +15050,8 @@ MonoBehaviour:
     image: {fileID: 1637055952}
     skeleton: {fileID: 938684580}
     normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -15037,8 +15062,8 @@ MonoBehaviour:
     image: {fileID: 657301638}
     skeleton: {fileID: 758391900}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     selectedSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     isTranslationJoint: 1
@@ -16347,17 +16372,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Save!
+  m_text: "\u4FDD\u5B58\u6210\u529F\uFF01"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 787d01fed181bd744a941e9f2321328b, type: 2}
+  m_sharedMaterial: {fileID: -1604256746324261993, guid: 787d01fed181bd744a941e9f2321328b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4279638610
+  m_fontColor: {r: 0.32156864, g: 0.10196079, b: 0.08627451, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -16374,14 +16399,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
-  m_fontSizeBase: 80
+  m_fontSize: 65.83
+  m_fontSizeBase: 65.83
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -16410,7 +16435,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -128.68013, w: 0}
+  m_margin: {x: -96.14136, y: -31.133055, z: -128.68013, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -16433,14 +16458,14 @@ RectTransform:
   m_GameObject: {fileID: 843965975}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.91414, y: 0.91414, z: 0.91414}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1652136868}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.00016784668}
+  m_AnchoredPosition: {x: 24, y: -6}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &849471406
@@ -16480,6 +16505,140 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 100}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &858436074
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 858436075}
+  - component: {fileID: 858436077}
+  - component: {fileID: 858436076}
+  m_Layer: 5
+  m_Name: Text (TMP) (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &858436075
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858436074}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.2272, y: 2.2272, z: 2.2272}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 78059516}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 138.96, y: -58.85}
+  m_SizeDelta: {x: 144.9, y: 22.74}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &858436076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858436074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "\u4FDD\u5B58\u81F3\u672C\u5730\n"
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: f440aa187db6e8449b576a08a7587d46, type: 2}
+  m_sharedMaterial: {fileID: 7820834151962705271, guid: f440aa187db6e8449b576a08a7587d46, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4280492838
+  m_fontColor: {r: 0.14901961, g: 0.13725491, b: 0.13725491, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 15
+  m_fontSizeBase: 15
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 1.5982285, y: -0.69256496, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &858436077
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858436074}
+  m_CullTransparentMesh: 1
 --- !u!1 &858532299
 GameObject:
   m_ObjectHideFlags: 0
@@ -16856,6 +17015,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 866206976}
+  m_CullTransparentMesh: 1
+--- !u!1 &875259708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 875259709}
+  - component: {fileID: 875259711}
+  - component: {fileID: 875259710}
+  m_Layer: 5
+  m_Name: Image (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &875259709
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875259708}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.3527443, y: 1.3527443, z: 1.3527443}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1652136868}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 13.87, y: 0}
+  m_SizeDelta: {x: 100, y: 411.7}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &875259710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875259708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.9799144, b: 0.9474393, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 0a3acb4e81da1d244a728e783e60531e, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1.64
+--- !u!222 &875259711
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875259708}
   m_CullTransparentMesh: 1
 --- !u!1 &884779820
 GameObject:
@@ -17525,7 +17759,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -17917,8 +18151,8 @@ MonoBehaviour:
     image: {fileID: 436871977}
     skeleton: {fileID: 951444435}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.39328754, g: 0.78534746, b: 0.9892183, a: 1}
-    selectedColor: {r: 1, g: 0.868309, b: 0.42991906, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     selectedSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     isTranslationJoint: 0
@@ -17929,8 +18163,8 @@ MonoBehaviour:
     image: {fileID: 1222576416}
     skeleton: {fileID: 1398751991}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.3921569, g: 0.7843138, b: 0.98823535, a: 1}
-    selectedColor: {r: 1, g: 0.86666673, b: 0.43137258, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -17941,8 +18175,8 @@ MonoBehaviour:
     image: {fileID: 89432344}
     skeleton: {fileID: 134387354}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.3921569, g: 0.7843138, b: 0.98823535, a: 1}
-    selectedColor: {r: 1, g: 0.86666673, b: 0.43137258, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -17953,8 +18187,8 @@ MonoBehaviour:
     image: {fileID: 1669187087}
     skeleton: {fileID: 560146610}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.3921569, g: 0.7843138, b: 0.98823535, a: 1}
-    selectedColor: {r: 1, g: 0.86666673, b: 0.43137258, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -17965,8 +18199,8 @@ MonoBehaviour:
     image: {fileID: 540932993}
     skeleton: {fileID: 655261535}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.3921569, g: 0.7843138, b: 0.98823535, a: 1}
-    selectedColor: {r: 1, g: 0.86666673, b: 0.43137258, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -17977,8 +18211,8 @@ MonoBehaviour:
     image: {fileID: 96629820}
     skeleton: {fileID: 1000640750}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.3921569, g: 0.7843138, b: 0.98823535, a: 1}
-    selectedColor: {r: 1, g: 0.86666673, b: 0.43137258, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -17989,8 +18223,8 @@ MonoBehaviour:
     image: {fileID: 133622942}
     skeleton: {fileID: 1698807433}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.3921569, g: 0.7843138, b: 0.98823535, a: 1}
-    selectedColor: {r: 1, g: 0.86666673, b: 0.43137258, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -18001,8 +18235,8 @@ MonoBehaviour:
     image: {fileID: 283748364}
     skeleton: {fileID: 1203591704}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.3921569, g: 0.7843138, b: 0.98823535, a: 1}
-    selectedColor: {r: 1, g: 0.86666673, b: 0.43137258, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -18013,8 +18247,8 @@ MonoBehaviour:
     image: {fileID: 1278147879}
     skeleton: {fileID: 1171055195}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.3921569, g: 0.7843138, b: 0.98823535, a: 1}
-    selectedColor: {r: 1, g: 0.86666673, b: 0.43137258, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -18025,8 +18259,8 @@ MonoBehaviour:
     image: {fileID: 1646717661}
     skeleton: {fileID: 700074489}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.3921569, g: 0.7843138, b: 0.98823535, a: 1}
-    selectedColor: {r: 1, g: 0.86666673, b: 0.43137258, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -18037,8 +18271,8 @@ MonoBehaviour:
     image: {fileID: 189292408}
     skeleton: {fileID: 951444435}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.3921569, g: 0.7843138, b: 0.98823535, a: 1}
-    selectedColor: {r: 1, g: 0.86666673, b: 0.43137258, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     selectedSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     isTranslationJoint: 1
@@ -18921,11 +19155,11 @@ MonoBehaviour:
   timerText: {fileID: 1329804088}
   timerImage: {fileID: 321849521}
   levelTimes:
-  - 10
-  - 10
-  - 10
-  - 10
-  - 10
+  - 60
+  - 60
+  - 40
+  - 30
+  - 30
   gameplayBgmClip: {fileID: 8300000, guid: b0c93c2bf74e36f448e0c04cb5e1acdf, type: 3}
   gameplayBgmSource: {fileID: 941223180}
   bgmVolumeGameplay: 1
@@ -19223,6 +19457,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1181946041}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Enter
           m_BoolArgument: 1
         m_CallState: 2
   enableTutorial: 1
@@ -19894,6 +20140,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1033443504}
+  m_CullTransparentMesh: 1
+--- !u!1 &1037562894
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1037562895}
+  - component: {fileID: 1037562897}
+  - component: {fileID: 1037562896}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1037562895
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037562894}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1912357723}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 72.109, y: 0.010143293}
+  m_SizeDelta: {x: 450.82, y: 181}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1037562896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037562894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.7568628, g: 0.2784314, b: 0.14509805, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1037562897
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037562894}
   m_CullTransparentMesh: 1
 --- !u!1 &1041510491
 GameObject:
@@ -24721,6 +25042,140 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1253776080}
   m_CullTransparentMesh: 1
+--- !u!1 &1255702327
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1255702328}
+  - component: {fileID: 1255702330}
+  - component: {fileID: 1255702329}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1255702328
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255702327}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.2272, y: 2.2272, z: 2.2272}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 78059516}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 77.6, y: 17.1}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1255702329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255702327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "\u5E26\u8D70\u5E76\u79BB\u5F00"
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 16d7a622bd45e1f439cfe638905c5733, type: 2}
+  m_sharedMaterial: {fileID: -1604256746324261993, guid: 16d7a622bd45e1f439cfe638905c5733, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4280492838
+  m_fontColor: {r: 0.14901961, g: 0.13725491, b: 0.13725491, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 35.5
+  m_fontSizeBase: 35.5
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1255702330
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255702327}
+  m_CullTransparentMesh: 1
 --- !u!1 &1259065842
 GameObject:
   m_ObjectHideFlags: 0
@@ -25152,6 +25607,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1278147877}
   m_CullTransparentMesh: 1
+--- !u!1 &1281713346
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1281713347}
+  m_Layer: 5
+  m_Name: Tile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1281713347
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1281713346}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1912357723}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -52.28, y: 48.753185}
+  m_SizeDelta: {x: 753.92, y: 509.35}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1282395280
 GameObject:
   m_ObjectHideFlags: 0
@@ -25501,7 +25991,6 @@ RectTransform:
   - {fileID: 131510398}
   - {fileID: 884779821}
   - {fileID: 1791539778}
-  - {fileID: 1425546831}
   - {fileID: 133935485}
   - {fileID: 1561099589}
   m_Father: {fileID: 552097747}
@@ -26380,8 +26869,8 @@ MonoBehaviour:
     image: {fileID: 319998747}
     skeleton: {fileID: 1343920654}
     normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     selectedSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     isTranslationJoint: 0
@@ -26392,8 +26881,8 @@ MonoBehaviour:
     image: {fileID: 1263591502}
     skeleton: {fileID: 1742583036}
     normalColor: {r: 0.90196085, g: 0.72156864, b: 0.67058825, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -26404,8 +26893,8 @@ MonoBehaviour:
     image: {fileID: 1387194889}
     skeleton: {fileID: 2084600034}
     normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -26416,8 +26905,8 @@ MonoBehaviour:
     image: {fileID: 155062438}
     skeleton: {fileID: 109971200}
     normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -26428,8 +26917,8 @@ MonoBehaviour:
     image: {fileID: 1244747218}
     skeleton: {fileID: 1571086854}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -26440,8 +26929,8 @@ MonoBehaviour:
     image: {fileID: 1844913956}
     skeleton: {fileID: 438926902}
     normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -26452,8 +26941,8 @@ MonoBehaviour:
     image: {fileID: 185580330}
     skeleton: {fileID: 1271975905}
     normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -26464,8 +26953,8 @@ MonoBehaviour:
     image: {fileID: 1899842956}
     skeleton: {fileID: 2100067008}
     normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -26476,8 +26965,8 @@ MonoBehaviour:
     image: {fileID: 239133692}
     skeleton: {fileID: 1665835019}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -26488,8 +26977,8 @@ MonoBehaviour:
     image: {fileID: 84081919}
     skeleton: {fileID: 481444878}
     normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -26500,8 +26989,8 @@ MonoBehaviour:
     image: {fileID: 200993035}
     skeleton: {fileID: 1343920654}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     selectedSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     isTranslationJoint: 1
@@ -26838,6 +27327,81 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &1374213636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1374213637}
+  - component: {fileID: 1374213639}
+  - component: {fileID: 1374213638}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1374213637
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374213636}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.3527443, y: 1.3527443, z: 1.3527443}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1652136868}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 24, y: -14}
+  m_SizeDelta: {x: 100, y: 411.7}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1374213638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374213636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.76280314, g: 0.5942785, b: 0.50065374, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 0a3acb4e81da1d244a728e783e60531e, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1.64
+--- !u!222 &1374213639
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374213636}
+  m_CullTransparentMesh: 1
 --- !u!1 &1376507451
 GameObject:
   m_ObjectHideFlags: 0
@@ -27044,8 +27608,8 @@ MonoBehaviour:
     image: {fileID: 355576103}
     skeleton: {fileID: 1386019926}
     normalColor: {r: 0.2627451, g: 0.5411765, b: 0.7607844, a: 1}
-    hoverColor: {r: 0.9725491, g: 0.8431373, b: 0.19215688, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.23529413, b: 0.14117648, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     selectedSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     isTranslationJoint: 0
@@ -27056,8 +27620,8 @@ MonoBehaviour:
     image: {fileID: 1440637338}
     skeleton: {fileID: 1140415576}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.2627451, g: 0.5411765, b: 0.7607844, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.23529413, b: 0.14117648, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -27068,8 +27632,8 @@ MonoBehaviour:
     image: {fileID: 1231145250}
     skeleton: {fileID: 1777132736}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.2627451, g: 0.5411765, b: 0.7607844, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.23529413, b: 0.14117648, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -27080,8 +27644,8 @@ MonoBehaviour:
     image: {fileID: 115657004}
     skeleton: {fileID: 418643611}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.2627451, g: 0.5411765, b: 0.7607844, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.23529413, b: 0.14117648, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -27092,8 +27656,8 @@ MonoBehaviour:
     image: {fileID: 1564986935}
     skeleton: {fileID: 432202363}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.2627451, g: 0.5411765, b: 0.7607844, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.23529413, b: 0.14117648, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -27104,8 +27668,8 @@ MonoBehaviour:
     image: {fileID: 1074884769}
     skeleton: {fileID: 2080468876}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.2627451, g: 0.5411765, b: 0.7607844, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.23529413, b: 0.14117648, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -27116,8 +27680,8 @@ MonoBehaviour:
     image: {fileID: 1833466622}
     skeleton: {fileID: 2138300676}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.2627451, g: 0.5411765, b: 0.7607844, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.23529413, b: 0.14117648, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -27128,8 +27692,8 @@ MonoBehaviour:
     image: {fileID: 126866496}
     skeleton: {fileID: 1339968935}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.2627451, g: 0.5411765, b: 0.7607844, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.23529413, b: 0.14117648, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -27140,8 +27704,8 @@ MonoBehaviour:
     image: {fileID: 2066982566}
     skeleton: {fileID: 1640012998}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.2627451, g: 0.5411765, b: 0.7607844, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.23529413, b: 0.14117648, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -27152,8 +27716,8 @@ MonoBehaviour:
     image: {fileID: 111473913}
     skeleton: {fileID: 1088605027}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.2627451, g: 0.5411765, b: 0.7607844, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.23529413, b: 0.14117648, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -27164,8 +27728,8 @@ MonoBehaviour:
     image: {fileID: 305238585}
     skeleton: {fileID: 1386019926}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.2627451, g: 0.5411765, b: 0.7607844, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.23529413, b: 0.14117648, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     selectedSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     isTranslationJoint: 1
@@ -27687,6 +28251,81 @@ MonoBehaviour:
       - {x: 273.1721, y: -339.4194}
       - {x: 319.22272, y: -176.47075}
   penaltyScore: 5
+--- !u!1 &1399434814
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1399434815}
+  - component: {fileID: 1399434817}
+  - component: {fileID: 1399434816}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1399434815
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399434814}
+  m_LocalRotation: {x: -0, y: -0, z: -0.23769164, w: 0.97134066}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1912357723}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -27.501}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -50, y: 22}
+  m_SizeDelta: {x: 54.587, y: 387.65}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1399434816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399434814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.8431373, g: 0.34509805, b: 0.20392159, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1399434817
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399434814}
+  m_CullTransparentMesh: 1
 --- !u!1 &1401252617
 GameObject:
   m_ObjectHideFlags: 0
@@ -28387,14 +29026,14 @@ RectTransform:
   m_GameObject: {fileID: 1425546830}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.34709936, y: 0.34709936, z: 0.34709936}
+  m_LocalScale: {x: 0.3470994, y: 0.3470994, z: 0.3470994}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1307758643}
+  m_Father: {fileID: 133935485}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1452.9999, y: -256.99976}
+  m_AnchoredPosition: {x: 1451.9979, y: -249.0039}
   m_SizeDelta: {x: 2488, y: 1268.2969}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1425546832
@@ -28678,7 +29317,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -8.5998535}
+  m_AnchoredPosition: {x: 0, y: -8.599976}
   m_SizeDelta: {x: 623, y: 282}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1434885983
@@ -30858,6 +31497,138 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1544609215}
   m_CullTransparentMesh: 1
+--- !u!1 &1547537974
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1547537975}
+  - component: {fileID: 1547537976}
+  m_Layer: 5
+  m_Name: Curtain_Sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1547537975
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547537974}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2088852986}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!82 &1547537976
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547537974}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 1119f00032bab1f45ba85985df0d563e, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.617
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1556652017
 GameObject:
   m_ObjectHideFlags: 0
@@ -32353,7 +33124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.72506726, g: 0.6126916, b: 0.6126916, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -33133,13 +33904,14 @@ GameObject:
   - component: {fileID: 1652136868}
   - component: {fileID: 1652136867}
   - component: {fileID: 1652136866}
+  - component: {fileID: 1652136869}
   m_Layer: 5
   m_Name: Save
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1652136866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33188,8 +33960,10 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 1374213637}
+  - {fileID: 875259709}
   - {fileID: 843965978}
   m_Father: {fileID: 2088852986}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -33198,6 +33972,27 @@ RectTransform:
   m_AnchoredPosition: {x: -14.749451, y: -21.969788}
   m_SizeDelta: {x: -1720, y: -1030}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &1652136869
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652136865}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a7a4b200494b7d04eb7d022c5055e5de, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1654010998
 GameObject:
   m_ObjectHideFlags: 0
@@ -36850,7 +37645,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1820586133
 RectTransform:
   m_ObjectHideFlags: 0
@@ -38858,6 +39653,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -78.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8087045251394827168, guid: d268d20f987a517439c44f96bcf80c6c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -38972,9 +39771,9 @@ MonoBehaviour:
   - rect: {fileID: 1908313229}
     image: {fileID: 1908313230}
     skeleton: {fileID: 1897818384}
-    normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    normalColor: {r: 1, g: 1, b: 1, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     selectedSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     isTranslationJoint: 0
@@ -38984,9 +39783,9 @@ MonoBehaviour:
   - rect: {fileID: 218191998}
     image: {fileID: 218191999}
     skeleton: {fileID: 1532418707}
-    normalColor: {r: 0.90196085, g: 0.72156864, b: 0.67058825, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    normalColor: {r: 1, g: 1, b: 1, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -38996,9 +39795,9 @@ MonoBehaviour:
   - rect: {fileID: 353625311}
     image: {fileID: 353625312}
     skeleton: {fileID: 492404174}
-    normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    normalColor: {r: 1, g: 1, b: 1, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -39008,9 +39807,9 @@ MonoBehaviour:
   - rect: {fileID: 1160242474}
     image: {fileID: 1160242475}
     skeleton: {fileID: 226685736}
-    normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    normalColor: {r: 1, g: 1, b: 1, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -39021,8 +39820,8 @@ MonoBehaviour:
     image: {fileID: 1156950204}
     skeleton: {fileID: 1240146959}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -39032,9 +39831,9 @@ MonoBehaviour:
   - rect: {fileID: 134256659}
     image: {fileID: 134256660}
     skeleton: {fileID: 1678143812}
-    normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    normalColor: {r: 1, g: 1, b: 1, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -39044,9 +39843,9 @@ MonoBehaviour:
   - rect: {fileID: 1683528757}
     image: {fileID: 1683528758}
     skeleton: {fileID: 2013300596}
-    normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    normalColor: {r: 1, g: 1, b: 1, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -39056,9 +39855,9 @@ MonoBehaviour:
   - rect: {fileID: 816260619}
     image: {fileID: 816260620}
     skeleton: {fileID: 616587662}
-    normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    normalColor: {r: 1, g: 1, b: 1, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -39069,8 +39868,8 @@ MonoBehaviour:
     image: {fileID: 1627895414}
     skeleton: {fileID: 963427865}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -39080,9 +39879,9 @@ MonoBehaviour:
   - rect: {fileID: 1731055075}
     image: {fileID: 1731055076}
     skeleton: {fileID: 1871515954}
-    normalColor: {r: 0.30980393, g: 0.3019608, b: 0.3019608, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    normalColor: {r: 1, g: 1, b: 1, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -39093,8 +39892,8 @@ MonoBehaviour:
     image: {fileID: 2137088042}
     skeleton: {fileID: 1897818384}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     selectedSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     isTranslationJoint: 1
@@ -39488,6 +40287,98 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1908313228}
+  m_CullTransparentMesh: 1
+--- !u!1 &1912357722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1912357723}
+  - component: {fileID: 1912357726}
+  - component: {fileID: 1912357725}
+  - component: {fileID: 1912357724}
+  m_Layer: 5
+  m_Name: MaskButtom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1912357723
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912357722}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1037562895}
+  - {fileID: 1281713347}
+  - {fileID: 1399434815}
+  m_Father: {fileID: 78059516}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.0028305, y: -0.0074158}
+  m_SizeDelta: {x: 595.01, y: 180.99}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1912357724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912357722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
+--- !u!114 &1912357725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912357722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: fd7f0d9a598f41f48b294381decb20ae, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1912357726
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912357722}
   m_CullTransparentMesh: 1
 --- !u!1 &1917872940
 GameObject:
@@ -40057,7 +40948,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1941460583
 RectTransform:
   m_ObjectHideFlags: 0
@@ -40898,7 +41789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.72506726, g: 0.6126916, b: 0.6126916, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -41591,63 +42482,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2047100289}
   m_CullTransparentMesh: 1
---- !u!1001 &2049664942
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1306596046792706318, guid: 8329d02461dc1874da568595af5d37a1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1013.15717
-      objectReference: {fileID: 0}
-    - target: {fileID: 1306596046792706318, guid: 8329d02461dc1874da568595af5d37a1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 544.2756
-      objectReference: {fileID: 0}
-    - target: {fileID: 1306596046792706318, guid: 8329d02461dc1874da568595af5d37a1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1306596046792706318, guid: 8329d02461dc1874da568595af5d37a1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1306596046792706318, guid: 8329d02461dc1874da568595af5d37a1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1306596046792706318, guid: 8329d02461dc1874da568595af5d37a1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1306596046792706318, guid: 8329d02461dc1874da568595af5d37a1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1306596046792706318, guid: 8329d02461dc1874da568595af5d37a1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1306596046792706318, guid: 8329d02461dc1874da568595af5d37a1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1306596046792706318, guid: 8329d02461dc1874da568595af5d37a1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1930213368857537104, guid: 8329d02461dc1874da568595af5d37a1, type: 3}
-      propertyPath: m_Name
-      value: RubbishBin
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8329d02461dc1874da568595af5d37a1, type: 3}
 --- !u!1 &2050743694
 GameObject:
   m_ObjectHideFlags: 0
@@ -42735,6 +43569,7 @@ RectTransform:
   - {fileID: 1652136868}
   - {fileID: 78059516}
   - {fileID: 371727301}
+  - {fileID: 1547537975}
   m_Father: {fileID: 1636617922}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -43271,8 +44106,8 @@ MonoBehaviour:
     image: {fileID: 913588922}
     skeleton: {fileID: 2114325976}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     selectedSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     isTranslationJoint: 0
@@ -43283,8 +44118,8 @@ MonoBehaviour:
     image: {fileID: 2004262391}
     skeleton: {fileID: 1632680400}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -43295,8 +44130,8 @@ MonoBehaviour:
     image: {fileID: 698257420}
     skeleton: {fileID: 434333261}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -43307,8 +44142,8 @@ MonoBehaviour:
     image: {fileID: 1275029069}
     skeleton: {fileID: 35905473}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -43319,8 +44154,8 @@ MonoBehaviour:
     image: {fileID: 1633074580}
     skeleton: {fileID: 586019472}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -43331,8 +44166,8 @@ MonoBehaviour:
     image: {fileID: 1955923019}
     skeleton: {fileID: 2115042637}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -43343,8 +44178,8 @@ MonoBehaviour:
     image: {fileID: 1987851114}
     skeleton: {fileID: 1218208088}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -43355,8 +44190,8 @@ MonoBehaviour:
     image: {fileID: 945256179}
     skeleton: {fileID: 1609367218}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -43367,8 +44202,8 @@ MonoBehaviour:
     image: {fileID: 571215226}
     skeleton: {fileID: 967614881}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -43379,8 +44214,8 @@ MonoBehaviour:
     image: {fileID: 422478354}
     skeleton: {fileID: 1417643838}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
@@ -43391,8 +44226,8 @@ MonoBehaviour:
     image: {fileID: 716527211}
     skeleton: {fileID: 2114325976}
     normalColor: {r: 1, g: 1, b: 1, a: 1}
-    hoverColor: {r: 0.36078432, g: 0.65882355, b: 0.98823535, a: 1}
-    selectedColor: {r: 0.92549026, g: 0.31764707, b: 0.2627451, a: 1}
+    hoverColor: {r: 0.3019608, g: 0.9960785, b: 0.9843138, a: 1}
+    selectedColor: {r: 1, g: 0.8980393, b: 0.16470589, a: 1}
     normalSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     selectedSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     isTranslationJoint: 1
@@ -44027,4 +44862,3 @@ SceneRoots:
   - {fileID: 829689307}
   - {fileID: 1895891803}
   - {fileID: 369161605}
-  - {fileID: 2049664942}
