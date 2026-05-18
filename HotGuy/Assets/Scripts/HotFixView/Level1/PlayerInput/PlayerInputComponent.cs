@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Fantasy;
 using Fantasy.Async;
 using Fantasy.Entitas;
@@ -27,26 +28,11 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
     public HandType HandType = HandType.None;
     public bool isStayFruitsOrProps = false;
 
-    // /// <summary>
-    // /// 拳头
-    // /// </summary>
-    // public GameObject Hand_Fist;
-    //
-    // /// <summary>
-    // /// 手掌
-    // /// </summary>
-    // public GameObject Hand_Palm;
-    //
-    // /// <summary>
-    // /// 手拿勺子
-    // /// </summary>
-    // public GameObject Hand_Prop;
-
     public PolygonCollider2D collider_Fist;
     public PolygonCollider2D collider_Palm;
     public PolygonCollider2D collider_Prop;
-    public PolygonCollider2D collider_Tissue_UnUse;
-    public PolygonCollider2D collider_Tissue_Used;
+    public CircleCollider2D collider_Tissue_UnUse;
+    public CircleCollider2D collider_Tissue_Used;
     public GameObject Hand_Up;
 
     /// <summary>
@@ -101,6 +87,17 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
 
     public bool isStayShit { get; set; } = false;
 
+    // ========== 缓存Sprite，避免每次切换手型重新加载 ==========
+    private Dictionary<string, Sprite> _spriteCache = new Dictionary<string, Sprite>();
+
+    // ========== 缓存Layer整数，避免每帧字符串比较 ==========
+    public int _layerDog;
+    public int _layerShit;
+    public int _layerFruits;
+    public int _layerProps;
+    public int _layerTissueBox;
+    public int _layerTissue;
+
     public bool isL()
     {
         return playerIndex == 0;
@@ -113,61 +110,75 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
         HandRoot_SpriteRenderer = HandRoot.GetComponent<SpriteRenderer>();
         HandRoot_PolygonCollider2D = HandRoot.GetComponent<PolygonCollider2D>();
         HandRoot_Rigidbody2D = HandRoot.GetComponent<Rigidbody2D>();
-        // Hand_Rotate = rc.Get<Transform>(isL() ? "Hand_Rotate_L" : "Hand_Rotate_R");
-        // Hand_Fist = HandRoot.Find("Hand_Quan").gameObject;
-        // Hand_Palm = HandRoot.Find("Hand_Bu").gameObject;
-        // Hand_Prop = HandRoot.Find("Hand_Prop").gameObject;
 
         collider_Fist = HandRoot.Find("Hand_Quan").GetComponent<PolygonCollider2D>();
         collider_Palm = HandRoot.Find("Hand_Bu").GetComponent<PolygonCollider2D>();
         collider_Prop = HandRoot.Find("Hand_Prop").GetComponent<PolygonCollider2D>();
-        collider_Tissue_UnUse = HandRoot.Find("Hand_Tissue_UnUse").GetComponent<PolygonCollider2D>();
-        collider_Tissue_Used = HandRoot.Find("Hand_Tissue_Used").GetComponent<PolygonCollider2D>();
+        collider_Tissue_UnUse = HandRoot.Find("Hand_Tissue_UnUse").GetComponent<CircleCollider2D>();
+        collider_Tissue_Used = HandRoot.Find("Hand_Tissue_Used").GetComponent<CircleCollider2D>();
         Hand_Up = HandRoot.Find("Hand_Up").gameObject;
         ChangeHandType(HandType.Palm).Coroutine();
 
         initialRotation = HandRoot.rotation;
+        clampRotation = false;
 
         var unityEventTrigger_Hand = HandRoot.GetComponent<UnityEventTrigger>();
         unityEventTrigger_Hand.Register(OnCollisionEnter2D_Hand, OnCollisionExit2D_Hand, OnCollisionStay2D_Hand);
+
+        // 缓存Layer整数
+        _layerDog = LayerMask.NameToLayer("Dog");
+        _layerShit = LayerMask.NameToLayer("Shit");
+        _layerFruits = LayerMask.NameToLayer("Fruits");
+        _layerProps = LayerMask.NameToLayer("Props");
+        _layerTissueBox = LayerMask.NameToLayer("TissueBox");
+        _layerTissue = LayerMask.NameToLayer("Tissue");
+
+        // 预加载所有手型Sprite
+        PreloadSprites().Coroutine();
+    }
+
+    public async FTask PreloadSprites()
+    {
+        var loader = Scene.GetComponent<ResourceLoaderComponent>();
+        string[] keys = {
+            "L1_LHand_1", "L1_LHand_2", "L1_LHand_3", "L1_LHand_4", "L1_LHand_5",
+            "L1_RHand_1", "L1_RHand_2", "L1_RHand_3", "L1_RHand_4", "L1_RHand_5"
+        };
+        foreach (var key in keys)
+        {
+            var sprite = await loader.LoadAssetAsync<Sprite>(key);
+            _spriteCache[key] = sprite;
+        }
     }
 
     public void OnCollisionEnter2D_Hand(Collision2D collider)
     {
         if (HandType == HandType.Prop || HandType == HandType.None)
             return;
-        var layer = LayerMask.LayerToName(collider.gameObject.layer);
-        if (layer == "Dog")
-            isStayDog = true;
-        if (layer == "Shit")
-            isStayShit = true;
+        var layer = collider.gameObject.layer;
+        if (layer == _layerDog) isStayDog = true;
+        // Tissue_UnUse时屎的检测改为Update里OverlapCircle，这里不再处理Shit
+        if (layer == _layerShit && HandType != HandType.Tissue_UnUse) isStayShit = true;
     }
 
     public void OnCollisionExit2D_Hand(Collision2D collider)
     {
         if (HandType == HandType.None)
             return;
-        var layer = LayerMask.LayerToName(collider.gameObject.layer);
-        if (layer == "Dog")
-            isStayDog = false;
-
-        if (layer == "Shit")
-            isStayShit = false;
-
-        bool isFruits = layer == "Fruits";
-        bool isProps = layer == "Props";
-        if (isFruits || isProps)
-            isStayFruitsOrProps = false;
+        var layer = collider.gameObject.layer;
+        if (layer == _layerDog) isStayDog = false;
+        if (layer == _layerShit && HandType != HandType.Tissue_UnUse) isStayShit = false;
+        if (layer == _layerFruits || layer == _layerProps) isStayFruitsOrProps = false;
     }
 
     public void OnCollisionStay2D_Hand(Collision2D collider)
     {
-        var layer = LayerMask.LayerToName(collider.gameObject.layer);
-        bool isFruits = layer == "Fruits";
-        bool isProps = layer == "Props";
-        bool isTissueBox = layer == "TissueBox";
-        bool isTissue = layer == "Tissue";
-        //Log.Error($"isProps {isProps}, isTissue {isTissue}");
+        var layer = collider.gameObject.layer;
+        bool isFruits = layer == _layerFruits;
+        bool isProps = layer == _layerProps;
+        bool isTissueBox = layer == _layerTissueBox;
+        bool isTissue = layer == _layerTissue;
+
         if (HandType == HandType.Palm && (isFruits || isProps || isTissue || isTissueBox))
             isStayFruitsOrProps = true;
         else
@@ -240,7 +251,6 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
         {
             isHoldDog = true;
             ChangeHandType(HandType.None).Coroutine();
-            // HandRoot.gameObject.SetActive(false);
             Scene.EventComponent.Publish(new HoldDog
             {
                 isL = isL(),
@@ -271,7 +281,7 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
             var tissueComponent = Scene.GetComponent<TissueManagerComponent>().GetTissue(pickUpTissueId);
             if (tissueComponent != null)
                 tissueComponent.ChangeState(true);
-                
+
             Scene.GetComponent<FoodManagerComponent>().RemoveShit();
             return;
         }
@@ -292,7 +302,6 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
         var fruitId = long.Parse(fruitName);
         Scene.GetComponent<FoodManagerComponent>().PickUpFruit(fruitId, HandRoot);
         pickUpFruitId = fruitId;
-        // collider.enabled = false;
     }
 
     public void DropFruit()
@@ -306,7 +315,6 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
     public void PickUpProps(string name)
     {
         Scene.GetComponent<PropsManagerComponent>().PickUpProp(HandRoot, name);
-        // collider.enabled = false;
         isPickUpProp = true;
         ChangeHandType(HandType.Prop).Coroutine();
     }
@@ -317,7 +325,6 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
         {
             Scene.GetComponent<PropsManagerComponent>().DropProp();
             pickUpFruitId = 0;
-            // collider.enabled = true;
             isPickUpProp = false;
             ChangeHandType(HandType.Palm).Coroutine();
         }
@@ -332,11 +339,9 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
 
     public void ApplyInputRotation()
     {
-        // 计算角度变化
         float angleDelta = PlayerRotate * RotationSpeed * Time.deltaTime;
         float newAngle = currentAngle + angleDelta;
 
-        // 应用角度限制
         if (clampRotation)
         {
             currentAngle = Mathf.Clamp(newAngle, minAngle, maxAngle);
@@ -349,17 +354,14 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
 
     public void ReturnToCenter()
     {
-        // 检查是否在死区内
         if (Mathf.Abs(currentAngle) < deadzoneAngle)
         {
             currentAngle = 0f;
             return;
         }
 
-        // 平滑返回中心
         float returnDelta = Mathf.Sign(-currentAngle) * returnSpeed * Time.deltaTime;
 
-        // 确保不会过度返回
         if (Mathf.Abs(currentAngle + returnDelta) < Mathf.Abs(currentAngle))
         {
             currentAngle += returnDelta;
@@ -372,21 +374,16 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
 
     public void ApplyLimitedRotation()
     {
-        // if(Hand_Rotate == null)
-        //     return;
-        // 应用角度到transform
         Quaternion targetRotation = initialRotation * Quaternion.Euler(0, 0, currentAngle);
         HandRoot.rotation = targetRotation;
     }
 
-    // 强制设置角度
     public void SetAngle(float angle)
     {
         currentAngle = clampRotation ? Mathf.Clamp(angle, minAngle, maxAngle) : angle;
         ApplyLimitedRotation();
     }
 
-    // 添加角度
     public void AddAngle(float deltaAngle)
     {
         float newAngle = currentAngle + deltaAngle;
@@ -394,33 +391,28 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
         ApplyLimitedRotation();
     }
 
-    // 重置到初始角度
     public void ResetAngle()
     {
         currentAngle = 0f;
         ApplyLimitedRotation();
     }
 
-    // 获取当前角度（相对于初始方向）
     public float GetCurrentAngle()
     {
         return currentAngle;
     }
 
-    // 获取角度百分比（0到1）
     public float GetAnglePercentage()
     {
         if (!clampRotation) return 0f;
         return Mathf.InverseLerp(minAngle, maxAngle, currentAngle);
     }
 
-    // 设置角度限制
     public void SetAngleLimits(float newMinAngle, float newMaxAngle)
     {
         minAngle = newMinAngle;
         maxAngle = newMaxAngle;
 
-        // 确保当前角度在新限制内
         if (clampRotation)
         {
             currentAngle = Mathf.Clamp(currentAngle, minAngle, maxAngle);
@@ -428,7 +420,6 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
         }
     }
 
-    // 检查是否到达限制
     public bool IsAtMinLimit()
     {
         return clampRotation && Mathf.Approximately(currentAngle, minAngle);
@@ -444,15 +435,9 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
     /// 1 手掌
     /// 2 拿勺子
     /// </summary>
-    /// <param name="self"></param>
-    /// <param name="type"></param>
     public async FTask ChangeHandType(HandType type)
     {
-        // Hand_Fist.SetActive(type == 0);
-        // Hand_Palm.SetActive(type == 1);
-        // Hand_Prop.SetActive(type == 2);
         isChangeToFist = type == HandType.Fist && HandType == HandType.Palm && isStayFruitsOrProps;
-        //Log.Error($"ChangeHandType {isChangeToFist}");
         HandType = type;
         Hand_Up.SetActive(type == HandType.Prop);
         switch (type)
@@ -462,10 +447,12 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
                 break;
             case HandType.Fist:
             {
-                var sprite = await Scene.GetComponent<ResourceLoaderComponent>().LoadAssetAsync<Sprite>(isL() ? "L1_LHand_2" : "L1_RHand_2");
+                _spriteCache.TryGetValue(isL() ? "L1_LHand_2" : "L1_RHand_2", out var sprite);
                 if (sprite != null)
                     HandRoot_SpriteRenderer.sprite = sprite;
-
+                collider_Tissue_UnUse.enabled = false;
+                collider_Tissue_Used.enabled = false;
+                HandRoot_PolygonCollider2D.enabled = true;
                 HandRoot_PolygonCollider2D.CopyFrom(collider_Fist);
                 HandRoot.gameObject.SetActive(true);
                 HandRoot.gameObject.layer = LayerMask.NameToLayer("Hands");
@@ -473,47 +460,59 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
             }
             case HandType.Palm:
             {
-                var sprite = await Scene.GetComponent<ResourceLoaderComponent>().LoadAssetAsync<Sprite>(isL() ? "L1_LHand_1" : "L1_RHand_1");
+                _spriteCache.TryGetValue(isL() ? "L1_LHand_1" : "L1_RHand_1", out var sprite);
                 if (sprite != null)
                     HandRoot_SpriteRenderer.sprite = sprite;
+                collider_Tissue_UnUse.enabled = false;
+                collider_Tissue_Used.enabled = false;
+                HandRoot_PolygonCollider2D.enabled = true;
                 HandRoot_PolygonCollider2D.CopyFrom(collider_Palm);
                 HandRoot.gameObject.SetActive(true);
                 HandRoot.gameObject.layer = LayerMask.NameToLayer("Hands");
-            }
                 break;
+            }
             case HandType.Prop:
             {
-                var sprite = await Scene.GetComponent<ResourceLoaderComponent>().LoadAssetAsync<Sprite>(isL() ? "L1_LHand_3" : "L1_RHand_3");
+                _spriteCache.TryGetValue(isL() ? "L1_LHand_3" : "L1_RHand_3", out var sprite);
                 if (sprite != null)
                     HandRoot_SpriteRenderer.sprite = sprite;
+                collider_Tissue_UnUse.enabled = false;
+                collider_Tissue_Used.enabled = false;
+                HandRoot_PolygonCollider2D.enabled = true;
                 HandRoot_PolygonCollider2D.CopyFrom(collider_Prop);
                 HandRoot.gameObject.SetActive(true);
                 HandRoot.gameObject.layer = LayerMask.NameToLayer("Props");
-            }
                 break;
+            }
             case HandType.Tissue_UnUse:
             {
-                var sprite = await Scene.GetComponent<ResourceLoaderComponent>().LoadAssetAsync<Sprite>(isL() ? "L1_LHand_4" : "L1_RHand_4");
+                _spriteCache.TryGetValue(isL() ? "L1_LHand_4" : "L1_RHand_4", out var sprite);
                 if (sprite != null)
                     HandRoot_SpriteRenderer.sprite = sprite;
-                HandRoot_PolygonCollider2D.CopyFrom(collider_Tissue_UnUse);
+                // CircleCollider2D 不能 CopyFrom 到 PolygonCollider2D，改为禁用 Polygon 启用 Circle
+                HandRoot_PolygonCollider2D.enabled = false;
+                collider_Tissue_UnUse.enabled = true;
+                collider_Tissue_Used.enabled = false;
                 HandRoot.gameObject.SetActive(true);
                 HandRoot.gameObject.layer = LayerMask.NameToLayer("Hands");
-            }
                 break;
+            }
             case HandType.Tissue_Used:
             {
-                var sprite = await Scene.GetComponent<ResourceLoaderComponent>().LoadAssetAsync<Sprite>(isL() ? "L1_LHand_5" : "L1_RHand_5");
+                _spriteCache.TryGetValue(isL() ? "L1_LHand_5" : "L1_RHand_5", out var sprite);
                 if (sprite != null)
                     HandRoot_SpriteRenderer.sprite = sprite;
-                HandRoot_PolygonCollider2D.CopyFrom(collider_Tissue_Used);
+                HandRoot_PolygonCollider2D.enabled = false;
+                collider_Tissue_UnUse.enabled = false;
+                collider_Tissue_Used.enabled = true;
                 HandRoot.gameObject.SetActive(true);
                 HandRoot.gameObject.layer = LayerMask.NameToLayer("Hands");
-            }
                 break;
+            }
             default:
                 throw new ArgumentOutOfRangeException(nameof(type), type, null);
         }
+        await FTask.CompletedTask;
     }
 
     public void PickUpTissueByBox()
@@ -585,23 +584,11 @@ public class PlayerInputComponent_Update : UpdateSystem<PlayerInputComponent>
         if (self.HandRoot != null && !self.isHoldDog)
         {
             Vector3 movement = new Vector3(self.PlayerMove.x, self.PlayerMove.y, 0);
-            // 计算局部移动方向
             Vector3 moveDirection = self.HandRoot.transform.right * movement.x + self.HandRoot.transform.up * movement.y;
             moveDirection.Normalize();
 
-            // 应用速度（适用于持续移动）
-            // if (self.PlayerMove.x == 0 && self.PlayerMove.y == 0)
-            // {
-            //     self.HandRoot_Rigidbody2D.velocity = Vector2.zero;
-            //     Log.Error("000");
-            // }
-            // else
-            //     self.HandRoot_Rigidbody2D.velocity = moveDirection * 2;
-
-            // 或者使用 AddForce（平滑加速）
-            // self.HandRoot_Rigidbody2D.AddForce(moveDirection * 5, ForceMode2D.Force);
             self.HandRoot.Translate(movement * self.PlayerSpeed * Time.deltaTime, Space.World);
-            // 应用输入旋转
+
             if (Mathf.Abs(self.PlayerRotate) > 0.1f)
             {
                 self.ApplyInputRotation();
@@ -611,8 +598,15 @@ public class PlayerInputComponent_Update : UpdateSystem<PlayerInputComponent>
                 self.ReturnToCenter();
             }
 
-            // 应用限制后的旋转
             self.ApplyLimitedRotation();
+        }
+
+        // 拿着纸巾时，用OverlapCircle检测屎，避免复杂PolygonCollider2D碰撞开销
+        if (self.HandType == HandType.Tissue_UnUse && self.HandRoot != null)
+        {
+            var shitLayerMask = 1 << self._layerShit;
+            var hit = Physics2D.OverlapCircle(self.HandRoot.position, 0.3f, shitLayerMask);
+            self.isStayShit = hit != null;
         }
     }
 }

@@ -13,7 +13,7 @@ public class DanmakuUIComponent : Entity
 
     public float ItemHeight = 60f;
     public float Spacing = 80f;
-    public int MaxCount = 3;
+    public int MaxCount = 5;
 
     public void Init()
     {

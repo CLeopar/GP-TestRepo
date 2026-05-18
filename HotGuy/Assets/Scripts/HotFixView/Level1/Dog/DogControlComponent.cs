@@ -51,8 +51,16 @@ public class DogControlComponent : Entity
     // 记录进入 Hit 状态时是否在偷吃（用于后续判定正确/错误）
     private bool wasSecretlyEatingWhenHit;
 
+    // ========== 新增：记录狗的初始位置，用于回归 ==========
+    private Vector3 _originalPosition;
+    private Tweener _returnTween;
+
     public void Init()
     {
+        // 记录初始位置
+        if (Dog != null)
+            _originalPosition = Dog.position;
+        
         ChangeDogSpriteState(DogState.Normal);
         AddEatSecretlyTimer();
     }
@@ -129,6 +137,8 @@ public class DogControlComponent : Entity
         switch (newState)
         {
             case DogState.Normal:
+                // ========== 新增：回到初始位置 ==========
+                ReturnToOriginalPosition();
                 break;
             case DogState.Eat_Secretly_1:
                 DogEatSecretly().Coroutine();
@@ -154,11 +164,30 @@ public class DogControlComponent : Entity
             case DogState.Eat_Normal:
                 break;
             case DogState.Eat_Normal_Secretly:
-                DogEatSecretly().Coroutine();
+                if (previousState != DogState.Eat_Secretly_1)
+                    DogEatSecretly().Coroutine();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
+    }
+
+    /// <summary>
+    /// 回到初始位置（平滑移动）
+    /// </summary>
+    private void ReturnToOriginalPosition()
+    {
+        if (Dog == null) return;
+
+        // 取消之前的回归动画
+        _returnTween?.Kill();
+
+        // 如果已经在初始位置附近，不需要移动
+        if (Vector3.Distance(Dog.position, _originalPosition) < 0.01f)
+            return;
+
+        var duration = Scene.GetComponent<Tables>().ConstConfigCategory.TurnRotateToFoodDuration;
+        _returnTween = Dog.DOMove(_originalPosition, duration).SetEase(Ease.Linear);
     }
 
     /// <summary>
@@ -537,7 +566,8 @@ public class DogControlComponent : Entity
                     ? DogState.Eat_Normal
                     : DogState.Eat_Normal_Secretly;
 
-                // ========== 修复：移除直接修改 dogState，让 ChangeDogState 处理 ==========
+                if (dogState == targetState) return;
+
                 ChangeDogState(targetState);
 
                 Scene.EventComponent.Publish(new StartEatFood
@@ -547,7 +577,14 @@ public class DogControlComponent : Entity
                 });
                 CurEatFoodData = (fruitType_Normal.foodType, fruitType_Normal.Id);
             }
+            else if (dogState == DogState.Eat_Normal_Secretly)
+            {
+                // 玩家食物消失，从偷吃偷瞄退回纯偷瞄，由协程接管后续流程
+                CancelCurrentEating();
+                ChangeDogState(DogState.Eat_Secretly_1);
+            }
         }
+        
         // 偷吃状态（Eat_Secretly_2/3/4）：屏蔽玩家喂食
         else if (dogState == DogState.Eat_Secretly_2 ||
                  dogState == DogState.Eat_Secretly_3 ||
@@ -594,13 +631,13 @@ public class DogControlComponent : Entity
         if (shitComponent_1 != null)
         {
             var target = shitComponent_1.shit.transform;
-            Vector3 direction = target.position - Dog_2.transform.position;
+            Vector3 direction = target.position - Dog.position;
 
             currentRotateTween?.Kill();
-            float moveDistance = 0.5f;
+            float moveDistance = 1f;
             Vector3 moveDirection = direction.normalized * moveDistance;
             var duration = Scene.GetComponent<Tables>().ConstConfigCategory.TurnRotateToFoodDuration;
-            currentRotateTween = Dog_2.transform.DOMove(Dog_2.transform.position + moveDirection, duration).SetEase(Ease.Linear);
+            currentRotateTween = Dog.DOMove(Dog.position + moveDirection, duration).SetEase(Ease.Linear);
 
             await Scene.TimerComponent.Net.WaitAsync((long)(duration * 1000), cancellationToken);
             if (cancellationToken.IsCancel)
@@ -612,16 +649,16 @@ public class DogControlComponent : Entity
             if (fruitType_Secretly_1 != null && fruitType_Secretly_1.foodType != FoodType.None)
             {
                 var target = fruitType_Secretly_1.Fruit_Tr;
-                Vector3 direction = target.position - Dog_2.transform.position;
+                Vector3 direction = target.position - Dog.position;
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 angle -= 90f;
                 Vector3 targetRotation = new Vector3(0, 0, angle);
 
                 currentRotateTween?.Kill();
-                float moveDistance = 0.5f;
+                float moveDistance = 1f;
                 Vector3 moveDirection = direction.normalized * moveDistance;
                 var duration = Scene.GetComponent<Tables>().ConstConfigCategory.TurnRotateToFoodDuration;
-                currentRotateTween = Dog_2.transform.DOMove(Dog_2.transform.position + moveDirection, duration).SetEase(Ease.Linear);
+                currentRotateTween = Dog.DOMove(Dog.position + moveDirection, duration).SetEase(Ease.Linear);
 
                 await Scene.TimerComponent.Net.WaitAsync((long)(duration * 1000), cancellationToken);
                 if (cancellationToken.IsCancel)
@@ -657,6 +694,16 @@ public class DogControlComponent : Entity
                 ChangeDogState(DogState.Normal);
         }
     }
+
+    /// <summary>
+    /// 清理所有动画和令牌（供 DestroySystem 调用）
+    /// </summary>
+    public void Cleanup()
+    {
+        currentRotateTween?.Kill();
+        _returnTween?.Kill();
+        cancellationToken?.Cancel();
+    }
 }
 
 public class DogControlComponent_Awake : AwakeSystem<DogControlComponent>
@@ -690,8 +737,7 @@ public class DogControlComponent_Destroy : DestroySystem<DogControlComponent>
 {
     protected override void Destroy(DogControlComponent self)
     {
-        self.currentRotateTween?.Kill();
-        self.cancellationToken?.Cancel();
+        self.Cleanup();
         self.Scene.TimerComponent.Net.Remove(ref self.Timer);
     }
 }

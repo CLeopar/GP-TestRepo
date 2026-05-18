@@ -497,7 +497,7 @@
                 {
                     "name": "positive",
                     "id": "555639c4-f59a-4022-a18f-224dbdad7d17",
-                    "path": "<Keyboard>/1",
+                    "path": "<Keyboard>/numpad1",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -519,7 +519,7 @@
                 {
                     "name": "",
                     "id": "f297fafd-e11d-43c0-b6aa-94b4f5285968",
-                    "path": "<Keyboard>/p",
+                    "path": "<Keyboard>/numpad3",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "",

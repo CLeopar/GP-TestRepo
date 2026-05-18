@@ -10,6 +10,8 @@ public class DanmakuManagerComponent : Entity
     private DanmakuPoolConfigCategory _poolConfig;
     private DanmakuContentConfigCategory _contentConfig;
     private long _spawnTimer;
+    private long _delayTimer;
+    private bool _isDelayFinished;
     private DanmakuPoolConfig _currentPoolConfig;
 
     public void Init()
@@ -18,9 +20,19 @@ public class DanmakuManagerComponent : Entity
         _contentConfig = Scene.GetComponent<Tables>().DanmakuContentConfigCategory;
         
         UpdateCurrentPool(DanmakuStateType.Anytime);
-        StartSpawnTimer();
         
-        Log.Error("[DanmakuManager] Initialized");
+        _isDelayFinished = false;
+        _delayTimer = Scene.TimerComponent.Net.OnceTimer(5000, OnDelayFinished);
+        
+        Log.Error("[DanmakuManager] Initialized, will start in 5s");
+    }
+
+    private void OnDelayFinished()
+    {
+        _isDelayFinished = true;
+        _delayTimer = 0;
+        StartSpawnTimer();
+        Log.Error("[DanmakuManager] Delay finished, start spawning");
     }
 
     private void UpdateCurrentPool(DanmakuStateType stateType)
@@ -32,6 +44,7 @@ public class DanmakuManagerComponent : Entity
 
     private void StartSpawnTimer()
     {
+        if (!_isDelayFinished) return;
         if (_currentPoolConfig == null) return;
         float interval = Random.Range(_currentPoolConfig.MinInterval, _currentPoolConfig.MaxInterval);
         _spawnTimer = Scene.TimerComponent.Net.OnceTimer((long)(interval * 1000), OnSpawnTick);
@@ -45,6 +58,8 @@ public class DanmakuManagerComponent : Entity
 
     private void TrySpawnDanmaku()
     {
+        if (!_isDelayFinished) return;
+
         var uiComp = Scene.GetComponent<DanmakuUIComponent>();
         if (uiComp == null) return;
 
@@ -114,6 +129,8 @@ public class DanmakuManagerComponent : Entity
 
     public void OnShitSpawned()
     {
+        if (!_isDelayFinished) return;
+
         var uiComp = Scene.GetComponent<DanmakuUIComponent>();
         if (uiComp == null) return;
 
@@ -133,6 +150,7 @@ public class DanmakuManagerComponent : Entity
     public void Clear()
     {
         Scene.TimerComponent.Net.Remove(ref _spawnTimer);
+        Scene.TimerComponent.Net.Remove(ref _delayTimer);
     }
 }
 

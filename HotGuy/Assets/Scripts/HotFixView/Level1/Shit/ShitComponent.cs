@@ -84,16 +84,16 @@ public class ShitComponent : Entity
         
         particleEffect.SpawnEffect(shit.transform.position, shitColor);
     }
-
+    
     public void RemoveShit()
     {
+        StopParticles(); // ← 先停粒子
         if (shit != null)
         {
             GameObject.Destroy(shit);
             shit = null;
             animator = null;
         }
-        StopParticles();
     }
 }
 
