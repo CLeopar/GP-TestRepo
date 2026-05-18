@@ -709,4 +709,3 @@ public class DogControlComponent_Update : UpdateSystem<DogControlComponent>
         }
     }
 }
-
