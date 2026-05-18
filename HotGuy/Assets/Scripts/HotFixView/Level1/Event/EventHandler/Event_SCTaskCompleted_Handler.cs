@@ -9,29 +9,39 @@ public class Event_SCTaskCompleted_Handler : EventSystem<SCTaskCompleted>
         var uiComp = GameEntry.Instance._scene.GetComponent<SCUIComponent>();
         if (uiComp == null) return;
 
+        // 先拿到 UI 位置再播动画
+        Vector3 bonusWorldPos = Vector3.zero;
         if (uiComp.TaskUIInstances.TryGetValue(self.TaskId, out var taskUI))
         {
-            taskUI.PlayCompleteAnimation();
+            Log.Error($"[SCTaskCompleted] TaskUI found, playing success animation. RootContainer is {(taskUI.RootContainer == null ? "NULL" : "OK")}");
+            
+            // 用 SCTaskUI 的屏幕坐标作为飘字位置
+            bonusWorldPos = taskUI.transform.position;
+            taskUI.PlaySuccessAnimation();
+        }
+        else
+        {
+            Log.Error($"[SCTaskCompleted] TaskUI NOT found for TaskId: {self.TaskId}");
         }
 
         GameEntry.Instance._scene.GetComponent<LevelStatsComponent>()?.AddTaskCompleted();
-        CalculateAndAddTaskBonus(self.TaskId);
+        CalculateAndAddTaskBonus(self.TaskId, bonusWorldPos);
 
-        // 延迟移除，等动画播完
+        // 延迟移除，等动画播完（成功动画约 0.12+0.08+0.1+0.25+0.2 = 0.75s，1s足够）
         GameEntry.Instance._scene.TimerComponent.Net.OnceTimer(1000, () =>
         {
             var manager = GameEntry.Instance._scene.GetComponent<TaskManagerComponent>();
-            manager?.RemoveTask(self.TaskId);
+            manager?.RemoveTask(self.TaskId, silent: true);
         });
     }
 
-    private void CalculateAndAddTaskBonus(long taskId)
+    private void CalculateAndAddTaskBonus(long taskId, Vector3 worldPos)
     {
         var taskManager = GameEntry.Instance._scene.GetComponent<TaskManagerComponent>();
         var taskComp = taskManager?.GetComponent<TaskComponent>(taskId);
         if (taskComp == null) return;
 
-        // 获取任务的持续时间类型（同一个任务所有 item 类型相同，取第一个即可）
+        // 获取任务的持续时间类型
         SCDurationType durationType = SCDurationType.Green_10s;
         foreach (var item in taskComp.ForEachMultiEntity)
         {
@@ -52,15 +62,15 @@ public class Event_SCTaskCompleted_Handler : EventSystem<SCTaskCompleted>
             totalBaseScore += scoreComp.CalculateFoodScore(foodType);
         }
 
-        // 根据颜色应用倍率：橙色 x2，绿色 x1.5
+        // 根据颜色应用倍率
         float multiplier = durationType == SCDurationType.Orange_8s 
             ? scoreConfig.TaskMultiplierOrange 
             : scoreConfig.TaskMultiplierGreen;
             
         int bonusScore = Mathf.RoundToInt(totalBaseScore * multiplier);
 
-        // 直接加到总体分数
-        scoreComp.AddScore(bonusScore);
+        // 在 SCTaskUI 位置显示飘字
+        scoreComp.AddScore(bonusScore, taskId, worldPos);
 
         Log.Error($"[TaskBonus] Task {taskId} completed! Type: {durationType}, BaseScore: {totalBaseScore}, Multiplier: {multiplier}, Bonus: {bonusScore}");
     }

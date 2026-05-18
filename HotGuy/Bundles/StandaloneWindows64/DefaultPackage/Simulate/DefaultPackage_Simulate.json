@@ -10,7 +10,7 @@
     "BuildPipeline": "EditorSimulateBuildPipeline",
     "PackageName": "DefaultPackage",
     "PackageVersion": "Simulate",
-    "PackageNote": "2026/5/16 20:17:13",
+    "PackageNote": "2026/5/18 11:46:54",
     "AssetList": [
         {
             "Address": "ConstConfigCategory",
@@ -1085,11 +1085,19 @@
             "DependBundleIDs": []
         },
         {
+            "Address": "RubbishBin",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/RubishBin/RubbishBin.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 10,
+            "DependBundleIDs": []
+        },
+        {
             "Address": "L1_10SC",
             "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/SC/L1_10SC.prefab",
             "AssetGUID": "",
             "AssetTags": [],
-            "BundleID": 10,
+            "BundleID": 11,
             "DependBundleIDs": []
         },
         {
@@ -1097,7 +1105,7 @@
             "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/SC/L1_8SC.prefab",
             "AssetGUID": "",
             "AssetTags": [],
-            "BundleID": 10,
+            "BundleID": 11,
             "DependBundleIDs": []
         },
         {
@@ -1105,7 +1113,7 @@
             "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Tissue/L1_Tissue.prefab",
             "AssetGUID": "",
             "AssetTags": [],
-            "BundleID": 11,
+            "BundleID": 12,
             "DependBundleIDs": []
         }
     ],
@@ -1165,7 +1173,7 @@
             "UnityCRC": 0,
             "FileHash": "30df18ae116f6c2469004e5ab6afc37b",
             "FileCRC": 0,
-            "FileSize": 129838,
+            "FileSize": 130838,
             "Encrypted": false,
             "Tags": [],
             "DependBundleIDs": []
@@ -1211,11 +1219,21 @@
             "DependBundleIDs": []
         },
         {
+            "BundleName": "assets_bundles_ui_level_1_prefab_l1_rubishbin.bundle",
+            "UnityCRC": 0,
+            "FileHash": "49ffa07915530f9297e63eeef9616875",
+            "FileCRC": 0,
+            "FileSize": 6579,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
             "BundleName": "assets_bundles_ui_level_1_prefab_l1_sc.bundle",
             "UnityCRC": 0,
             "FileHash": "94aee61a45ca95ff4469337cdd6e1cb8",
             "FileCRC": 0,
-            "FileSize": 67304,
+            "FileSize": 71826,
             "Encrypted": false,
             "Tags": [],
             "DependBundleIDs": []

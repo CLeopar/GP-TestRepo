@@ -229,7 +229,7 @@ public class TaskManagerComponent : Entity
         return false;
     }
 
-    public void RemoveTask(long taskId)
+    public void RemoveTask(long taskId, bool silent = false)
     {
         if (!ActiveTaskIds.Contains(taskId))
             return;
@@ -256,8 +256,12 @@ public class TaskManagerComponent : Entity
         }
 
         ActiveTaskIds.Remove(taskId);
-        Scene.EventComponent.Publish(new SCTaskTimeout { TaskId = taskId });
-        Log.Error($"[TaskManager] Task removed: {taskId}");
+
+        // silent=true 时是完成后的清理，不发超时事件（UI动画已经播完了）
+        if (!silent)
+            Scene.EventComponent.Publish(new SCTaskTimeout { TaskId = taskId });
+
+        Log.Error($"[TaskManager] Task removed: {taskId}, silent: {silent}");
     }
 
     public void CompleteTask(long taskId)

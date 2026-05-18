@@ -9,7 +9,7 @@ public class ShitComponent : Entity
     public Transform shitParent;
     public GameObject shit = null;
     public Vector2 X_Limit = new Vector2(-0.6f, 6.37f);
-    public Vector2 Y_Limit = new Vector2(-4.44f, 2);
+    public Vector2 Y_Limit = new Vector2(-4.8f, 2);
     
     public Animator animator;
     public bool isLand = false;

@@ -38,5 +38,6 @@ public class Event_SCTaskSpawned_Handler : EventSystem<SCTaskSpawned>
         uiComp.TaskUIInstances[self.TaskId] = taskUI;
 
         Log.Error($"[SCUI] Task UI created: {self.TaskId}, type: {self.SCItems[0].DurationType}");
+        Log.Error($"[SCUI] Registered TaskId: {self.TaskId}, total: {uiComp.TaskUIInstances.Count}");
     }
 }

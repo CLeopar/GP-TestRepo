@@ -13,7 +13,7 @@
     "SCGreenDuration": 40,
     "SCOrangeDuration": 20,
     "SCSpawnInterval": 10,
-    "SCMaxTaskCount": 3,
+    "SCMaxTaskCount": 2,
     "SCGreenProbability": 0.6
   }
 ]

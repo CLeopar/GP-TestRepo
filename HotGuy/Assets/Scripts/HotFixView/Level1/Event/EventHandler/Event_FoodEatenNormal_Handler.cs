@@ -42,7 +42,8 @@ public class Event_FoodBeEatenNormal_Handler : EventSystem<FoodBeEaten_Normal>
             var currentItem = taskComp.GetCurrentItem();
             if (currentItem == null) continue;
 
-            if (currentItem.FoodType == eatenFoodType.Value && currentItem.UIState == SCUIState.Eating)
+            // 用 IsSameGroup 比较，蓝莓A/B/C/D 视为同一种
+            if (FoodTypeHelper.IsSameGroup(currentItem.FoodType, eatenFoodType.Value) && currentItem.UIState == SCUIState.Eating)
             {
                 currentItem.SetCompleted();
                 taskComp.AdvanceStep();

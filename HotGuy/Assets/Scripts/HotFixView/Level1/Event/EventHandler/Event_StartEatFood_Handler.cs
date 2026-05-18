@@ -33,7 +33,8 @@ public class Event_StartEatFood_Handler : EventSystem<StartEatFood>
             if (currentItem == null) continue;
 
             // 情况1：正好匹配当前步骤且未开始 → 设为 Eating（正常推进）
-            if (currentItem.FoodType == foodComp.foodType && currentItem.UIState == SCUIState.Normal)
+            // 用 IsSameGroup 比较，蓝莓A/B/C/D 视为同一种
+            if (FoodTypeHelper.IsSameGroup(currentItem.FoodType, foodComp.foodType) && currentItem.UIState == SCUIState.Normal)
             {
                 currentItem.SetState(SCUIState.Eating);
                 Log.Error($"[Task] Food {foodComp.foodType} started eating, set to Eating state");

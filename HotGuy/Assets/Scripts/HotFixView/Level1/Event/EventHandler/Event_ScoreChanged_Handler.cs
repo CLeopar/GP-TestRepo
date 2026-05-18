@@ -34,20 +34,35 @@ public class Event_ScoreChanged_Handler : EventSystem<ScoreChanged>
     }
 
     /// <summary>
-    /// 在指定世界位置显示飘字（适配 Overlay Canvas）
+    /// 在指定位置显示飘字
+    /// worldPos 可以是：
+    ///   - 3D 世界坐标（食物等场景物体）→ 用 WorldToScreenPoint 转换
+    ///   - UI 屏幕坐标（SCTaskUI 等 Overlay UI）→ z==0 且在屏幕范围内，直接用
     /// </summary>
     private void ShowFloatingTextAtPosition(ScoreUIComponent ui, int delta, Vector3 worldPos)
     {
         var textObj = ui.ScoreChangeText;
         var parentRect = textObj.transform.parent as RectTransform;
-        
-        // ========== Overlay 模式坐标转换 ==========
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
-        
-        // 如果物体在相机后方，显示在屏幕中心
-        if (screenPos.z < 0)
+
+        // ========== 判断是屏幕坐标还是世界坐标 ==========
+        Vector3 screenPos;
+        bool isScreenPos = worldPos.z == 0f
+            && worldPos.x >= 0 && worldPos.x <= Screen.width
+            && worldPos.y >= 0 && worldPos.y <= Screen.height;
+
+        if (isScreenPos)
         {
-            screenPos = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+            // 已经是屏幕坐标，直接用
+            screenPos = worldPos;
+        }
+        else
+        {
+            // 世界坐标，转成屏幕坐标
+            screenPos = Camera.main.WorldToScreenPoint(worldPos);
+
+            // 如果物体在相机后方，显示在屏幕中心
+            if (screenPos.z < 0)
+                screenPos = new Vector3(Screen.width / 2, Screen.height / 2, 0);
         }
 
         // ScreenPointToLocalPointInRectangle：Overlay 模式 camera 传 null
