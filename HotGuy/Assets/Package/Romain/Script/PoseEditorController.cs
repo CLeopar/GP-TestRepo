@@ -17,11 +17,16 @@ public class PoseEditorController : MonoBehaviour
         public Color selectedColor = Color.green;
 
         [Header("Shape Override")]
-        public Sprite normalSprite;   // 留空则运行时自动记录初始 Sprite
-        public Sprite selectedSprite; // 选中时替换的 Sprite
+        public Sprite normalSprite;
+        public Sprite selectedSprite;
 
         [Header("Translation")]
         public bool isTranslationJoint = false;
+
+        [Header("Hit Detection")]
+        public RectTransform hitRect;        // 留空则使用 image.rectTransform
+        public bool overrideHoverRadius;     // 勾选后启用自定义半径
+        public float customHoverRadius = 15f;
 
         [Header("Angle Limit")]
         public bool useAngleLimit = false;
@@ -151,7 +156,9 @@ public class PoseEditorController : MonoBehaviour
             Joint j = joints[i];
             if (j == null || j.rect == null || j.image == null) continue;
 
-            if (!CircleContainsScreenPoint(j, cursorScreenPos, hoverRadius))
+            float radius = (j.overrideHoverRadius) ? j.customHoverRadius : hoverRadius;
+
+            if (!CircleContainsScreenPoint(j, cursorScreenPos, radius))
                 continue;
 
             newHovered = j;
@@ -169,14 +176,16 @@ public class PoseEditorController : MonoBehaviour
     // 圆形命中检测：以 RectTransform 中心为圆心，半径 = 图片短边的一半 + 全局 hoverRadius
     private bool CircleContainsScreenPoint(Joint j, Vector2 screenPoint, float extraRadius)
     {
+        RectTransform hitRect = (j.hitRect != null) ? j.hitRect : j.image.rectTransform;
+    
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            j.rect, screenPoint, uiCamera, out Vector2 localPoint);
-
-        Rect r = j.rect.rect;
+            hitRect, screenPoint, uiCamera, out Vector2 localPoint);
+    
+        Rect r = hitRect.rect;
         Vector2 center = r.center;
         float imageRadius = Mathf.Min(r.width, r.height) * 0.5f;
         float hitRadius = imageRadius + extraRadius;
-
+    
         return (localPoint - center).sqrMagnitude <= hitRadius * hitRadius;
     }
 
@@ -308,11 +317,59 @@ public class PoseEditorController : MonoBehaviour
         }
 
         if (translateVelocity.sqrMagnitude > 0f)
+        {
             bodyRoot.anchoredPosition += translateVelocity * Time.deltaTime;
+            ClampBodyByTranslationJoint();
+        }
 
         //Debug.Log($"[Translate] velocity={translateVelocity}  pos={bodyRoot.anchoredPosition}");
     }
+    void ClampBodyByTranslationJoint()
+    {
+        if (selectedJoint == null || !selectedJoint.isTranslationJoint) return;
 
+        // 取 hitRect，没有则用 image.rectTransform
+        RectTransform hitRect = (selectedJoint.hitRect != null)
+            ? selectedJoint.hitRect
+            : selectedJoint.image.rectTransform;
+
+        // 获取画布根节点的 RectTransform
+        RectTransform canvasRect = rootCanvas.GetComponent<RectTransform>();
+
+        // 将 hitRect 的屏幕坐标转为画布本地坐标
+        Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(uiCamera, hitRect.position);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvasRect, screenPos, uiCamera, out Vector2 localPos);
+
+        // 画布的可用范围（以画布中心为原点）
+        Vector2 canvasHalf = canvasRect.rect.size * 0.5f;
+
+        // hitRect 自身的半径
+        Rect r = hitRect.rect;
+        float jointRadius = Mathf.Min(r.width, r.height) * 0.5f;
+
+        // 允许的本地坐标范围
+        float minX = -canvasHalf.x + jointRadius;
+        float maxX =  canvasHalf.x - jointRadius;
+        float minY = -canvasHalf.y + jointRadius;
+        float maxY =  canvasHalf.y - jointRadius;
+
+        // 计算需要修正的偏移量
+        Vector2 correction = Vector2.zero;
+        if (localPos.x < minX) correction.x = minX - localPos.x;
+        if (localPos.x > maxX) correction.x = maxX - localPos.x;
+        if (localPos.y < minY) correction.y = minY - localPos.y;
+        if (localPos.y > maxY) correction.y = maxY - localPos.y;
+
+        if (correction.sqrMagnitude > 0f)
+        {
+            bodyRoot.anchoredPosition += correction;
+            // 撞边时清除对应方向的速度
+            if (correction.x != 0f) translateVelocity.x = 0f;
+            if (correction.y != 0f) translateVelocity.y = 0f;
+        }
+    }
+    
     // 原 UpdateJointColors() 改名为 UpdateJointVisuals()，同时处理颜色和 Sprite 切换
     void UpdateJointVisuals()
     {

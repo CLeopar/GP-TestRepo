@@ -8301,7 +8301,7 @@ GameObject:
   - component: {fileID: 400600002}
   m_Layer: 5
   m_Name: Frame (1)
-  m_TagString: Untagged
+  m_TagString: Hide
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8515,6 +8515,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     selectedSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -18
     maxAngle: 15
@@ -8527,6 +8530,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -137.605
     maxAngle: 31.896
@@ -8539,6 +8545,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -8551,6 +8560,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -8563,6 +8575,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -8575,6 +8590,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -45
     maxAngle: 68
@@ -8587,6 +8605,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -45
     maxAngle: 68
@@ -8599,6 +8620,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -4
     maxAngle: 138
@@ -8611,6 +8635,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -65
     maxAngle: 50
@@ -8623,6 +8650,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -145
     maxAngle: 5
@@ -8635,16 +8665,19 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     selectedSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     isTranslationJoint: 1
+    hitRect: {fileID: 1324497015}
+    overrideHoverRadius: 1
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
-  hoverRadius: 300
-  rotateAcceleration: 100
-  rotateFriction: 6
+  hoverRadius: 400
+  rotateAcceleration: 200
+  rotateFriction: 4
   maxRotateSpeed: 270
   bodyRoot: {fileID: 403309570}
   translateAcceleration: 400
-  translateFriction: 8
+  translateFriction: 4
   maxTranslateSpeed: 400
 --- !u!114 &403309572
 MonoBehaviour:
@@ -9944,9 +9977,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -53.039, y: 0}
+  m_AnchoredPosition: {x: -53.039135, y: -97.86574}
   m_SizeDelta: {x: 257.841, y: 435.038}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5500703}
 --- !u!114 &464351162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9972,6 +10005,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     selectedSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -14.829
     maxAngle: 29.309
@@ -9984,6 +10020,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -14.829
     maxAngle: 29.309
@@ -9996,6 +10035,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -10008,6 +10050,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -10020,6 +10065,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -10032,6 +10080,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -10044,6 +10095,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -126.985
     maxAngle: 98.888
@@ -10056,6 +10110,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -15.173
     maxAngle: 149.959
@@ -10068,6 +10125,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -118.159
     maxAngle: 147.193
@@ -10080,6 +10140,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -156.928
     maxAngle: 10.095
@@ -10092,16 +10155,19 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     selectedSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     isTranslationJoint: 1
+    hitRect: {fileID: 1180462828}
+    overrideHoverRadius: 1
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
-  hoverRadius: 300
-  rotateAcceleration: 180
-  rotateFriction: 6
+  hoverRadius: 400
+  rotateAcceleration: 200
+  rotateFriction: 4
   maxRotateSpeed: 270
   bodyRoot: {fileID: 464351161}
   translateAcceleration: 400
-  translateFriction: 8
+  translateFriction: 4
   maxTranslateSpeed: 400
 --- !u!114 &464351163
 MonoBehaviour:
@@ -10842,6 +10908,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     selectedSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -18
     maxAngle: 15
@@ -10854,6 +10923,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -137.605
     maxAngle: 31.896
@@ -10866,6 +10938,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -10878,6 +10953,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -10890,6 +10968,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -10902,6 +10983,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -45
     maxAngle: 68
@@ -10914,6 +10998,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -45
     maxAngle: 68
@@ -10926,6 +11013,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -4
     maxAngle: 138
@@ -10938,6 +11028,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -65
     maxAngle: 50
@@ -10950,6 +11043,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -145
     maxAngle: 5
@@ -10962,16 +11058,19 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     selectedSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     isTranslationJoint: 1
+    hitRect: {fileID: 920135164}
+    overrideHoverRadius: 1
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
-  hoverRadius: 300
+  hoverRadius: 400
   rotateAcceleration: 200
-  rotateFriction: 6
+  rotateFriction: 4
   maxRotateSpeed: 270
   bodyRoot: {fileID: 510275892}
   translateAcceleration: 400
-  translateFriction: 8
+  translateFriction: 4
   maxTranslateSpeed: 400
 --- !u!114 &510275894
 MonoBehaviour:
@@ -12462,7 +12561,7 @@ GameObject:
   - component: {fileID: 615819651}
   m_Layer: 5
   m_Name: Frame
-  m_TagString: Untagged
+  m_TagString: Hide
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14947,6 +15046,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     selectedSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -18
     maxAngle: 15
@@ -14959,6 +15061,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -137.605
     maxAngle: 31.896
@@ -14971,6 +15076,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -14983,6 +15091,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -14995,6 +15106,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -15007,6 +15121,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -45
     maxAngle: 68
@@ -15019,6 +15136,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -45
     maxAngle: 68
@@ -15031,6 +15151,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -4
     maxAngle: 138
@@ -15043,6 +15166,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -65
     maxAngle: 50
@@ -15055,6 +15181,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -145
     maxAngle: 5
@@ -15067,16 +15196,19 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     selectedSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     isTranslationJoint: 1
+    hitRect: {fileID: 657301637}
+    overrideHoverRadius: 1
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
-  hoverRadius: 300
-  rotateAcceleration: 100
-  rotateFriction: 6
+  hoverRadius: 400
+  rotateAcceleration: 200
+  rotateFriction: 4
   maxRotateSpeed: 270
   bodyRoot: {fileID: 758391900}
   translateAcceleration: 400
-  translateFriction: 8
+  translateFriction: 4
   maxTranslateSpeed: 400
 --- !u!114 &758391902
 MonoBehaviour:
@@ -18156,6 +18288,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     selectedSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -18
     maxAngle: 15
@@ -18168,6 +18303,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -137.605
     maxAngle: 31.896
@@ -18180,6 +18318,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -18192,6 +18333,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -18204,6 +18348,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -18216,6 +18363,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -45
     maxAngle: 68
@@ -18228,6 +18378,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -45
     maxAngle: 68
@@ -18240,6 +18393,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -4
     maxAngle: 138
@@ -18252,6 +18408,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -65
     maxAngle: 50
@@ -18264,6 +18423,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -145
     maxAngle: 5
@@ -18276,16 +18438,19 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     selectedSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     isTranslationJoint: 1
+    hitRect: {fileID: 189292407}
+    overrideHoverRadius: 1
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
-  hoverRadius: 300
+  hoverRadius: 400
   rotateAcceleration: 200
-  rotateFriction: 6
+  rotateFriction: 4
   maxRotateSpeed: 270
   bodyRoot: {fileID: 951444435}
   translateAcceleration: 400
-  translateFriction: 8
+  translateFriction: 4
   maxTranslateSpeed: 400
 --- !u!114 &951444437
 MonoBehaviour:
@@ -19156,10 +19321,10 @@ MonoBehaviour:
   timerImage: {fileID: 321849521}
   levelTimes:
   - 60
-  - 60
   - 40
   - 30
-  - 30
+  - 20
+  - 20
   gameplayBgmClip: {fileID: 8300000, guid: b0c93c2bf74e36f448e0c04cb5e1acdf, type: 3}
   gameplayBgmSource: {fileID: 941223180}
   bgmVolumeGameplay: 1
@@ -20935,7 +21100,7 @@ MonoBehaviour:
   totalScorePunchDuration: 0.12
   totalScoreTickSound: {fileID: 8300000, guid: 9c57383a7d9a4824b96f97e537c0a837, type: 3}
   totalScoreTickVolume: 0.257
-  totalScoreTickPitchMin: 1.3
+  totalScoreTickPitchMin: 1
   totalScoreTickPitchMax: 1.3
   totalScoreAudioSource: {fileID: 1856872095}
   milestoneInterval: 10
@@ -26537,7 +26702,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 00:30
+  m_text: 01:00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ffbe1f5af75b1ff4f9d01bc2de8a5136, type: 2}
   m_sharedMaterial: {fileID: -5844977619655333478, guid: ffbe1f5af75b1ff4f9d01bc2de8a5136, type: 2}
@@ -26874,6 +27039,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     selectedSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -18
     maxAngle: 15
@@ -26886,6 +27054,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -137.605
     maxAngle: 31.896
@@ -26898,6 +27069,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -26910,6 +27084,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -26922,6 +27099,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -26934,6 +27114,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -45
     maxAngle: 68
@@ -26946,6 +27129,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -45
     maxAngle: 68
@@ -26958,6 +27144,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -4
     maxAngle: 138
@@ -26970,6 +27159,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -65
     maxAngle: 50
@@ -26982,6 +27174,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -145
     maxAngle: 5
@@ -26994,16 +27189,19 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     selectedSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     isTranslationJoint: 1
+    hitRect: {fileID: 200993034}
+    overrideHoverRadius: 1
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
-  hoverRadius: 300
-  rotateAcceleration: 100
-  rotateFriction: 6
+  hoverRadius: 400
+  rotateAcceleration: 200
+  rotateFriction: 4
   maxRotateSpeed: 270
   bodyRoot: {fileID: 1343920654}
   translateAcceleration: 400
-  translateFriction: 8
+  translateFriction: 4
   maxTranslateSpeed: 400
 --- !u!114 &1343920656
 MonoBehaviour:
@@ -27613,6 +27811,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     selectedSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -27625,6 +27826,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -70.46
     maxAngle: 50.586
@@ -27637,6 +27841,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -27649,6 +27856,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -27661,6 +27871,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -27673,6 +27886,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -27685,6 +27901,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -117.211
     maxAngle: 104.433
@@ -27697,6 +27916,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -8.667
     maxAngle: 149.313
@@ -27709,6 +27931,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -104.859
     maxAngle: 148.632
@@ -27721,6 +27946,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -154.065
     maxAngle: 12.039
@@ -27733,16 +27961,19 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     selectedSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     isTranslationJoint: 1
+    hitRect: {fileID: 305238584}
+    overrideHoverRadius: 1
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
-  hoverRadius: 300
-  rotateAcceleration: 220
-  rotateFriction: 6
+  hoverRadius: 400
+  rotateAcceleration: 200
+  rotateFriction: 4
   maxRotateSpeed: 270
   bodyRoot: {fileID: 1386019926}
   translateAcceleration: 400
-  translateFriction: 8
+  translateFriction: 4
   maxTranslateSpeed: 400
 --- !u!114 &1386019928
 MonoBehaviour:
@@ -28399,6 +28630,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     selectedSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -18
     maxAngle: 15
@@ -28411,6 +28645,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -18
     maxAngle: 15
@@ -28423,6 +28660,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -28435,6 +28675,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -28447,6 +28690,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -28459,6 +28705,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -45
     maxAngle: 68
@@ -28471,6 +28720,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -58.728
     maxAngle: 75.564
@@ -28483,6 +28735,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -22.128
     maxAngle: 138
@@ -28495,6 +28750,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -71.76
     maxAngle: 67.315
@@ -28507,6 +28765,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -145
     maxAngle: 13.961
@@ -28519,16 +28780,19 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     selectedSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     isTranslationJoint: 1
+    hitRect: {fileID: 1076565055}
+    overrideHoverRadius: 1
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
-  hoverRadius: 300
-  rotateAcceleration: 100
-  rotateFriction: 6
+  hoverRadius: 400
+  rotateAcceleration: 200
+  rotateFriction: 4
   maxRotateSpeed: 270
   bodyRoot: {fileID: 1401252618}
   translateAcceleration: 400
-  translateFriction: 8
+  translateFriction: 4
   maxTranslateSpeed: 400
 --- !u!114 &1401252620
 MonoBehaviour:
@@ -36685,7 +36949,7 @@ GameObject:
   - component: {fileID: 1766644790}
   m_Layer: 5
   m_Name: Frame (2)
-  m_TagString: Untagged
+  m_TagString: Hide
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39777,6 +40041,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     selectedSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -18
     maxAngle: 15
@@ -39789,6 +40056,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -137.605
     maxAngle: 31.896
@@ -39801,6 +40071,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -39813,6 +40086,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -39825,6 +40101,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -39837,6 +40116,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -45
     maxAngle: 68
@@ -39849,6 +40131,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -45
     maxAngle: 68
@@ -39861,6 +40146,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -4
     maxAngle: 138
@@ -39873,6 +40161,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -65
     maxAngle: 50
@@ -39885,6 +40176,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -145
     maxAngle: 5
@@ -39897,16 +40191,19 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     selectedSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     isTranslationJoint: 1
+    hitRect: {fileID: 2137088041}
+    overrideHoverRadius: 1
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
-  hoverRadius: 300
-  rotateAcceleration: 100
-  rotateFriction: 6
+  hoverRadius: 400
+  rotateAcceleration: 200
+  rotateFriction: 4
   maxRotateSpeed: 270
   bodyRoot: {fileID: 1897818384}
   translateAcceleration: 400
-  translateFriction: 8
+  translateFriction: 4
   maxTranslateSpeed: 400
 --- !u!114 &1897818386
 MonoBehaviour:
@@ -40758,7 +41055,7 @@ GameObject:
   - component: {fileID: 1934934493}
   m_Layer: 5
   m_Name: Frame (3)
-  m_TagString: Untagged
+  m_TagString: Hide
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44111,6 +44408,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     selectedSprite: {fileID: 21300000, guid: d774c9289ce9ac3448e5c054d3a555f9, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -44123,6 +44423,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -70.46
     maxAngle: 50.586
@@ -44135,6 +44438,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -44147,6 +44453,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -44159,6 +44468,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -44171,6 +44483,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
@@ -44183,6 +44498,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -117.211
     maxAngle: 104.433
@@ -44195,6 +44513,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -8.667
     maxAngle: 149.313
@@ -44207,6 +44528,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -104.859
     maxAngle: 148.632
@@ -44219,6 +44543,9 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: d034f18fc3a993f48a937b28db9b2b4d, type: 3}
     selectedSprite: {fileID: 21300000, guid: 862ba6fa91cafd742b129f8fb68f4c6f, type: 3}
     isTranslationJoint: 0
+    hitRect: {fileID: 0}
+    overrideHoverRadius: 0
+    customHoverRadius: 15
     useAngleLimit: 1
     minAngle: -154.065
     maxAngle: 12.039
@@ -44231,16 +44558,19 @@ MonoBehaviour:
     normalSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     selectedSprite: {fileID: 21300000, guid: c08a149537118724aafe03124ac6190e, type: 3}
     isTranslationJoint: 1
+    hitRect: {fileID: 716527210}
+    overrideHoverRadius: 1
+    customHoverRadius: 15
     useAngleLimit: 0
     minAngle: -90
     maxAngle: 90
-  hoverRadius: 300
-  rotateAcceleration: 180
-  rotateFriction: 6
+  hoverRadius: 400
+  rotateAcceleration: 200
+  rotateFriction: 4
   maxRotateSpeed: 270
   bodyRoot: {fileID: 2114325976}
   translateAcceleration: 400
-  translateFriction: 8
+  translateFriction: 4
   maxTranslateSpeed: 400
 --- !u!114 &2114325978
 MonoBehaviour:

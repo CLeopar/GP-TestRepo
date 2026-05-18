@@ -362,7 +362,7 @@ public class GameManager : MonoBehaviour
             onAllLevelsComplete?.Invoke();
             yield break;
         }
-
+        ResetScoreGradeObjects();
         TriggerAnimator(levelTransitionAnimator, levelTransitionTrigger);
         ScoreManager.Instance.ResetCompletionText();
 
@@ -704,4 +704,18 @@ public class GameManager : MonoBehaviour
         capturedSprites.Clear();
         capturedTextures.Clear();
     }
+    private void ResetScoreGradeObjects()
+    {
+        if (ScoreManager.Instance == null) return;
+        var grades = ScoreManager.Instance.scoreGrades;
+        if (grades == null) return;
+
+        foreach (var grade in grades)
+        {
+            if (grade?.objects == null) continue;
+            foreach (var obj in grade.objects)
+                if (obj != null) obj.SetActive(false);
+        }
+    }
+    
 }
