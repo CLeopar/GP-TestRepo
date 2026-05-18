@@ -18,7 +18,8 @@ public class Level_1_Component : Entity
             // ========== 新增：发布倒计时更新事件 ==========
             PublishTimerUpdate();
             
-            if (Level_Duration >= 120 * 1000)
+            
+            if (Level_Duration >= 120 * 1000)// 这是关卡总时长，120秒 = 120000毫秒
             {
                 Scene.TimerComponent.Net.Remove(ref Timer);
                 Level_Stage = 4;
@@ -28,13 +29,13 @@ public class Level_1_Component : Entity
             }
             else
             {
-                if (Level_Duration <= 30 * 1000)
+                if (Level_Duration <= 15 * 1000)// 30 * 1000  = 30000ms = 30秒  → P1结束/P2开始
                 {
                     Level_Stage = 1;
                 }
-                else if (Level_Duration <= 60 * 1000)
+                else if (Level_Duration <= 60 * 1000) // 60 * 1000  = 60000ms = 60秒  → P2结束/P3开始 
                     Level_Stage = 2;
-                else if (Level_Duration <= 100 * 1000)
+                else if (Level_Duration <= 100 * 1000)  // 100 * 1000 = 100000ms = 100秒 → P3结束
                     Level_Stage = 3;
             }
         });
@@ -43,46 +44,60 @@ public class Level_1_Component : Entity
     // ========== 新增：发布倒计时更新 ==========
     private void PublishTimerUpdate()
     {
+        // ═══════════════════════════════════════════════════════════
+        // 【改这里】120 * 1000 → 配置表 TotalDuration
+        // 总时长用于计算剩余时间
+        // ═══════════════════════════════════════════════════════════
         long remaining = 120 * 1000 - Level_Duration;
         Scene.EventComponent.Publish(new LevelTimerUpdate
         {
             RemainingTime = remaining,
             ElapsedTime = Level_Duration,
-            TotalTime = 120 * 1000
+            TotalTime = 120 * 1000// ← 【改这里】
         });
     }
 
+    // ═══════════════════════════════════════════════════════════
+    // 【改这里】SC发布时间 → 配置表 SCSpawnInterval
+    // 每个阶段SC多久刷一次
+    // ═══════════════════════════════════════════════════════════
+    
     public long GetSCDuration()
     {
         if (Level_Stage == 1)
-            return 10 * 1000;
+            return 10 * 1000;// ← P1: 10秒 = 10000ms
         if (Level_Stage == 2)
-            return 8 * 1000;
+            return 8 * 1000;// ← P2: 8秒 = 8000ms 
         if (Level_Stage == 3)
-            return 6 * 1000;
-        return 3500;
+            return 6 * 1000;// ← P3: 6秒 = 6000ms
+        return 3500; // ← P4: 3.5秒 = 3500ms
     }
-
+    
+// ═══════════════════════════════════════════════════════════
+    // 【改这里】偷吃行为的I阶段时间（偷瞄状态）→ 配置表 DogEatPerDuration
+    // 偷瞄持续多久
+    // ═══════════════════════════════════════════════════════════
+    
     public long GetDogEatSecretlyDuration()
     {
         if (Level_Stage == 1)
-            return 0;
+            return 0;// ← P1: 不偷吃
         if (Level_Stage == 2)
-            return Random.Range(8, 11) * 1000;
+            return Random.Range(8, 11) * 1000; // ← P2: 8-10秒随机
         if (Level_Stage == 3)
-            return Random.Range(5, 7) * 1000;
-        return 4000;
+            return Random.Range(5, 7) * 1000;// ← P3: 5-6秒随机
+        return 4000;// ← P4: 4秒固定
     }
     
     public long GetDogEatSecretlyPerDuration()
     {
         if (Level_Stage == 1)
-            return 0;
+            return 0;// ← P1: 无偷瞄
         if (Level_Stage == 2)
-            return 4000;
+            return 4000;// ← P2: 4秒
         if (Level_Stage == 3)
-            return 3500;
-        return 2000;
+            return 3500;// ← P3: 3.5秒
+        return 2000; // ← P4: 2秒
     }
 }
 
