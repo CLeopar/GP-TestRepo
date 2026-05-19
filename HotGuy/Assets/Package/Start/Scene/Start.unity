@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 198624504}
   - component: {fileID: 198624503}
   - component: {fileID: 198624502}
+  - component: {fileID: 198624509}
   - component: {fileID: 198624508}
   m_Layer: 5
   m_Name: Credit
@@ -414,6 +415,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!114 &198624509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198624500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb7a5dda6d162054ea149cd39dbd6ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickSound: {fileID: 8300000, guid: 853639d4818a76344bdeb59059dbbe29, type: 3}
+  volume: 1
+  shakeStrength: 10
+  shakeDuration: 0.45
+  shakeCount: 5
 --- !u!1 &208126743
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,6 +447,7 @@ GameObject:
   - component: {fileID: 208126747}
   - component: {fileID: 208126746}
   - component: {fileID: 208126745}
+  - component: {fileID: 208126752}
   - component: {fileID: 208126751}
   m_Layer: 5
   m_Name: Exit
@@ -607,6 +626,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!114 &208126752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 208126743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb7a5dda6d162054ea149cd39dbd6ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickSound: {fileID: 8300000, guid: bca5178a9c8541646b3a7f52a8429f84, type: 3}
+  volume: 1
+  shakeStrength: 0
+  shakeDuration: 0.45
+  shakeCount: 0
 --- !u!1 &211086626
 GameObject:
   m_ObjectHideFlags: 0
@@ -2543,6 +2579,7 @@ GameObject:
   - component: {fileID: 1071836947}
   - component: {fileID: 1071836946}
   - component: {fileID: 1071836945}
+  - component: {fileID: 1071836952}
   - component: {fileID: 1071836950}
   m_Layer: 5
   m_Name: Setting
@@ -2720,6 +2757,23 @@ MonoBehaviour:
   groupAngle: -40
   fadeDuration: 0.3
   tileParent: {fileID: 211086627}
+--- !u!114 &1071836952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071836943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb7a5dda6d162054ea149cd39dbd6ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickSound: {fileID: 8300000, guid: 853639d4818a76344bdeb59059dbbe29, type: 3}
+  volume: 1
+  shakeStrength: 10
+  shakeDuration: 0.45
+  shakeCount: 5
 --- !u!1 &1091191282
 GameObject:
   m_ObjectHideFlags: 0
