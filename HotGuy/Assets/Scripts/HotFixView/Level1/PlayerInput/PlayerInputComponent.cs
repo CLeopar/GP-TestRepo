@@ -64,7 +64,7 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
     public float maxAngle = 360f;
 
     //是否启用角度限制
-    public bool clampRotation { get; set; } = true;
+    public bool clampRotation { get; set; } = false;
 
     //自动回正
     public bool autoReturnToCenter { get; set; } = false;
@@ -120,7 +120,6 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
         ChangeHandType(HandType.Palm).Coroutine();
 
         initialRotation = HandRoot.rotation;
-        clampRotation = false;
 
         var unityEventTrigger_Hand = HandRoot.GetComponent<UnityEventTrigger>();
         unityEventTrigger_Hand.Register(OnCollisionEnter2D_Hand, OnCollisionExit2D_Hand, OnCollisionStay2D_Hand);
@@ -135,6 +134,7 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
 
         // 预加载所有手型Sprite
         PreloadSprites().Coroutine();
+        clampRotation = false;
     }
 
     public async FTask PreloadSprites()
