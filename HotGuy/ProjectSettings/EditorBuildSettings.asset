@@ -18,6 +18,6 @@ EditorBuildSettings:
     path: Assets/Package/Romain/Scene/Demo.unity
     guid: 198a909004a26d04a9da714803e7b736
   - enabled: 1
-    path: Assets/Scenes/L1_Settlement/Settlement.unity
+    path: Assets/Scenes/Settlement/L1_Settlement.unity
     guid: e380ffcbeeb4577459e5bda80e1cca2f
   m_configObjects: {}
