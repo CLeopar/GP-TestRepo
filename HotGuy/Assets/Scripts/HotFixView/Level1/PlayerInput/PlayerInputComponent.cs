@@ -282,7 +282,7 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
             if (tissueComponent != null)
                 tissueComponent.ChangeState(true);
 
-            Scene.GetComponent<FoodManagerComponent>().RemoveShit();
+            Scene.GetComponent<FoodManagerComponent>().RemoveShit(true);
             return;
         }
 

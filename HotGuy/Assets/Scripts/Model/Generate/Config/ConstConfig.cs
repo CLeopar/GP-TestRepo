@@ -22,6 +22,7 @@ public sealed partial class ConstConfig : Luban.BeanBase
         TurnRotateToFoodDuration = _buf.ReadFloat();
         NewFruitTime = _buf.ReadLong();
         NewShitTime = _buf.ReadLong();
+        NewShitTimeAfterWipe = _buf.ReadLong();
         ShitMoveYTime = _buf.ReadFloat();
         ShitBeEatenTime = _buf.ReadLong();
         SCGreenDuration = _buf.ReadInt();
@@ -68,6 +69,10 @@ public sealed partial class ConstConfig : Luban.BeanBase
     /// 新屎生成时间(ms)
     /// </summary>
     public readonly long NewShitTime;
+    /// <summary>
+    /// 擦完屎新屎生成时间(ms)
+    /// </summary>
+    public readonly long NewShitTimeAfterWipe;
     /// <summary>
     /// 屎向下移动时间(s)
     /// </summary>
@@ -116,6 +121,7 @@ public sealed partial class ConstConfig : Luban.BeanBase
         + "TurnRotateToFoodDuration:" + TurnRotateToFoodDuration + ","
         + "NewFruitTime:" + NewFruitTime + ","
         + "NewShitTime:" + NewShitTime + ","
+        + "NewShitTimeAfterWipe:" + NewShitTimeAfterWipe + ","
         + "ShitMoveYTime:" + ShitMoveYTime + ","
         + "ShitBeEatenTime:" + ShitBeEatenTime + ","
         + "SCGreenDuration:" + SCGreenDuration + ","

@@ -58,6 +58,10 @@ public partial class ConstConfigCategory
     /// </summary>
      public long NewShitTime => _data.NewShitTime;
     /// <summary>
+    /// 擦完屎新屎生成时间(ms)
+    /// </summary>
+     public long NewShitTimeAfterWipe => _data.NewShitTimeAfterWipe;
+    /// <summary>
     /// 屎向下移动时间(s)
     /// </summary>
      public float ShitMoveYTime => _data.ShitMoveYTime;

@@ -226,15 +226,27 @@ public class FoodManagerComponent : Entity
         Scene.TimerComponent.Net.Remove(ref Timer_EatShit);
     }
 
-    public void RemoveShit()
+    public void RemoveShit(bool isWipedByPlayer = false)
     {
         var shit = GetComponent<ShitComponent>();
-        shit?.FinishEat();  // ← 新增：停止粒子
-    
+        shit?.FinishEat();
+
         if (GetComponent<ShitComponent>() != null)
         {
             RemoveComponent<ShitComponent>();
-            StartBornShit();
+            if (isWipedByPlayer)
+            {
+                var delay = Scene.GetComponent<Tables>().ConstConfigCategory.NewShitTimeAfterWipe;
+                Timer_BornShit = Scene.TimerComponent.Net.OnceTimer(delay, () =>
+                {
+                    AddComponent<ShitComponent>();
+                    Scene.GetComponent<DanmakuManagerComponent>()?.OnShitSpawned();
+                });
+            }
+            else
+            {
+                StartBornShit();
+            }
         }
     }
 }
