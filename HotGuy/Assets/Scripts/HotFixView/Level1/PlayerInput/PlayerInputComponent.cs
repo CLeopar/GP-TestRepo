@@ -286,15 +286,16 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
             return;
         }
 
+        if (isStayDog)
+        {
+            Scene.EventComponent.Publish(new HitDog());
+            return;
+        }
+
         if (HandType != HandType.Fist)
             return;
-        if (isStayDog)
-            Scene.EventComponent.Publish(new HitDog());
-        else
-        {
-            //获取道具
-            Scene.GetComponent<FoodManagerComponent>().AddForce(HandRoot.position, 5f);
-        }
+        //获取道具
+        Scene.GetComponent<FoodManagerComponent>().AddForce(HandRoot.position, 5f);
     }
 
     public void PickUpFruit(string fruitName)
