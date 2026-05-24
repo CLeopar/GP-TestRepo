@@ -133,6 +133,8 @@ public class FoodComponent : Entity, ISupportedMultiEntity
         IsBeingEaten = true;
         CancellationToken = FCancellationToken.ToKen;
         
+     
+        
         // 启动持续粒子 + 抖动
         StartContinuousParticles();
         

@@ -35,6 +35,13 @@ public class Event_SCTaskSpawned_Handler : EventSystem<SCTaskSpawned>
             taskUI = taskGo.AddComponent<SCTaskUI>();
 
         taskUI.Init(self.TaskId, self.FoodSequence, self.SCItems);
+        
+        // 播放任务出现音效
+        GameEntry.Instance._scene.EventComponent.Publish(new PlaySFX
+        {
+            Type = SFXType.Ding
+        });
+        
         uiComp.TaskUIInstances[self.TaskId] = taskUI;
 
         Log.Error($"[SCUI] Task UI created: {self.TaskId}, type: {self.SCItems[0].DurationType}");

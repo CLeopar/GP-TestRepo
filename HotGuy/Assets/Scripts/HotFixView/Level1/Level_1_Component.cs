@@ -147,6 +147,17 @@ public class Level_1_Component_Awake : AwakeSystem<Level_1_Component>
         // 
         if (self.Scene.GetComponent<CameraShakeComponent>() == null)
             self.Scene.AddComponent<CameraShakeComponent>();
+        
+        // 注册音效管理器
+        if (self.Scene.GetComponent<AudioManagerComponent>() == null)
+        {
+            self.Scene.AddComponent<AudioManagerComponent>();
+            Log.Error("[Level_1] AudioManagerComponent ADDED");
+        }
+        
+        // 注册背景滚动组件
+        if (self.Scene.GetComponent<BackgroundScrollComponent>() == null)
+            self.Scene.AddComponent<BackgroundScrollComponent>();
     }
 }
 

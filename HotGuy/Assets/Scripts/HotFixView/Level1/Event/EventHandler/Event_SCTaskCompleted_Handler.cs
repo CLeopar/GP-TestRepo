@@ -25,6 +25,14 @@ public class Event_SCTaskCompleted_Handler : EventSystem<SCTaskCompleted>
         }
 
         GameEntry.Instance._scene.GetComponent<LevelStatsComponent>()?.AddTaskCompleted();
+        
+        // 播放任务完成音效
+        GameEntry.Instance._scene.EventComponent.Publish(new PlaySFX
+        {
+            Type = SFXType.Complete,
+            WorldPos = bonusWorldPos
+        });
+        
         CalculateAndAddTaskBonus(self.TaskId, bonusWorldPos);
 
         // 延迟移除，等动画播完（成功动画约 0.12+0.08+0.1+0.25+0.2 = 0.75s，1s足够）

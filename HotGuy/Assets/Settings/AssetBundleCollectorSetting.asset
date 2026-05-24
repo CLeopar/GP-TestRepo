@@ -67,3 +67,11 @@ MonoBehaviour:
         FilterRuleName: CollectAll
         AssetTags: 
         UserData: 
+      - CollectPath: Assets/Bundles/Audio/SFX/L1
+        CollectorGUID: 6597d39aa5035774c8704ba995746b20
+        CollectorType: 0
+        AddressRuleName: AddressByFileName
+        PackRuleName: PackDirectory
+        FilterRuleName: CollectAll
+        AssetTags: 
+        UserData: 

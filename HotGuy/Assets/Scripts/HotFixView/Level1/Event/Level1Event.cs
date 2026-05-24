@@ -181,3 +181,35 @@ public struct StartCameraShake
 public struct StopCameraShake
 {
 }
+
+// ================== 音效事件 ==================
+
+/// <summary>
+/// 播放音效事件
+/// </summary>
+public struct PlaySFX
+{
+    public SFXType Type;
+    /// <summary>
+    /// 世界坐标（可选，null则作为2D音效播放）
+    /// </summary>
+    public Vector3? WorldPos;
+}
+
+/// <summary>
+/// 音效类型（映射到 Bundles/Audio/SFX/L1/ 下的资源）
+/// </summary>
+public enum SFXType
+{
+    Dong,           // Damage/SFX_Dong
+    HitWrongBruh,   // Damage/SFX_HitWrongBruh
+    Hurt,           // Damage/SFX_hurt
+    Eating1,        // Eating/SFX_Eating1
+    Complete,       // SC/Complete/SFX_Complete
+    Ding,           // SC/Show/SFX_ding
+    Heaven,         // Shit/SFX_Heaven
+    Werwerwer,      // werwerwer/SFX_werwerwer
+    ScoreWin,      // ← 新增
+    ScoreWrong,
+    DogWhimperSad,
+}
