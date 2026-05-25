@@ -118,11 +118,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private UnityEvent onAllLevelsComplete;
 
     [Header("Tutorial")]
-    [SerializeField] private bool        enableTutorial = false;
-    [SerializeField] private Level       fixedFirstLevel;
-    [SerializeField] private GameObject  tutorialPanel;
-    [SerializeField] private Image[]     tutorialImages;
-
+    [SerializeField] private bool       enableTutorial     = false;
+    [SerializeField] private Level      fixedFirstLevel;
+    [SerializeField] private GameObject tutorialPanel;
+    [SerializeField] private Animator   tutorialAnimator;
+    [SerializeField] private string     tutorialTriggerName;
+    
     // ───────────────────────── Runtime ─────────────────────────
     private float       timer;
     private float       timerImageInitialWidth;
@@ -394,24 +395,14 @@ public class GameManager : MonoBehaviour
     
     private IEnumerator ShowTutorialPanel()
     {
-        if (tutorialPanel == null || tutorialImages == null || tutorialImages.Length == 0)
-            yield break;
-
-        foreach (var img in tutorialImages)
-            if (img != null) img.gameObject.SetActive(false);
+        if (tutorialPanel == null) yield break;
 
         tutorialPanel.SetActive(true);
 
-        for (int i = 0; i < tutorialImages.Length; i++)
-        {
-            if (tutorialImages[i] != null)
-                tutorialImages[i].gameObject.SetActive(true);
+        yield return StartCoroutine(WaitForAnyInput());
 
-            yield return StartCoroutine(WaitForAnyInput());
-
-            if (tutorialImages[i] != null)
-                tutorialImages[i].gameObject.SetActive(false);
-        }
+        if (tutorialAnimator != null && !string.IsNullOrEmpty(tutorialTriggerName))
+            tutorialAnimator.SetTrigger(tutorialTriggerName);
 
         tutorialPanel.SetActive(false);
     }

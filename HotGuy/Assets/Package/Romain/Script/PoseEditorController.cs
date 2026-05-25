@@ -192,7 +192,7 @@ public class PoseEditorController : MonoBehaviour
     void HandleSelectInput()
     {
         if ((playerType == PlayerType.Player1 && Input.GetKeyDown(KeyCode.Space)) ||
-            (playerType == PlayerType.Player2 && Input.GetKeyDown(KeyCode.Return)))
+            (playerType == PlayerType.Player2 && Input.GetKeyDown(KeyCode.Keypad0)))
         {
             if (selectedJoint != null)
             {
@@ -240,13 +240,13 @@ public class PoseEditorController : MonoBehaviour
 
         if (playerType == PlayerType.Player1)
         {
-            if (Input.GetKey(KeyCode.A)) inputDir -= 1f;
-            if (Input.GetKey(KeyCode.D)) inputDir += 1f;
+            if (Input.GetKey(KeyCode.J)) inputDir -= 1f;
+            if (Input.GetKey(KeyCode.K)) inputDir += 1f;
         }
         else if (playerType == PlayerType.Player2)
         {
-            if (Input.GetKey(KeyCode.LeftArrow))  inputDir -= 1f;
-            if (Input.GetKey(KeyCode.RightArrow)) inputDir += 1f;
+            if (Input.GetKey(KeyCode.Keypad1))  inputDir -= 1f;
+            if (Input.GetKey(KeyCode.Keypad2)) inputDir += 1f;
         }
 
         if (inputDir != 0f)
