@@ -6918,6 +6918,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dd885f637a670a44b46957f49286ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  direction: 0
+  speedX: -100
+  speedY: 0
+  scrollRangeX: 800
+  scrollRangeY: 600
 --- !u!114 &321849524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20394,7 +20399,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1033443505
 RectTransform:
   m_ObjectHideFlags: 0
@@ -44135,7 +44140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3c856993f444534f8f56ede287dea28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSceneIndex: 4
+  targetSceneIndex: 5
   autoLoadOnStart: 0
   jumpButton: {fileID: 78059517}
   fadeImage: {fileID: 1033443506}
