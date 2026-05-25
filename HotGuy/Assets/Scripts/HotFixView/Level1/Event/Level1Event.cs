@@ -212,4 +212,5 @@ public enum SFXType
     ScoreWin,      // ← 新增
     ScoreWrong,
     DogWhimperSad,
+    EatBadEgg,
 }

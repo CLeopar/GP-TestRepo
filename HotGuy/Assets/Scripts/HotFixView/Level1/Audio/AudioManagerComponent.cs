@@ -1,3 +1,4 @@
+// AudioManagerComponent.cs
 using System.Collections.Generic;
 using Fantasy;
 using Fantasy.Async;
@@ -20,6 +21,7 @@ public class AudioManagerComponent : Entity
         { SFXType.ScoreWin,     "SFX_ScoreWin" },
         { SFXType.ScoreWrong,   "SFX_ScoreWrong" },
         { SFXType.DogWhimperSad,"SFX_DogWhimperSad" },
+        { SFXType.EatBadEgg,    "EatBadEgg" },
     };
 
     private Dictionary<SFXType, AudioClip> _cache = new();
@@ -29,6 +31,7 @@ public class AudioManagerComponent : Entity
     private AudioSource _heavenSFXSource;
     private AudioSource _dogWhimperSource;
     private AudioSource _werwerwerSource;
+    private AudioSource _eatBadEggSource;
 
     private AudioSource EatingSource
     {
@@ -94,6 +97,24 @@ public class AudioManagerComponent : Entity
                 _werwerwerSource.spatialBlend = 0f;
             }
             return _werwerwerSource;
+        }
+    }
+
+    private AudioSource EatBadEggSource
+    {
+        get
+        {
+            if (_eatBadEggSource == null)
+            {
+                var go = new GameObject("EatBadEggAudioSource");
+                Object.DontDestroyOnLoad(go);
+                _eatBadEggSource = go.AddComponent<AudioSource>();
+                _eatBadEggSource.playOnAwake = false;
+                _eatBadEggSource.loop = true;
+                _eatBadEggSource.spatialBlend = 0f;
+                _eatBadEggSource.volume = 0.4f;
+            }
+            return _eatBadEggSource;
         }
     }
 
@@ -175,6 +196,12 @@ public class AudioManagerComponent : Entity
             _werwerwerSource.Stop();
     }
 
+    public void StopEatBadEgg()
+    {
+        if (_eatBadEggSource != null && _eatBadEggSource.isPlaying)
+            _eatBadEggSource.Stop();
+    }
+
     private async FTask FadeOutSource(AudioSource source, float duration)
     {
         float startVolume = source.volume;
@@ -223,6 +250,18 @@ public class AudioManagerComponent : Entity
                 WerwerwerSource.Play();
             Log.Error($"[AudioManager] 🔊 PLAYED (persistent loop): {clip.name}");
         }
+        else if (type == SFXType.EatBadEgg)
+        {
+            if (EatBadEggSource.clip != clip)
+                EatBadEggSource.clip = clip;
+            EatBadEggSource.volume = 0.4f;
+            EatBadEggSource.mute = false;
+            if (!EatBadEggSource.isPlaying)
+            {
+                EatBadEggSource.Play();
+                Log.Error($"[AudioManager] 🔊 PLAYED BGM: {clip.name}, volume={EatBadEggSource.volume}, isPlaying={EatBadEggSource.isPlaying}");
+            }
+        }
         else
         {
             var pos = worldPos ?? (Camera.main?.transform.position ?? Vector3.zero);
@@ -234,5 +273,7 @@ public class AudioManagerComponent : Entity
 
 public class AudioManagerComponent_Awake : AwakeSystem<AudioManagerComponent>
 {
-    protected override void Awake(AudioManagerComponent self) { }
+    protected override void Awake(AudioManagerComponent self)
+    {
+    }
 }
