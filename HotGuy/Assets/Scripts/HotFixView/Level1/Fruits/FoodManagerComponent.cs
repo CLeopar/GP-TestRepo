@@ -187,31 +187,7 @@ public class FoodManagerComponent : Entity
 
         return foodComponent;
     }
-
-    public void AddForce(Vector2 position, float radius)
-    {
-        var collider2Ds = Physics2D.OverlapCircleAll(position, radius);
-        foreach (var hit in collider2Ds)
-        {
-            Rigidbody2D rb = hit.GetComponent<Rigidbody2D>();
-            if (rb != null)
-            {
-                // 3. 计算方向：从爆炸点指向目标物体
-                Vector2 direction = (rb.position - position).normalized;
-
-                // 4. 计算距离衰减因子：距离越近力越大，超过半径则为0
-                float distance = Vector2.Distance(position, rb.position);
-                float falloff = 1 - Mathf.Clamp01(distance / radius);
-
-                // 5. 计算最终力的大小
-                float forceMagnitude = 1000f * falloff;
-
-                // 6. 施加力
-                // 注意：ForceMode2D.Impulse 适合爆炸这种瞬间力
-                rb.AddForce(direction * forceMagnitude, ForceMode2D.Impulse);
-            }
-        }
-    }
+    
 
     public ShitComponent GetShit()
     {

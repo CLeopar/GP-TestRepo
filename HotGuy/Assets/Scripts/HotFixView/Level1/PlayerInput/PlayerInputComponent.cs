@@ -295,7 +295,7 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
         if (HandType != HandType.Fist)
             return;
         //获取道具
-        Scene.GetComponent<FoodManagerComponent>().AddForce(HandRoot.position, 5f);
+       // Scene.GetComponent<FoodManagerComponent>().AddForce(HandRoot.position, 5f);
     }
 
     public void PickUpFruit(string fruitName)

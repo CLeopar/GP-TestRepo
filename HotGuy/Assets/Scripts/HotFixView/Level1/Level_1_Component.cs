@@ -137,6 +137,9 @@ public class Level_1_Component_Awake : AwakeSystem<Level_1_Component>
         
         if (self.Scene.GetComponent<BackgroundScrollComponent>() == null)
             self.Scene.AddComponent<BackgroundScrollComponent>();
+        
+        if (self.Scene.AddComponent<FoodBoundaryComponent>() == null)
+        self.Scene.AddComponent<FoodBoundaryComponent>();
     }
 }
 
