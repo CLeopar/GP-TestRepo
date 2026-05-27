@@ -315,7 +315,8 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
 
     public void PickUpProps(string name)
     {
-        Scene.GetComponent<PropsManagerComponent>().PickUpProp(HandRoot, name);
+        var propsManager = Scene.GetComponent<PropsManagerComponent>();
+        propsManager.PickUpProp(HandRoot, name, this.playerIndex);
         isPickUpProp = true;
         ChangeHandType(HandType.Prop).Coroutine();
     }
@@ -324,8 +325,8 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
     {
         if (isPickUpProp)
         {
-            Scene.GetComponent<PropsManagerComponent>().DropProp();
-            pickUpFruitId = 0;
+            var propsManager = Scene.GetComponent<PropsManagerComponent>();
+            propsManager.DropProp(this.playerIndex);
             isPickUpProp = false;
             ChangeHandType(HandType.Palm).Coroutine();
         }
