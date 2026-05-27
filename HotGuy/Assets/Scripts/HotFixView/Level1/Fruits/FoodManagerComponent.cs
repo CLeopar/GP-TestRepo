@@ -110,10 +110,28 @@ public class FoodManagerComponent : Entity
         await FTask.Wait(Scene, Scene.GetComponent<Tables>().ConstConfigCategory.NewFruitTime);
         await FeedMachineAni(true);
         var fruit = AddComponent<FoodComponent>();
-        var listIdx = Random.Range(0, list.Count - 1);
+        var listIdx = Random.Range(0, list.Count);  // ← 顺便修bug，原来是 list.Count - 1
         var foodType = list[listIdx];
         foodCount[foodType]--;
         await fruit.Init(FruitParent, foodType);
+    }
+
+// ========== 新增：指定类型生成食物 ==========
+    public async FTask AddNewFruitOfType(FoodType foodType)
+    {
+        if (!foodCount.ContainsKey(foodType) || foodCount[foodType] <= 0)
+        {
+            Log.Error($"[FoodManager] Cannot spawn {foodType}, no stock left!");
+            return;
+        }
+
+        await FTask.Wait(Scene, Scene.GetComponent<Tables>().ConstConfigCategory.NewFruitTime);
+        await FeedMachineAni(true);
+        var fruit = AddComponent<FoodComponent>();
+        foodCount[foodType]--;
+        await fruit.Init(FruitParent, foodType);
+    
+        Log.Error($"[FoodManager] Spawned {foodType} for task supplement");
     }
 
     public void PickUpFruit(long fruitId, Transform parent)
