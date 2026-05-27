@@ -84,7 +84,8 @@ public class GameStatsManager : MonoBehaviour
             debugHighScore = HighScore;
         }
 
-        var playedLevels = gm.LevelList
+        // ↓ LevelList 改成 ActiveLevels
+        var playedLevels = gm.ActiveLevels
             .Where(l => l != null && l.similarity > 0f)
             .ToList();
 

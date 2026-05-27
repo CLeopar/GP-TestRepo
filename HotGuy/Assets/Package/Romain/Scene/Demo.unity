@@ -19471,11 +19471,11 @@ MonoBehaviour:
   timerText: {fileID: 1329804088}
   timerImage: {fileID: 321849521}
   levelTimes:
-  - 60
+  - 50
+  - 40
   - 40
   - 30
-  - 20
-  - 20
+  - 30
   gameplayBgmClip: {fileID: 8300000, guid: b0c93c2bf74e36f448e0c04cb5e1acdf, type: 3}
   gameplayBgmSource: {fileID: 941223180}
   bgmVolumeGameplay: 1

@@ -144,7 +144,7 @@ public class GameManager : MonoBehaviour
     public IReadOnlyList<Sprite>    CapturedSprites  => capturedSprites;
     public List<Level>              LevelList        => levelList;
     public int                      CurrentLevel     => currentLevel;
-
+    public IReadOnlyList<Level> ActiveLevels => activeLevels;
     private void Awake() => Instance = this;
 
     private void Start()
