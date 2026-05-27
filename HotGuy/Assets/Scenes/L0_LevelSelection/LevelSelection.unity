@@ -339,18 +339,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d9f5afaa67d976448bb0dc036e270f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dataMode: 0
+  levelId: 2
   barMask: {fileID: 484833188}
   maxScaleX: 50
   maxScore: 1000
+  minScaleX: 0
   starRenderers:
   - {fileID: 1717152548}
   - {fileID: 1119325873}
   - {fileID: 1658901377}
-  starUnlockedSprite: {fileID: 21300000, guid: 58e8fbd0d6203584c96a20f56f395b3d, type: 3}
-  starLockedSprite: {fileID: 21300000, guid: 1d406e2d13afe234fb53f92e6af17a0f, type: 3}
+  starUnlockedSprite: {fileID: 21300000, guid: 0467317059604c94ebcbde7c44ac7f51, type: 3}
+  starLockedSprite: {fileID: 21300000, guid: 291e770484f73c54ba0ea47c3b6afe3a, type: 3}
   star1Threshold: 200
   star2Threshold: 300
-  star3Threshold: 700
+  star3Threshold: 400
+  _currentDataMode: 0
+  _currentLevelId: 0
+  _currentScore: 0
+  _currentHighScore: 0
+  _currentProgressRatio: 0
 --- !u!1 &89827800
 GameObject:
   m_ObjectHideFlags: 0

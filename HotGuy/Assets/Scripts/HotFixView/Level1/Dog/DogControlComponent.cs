@@ -239,6 +239,10 @@ public class DogControlComponent : Entity
 
     public void TriggerHit()
     {
+        // 已经在 Hit 流程中，直接忽略
+        if (dogState == DogState.Hit || dogState == DogState.Hit_Right || dogState == DogState.Hit_Wrong)
+            return;
+
         wasSecretlyEatingWhenHit =
             dogState == DogState.Eat_Secretly_1 ||
             dogState == DogState.Eat_Secretly_2 ||
@@ -246,7 +250,7 @@ public class DogControlComponent : Entity
             dogState == DogState.Eat_Secretly_4 ||
             dogState == DogState.Eat_Normal_Secretly;
 
-        ChangeDogState(DogState.Hit); 
+        ChangeDogState(DogState.Hit);
     }
 
     public void HoldDog(DogState previousState)

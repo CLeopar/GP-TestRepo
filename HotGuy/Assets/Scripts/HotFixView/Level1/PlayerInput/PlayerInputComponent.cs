@@ -549,9 +549,11 @@ public class PlayerInputComponent : Entity, ISupportedMultiEntity
 
 public class PlayerInputComponent_Awake : AwakeSystem<PlayerInputComponent>
 {
+    public static int _playerCounter = 0;
+
     protected override void Awake(PlayerInputComponent self)
     {
-        self.playerIndex = (int)self.Id;
+        self.playerIndex = _playerCounter++;
         self.controls = new InputAction_Player();
         self.InitProperty();
 
@@ -616,6 +618,10 @@ public class PlayerInputComponent_Destroy : DestroySystem<PlayerInputComponent>
 {
     protected override void Destroy(PlayerInputComponent self)
     {
+        // 重置计数器，确保场景重载后 playerIndex 重新从 0 开始
+        if (self.playerIndex == 0)
+            PlayerInputComponent_Awake._playerCounter = 0;
+
         if (self.isL())
         {
             self.controls.Player1.Move.performed -= self.OnPlayerMove;
