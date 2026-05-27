@@ -20,7 +20,7 @@ public class Level_1_Component : Entity
             
             PublishTimerUpdate();
             
-            if (Level_Duration >= 120 * 1000)
+            if (Level_Duration >= 150 * 1000)// 达到 120 秒（2分钟）
             {
                 Scene.TimerComponent.Net.Remove(ref Timer);
                 Level_Stage = 4;
@@ -29,13 +29,13 @@ public class Level_1_Component : Entity
             }
             else
             {
-                if (Level_Duration <= 15 * 1000)
+                if (Level_Duration <= 60 * 1000) // 0-15秒：阶段1
                 {
                     Level_Stage = 1;
                 }
-                else if (Level_Duration <= 60 * 1000)
+                else if (Level_Duration <= 110 * 1000)// 15-60秒：阶段2
                     Level_Stage = 2;
-                else if (Level_Duration <= 100 * 1000)
+                else if (Level_Duration <= 150 * 1000)// 60-100秒：阶段3
                     Level_Stage = 3;
             }
         });
@@ -43,12 +43,12 @@ public class Level_1_Component : Entity
 
     private void PublishTimerUpdate()
     {
-        long remaining = 120 * 1000 - Level_Duration;
+        long remaining = 150 * 1000 - Level_Duration;
         Scene.EventComponent.Publish(new LevelTimerUpdate
         {
             RemainingTime = remaining,
             ElapsedTime = Level_Duration,
-            TotalTime = 120 * 1000
+            TotalTime = 150 * 1000
         });
     }
     
@@ -68,9 +68,9 @@ public class Level_1_Component : Entity
         if (Level_Stage == 1)
             return 0;
         if (Level_Stage == 2)
-            return Random.Range(8, 11) * 1000;
+            return Random.Range(10, 20) * 1000;// 阶段2: 8-10秒
         if (Level_Stage == 3)
-            return Random.Range(5, 7) * 1000;
+            return Random.Range(8, 11) * 1000;//阶段3: 5-7秒
         return 4000;
     }
     
@@ -78,9 +78,9 @@ public class Level_1_Component : Entity
     {
         if (Level_Stage == 1)
             return 0;
-        if (Level_Stage == 2)
+        if (Level_Stage == 2)//阶段2: 4秒
             return 4000;
-        if (Level_Stage == 3)
+        if (Level_Stage == 3)//阶段3: 3.5秒
             return 3500;
         return 2000;
     }

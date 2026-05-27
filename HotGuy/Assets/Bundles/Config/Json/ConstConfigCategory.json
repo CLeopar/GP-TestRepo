@@ -11,9 +11,9 @@
     "NewShitTimeAfterWipe": 25000,
     "ShitMoveYTime": 5,
     "ShitBeEatenTime": 3500,
-    "SCGreenDuration": 40,
-    "SCOrangeDuration": 20,
-    "SCSpawnInterval": 10,
+    "SCGreenDuration": 45,
+    "SCOrangeDuration": 30,
+    "SCSpawnInterval": 20,
     "SCMaxTaskCount": 2,
     "SCGreenProbability": 0.6
   }

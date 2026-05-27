@@ -4,9 +4,9 @@
     "FoodScore2Bite": 20,
     "FoodScore3Bite": 30,
     "SecretEatPenalty": -15,
-    "WrongHitPenalty": -50,
-    "EatShitPenalty": -100,
-    "TaskMultiplierGreen": 1.5,
-    "TaskMultiplierOrange": 2
+    "WrongHitPenalty": -10,
+    "EatShitPenalty": -30,
+    "TaskMultiplierGreen": 2,
+    "TaskMultiplierOrange": 3
   }
 ]

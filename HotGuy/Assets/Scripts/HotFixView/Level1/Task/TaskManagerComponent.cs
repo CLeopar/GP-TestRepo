@@ -21,8 +21,11 @@ public class TaskManagerComponent : Entity
     public void Init()
     {
         Log.Error("[TaskManager] === Init called ===");
-        StartSpawnTimer();
-        Log.Error($"[TaskManager] Initialized, SpawnInterval={SpawnInterval}s, MaxTaskCount={MaxTaskCount}");
+        
+        float firstSpawnDelay = 30f;  // 第一次 3 秒后出现
+        _spawnTimer = Scene.TimerComponent.Net.OnceTimer((long)(firstSpawnDelay * 1000), OnSpawnTimer);
+    
+        Log.Error($"[TaskManager] Initialized, FirstSpawnDelay={firstSpawnDelay}s, SpawnInterval={SpawnInterval}s, MaxTaskCount={MaxTaskCount}");
     }
 
     private void StartSpawnTimer()

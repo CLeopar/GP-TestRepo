@@ -338,7 +338,7 @@ public class DogControlComponent : Entity
         ChangeDogState(DogState.Normal);
     }
 
-    private void CancelCurrentEating()
+    public void CancelCurrentEating()
     {
         cancellationToken?.Cancel();
         currentRotateTween?.Kill();

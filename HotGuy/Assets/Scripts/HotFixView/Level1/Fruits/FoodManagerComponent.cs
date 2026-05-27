@@ -246,8 +246,21 @@ public class FoodManagerComponent : Entity
 
     public void RemoveShit(bool isWipedByPlayer = false)
     {
+        // ========== 新增：如果狗正在吃屎，通知狗停止 ==========
+        var dogCtrl = Scene.GetComponent<DogControlComponent>();
+        if (dogCtrl != null && dogCtrl.CurEatFoodData.Item1 == FoodType.Shit)
+        {
+            Log.Error("[FoodManager] Shit wiped while dog is eating! Cancelling dog eat.");
+            dogCtrl.CancelCurrentEating();
+            dogCtrl.ChangeDogState(DogState.Normal);
+        }
+        // ================================================
+
         var shit = GetComponent<ShitComponent>();
         shit?.FinishEat();
+
+        // 取消吃屎定时器
+        CancelEatShit();
 
         if (GetComponent<ShitComponent>() != null)
         {
