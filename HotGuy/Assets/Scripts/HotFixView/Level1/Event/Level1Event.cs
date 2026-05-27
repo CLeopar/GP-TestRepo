@@ -214,3 +214,8 @@ public enum SFXType
     DogWhimperSad,
     EatBadEgg,
 }
+
+public static class Level1PauseState
+{
+    public static bool IsPaused = false;
+}

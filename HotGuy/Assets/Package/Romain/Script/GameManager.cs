@@ -101,6 +101,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<Level> levelList;
     [SerializeField] private int         levelCount = 5;
 
+    [Header("Canvas")]
+    [SerializeField] private Canvas gameplayCanvas;
+    
     [Header("Prompt")]
     [SerializeField] private TMP_Text[] promptTexts;
 
@@ -599,7 +602,7 @@ public class GameManager : MonoBehaviour
         if (currentLevel >= activeLevels.Count) return;
 
         var level = activeLevels[currentLevel];
-        Canvas canvas            = FindObjectOfType<Canvas>();
+        Canvas canvas = gameplayCanvas;
         RectTransform canvasRect = canvas != null ? canvas.GetComponent<RectTransform>() : null;
 
         float baseSimilarity = 0f;

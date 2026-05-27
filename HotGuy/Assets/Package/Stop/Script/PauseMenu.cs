@@ -82,6 +82,12 @@ public class PauseMenu : MonoBehaviour
     private Vector2 topGroupOriginalPos;
     private Vector2 bottomGroupOriginalPos;
 
+    // 防止重复触发场景切换
+    private bool _isFading = false;
+
+    // 缓存 Level_1 引用
+    private GameObject _levelRoot;
+
     // ──────────────────────────────────────────────────────────────────────────
 
     private void Awake()
@@ -134,12 +140,42 @@ public class PauseMenu : MonoBehaviour
     /// </summary>
     public void Open(int levelIndex = 0)
     {
+        Level1PauseState.IsPaused = true;
+
+        // 先杀掉可能残留的动画，防止快速连按 Escape 导致 tween 堆积
+        KillAllTweens();
+
         currentLevelIndex = levelIndex;
         gameObject.SetActive(true);
-        Time.timeScale = 0f;
+
+        // 禁用 Level_1（冻结 ECS）
+        _levelRoot = GameObject.Find("Level_1");
+        if (_levelRoot != null)
+            _levelRoot.SetActive(false);
+
+        // 暂停所有 DOTween
+        DOTween.PauseAll();
+
+        // 冻结所有 Rigidbody2D
+        var allRBs = FindObjectsOfType<Rigidbody2D>();
+        foreach (var rb in allRBs)
+            rb.simulated = false;
+
+        // 清理弹幕
+        var scene = GameEntry.Instance?._scene;
+        if (scene != null)
+        {
+            var danmakuUIComp = scene.GetComponent<DanmakuUIComponent>();
+            danmakuUIComp?.ClearAll();
+        }
+
+        _isFading = false;
 
         if (hintsOverlay != null)
             hintsOverlay.SetActive(false);
+
+        // 恢复按钮可交互状态
+        SetAllButtonsInteractable(true);
 
         PlayOpenAnimation();
     }
@@ -147,16 +183,38 @@ public class PauseMenu : MonoBehaviour
     /// <summary>关闭暂停菜单，恢复游戏时间。</summary>
     public void Close()
     {
+        Level1PauseState.IsPaused = false;
+
         // 如果有动画在播放，先杀掉避免冲突
-        if (backgroundImage != null) DOTween.Kill(backgroundImage);
-        if (topGroup != null) DOTween.Kill(topGroup);
-        if (bottomGroup != null) DOTween.Kill(bottomGroup);
+        KillAllTweens();
 
         if (hintsOverlay != null)
             hintsOverlay.SetActive(false);
 
         gameObject.SetActive(false);
-        Time.timeScale = 1f;
+
+        // 恢复 Level_1
+        if (_levelRoot != null)
+            _levelRoot.SetActive(true);
+
+        // 恢复 DOTween
+        DOTween.PlayAll();
+
+        // 恢复所有 Rigidbody2D
+        var allRBs = FindObjectsOfType<Rigidbody2D>();
+        foreach (var rb in allRBs)
+            rb.simulated = true;
+    }
+
+    // ─── 动画工具 ─────────────────────────────────────────────────────────────
+
+    /// <summary>杀掉所有相关 tween，防止堆积。</summary>
+    private void KillAllTweens()
+    {
+        if (backgroundImage != null) DOTween.Kill(backgroundImage);
+        if (topGroup != null) DOTween.Kill(topGroup);
+        if (bottomGroup != null) DOTween.Kill(bottomGroup);
+        if (fadeImage != null) DOTween.Kill(fadeImage);
     }
 
     // ─── 开场动画 ─────────────────────────────────────────────────────────────
@@ -205,6 +263,18 @@ public class PauseMenu : MonoBehaviour
         if (btnSettings  != null) btnSettings.onClick.AddListener(OnSettings);
         if (btnMainMenu  != null) btnMainMenu.onClick.AddListener(OnMainMenu);
         if (btnCloseHints != null) btnCloseHints.onClick.AddListener(OnCloseHints);
+    }
+
+    // ─── 按钮交互控制 ─────────────────────────────────────────────────────────
+
+    /// <summary>批量设置所有菜单按钮的 interactable 状态。</summary>
+    private void SetAllButtonsInteractable(bool interactable)
+    {
+        if (btnResume    != null) btnResume.interactable = interactable;
+        if (btnRestart   != null) btnRestart.interactable = interactable;
+        if (btnHints     != null) btnHints.interactable = interactable;
+        if (btnSettings  != null) btnSettings.interactable = interactable;
+        if (btnMainMenu  != null) btnMainMenu.interactable = interactable;
     }
 
     // ─── 按钮逻辑 ─────────────────────────────────────────────────────────────
@@ -262,8 +332,20 @@ public class PauseMenu : MonoBehaviour
 
     private void FadeAndLoad(int sceneIndex)
     {
-        // 恢复时间，否则 DOTween 的 tween 不会播放
-        Time.timeScale = 1f;
+        if (_isFading) return;  // 防止重复调用
+        _isFading = true;
+
+        // 恢复 ECS（如果还在暂停）
+        Level1PauseState.IsPaused = false;
+        if (_levelRoot != null)
+            _levelRoot.SetActive(true);
+        DOTween.PlayAll();
+        var allRBs = FindObjectsOfType<Rigidbody2D>();
+        foreach (var rb in allRBs)
+            rb.simulated = true;
+
+        // 禁用所有按钮，防止点击穿透和重复触发
+        SetAllButtonsInteractable(false);
 
         if (fadeImage == null)
         {
@@ -272,6 +354,9 @@ public class PauseMenu : MonoBehaviour
             return;
         }
 
+        // 杀掉可能残留的 fade tween
+        DOTween.Kill(fadeImage);
+
         // 重置透明度后渐黑
         Color c = fadeImage.color;
         c.a = 0f;
@@ -279,7 +364,6 @@ public class PauseMenu : MonoBehaviour
 
         fadeImage.DOFade(1f, fadeDuration)
                  .SetEase(Ease.InQuad)
-                 .SetUpdate(true)
                  .OnComplete(() => SceneManager.LoadScene(sceneIndex));
     }
 
@@ -287,14 +371,25 @@ public class PauseMenu : MonoBehaviour
 
     private void OnDestroy()
     {
+        // 修正：所有按钮都应该是 RemoveListener，原代码中 btnRestart 误写为 AddListener
         if (btnResume    != null) btnResume.onClick.RemoveListener(OnResume);
-        if (btnRestart   != null) btnRestart.onClick.AddListener(OnRestart);
+        if (btnRestart   != null) btnRestart.onClick.RemoveListener(OnRestart);  // ← 已修复
         if (btnHints     != null) btnHints.onClick.RemoveListener(OnHints);
         if (btnSettings  != null) btnSettings.onClick.RemoveListener(OnSettings);
         if (btnMainMenu  != null) btnMainMenu.onClick.RemoveListener(OnMainMenu);
         if (btnCloseHints != null) btnCloseHints.onClick.RemoveListener(OnCloseHints);
 
-        Time.timeScale = 1f;
+        // 清理所有 tween，防止场景切换时 DOTween 持有已销毁对象的引用
+        KillAllTweens();
+
+        // 确保恢复
+        Level1PauseState.IsPaused = false;
+        if (_levelRoot != null)
+            _levelRoot.SetActive(true);
+        DOTween.PlayAll();
+        var allRBs = FindObjectsOfType<Rigidbody2D>();
+        foreach (var rb in allRBs)
+            rb.simulated = true;
 
         if (Instance == this)
             Instance = null;
