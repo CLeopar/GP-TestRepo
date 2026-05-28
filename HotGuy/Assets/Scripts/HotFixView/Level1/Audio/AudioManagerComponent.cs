@@ -78,6 +78,7 @@ public class AudioManagerComponent : Entity
                 _dogWhimperSource.playOnAwake = false;
                 _dogWhimperSource.loop = true;
                 _dogWhimperSource.spatialBlend = 0f;
+                _dogWhimperSource.volume = 1f;
             }
             return _dogWhimperSource;
         }
@@ -95,6 +96,7 @@ public class AudioManagerComponent : Entity
                 _werwerwerSource.playOnAwake = false;
                 _werwerwerSource.loop = true;
                 _werwerwerSource.spatialBlend = 0f;
+                _werwerwerSource.volume = 1f; 
             }
             return _werwerwerSource;
         }

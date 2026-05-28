@@ -8,14 +8,14 @@ public class DanmakuUI : MonoBehaviour
     [Header("UI引用")]
     public Image AvatarImage;
     public TextMeshProUGUI ContentText;
-    public RectTransform ContentImageRect;  // 拖入 ContentImage
+    public RectTransform ContentImageRect;
 
     [Header("头像库")]
     public Sprite[] AvatarSprites;
 
     [Header("布局参数")]
-    public float AvatarWidth = 100f;    // 头像宽度
-    public float AvatarSpacing = 20f;   // 头像和气泡之间的间距
+    public float AvatarWidth = 100f;
+    public float AvatarSpacing = 20f;
 
     [Header("动画参数")]
     public float SlideInDuration = 0.35f;
@@ -56,10 +56,8 @@ public class DanmakuUI : MonoBehaviour
 
     private IEnumerator LayoutThenSlideIn(float targetY)
     {
-        // 等一帧让 ContentSizeFitter 算好气泡宽度
         yield return null;
 
-        // 头像固定在最左边
         _avatarRect.anchorMin = new Vector2(0, 0.5f);
         _avatarRect.anchorMax = new Vector2(0, 0.5f);
         _avatarRect.pivot = new Vector2(0, 0.5f);
@@ -67,7 +65,6 @@ public class DanmakuUI : MonoBehaviour
         _avatarRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, AvatarWidth);
         _avatarRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, AvatarWidth);
 
-        // 气泡紧跟在头像右边
         if (ContentImageRect != null)
         {
             ContentImageRect.anchorMin = new Vector2(0, 0.5f);
@@ -79,9 +76,6 @@ public class DanmakuUI : MonoBehaviour
         PlaySlideIn(targetY);
     }
 
-    /// <summary>
-    /// 平滑移动到新目标位置（已在场景中的弹幕被新条目顶上去时调用）
-    /// </summary>
     public void MoveTo(float targetY)
     {
         if (_isDestroying) return;
@@ -89,12 +83,11 @@ public class DanmakuUI : MonoBehaviour
         if (_moveCoroutine != null)
             StopCoroutine(_moveCoroutine);
 
+        _canvasGroup.alpha = 1f;
+
         _moveCoroutine = StartCoroutine(SmoothMove(_rect.anchoredPosition.y, targetY, SlideInDuration));
     }
 
-    /// <summary>
-    /// 向上滑出并销毁（被顶出时调用）
-    /// </summary>
     public void SlideOutAndDestroy()
     {
         if (_isDestroying) return;
@@ -111,8 +104,6 @@ public class DanmakuUI : MonoBehaviour
         _isDestroying = true;
         Destroy(gameObject);
     }
-
-    // ── 内部协程 ─────────────────────────────────────────────
 
     private void PlaySlideIn(float targetY)
     {
@@ -165,7 +156,7 @@ public class DanmakuUI : MonoBehaviour
     {
         float elapsed = 0f;
         float startY = _rect.anchoredPosition.y;
-        float endY = startY + SlideOffsetY; // 向上滑出
+        float endY = startY + SlideOffsetY;
         float startAlpha = _canvasGroup.alpha;
 
         while (elapsed < SlideOutDuration)
@@ -181,8 +172,6 @@ public class DanmakuUI : MonoBehaviour
 
         Destroy(gameObject);
     }
-
-    // ── 缓动函数 ──────────────────────────────────────────────
 
     private static float EaseOutCubic(float t) => 1f - Mathf.Pow(1f - t, 3f);
     private static float EaseInCubic(float t) => t * t * t;

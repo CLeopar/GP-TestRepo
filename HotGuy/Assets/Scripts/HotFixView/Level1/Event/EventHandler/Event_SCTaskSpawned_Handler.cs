@@ -30,19 +30,20 @@ public class Event_SCTaskSpawned_Handler : EventSystem<SCTaskSpawned>
         var taskGo = GameObject.Instantiate(prefab, uiComp.SCTaskParent);
         taskGo.name = $"SCTask_{self.TaskId}";
 
-        var taskUI = taskGo.GetComponent<SCTaskUI>();
+        SCTaskUI taskUI = taskGo.GetComponent<SCTaskUI>();
         if (taskUI == null)
             taskUI = taskGo.AddComponent<SCTaskUI>();
 
+        // 先注册进字典，再 Init
+        // 保证 Init 内部触发的任何事件（SCTimerUpdate等）都能找到 UI
+        uiComp.TaskUIInstances[self.TaskId] = taskUI;
+
         taskUI.Init(self.TaskId, self.FoodSequence, self.SCItems);
-        
-        // 播放任务出现音效
+
         GameEntry.Instance._scene.EventComponent.Publish(new PlaySFX
         {
             Type = SFXType.Ding
         });
-        
-        uiComp.TaskUIInstances[self.TaskId] = taskUI;
 
         Log.Error($"[SCUI] Task UI created: {self.TaskId}, type: {self.SCItems[0].DurationType}");
         Log.Error($"[SCUI] Registered TaskId: {self.TaskId}, total: {uiComp.TaskUIInstances.Count}");

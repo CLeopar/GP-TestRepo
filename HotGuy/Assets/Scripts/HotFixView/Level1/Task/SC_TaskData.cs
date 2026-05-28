@@ -34,3 +34,4 @@ public struct SCItemData
     // 保留兼容，但不再作为时间源
     public float TotalDuration;  // ← 可选：完全删除或保留不用
 }
+

@@ -101,15 +101,18 @@ public class SCTaskUI : MonoBehaviour
         PlaySpawnAnimation();
     }
 
-    public void UpdateTimer(float remainingTime)
+    public void UpdateTimer(float remainingTime, float totalDuration)
     {
+        _totalDuration = totalDuration;  // ← 加这一行，每次同步基准
         _remainingTime = remainingTime;
         UpdateTimerDisplay();
     }
 
     private void UpdateTimerDisplay()
     {
-        float ratio = _totalDuration > 0 ? _remainingTime / _totalDuration : 0;
+        if (_totalDuration <= 0) return;  // ← 加这一行，没初始化完就不渲染
+    
+        float ratio = _remainingTime / _totalDuration;
         SCUnFinishedImage.fillAmount = Mathf.Clamp01(ratio);
 
         int totalSeconds = Mathf.FloorToInt(_remainingTime);
@@ -236,5 +239,13 @@ public class SCTaskUI : MonoBehaviour
 
         if (_activeFoodImages[index] != null && sprite != null)
             _activeFoodImages[index].sprite = sprite;
+    }
+    // SCTaskUI.cs
+    public void ResetTimerForNewStep(float newTotalDuration)
+    {
+        _totalDuration = newTotalDuration;
+        _remainingTime = newTotalDuration;
+        SCUnFinishedImage.fillAmount = 1f;
+        UpdateTimerDisplay();
     }
 }

@@ -165,6 +165,7 @@ public struct SCTimerUpdate
     public long TaskId;
     public int ItemIndex;
     public float RemainingTime;
+    public float TotalDuration; 
 }
 // 在 Level1Event.cs 末尾添加：
 
@@ -218,4 +219,15 @@ public enum SFXType
 public static class Level1PauseState
 {
     public static bool IsPaused = false;
+}
+
+// 加到 Level1Event.cs 文件末尾，和其他事件放在一起
+
+/// <summary>
+/// SC任务Step变更事件（吃对食物推进时触发）
+/// </summary>
+public struct SCStepChanged
+{
+    public long TaskId;
+    public int NewStep;
 }

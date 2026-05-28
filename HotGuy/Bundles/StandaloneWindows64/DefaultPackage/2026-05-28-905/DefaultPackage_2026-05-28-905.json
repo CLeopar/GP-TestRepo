@@ -1,0 +1,2144 @@
+{
+    "FileVersion": "2025.9.30",
+    "EnableAddressable": true,
+    "SupportExtensionless": true,
+    "LocationToLower": false,
+    "IncludeAssetGUID": false,
+    "ReplaceAssetPathWithAddress": false,
+    "OutputNameStyle": 0,
+    "BuildBundleType": 2,
+    "BuildPipeline": "ScriptableBuildPipeline",
+    "PackageName": "DefaultPackage",
+    "PackageVersion": "2026-05-28-905",
+    "PackageNote": "2026/5/28 15:06:57",
+    "AssetList": [
+        {
+            "Address": "SFX_DogWhimperSad",
+            "AssetPath": "Assets/Bundles/Audio/SFX/L1/Damage/SFX_DogWhimperSad.wav",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 3,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "SFX_Dong",
+            "AssetPath": "Assets/Bundles/Audio/SFX/L1/Damage/SFX_Dong.mp3",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 3,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "SFX_HitWrongBruh",
+            "AssetPath": "Assets/Bundles/Audio/SFX/L1/Damage/SFX_HitWrongBruh.mp3",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 3,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "SFX_hurt",
+            "AssetPath": "Assets/Bundles/Audio/SFX/L1/Damage/SFX_hurt.mp3",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 3,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "EatBadEgg",
+            "AssetPath": "Assets/Bundles/Audio/SFX/L1/EatBadEgg.mp3",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "SFX_Eating1",
+            "AssetPath": "Assets/Bundles/Audio/SFX/L1/Eating/SFX_Eating1.mp3",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 4,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "SFX_Complete",
+            "AssetPath": "Assets/Bundles/Audio/SFX/L1/SC/Complete/SFX_Complete.mp3",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 5,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "SFX_ding",
+            "AssetPath": "Assets/Bundles/Audio/SFX/L1/SC/Show/SFX_ding.mp3",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 6,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "SFX_ScoreWin",
+            "AssetPath": "Assets/Bundles/Audio/SFX/L1/Score/SFX_ScoreWin.wav",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 7,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "SFX_ScoreWrong",
+            "AssetPath": "Assets/Bundles/Audio/SFX/L1/Score/SFX_ScoreWrong.wav",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 7,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "SFX_Heaven",
+            "AssetPath": "Assets/Bundles/Audio/SFX/L1/Shit/SFX_Heaven.mp3",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 8,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "SFX_werwerwer",
+            "AssetPath": "Assets/Bundles/Audio/SFX/L1/werwerwer/SFX_werwerwer.wav",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 9,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "SFX_AchievementOrLeave",
+            "AssetPath": "Assets/Bundles/Audio/SFX/SFX_AchievementOrLeave.wav",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "SFX_Kachia",
+            "AssetPath": "Assets/Bundles/Audio/SFX/SFX_Kachia.wav",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "SFX_QuickTack",
+            "AssetPath": "Assets/Bundles/Audio/SFX/SFX_QuickTack.wav",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "SFX_QuickTick",
+            "AssetPath": "Assets/Bundles/Audio/SFX/SFX_QuickTick.wav",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "SFX_TickTock-click",
+            "AssetPath": "Assets/Bundles/Audio/SFX/SFX_TickTock-click.mp3",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "SFX-ByeBye",
+            "AssetPath": "Assets/Bundles/Audio/SFX/SFX-ByeBye.mp3",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "SFX-Enter",
+            "AssetPath": "Assets/Bundles/Audio/SFX/SFX-Enter.wav",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "SFX-Fake",
+            "AssetPath": "Assets/Bundles/Audio/SFX/SFX-Fake.mp3",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 1,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "开播前整装",
+            "AssetPath": "Assets/Bundles/Audio/开播前整装.mp3",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "拍照倒数线",
+            "AssetPath": "Assets/Bundles/Audio/拍照倒数线.mp3",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "结算青海摇",
+            "AssetPath": "Assets/Bundles/Audio/结算青海摇.mp3",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 0,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "ConstConfigCategory",
+            "AssetPath": "Assets/Bundles/Config/Bin/ConstConfigCategory.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 10,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "DanmakuContentConfigCategory",
+            "AssetPath": "Assets/Bundles/Config/Bin/DanmakuContentConfigCategory.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 10,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "DanmakuPoolConfigCategory",
+            "AssetPath": "Assets/Bundles/Config/Bin/DanmakuPoolConfigCategory.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 10,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "FoodConfigCategory",
+            "AssetPath": "Assets/Bundles/Config/Bin/FoodConfigCategory.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 10,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "InputKeyMapCategory",
+            "AssetPath": "Assets/Bundles/Config/Bin/InputKeyMapCategory.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 10,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "ScoreConfigCategory",
+            "AssetPath": "Assets/Bundles/Config/Bin/ScoreConfigCategory.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 10,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "SCTaskQuoteConfigCategory",
+            "AssetPath": "Assets/Bundles/Config/Bin/SCTaskQuoteConfigCategory.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 10,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Apple_Completed",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Apple_Completed.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Apple_Eating",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Apple_Eating.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Apple_Normal",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Apple_Normal.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Biscuit_Completed",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Biscuit_Completed.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Biscuit_Eating",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Biscuit_Eating.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Biscuit_Normal",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Biscuit_Normal.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Blueberry_Completed",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Blueberry_Completed.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Blueberry_Eating",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Blueberry_Eating.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Blueberry_Normal",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Blueberry_Normal.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Broccoli_Completed",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Broccoli_Completed.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Broccoli_Eating",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Broccoli_Eating.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Broccoli_Normal",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Broccoli_Normal.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Carrot_Completed",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Carrot_Completed.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Carrot_Eating",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Carrot_Eating.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Carrot_Normal",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Carrot_Normal.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_ChickenLeg_Completed",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_ChickenLeg_Completed.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_ChickenLeg_Eating",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_ChickenLeg_Eating.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_ChickenLeg_Normal",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_ChickenLeg_Normal.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Cucumber_Completed",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Cucumber_Completed.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Cucumber_Eating",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Cucumber_Eating.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Cucumber_Normal",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Cucumber_Normal.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Egg_Completed",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Egg_Completed.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Egg_Eating",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Egg_Eating.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Egg_Normal",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Egg_Normal.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Pumpkin_Completed",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Pumpkin_Completed.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Pumpkin_Eating",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Pumpkin_Eating.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Pumpkin_Normal",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Pumpkin_Normal.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Salmon_Completed",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Salmon_Completed.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Salmon_Eating",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Salmon_Eating.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Salmon_Normal",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Salmon_Normal.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Shrimp_Completed",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Shrimp_Completed.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Shrimp_Eating",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Shrimp_Eating.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Icon_Shrimp_Normal",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts/L1_Formal/SC/FoodIcon/L1_Icon_Shrimp_Normal.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 11,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Apple1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Apple1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Apple2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Apple2.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Apple3",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Apple3.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Apple4",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Apple4.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Biscuit1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Biscuit1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_BlueBerryA",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_BlueBerryA.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_BlueBerryB",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_BlueBerryB.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_BlueBerryC",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_BlueBerryC.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_BlueBerryD",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_BlueBerryD.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Broccoli1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Broccoli1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Broccoli2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Broccoli2.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Carrot0",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Carrot0.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Carrot1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Carrot1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Carrot2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Carrot2.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_ChickenLeg0",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_ChickenLeg0.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_ChickenLeg1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_ChickenLeg1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_ChickenLeg2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_ChickenLeg2.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_ChickenLeg3",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_ChickenLeg3.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Cucumber1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Cucumber1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Cucumber2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Cucumber2.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Cucumber3",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Cucumber3.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Cucumber4",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Cucumber4.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Egg1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Egg1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Pumpkin0",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Pumpkin0.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Pumpkin1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Pumpkin1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Pumpkin2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Pumpkin2.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Pumpkin3",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Pumpkin3.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Samon1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Samon1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Samon2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Samon2.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Shrimp0",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Shrimp0.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Shrimp1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Food/L1_Shrimp1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 12,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_LHand_1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_LHand_1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 13,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_LHand_2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_LHand_2.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 13,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_LHand_3",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_LHand_3.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 13,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_LHand_4",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_LHand_4.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 13,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_LHand_5",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_LHand_5.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 13,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_RHand_1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_RHand_1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 13,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_RHand_2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_RHand_2.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 13,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_RHand_3",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_RHand_3.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 13,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_RHand_4",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_RHand_4.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 13,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_RHand_5",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_RHand_5.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 13,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Spoon1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_Spoon1.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 13,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "L1_Spoon2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Arts_Load/Hand/L1_Spoon2.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 13,
+            "DependBundleIDs": []
+        },
+        {
+            "Address": "Dog2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L0_LevelSelect/Dog2.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 14,
+            "DependBundleIDs": [
+                40,
+                48,
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L0_BeagleLiveStreaming",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L0_LevelSelect/L0_BeagleLiveStreaming.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 14,
+            "DependBundleIDs": [
+                24,
+                40,
+                48,
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L0_Dog2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L0_LevelSelect/L0_Dog2.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 14,
+            "DependBundleIDs": [
+                40,
+                48,
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L0_Settlement_L2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L0_LevelSelect/L2/L0_Settlement_L2.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 15,
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "有情把手牵",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L0_LevelSelect/L2/有情把手牵.png",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 15,
+            "DependBundleIDs": [
+                51
+            ]
+        },
+        {
+            "Address": "L1_Eating",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_Eating.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 16,
+            "DependBundleIDs": [
+                17,
+                29,
+                41,
+                48,
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Handled_L",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_Handled_L.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 16,
+            "DependBundleIDs": [
+                17,
+                26,
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Handled_R",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_Handled_R.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 16,
+            "DependBundleIDs": [
+                17,
+                25,
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_HitRight",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_HitRight.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 16,
+            "DependBundleIDs": [
+                17,
+                30,
+                41,
+                48,
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Hitted1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_Hitted1.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 16,
+            "DependBundleIDs": [
+                17,
+                27,
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Hitted2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_Hitted2.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 16,
+            "DependBundleIDs": [
+                17,
+                28,
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_HittedWrong",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_HittedWrong.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 16,
+            "DependBundleIDs": [
+                17,
+                31,
+                48,
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_I_Eat&Peaking",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_I_Eat&Peaking.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 16,
+            "DependBundleIDs": [
+                17,
+                32,
+                41,
+                48,
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_I_Peaking",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_I_Peaking.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 16,
+            "DependBundleIDs": [
+                17,
+                33,
+                48,
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Idle",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_Idle.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 16,
+            "DependBundleIDs": [
+                17,
+                34,
+                48,
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_II_Approach",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_II_Approach.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 16,
+            "DependBundleIDs": [
+                17,
+                35,
+                48,
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_III_Sneaking",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_III_Sneaking.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 16,
+            "DependBundleIDs": [
+                17,
+                36,
+                48,
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_III_SneakSuccess",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/L1_III_SneakSuccess.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 16,
+            "DependBundleIDs": [
+                17,
+                37,
+                48,
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_psb_Eating",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_Eating.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 17,
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_psb_Handled_L",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_Handled_L.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 17,
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_psb_Handled_L2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_Handled_L2.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 17,
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_psb_Handled_R",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_Handled_R.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 17,
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_psb_Handled_R2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_Handled_R2.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 17,
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_psb_HitRight",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_HitRight.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 17,
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_psb_Hitted1",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_Hitted1.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 17,
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_psb_Hitted2",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_Hitted2.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 17,
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_psb_HittedWrong",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_HittedWrong.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 17,
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_psb_I_Eat&Peaking",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_I_Eat&Peaking.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 17,
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_psb_I_Peaking",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_I_Peaking.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 17,
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_psb_Idle",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_Idle.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 17,
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_psb_IdleOld",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_IdleOld.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 17,
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_psb_II_Approach",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_II_Approach.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 17,
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_psb_III_Sneaking",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_III_Sneaking.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 17,
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_psb_III_SneakSuccess",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Beagle/psb/L1_psb_III_SneakSuccess.psb",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 17,
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "CommentArea",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Comment/CommentArea.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 18,
+            "DependBundleIDs": [
+                42,
+                49,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Danmaku",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Comment/L1_Danmaku.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 18,
+            "DependBundleIDs": [
+                42,
+                43,
+                47,
+                49,
+                51
+            ]
+        },
+        {
+            "Address": "OneComment",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Comment/OneComment.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 18,
+            "DependBundleIDs": [
+                42,
+                49,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Apple",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Apple.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 19,
+            "DependBundleIDs": [
+                12,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Biscuit",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Biscuit.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 19,
+            "DependBundleIDs": [
+                12,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Blueberry_A",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Blueberry_A.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 19,
+            "DependBundleIDs": [
+                12,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Blueberry_B",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Blueberry_B.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 19,
+            "DependBundleIDs": [
+                12,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Blueberry_C",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Blueberry_C.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 19,
+            "DependBundleIDs": [
+                12,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Blueberry_D",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Blueberry_D.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 19,
+            "DependBundleIDs": [
+                12,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Broccoli",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Broccoli.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 19,
+            "DependBundleIDs": [
+                12,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Carrot",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Carrot.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 19,
+            "DependBundleIDs": [
+                12,
+                51
+            ]
+        },
+        {
+            "Address": "L1_ChickenLeg",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_ChickenLeg.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 19,
+            "DependBundleIDs": [
+                12,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Cucumber",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Cucumber.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 19,
+            "DependBundleIDs": [
+                12,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Egg",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Egg.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 19,
+            "DependBundleIDs": [
+                12,
+                51
+            ]
+        },
+        {
+            "Address": "L1_FoodParticle",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_FoodParticle.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 19,
+            "DependBundleIDs": [
+                47,
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Pumpkin",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Pumpkin.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 19,
+            "DependBundleIDs": [
+                12,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Salmon",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Salmon.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 19,
+            "DependBundleIDs": [
+                12,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Shrimp",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Food/L1_Shrimp.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 19,
+            "DependBundleIDs": [
+                12,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Shit",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Robot&Shit/L1_Shit.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 20,
+            "DependBundleIDs": [
+                39,
+                46,
+                49,
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "RubbishBin",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/RubishBin/RubbishBin.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 21,
+            "DependBundleIDs": [
+                38,
+                44,
+                50,
+                51
+            ]
+        },
+        {
+            "Address": "L1_10SC",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/SC/L1_10SC.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 22,
+            "DependBundleIDs": [
+                45,
+                49,
+                51
+            ]
+        },
+        {
+            "Address": "L1_8SC",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/SC/L1_8SC.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 22,
+            "DependBundleIDs": [
+                45,
+                49,
+                51
+            ]
+        },
+        {
+            "Address": "L1_Tissue",
+            "AssetPath": "Assets/Bundles/UI/Level_1/Prefab/L1/Tissue/L1_Tissue.prefab",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 23,
+            "DependBundleIDs": [
+                44,
+                50,
+                51
+            ]
+        }
+    ],
+    "BundleList": [
+        {
+            "BundleName": "assets_bundles_audio.bundle",
+            "UnityCRC": 1629728182,
+            "FileHash": "a130bdd1ae3b40eb681209becd7c99fc",
+            "FileCRC": 2514653377,
+            "FileSize": 6720420,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_audio_sfx.bundle",
+            "UnityCRC": 188365324,
+            "FileHash": "a2029e80163ec5402fc78fd057811b0d",
+            "FileCRC": 210458990,
+            "FileSize": 210374,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_audio_sfx_l1.bundle",
+            "UnityCRC": 2856837103,
+            "FileHash": "2b8f858c3f7f020a43016f10f6c20660",
+            "FileCRC": 506401194,
+            "FileSize": 4139195,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_audio_sfx_l1_damage.bundle",
+            "UnityCRC": 72240511,
+            "FileHash": "100b7c400199240574bcee2304566c1a",
+            "FileCRC": 2896322796,
+            "FileSize": 106683,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_audio_sfx_l1_eating.bundle",
+            "UnityCRC": 3468321731,
+            "FileHash": "05dcc3df2103eac866b8a77350b84f9b",
+            "FileCRC": 171749471,
+            "FileSize": 19046,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_audio_sfx_l1_sc_complete.bundle",
+            "UnityCRC": 4188642242,
+            "FileHash": "67bf07f6e310fce5803a8aae2d1de73c",
+            "FileCRC": 340278320,
+            "FileSize": 19340,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_audio_sfx_l1_sc_show.bundle",
+            "UnityCRC": 3344256347,
+            "FileHash": "4025df3f66a5579faff999b357617457",
+            "FileCRC": 2968208327,
+            "FileSize": 28194,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_audio_sfx_l1_score.bundle",
+            "UnityCRC": 3092337131,
+            "FileHash": "5b731c6211157017508c1989e1bc2d77",
+            "FileCRC": 347628325,
+            "FileSize": 154799,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_audio_sfx_l1_shit.bundle",
+            "UnityCRC": 254126486,
+            "FileHash": "4df443e7c582c67aa07d1c7c4d90d3f1",
+            "FileCRC": 2247561152,
+            "FileSize": 142603,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_audio_sfx_l1_werwerwer.bundle",
+            "UnityCRC": 2541355205,
+            "FileHash": "38b03d2debc5eccab2b8d1f69a6cc392",
+            "FileCRC": 3338971909,
+            "FileSize": 193563,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_config_bin.bundle",
+            "UnityCRC": 179859683,
+            "FileHash": "3458682ca4429586be0b2cc5bd860d08",
+            "FileCRC": 985126648,
+            "FileSize": 4692,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_arts_l1_formal_sc_foodicon.bundle",
+            "UnityCRC": 3489228949,
+            "FileHash": "89154fb0bd4be2b5b68e7f4f2bec9ef7",
+            "FileCRC": 796890880,
+            "FileSize": 172214,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_arts_load_food.bundle",
+            "UnityCRC": 1503317063,
+            "FileHash": "3177d051799f70682d2f4ca64d1aec9a",
+            "FileCRC": 2981673696,
+            "FileSize": 303605,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_arts_load_hand.bundle",
+            "UnityCRC": 2710918623,
+            "FileHash": "80050894c2350620b97a4173557ae322",
+            "FileCRC": 1087379355,
+            "FileSize": 643497,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_prefab_l0_levelselect.bundle",
+            "UnityCRC": 4247868499,
+            "FileHash": "f21474c746cb032c2825af89f977df70",
+            "FileCRC": 4147432955,
+            "FileSize": 24836,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": [
+                24,
+                40,
+                48,
+                50,
+                51
+            ]
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_prefab_l0_levelselect_l2.bundle",
+            "UnityCRC": 3739102544,
+            "FileHash": "16cfae5739e681d81cb2f58cb5563121",
+            "FileCRC": 2294878141,
+            "FileSize": 860125,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_prefab_l1_beagle.bundle",
+            "UnityCRC": 1320978012,
+            "FileHash": "af69175ea96a10a3801af06f81a0364c",
+            "FileCRC": 3201581882,
+            "FileSize": 55639,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": [
+                17,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                41,
+                48,
+                50,
+                51
+            ]
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_prefab_l1_beagle_psb.bundle",
+            "UnityCRC": 2293273376,
+            "FileHash": "601f41b660a420861748932d71b44787",
+            "FileCRC": 56450262,
+            "FileSize": 3923064,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_prefab_l1_comment.bundle",
+            "UnityCRC": 1201902403,
+            "FileHash": "4b1019333192a473c4c5efcb41332fe5",
+            "FileCRC": 166398434,
+            "FileSize": 10177,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": [
+                42,
+                43,
+                47,
+                49,
+                51
+            ]
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_prefab_l1_food.bundle",
+            "UnityCRC": 1022561003,
+            "FileHash": "47531e4e6b230994279d3a08e3dd94c0",
+            "FileCRC": 4255608144,
+            "FileSize": 15171,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": [
+                12,
+                47,
+                50,
+                51
+            ]
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_prefab_l1_robot&shit.bundle",
+            "UnityCRC": 3518944775,
+            "FileHash": "0708bab14a6393ec322825027ca14e1a",
+            "FileCRC": 2855623866,
+            "FileSize": 14480,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": [
+                39,
+                46,
+                49,
+                50,
+                51
+            ]
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_prefab_l1_rubishbin.bundle",
+            "UnityCRC": 868287465,
+            "FileHash": "ac8ea3be1d16a5dedbd1b2743fe6e527",
+            "FileCRC": 2032130824,
+            "FileSize": 3717,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": [
+                38,
+                44,
+                50,
+                51
+            ]
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_prefab_l1_sc.bundle",
+            "UnityCRC": 3637784491,
+            "FileHash": "ae8abdf744258160f9416081f3b095b3",
+            "FileCRC": 1268946679,
+            "FileSize": 9846,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": [
+                45,
+                49,
+                51
+            ]
+        },
+        {
+            "BundleName": "assets_bundles_ui_level_1_prefab_l1_tissue.bundle",
+            "UnityCRC": 3021141313,
+            "FileHash": "2d78a1e2b46f867f3f0c9944b8e78a34",
+            "FileCRC": 1746942491,
+            "FileSize": 5195,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": [
+                44,
+                50,
+                51
+            ]
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_animation_l0_levelselect_beagle_portrait.bundle",
+            "UnityCRC": 587748094,
+            "FileHash": "a2c43db79a0d78c63059a14cb59ce23a",
+            "FileCRC": 3754366140,
+            "FileSize": 21094,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_animation_l1_beaglefacial_behandled_blue.bundle",
+            "UnityCRC": 3755476613,
+            "FileHash": "6495f2fd6d7025717de2314048ebd205",
+            "FileCRC": 2919343351,
+            "FileSize": 12831,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_animation_l1_beaglefacial_behandled_red.bundle",
+            "UnityCRC": 297608681,
+            "FileHash": "d314335bd0bd187e759818673afdd7ef",
+            "FileCRC": 3184757283,
+            "FileSize": 13015,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_animation_l1_beaglefacial_behit1.bundle",
+            "UnityCRC": 1453144734,
+            "FileHash": "088e2e7c116b015d15a1e7ec1216f981",
+            "FileCRC": 2547340312,
+            "FileSize": 12494,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_animation_l1_beaglefacial_behit2.bundle",
+            "UnityCRC": 4021974637,
+            "FileHash": "3e48f7856f50715f9a09a7d37ff9ec79",
+            "FileCRC": 3538409268,
+            "FileSize": 12143,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_animation_l1_beaglefacial_chewing.bundle",
+            "UnityCRC": 448690323,
+            "FileHash": "4588095bcd982002a7d1cf179f00e945",
+            "FileCRC": 2035821696,
+            "FileSize": 10848,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_animation_l1_beaglefacial_hitright.bundle",
+            "UnityCRC": 81988407,
+            "FileHash": "9a7c0a57a44c674404384062dd2754e0",
+            "FileCRC": 1520506483,
+            "FileSize": 11905,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_animation_l1_beaglefacial_hitwrong.bundle",
+            "UnityCRC": 2805389116,
+            "FileHash": "3e90c214064135b757c38d4e4d26655f",
+            "FileCRC": 1703327239,
+            "FileSize": 12436,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_animation_l1_beaglefacial_i_chewing.bundle",
+            "UnityCRC": 2606441185,
+            "FileHash": "3a7e866e17db3390387bf6ccc0cf5271",
+            "FileCRC": 2139589781,
+            "FileSize": 11126,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_animation_l1_beaglefacial_i_peek.bundle",
+            "UnityCRC": 4079809236,
+            "FileHash": "d21cba591df9de9ede375496c0408cab",
+            "FileCRC": 4244437194,
+            "FileSize": 12836,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_animation_l1_beaglefacial_idle.bundle",
+            "UnityCRC": 4070354695,
+            "FileHash": "e14983a5b4b73c510a236eba34f3acca",
+            "FileCRC": 2023764317,
+            "FileSize": 11385,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_animation_l1_beaglefacial_ii_approach.bundle",
+            "UnityCRC": 453336769,
+            "FileHash": "4e5efd0e2520448543a8775a3a26dc6b",
+            "FileCRC": 147226507,
+            "FileSize": 11668,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_animation_l1_beaglefacial_iii_eating.bundle",
+            "UnityCRC": 3957962335,
+            "FileHash": "391f98f5944f0dd2311556f9d8a99a80",
+            "FileCRC": 2554699388,
+            "FileSize": 14772,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_animation_l1_beaglefacial_iii_success.bundle",
+            "UnityCRC": 2250929013,
+            "FileHash": "b7ab8a5ee11d5c9e19f69e9cb3886701",
+            "FileCRC": 188061721,
+            "FileSize": 11250,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_animation_l1_rubbishbin.bundle",
+            "UnityCRC": 577914363,
+            "FileHash": "9060f741b931f24cb41dd05813a0116d",
+            "FileCRC": 2182688479,
+            "FileSize": 9666,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_animation_l1_shit_shit.bundle",
+            "UnityCRC": 524694530,
+            "FileHash": "aeede050501fe4b9f11b031d41914dd2",
+            "FileCRC": 1876144149,
+            "FileSize": 13817,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_arts_l0_levelselection.bundle",
+            "UnityCRC": 3738196474,
+            "FileHash": "a240ec02df870e14afef13666dee520f",
+            "FileCRC": 3046128763,
+            "FileSize": 648917,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_arts_l1_formal_character.bundle",
+            "UnityCRC": 1113149441,
+            "FileHash": "0dac6cb887b973eb5c50a44532b15077",
+            "FileCRC": 2331694642,
+            "FileSize": 33554,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_arts_l1_formal_comment.bundle",
+            "UnityCRC": 2378245063,
+            "FileHash": "d5c6859776b2a4945c59cbab4c349ce0",
+            "FileCRC": 3553932974,
+            "FileSize": 17801,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_arts_l1_formal_comment_l1_portrait_l1_portrait.bundle",
+            "UnityCRC": 4077881089,
+            "FileHash": "2fbaa21dba931ce21938cd540ce70951",
+            "FileCRC": 571077654,
+            "FileSize": 58670,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_arts_l1_formal_prop.bundle",
+            "UnityCRC": 2220552048,
+            "FileHash": "6b26028354f60110605c3cfc1cbb4c81",
+            "FileCRC": 3842538036,
+            "FileSize": 102865,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_arts_l1_formal_sc.bundle",
+            "UnityCRC": 2808499149,
+            "FileHash": "c389cda51cd0c52dffdf9c16b7e66312",
+            "FileCRC": 1973182237,
+            "FileSize": 39279,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_bundles_ui_level_1_arts_l1_formal_shit&robot.bundle",
+            "UnityCRC": 960403505,
+            "FileHash": "ecfb5972a3735dff1304d9504bcd8990",
+            "FileCRC": 3852431892,
+            "FileSize": 620643,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": [
+                50,
+                51
+            ]
+        },
+        {
+            "BundleName": "share_assets_scenes_test_effecttest_useparticlessystem.bundle",
+            "UnityCRC": 3775988019,
+            "FileHash": "caa2c3fc52ef0b170f8a9e55bcb515c5",
+            "FileCRC": 786151951,
+            "FileSize": 6222,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        },
+        {
+            "BundleName": "share_assets_shader_mask.bundle",
+            "UnityCRC": 1586822497,
+            "FileHash": "9f2e30cb062bb131da0c8a30aaff723d",
+            "FileCRC": 3283936298,
+            "FileSize": 3020,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": [
+                51
+            ]
+        },
+        {
+            "BundleName": "share_assets_textmesh_pro_fonts.bundle",
+            "UnityCRC": 1212373997,
+            "FileHash": "b1a3e21069cf570258bb997ce2952efa",
+            "FileCRC": 3306043194,
+            "FileSize": 20225640,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": [
+                51
+            ]
+        },
+        {
+            "BundleName": "share_packages_com_unity_render-pipelines_universal_runtime_materials.bundle",
+            "UnityCRC": 1277642436,
+            "FileHash": "63dd5fa1095153bdacf6a618480c921d",
+            "FileCRC": 2679820684,
+            "FileSize": 2453,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": [
+                51
+            ]
+        },
+        {
+            "BundleName": "unityshaders.bundle",
+            "UnityCRC": 4197691559,
+            "FileHash": "d33795379a7281d7c0fc839fba87f799",
+            "FileCRC": 57252522,
+            "FileSize": 31344,
+            "Encrypted": false,
+            "Tags": [],
+            "DependBundleIDs": []
+        }
+    ]
+}

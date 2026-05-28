@@ -18,16 +18,25 @@ public class SCUIComponent : Entity
 
 public class SCUIComponent_Awake : AwakeSystem<SCUIComponent>
 {
-protected override void Awake(SCUIComponent self)
-{
-    var rc = GameObject.Find("Level_1").GetComponent<ReferenceCollector>();
-    self.SCTaskPrefab_Green = rc.Get<GameObject>("SCTaskPrefab_Green");
-    self.SCTaskPrefab_Orange = rc.Get<GameObject>("SCTaskPrefab_Orange");
-        
-    // ========== 修改这里 ==========
-    var parentGo = rc.Get<GameObject>("SCTaskParent");
-    if (parentGo != null)
-        self.SCTaskParent = parentGo.transform;
-    // =============================
-}
+    protected override void Awake(SCUIComponent self)
+    {
+        self.Scene.TimerComponent.Net.OnceTimer(100, () =>
+        {
+            var rc = GameObject.Find("Level_1")?.GetComponent<ReferenceCollector>();
+            if (rc == null)
+            {
+                Log.Error("[SCUIComponent] ReferenceCollector not found!");
+                return;
+            }
+
+            self.SCTaskPrefab_Green = rc.Get<GameObject>("SCTaskPrefab_Green");
+            self.SCTaskPrefab_Orange = rc.Get<GameObject>("SCTaskPrefab_Orange");
+
+            var parentGo = rc.Get<GameObject>("SCTaskParent");
+            if (parentGo != null)
+                self.SCTaskParent = parentGo.transform;
+            else
+                Log.Error("[SCUIComponent] SCTaskParent is null!");
+        });
+    }
 }
