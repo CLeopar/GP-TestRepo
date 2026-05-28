@@ -8,12 +8,9 @@ public class Event_FoodBeEatenNormal_Handler : EventSystem<FoodBeEaten_Normal>
     {
         Log.Error($"FoodBeEaten_Normal {self.fruitId}");
         
-        // 暂停狗的吃食物音效
         var dogCtrl = GameEntry.Instance._scene.GetComponent<DogControlComponent>();
         if (dogCtrl != null)
-        {
             dogCtrl.PauseEatSfx();
-        }
 
         dogCtrl?.FoodBeEatenNormal();
 
@@ -22,13 +19,12 @@ public class Event_FoodBeEatenNormal_Handler : EventSystem<FoodBeEaten_Normal>
         {
             var score = GameEntry.Instance._scene.GetComponent<ScoreComponent>();
             int foodScore = score.CalculateFoodScore(food.foodType);
-        
             Vector3 foodPos = food.Fruit_Tr?.position ?? Vector3.zero;
             score.AddScore(foodScore, self.fruitId, foodPos);
         }
 
         CheckTaskProgress(food?.foodType);
-    
+
         GameEntry.Instance._scene.GetComponent<LevelStatsComponent>()?.AddFoodEaten();
     }
 
@@ -47,13 +43,15 @@ public class Event_FoodBeEatenNormal_Handler : EventSystem<FoodBeEaten_Normal>
             var currentItem = taskComp.GetCurrentItem();
             if (currentItem == null) continue;
 
-            // 关键：只推进当前是 Eating 状态且匹配的任务
             if (currentItem.UIState != SCUIState.Eating) continue;
             if (!FoodTypeHelper.IsSameGroup(currentItem.FoodType, eatenFoodType.Value)) continue;
 
             currentItem.SetCompleted();
             taskComp.AdvanceStep();
-            // 去掉 break，继续检查其他任务
+
+            // 步骤推进后立即检查新步骤所需食物是否在场上
+            if (!taskComp.IsCompleted)
+                taskComp.CheckAndSupplementCurrentFood().Coroutine();
         }
     }
 }
